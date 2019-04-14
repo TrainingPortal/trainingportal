@@ -13,51 +13,86 @@
 </head>
 <body>
 <header>
-    
-         
-    <!-- to proportionately fill all available space with your .nav-items, use .nav-fill-->
-    <ul class="nav nav-pills nav-fill">
-        <li class="nav-item ">
-            <a class="nav-link active" href="index.html">HOME</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="profilepage.html">PROFILE</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="coursepage.html">COURSES</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link " href="instructorpage.html">TEACHERS</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="helppage.html">HELP</a>
-        </li>
-        <!-- tabs dropdown for pills-->
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
-               aria-expanded="false">
-                CONTACTS</a>
-            <ul>
-
+    <nav class="navbar navbar-expand-xl navbar-dark  bg-primary">
+        <a class="navbar-brand" href="#">Training Portal</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynavbar"
+                aria-controls="#mynavbar" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="mynavbar">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="index.html">HOME<span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="profilepage.html">PROFILE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="coursepage.html">COURSES</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="instructorpage.html">TEACHERS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="helppage.html">HELP</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">CONTACTS</a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown">
+                        <a class="dropdown-item" href="#">Contact One</a>
+                        <a class="dropdown-item" href="#">Contact Two</a>
+                        <a class="dropdown-item" href="#">Site Address</a>
+                        <a class="dropdown-item" href="#">Address</a>
+                    </div>
+                </li>
             </ul>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">CONTACT ONE</a>
-                <a class="dropdown-item" href="#">CONTACT TWO</a>
-                <a class="dropdown-item" href="#">SITE ADDRESS</a>
-                <a class="dropdown-item" href="#">SITE ADDRESS</a>
-                <a class="dropdown-item" href="#">ADDRESS</a>
-                <div class="dropdown-divider"></div>
+        </div>
+    </nav>
+    <div class="container hide">
+        <nav class="navbar navbar-expand-xl navbar-dark fixed-top bg-primary">
+            <a class="navbar-brand" href="#">Training Portal</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mynavbarinv"
+                    aria-controls="#mynavbarinv" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mynavbarinv">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.html">HOME<span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="profilepage.html">PROFILE</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="coursepage.html">COURSES</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="instructorpage.html">TEACHERS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="helppage.html">HELP</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="dropdowninv" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">CONTACTS</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown">
+                            <a class="dropdown-item" href="#">Contact One</a>
+                            <a class="dropdown-item" href="#">Contact Two</a>
+                            <a class="dropdown-item" href="#">Site Address</a>
+                            <a class="dropdown-item" href="#">Address</a>
+                        </div>
+                    </li>
+                </ul>
             </div>
-        </li>
-
-
-    </ul>
-      
-   
+        </nav>
+    </div>
 </header>
+
 <div class="container">
     <!--part of what is in charge of the card, use text- center, BUTTON response for registration  -->
-    <div class="card text-center" style="width:available; background-image:url('img/logo-large.png'); background-position: center">
+    <div class="card text-center"
+         style="width:available; background-image:url('img/logo-large.png'); background-position: center">
         <div class="card-body">
             <h1 class="card-title" style="color: indigo">Welcome to the language courses!</h1>
             <a href="#" class="btn btn-primary" role="button">LOG IN</a>
@@ -89,7 +124,7 @@
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block mx-auto " src="img/krakiv.jpg" alt="Third slide" >
+                <img class="d-block mx-auto " src="img/krakiv.jpg" alt="Third slide">
                 <div class="carousel-caption">
                     <a href="#" class="btn btn-info" role="button">Start POLISH course</a>
                 </div>
@@ -112,42 +147,42 @@
 
 <div class="container">
     <div class="card-deck">
-    <div class="card">
-        <img class="card-img-top" src="img/Mina Sundwall.jpg" alt="Card image">
-        <div class="card-header">
-            <h4 class="card-title">Mina Sundwall</h4>
+        <div class="card">
+            <img class="card-img-top" src="img/Mina Sundwall.jpg" alt="Card image">
+            <div class="card-header">
+                <h4 class="card-title">Mina Sundwall</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Our English teacher.<br>Studied in Oxford University.</p>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn btn-success stretched-link">See Profile</a>
+            </div>
         </div>
-        <div class="card-body">
-            <p class="card-text">Our English teacher.<br>Studied in Oxford University.</p>
+        <div class="card">
+            <img class="card-img-top" src="img/Ignacio Serricchio.jpg" alt="Card image">
+            <div class="card-header">
+                <h4 class="card-title">Ignacio Serricchio</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Our German teacher.<br>Studied in Munich University.</p>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn btn-success stretched-link">See Profile</a>
+            </div>
         </div>
-        <div class="card-footer">
-            <a href="#" class="btn btn-success stretched-link">See Profile</a>
+        <div class="card">
+            <img class="card-img-top" src="img/Sadie Sink.jpg" alt="Card image">
+            <div class="card-header">
+                <h4 class="card-title">Sadie Sink</h4>
+            </div>
+            <div class="card-body">
+                <p class="card-text">Our Polish teacher.<br>Studied in Boston College.</p>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn btn-success stretched-link">See Profile</a>
+            </div>
         </div>
-    </div>
-    <div class="card">
-        <img class="card-img-top" src="img/Ignacio Serricchio.jpg" alt="Card image">
-        <div class="card-header">
-            <h4 class="card-title">Ignacio Serricchio</h4>
-        </div>
-        <div class="card-body">
-            <p class="card-text">Our German teacher.<br>Studied in Munich University.</p>
-        </div>
-        <div class="card-footer">
-            <a href="#" class="btn btn-success stretched-link">See Profile</a>
-        </div>
-    </div>
-    <div class="card">
-        <img class="card-img-top" src="img/Sadie Sink.jpg" alt="Card image">
-        <div class="card-header">
-            <h4 class="card-title">Sadie Sink</h4>
-        </div>
-        <div class="card-body">
-            <p class="card-text">Our Polish teacher.<br>Studied in Boston College.</p>
-        </div>
-        <div class="card-footer">
-            <a href="#" class="btn btn-success stretched-link">See Profile</a>
-        </div>
-    </div>
     </div>
 </div>
 <!-- Footer --><!-- Footer --><!-- Footer --><!-- Footer --><!-- Footer --><!-- Footer --><!-- Footer -->
@@ -179,16 +214,16 @@
 
                 <ul class="list-unstyled">
                     <li>
-                        <a href="#!">Link 1</a>
+                        <a href="#">Link 1</a>
                     </li>
                     <li>
-                        <a href="#!">Link 2</a>
+                        <a href="#">Link 2</a>
                     </li>
                     <li>
-                        <a href="#!">Link 3</a>
+                        <a href="#">Link 3</a>
                     </li>
                     <li>
-                        <a href="#!">Link 4</a>
+                        <a href="#">Link 4</a>
                     </li>
                 </ul>
 
@@ -203,16 +238,16 @@
 
                 <ul class="list-unstyled">
                     <li>
-                        <a href="#!">Link 1</a>
+                        <a href="#">Link 1</a>
                     </li>
                     <li>
-                        <a href="#!">Link 2</a>
+                        <a href="#">Link 2</a>
                     </li>
                     <li>
-                        <a href="#!">Link 3</a>
+                        <a href="#">Link 3</a>
                     </li>
                     <li>
-                        <a href="#!">Link 4</a>
+                        <a href="#">Link 4</a>
                     </li>
                 </ul>
 
