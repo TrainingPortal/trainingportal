@@ -27,3 +27,6 @@ HELP.md
 
 ### VS Code ###
 .vscode/
+
+### Lova Vardanian local settings ###
+/src/main/java/email/simpleMail

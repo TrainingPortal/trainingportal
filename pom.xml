@@ -18,11 +18,14 @@
         <java.version>1.8</java.version>
     </properties>
 
+
     <dependencies>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -33,23 +36,71 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-        <dependency>
-    <groupId>org.webjars</groupId>
-    <artifactId>bootstrap</artifactId>
-    <version>4.3.1</version>
-</dependency>
-    <dependency>
-        <groupId>org.webjars</groupId>
-        <artifactId>jquery</artifactId>
-        <version>3.3.1-2</version>
-    </dependency>
 
-    <dependency>
-        <groupId>org.webjars</groupId>
-        <artifactId>popper.js</artifactId>
-        <version>1.14.7</version>
-    </dependency>
-</dependencies>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>4.3.1</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>jquery</artifactId>
+            <version>3.3.1-2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>popper.js</artifactId>
+            <version>1.14.7</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat</artifactId>
+            <version>9.0.17</version>
+            <type>pom</type>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
+<!--    DO NOT DELETE MAY BE USEFUL FOR EMAIL CONFIGURATION     -->
+
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/com.sun.mail/smtp &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>com.sun.mail</groupId>-->
+            <!--<artifactId>smtp</artifactId>-->
+            <!--<version>1.4.4</version>-->
+        <!--</dependency>-->
+
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/javax.activation/activation &ndash;&gt;-->
+        <!--<dependency>-->
+            <!--<groupId>javax.activation</groupId>-->
+            <!--<artifactId>activation</artifactId>-->
+            <!--<version>1.1</version>-->
+        <!--</dependency>-->
+
+<!--END-->
+
+        <!--&lt;!&ndash; https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api &ndash;&gt;-->
+        <!--<dependency>-->
+        <!--<groupId>javax.servlet</groupId>-->
+        <!--<artifactId>javax.servlet-api</artifactId>-->
+        <!--<version>4.0.1</version>-->
+        <!--<scope>provided</scope>-->
+        <!--</dependency>-->
+
+    </dependencies>
 
     <build>
         <plugins>
