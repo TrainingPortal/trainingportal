@@ -74,6 +74,7 @@
             <scope>test</scope>
         </dependency>
 
+
 <!--    DO NOT DELETE MAY BE USEFUL FOR EMAIL CONFIGURATION     -->
 
         <!--&lt;!&ndash; https://mvnrepository.com/artifact/com.sun.mail/smtp &ndash;&gt;-->
