@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
     <title>Training Center Home</title>
-    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
-    <link href="../static/css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
-    <link href="../static/css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/static/css/bootstrap.css}"/>
+    <link href="../static/css/bootstrap-grid.css" rel="stylesheet" th:href="@{/static/css/bootstrap-grid.css}"/>
+    <link href="../static/css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/static/css/bootstrap-reboot.css}"/>
+    <link href="../static/css/back-image.css" rel="stylesheet" th:href="@{/static/css/back-image.css}"/>
     <style>
         #myBtn {
             display: none;
@@ -40,19 +41,19 @@
         <div class="collapse navbar-collapse" id="mynavbar">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">HOME<span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="index.html" th:href="@{/}">HOME<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="profilepage.html">PROFILE</a>
+                    <a class="nav-link" href="profilepage.html" th:href="@{/}">PROFILE</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="coursepage.html">COURSES</a>
+                    <a class="nav-link" href="coursepage.html" th:href="@{/}">COURSES</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="instructorpage.html">TEACHERS</a>
+                    <a class="nav-link " href="instructorpage.html" th:href="@{/}">TEACHERS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="helppage.html">HELP</a>
+                    <a class="nav-link" href="helppage.html" th:href="@{/}">HELP</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="dropdown" data-toggle="dropdown"
@@ -77,19 +78,19 @@
             <div class="collapse navbar-collapse" id="mynavbarinv">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">HOME<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="index.html" th:href="@{/}">HOME<span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="profilepage.html">PROFILE</a>
+                        <a class="nav-link" href="profilepage.html" th:href="@{/}">PROFILE</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="coursepage.html">COURSES</a>
+                        <a class="nav-link" href="coursepage.html" th:href="@{/}">COURSES</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="instructorpage.html">TEACHERS</a>
+                        <a class="nav-link " href="instructorpage.html" th:href="@{/}">TEACHERS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="helppage.html">HELP</a>
+                        <a class="nav-link" href="helppage.html" th:href="@{/}">HELP</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdowninv" data-toggle="dropdown"
@@ -109,9 +110,7 @@
 
 <div class="container">
     <!--part of what is in charge of the card, use text- center, BUTTON response for registration  -->
-    <div class="card text-center"
-         style="width:available; background-image:url('../static/img/logolarge.png'); background-position: center"
-          th:style="|background-image:url('img/logolarge.png')|">
+    <div class="card back-image text-center">
         <div class="card-body">
             <h1 class="card-title" style="color: indigo">Welcome to the language courses!</h1>
             <a href="#" class="btn btn-primary" role="button">LOG IN</a>
@@ -131,19 +130,22 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="d-block mx-auto"  th:src="@{img/britain.jpg}" src="../static/img/britain.jpg"  alt="First slide" >
+                <img class="d-block mx-auto" th:src="@{../static/img/britain.jpg}" src="../static/img/britain.jpg"
+                     alt="First slide">
                 <div class="carousel-caption">
                     <a href="#" class="btn btn-info" role="button">Start ENGLISH course</a>
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block mx-auto" th:src="@{img/berlin.jpg}" src="../static/img/berlin.jpg" alt="Second slide">
+                <img class="d-block mx-auto" th:src="@{../static/img/berlin.jpg}" src="../static/img/berlin.jpg"
+                     alt="Second slide">
                 <div class="carousel-caption">
                     <a href="#" class="btn btn-info" role="button">Start GERMAN course</a>
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block mx-auto " th:src="@{img/krakiv.jpg}" src="../static/img/krakiv.jpg" alt="Third slide">
+                <img class="d-block mx-auto " th:src="@{../static/img/krakiv.jpg}" src="../static/img/krakiv.jpg"
+                     alt="Third slide">
                 <div class="carousel-caption">
                     <a href="#" class="btn btn-info" role="button">Start POLISH course</a>
                 </div>
@@ -167,7 +169,8 @@
 <div class="container">
     <div class="card-deck">
         <div class="card">
-            <img class="card-img-top" th:src="@{img/MinaSundwall.jpg}" src="../static/img/MinaSundwall.jpg" alt="Card image">
+            <img class="card-img-top" th:src="@{../static/img/MinaSundwall.jpg}" src="../static/img/MinaSundwall.jpg"
+                 alt="Card image">
             <div class="card-header">
                 <h4 class="card-title">Mina Sundwall</h4>
             </div>
@@ -179,7 +182,8 @@
             </div>
         </div>
         <div class="card">
-            <img class="card-img-top" th:src="@{img/IgnacioSerricchio.jpg}" src="../static/img/IgnacioSerricchio.jpg" alt="Card image">
+            <img class="card-img-top" th:src="@{../static/img/IgnacioSerricchio.jpg}" src="../static/img/IgnacioSerricchio.jpg"
+                 alt="Card image">
             <div class="card-header">
                 <h4 class="card-title">Ignacio Serricchio</h4>
             </div>
@@ -191,7 +195,7 @@
             </div>
         </div>
         <div class="card">
-            <img class="card-img-top" th:src="@{img/SadieSink.jpg}" src="../static/img/SadieSink.jpg" alt="Card image">
+            <img class="card-img-top" th:src="@{../static/img/SadieSink.jpg}" src="../static/img/SadieSink.jpg" alt="Card image">
             <div class="card-header">
                 <h4 class="card-title">Sadie Sink</h4>
             </div>
@@ -273,7 +277,9 @@
 
         <script>
             // When you scrolls down 20px from the top the button shows
-            window.onscroll = function() {scrollFunction()};
+            window.onscroll = function () {
+                scrollFunction()
+            };
 
             function scrollFunction() {
                 if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
