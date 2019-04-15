@@ -15,7 +15,7 @@ public class Sender {
     static final String ENCODING = "UTF-8";
 
     //Default GMIAL configurations
-
+/*
     String subject = "Subject";
     String content = "Testing the mail from Sender class";
     String address = "group1courseportal@gmail.com";
@@ -23,14 +23,13 @@ public class Sender {
     String password = "group1WLGy3NC";
     String smtpHost = "smtp.gmail.com";
     String smtpPort = "587";
-
+*/
     static File attachFiles = null;
 
     public static void sendSimpleMessage(String login, String password, String from, String to, String content, String subject, String smtpPort, String smtpHost) throws MessagingException, UnsupportedEncodingException, javax.mail.MessagingException {
 
         Properties props = System.getProperties();
         setProps(props,smtpPort,smtpHost);
-
 
         Authenticator auth = new MyAuthenticator(login, password);
         Session session = Session.getDefaultInstance(props, auth);
@@ -82,16 +81,12 @@ public class Sender {
 
         //HERE WE CHECK THE INPUT ARRAY FILES THAT NEED TO BEE ADDED TO MAIL IF THERE MORE THEN ONE FILE
         if (attachfiles != null && attachfiles.length > 0) {
-
             for (String file : attachfiles) {
-
                 attachFiles = new File(file);
-
                 if (attachFiles.exists()) {
                     //attach file
                     attachFile(attachFiles, multipart, new MimeBodyPart());
                 }
-
             }
         }
 
@@ -101,7 +96,6 @@ public class Sender {
         attachmentBodyPart.setDataHandler(new DataHandler(source));
         attachmentBodyPart.setFileName(MimeUtility.encodeText(source.getName()));
         multipart.addBodyPart(attachmentBodyPart);
-
         msg.setContent(multipart);
 
         Transport.send(msg);
