@@ -30,3 +30,5 @@ HELP.md
 
 ### Lova Vardanian local settings ###
 /src/main/java/email/simpleMail
+/src/main/java/email/
+/src/test/java/test/email

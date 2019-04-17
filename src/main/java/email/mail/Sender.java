@@ -8,7 +8,6 @@ import javax.mail.internet.*;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
-import email.mail.MyAuthenticator;
 
 public class Sender {
 
