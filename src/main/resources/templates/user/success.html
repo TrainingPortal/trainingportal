@@ -1,0 +1,47 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<title>Birthday wishing page</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" th:href="@{css/bootstrap.min.css}" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet"/>
+	<link type="text/css" rel="stylesheet" href="static/css/custom.css" th:href="@{css/custom.css}"/>
+	<link rel="icon" href="../../static/images/icon.png"/>
+</head>
+    <body>
+	<header>
+		<nav class="navbar navbar-inverse">
+			<div class="container-fluid">
+				<div class="navbar-header">
+					<a class="navbar-brand" th:href="@{user-{id}(id=${user.id})}">Birthday wishes</a>
+				</div>
+				<ul class="nav navbar-nav">
+					<li><a th:href="@{user-{id}(id=${user.id})}">Home</a></li>
+				</ul>
+
+				<form th:object="${user}" th:action="@{/find}" class="navbar-form navbar-left" action="#" method="">
+					<input type="text" name="name" class="form-control" placeholder="Find user by name" />
+					<input type="submit" class="btn btn-success" value="Search"/>
+				</form>
+
+				<ul>
+					<li class="rightli btn-info" style="float:right"><a th:href="@{/update-user-{id}(id=${user.id})}">Account</a></li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+		<div class="container text-center">
+			<p th:text="${message}" class="alert alert-success"/>
+			<div th:if="${user}">
+				Go to  <a th:href="@{/user-{id}(id=${user.id})}" class="btn btn-info">Show</a>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="container text-center">
+				<a class="btn btn-social-icon btn-facebook" href="https://www.facebook.com/V.lvashchenko"><span class="fa fa-2x fa-facebook"></span></a>
+				<a class="btn btn-social-icon btn-vk" href="https://www.vk.com/vlad_ivashchenko"><span class="fa fa-2x fa-vk"></span></a>
+				<a class="btn btn-social-icon btn-github" href="https://github.com/VivaVlad"><span class="fa fa-2x fa-github"></span></a>
+			</div>
+		</div>
+    </body>
+</html>
