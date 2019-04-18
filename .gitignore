@@ -1,5 +1,7 @@
 HELP.md
 /target/
+.mvn/wrapper/maven-wrapper.jar
+
 ### STS ###
 .apt_generated
 .classpath
@@ -12,7 +14,7 @@ HELP.md
 ### IntelliJ IDEA ###
 .idea
 *.iws
-.iml
+*.iml
 *.ipr
 
 ### NetBeans ###
@@ -27,6 +29,5 @@ HELP.md
 .vscode/
 
 ### Lova Vardanian local settings ###
-/src/main/java/email/simpleMail
-### Polonskiy Bogdan files###
-.mvn/wrapper/maven-wrapper.jar
+/src/main/java/email/
+/src/test/java/test
