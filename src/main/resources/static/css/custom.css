@@ -1,0 +1,21 @@
+.row input{
+    border: 1px solid #bbb;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+input {
+    height: auto !important;
+}
+h1{
+    margin-bottom: 30px;
+    text-align: center;
+}
+td{
+    padding: 5px; /* Поля вокруг текста */
+}
+.center {
+    text-align: center;}
+.right{
+    float: right;
+}
