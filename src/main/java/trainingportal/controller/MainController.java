@@ -20,12 +20,17 @@ public class MainController {
 
     @GetMapping("/login")
     public String loginPage(Model model) {
- 
+
         return "user/login";
     }
 
     @GetMapping("/profilepage")
-    String profilePage(Model model){
+    String profilePage(Model model, Principal principal){
+
+        User loginedUser = (User) ((Authentication) principal).getPrincipal();
+        String userInfo = WebUtils.toString(loginedUser);
+
+        System.out.println(userInfo);
 
         return "frontend/profilepage";
     }
