@@ -14,5 +14,13 @@ public interface UserService {
 
     void setDefaultRole(Long userId);
 
+    User findByToken(String token);
 
+    void confirmRegister(User user);
+
+    void setNewPassword(String password, String token);
+
+    void updateToken (User user, String token);
+
+    void resetToken (User user);
 }

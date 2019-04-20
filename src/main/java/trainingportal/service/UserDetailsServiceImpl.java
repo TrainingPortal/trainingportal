@@ -18,24 +18,29 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
  
     @Autowired
-    private UserDAOImpl userDAOImpl;
+    private UserDAOImpl userRepository;
  
     @Autowired
-    private RoleDAOImpl roleDAOImpl;
+    private RoleDAOImpl roleRepository;
  
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        trainingportal.model.User appUser = this.userDAOImpl.findUserAccount(email);
+        trainingportal.model.User user = this.userRepository.findUserAccount(email);
  
-        if (appUser == null) {
+        if (user == null) {
             System.out.println("Email was not found! " + email);
             throw new UsernameNotFoundException(email + " was not found in the database");
         }
+
+        if(user.getEnabled() == 0){
+            System.out.println(email + " is not enabled");
+            throw new UsernameNotFoundException(email + " is not enabled");
+        }
  
-        System.out.println("Found User: " + appUser);
+        System.out.println("Found User: " + user);
  
         // [ROLE_USER, ROLE_ADMIN,..]
-        List<String> roleNames = this.roleDAOImpl.getRoleNames(appUser.getUserId());
+        List<String> roleNames = this.roleRepository.getRoleNames(user.getUserId());
  
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
         if (roleNames != null) {
@@ -46,10 +51,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
         }
  
-        UserDetails userDetails = (UserDetails) new User(appUser.getUserName(),
-                appUser.getEncryptedPassword(), grantList);
+        UserDetails userDetails = (UserDetails) new User(user.getUserName(),
+                user.getPassword(), grantList);
  
         return userDetails;
     }
- 
 }
