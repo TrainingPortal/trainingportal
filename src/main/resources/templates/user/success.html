@@ -9,6 +9,7 @@
 	<link rel="icon" href="../../static/images/icon.png"/>
 </head>
     <body>
+	<h3>Welcome : <span th:utext="${#request.userPrincipal.name}"></span></h3>
 	<header>
 		<nav class="navbar navbar-inverse">
 			<div class="container-fluid">
