@@ -16,8 +16,20 @@ public class RoleDAOImpl extends JdbcDaoSupport {
     public RoleDAOImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
     }
- 
+
     public List<String> getRoleNames(Long userId) {
+        String sql = "SELECT r.name FROM users u" //
+                + " INNER JOIN roles r " //
+                + "ON u.roleid = r.roleid AND u.userId = ? ";
+
+        Object[] params = new Object[] { userId };
+
+        List<String> roles = this.getJdbcTemplate().queryForList(sql, params, String.class);
+
+        return roles;
+    }
+ 
+    /*public List<String> getRoleNames(Long userId) {
         String sql = "Select r.Role_Name " //
                 + " from User_Role ur, App_Role r " //
                 + " where ur.Role_Id = r.Role_Id and ur.User_Id = ? ";
@@ -27,6 +39,6 @@ public class RoleDAOImpl extends JdbcDaoSupport {
         List<String> roles = this.getJdbcTemplate().queryForList(sql, params, String.class);
  
         return roles;
-    }
+    }*/
      
 }
