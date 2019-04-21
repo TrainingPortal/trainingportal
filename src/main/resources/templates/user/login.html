@@ -15,13 +15,35 @@
     <h1>Log in</h1>
         <div class="row justify-content-center" >
             <div class="col-md-4 col-md-offset-4">
-                <form th:action="@{/login}" method="POST">
-                    <label>User email</label>
-                    <input type="text" name="username" class="form-control" placeholder="Login by email" />
+
+                <div th:if="${successMessage}"
+                     class="alert alert-success" role="alert"
+                     th:text="${successMessage}">
+                </div>
+
+                <div th:if="${param.error}" class="alert alert-danger" role="alert">
+                    Invalid username and password.
+                </div>
+                <div th:if="${param.logout}" class="alert alert-success">
+                    You have been logged out.
+                </div>
+                    <!--<form name="f" th:action="@{/login}" method="POST">    -->
+                <form name="f" th:action="@{/j_spring_security_check}" method="POST">
+
+                    <label>Email</label>
+                    <input type="email" name="email" class="form-control" placeholder="Your email" />
+
                     <label>Password</label>
                     <input type="password" name="password" class="form-control" placeholder="Password" />
+
                     <input type="submit" class="btn btn-success" value="Login"/>
+
                 </form>
+
+                <div class="footer-copyright text-center py-3">
+                    <a href="forgotpassword" >Forgot your password?</a>
+                </div>
+
             </div>
         </div>
 

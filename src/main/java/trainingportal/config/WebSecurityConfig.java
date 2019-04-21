@@ -43,27 +43,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
  
         // /userInfo page requires login as ROLE_EMPLOYEE or ROLE_ADMIN.
         // If no login, it will redirect to /login page.
-        http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')");
+        //http.authorizeRequests().antMatchers("/userInfo").access("hasAnyRole('ROLE_EMPLOYEE', 'ROLE_ADMIN')");
  
         // For ADMIN only.
-        http.authorizeRequests().antMatchers("/admin").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests()
+                .antMatchers("/admin","/trainers*","/trainer*","/manager*","/managers*")
+                .access("hasRole('ROLE_ADMIN')");
+
+        http.authorizeRequests().antMatchers("/profilepage").access("hasRole('EMPLOYEE')");
  
         // When the user has logged in as XX.
         // But access a page that requires role YY,
         // AccessDeniedException will be thrown.
-        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/");
  
         // Config for Login Form
         http.authorizeRequests().and().formLogin()//
                 // Submit URL of login page.
-                .loginProcessingUrl("/login") // Submit URL
+                .loginProcessingUrl("/j_spring_security_check") // Submit URL
                 .loginPage("/login")//
                 .defaultSuccessUrl("/")//
-                .failureUrl("/login?error=true")//
-                .usernameParameter("username")//
+                .failureUrl("/login?error")//
+                .usernameParameter("email")//
                 .passwordParameter("password")
                 // Config for Logout Page
-                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/");
+                .and().logout().logoutUrl("/logout").logoutSuccessUrl("/login?logout");
 
     }
 }

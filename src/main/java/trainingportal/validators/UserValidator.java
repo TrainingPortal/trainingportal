@@ -27,7 +27,7 @@ public class UserValidator {
     public static String Check(User user, UserService userService) {
 
         if (!UserValidator.validate(user.getUserName(),Name_REGEX))
-            return "Name can't be blank";
+        return "Name can't be blank";
         if (userService.isUserExists(user)==true)
             return "User with email " + user.getEmail() + " already exists";
 

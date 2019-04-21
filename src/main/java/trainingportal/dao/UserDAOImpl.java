@@ -25,7 +25,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
  
     public User findUserAccount(String email) {
 
-        String sql = UserMapper.BASE_SQL + " where u.User_Email = ? ";
+        String sql = UserMapper.BASE_SQL + " where u.email = ? ";
  
         Object[] params = new Object[] { email };
         UserMapper mapper = new UserMapper();
@@ -37,16 +37,12 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
         }
     }
 
-    public void save(User user) {
+    public void save(User user, Long roleId) {
 
-        String sql = "insert into App_User (User_Name, User_Email, Encryted_Password, Enabled) values (?,?,?,?)";
-
-        user.setEncryptedPassword(passwordEncoder.encode(user.getEncryptedPassword()));
-        user.setEnabled(1);
+        String sql = "INSERT INTO users (name, email, password, enabled, token, roleId) values (?,?,?,?,?,?)";
 
         this.getJdbcTemplate().update(sql, new Object[] { user.getUserName(),
-                user.getEmail(), user.getEncryptedPassword(), user.getEnabled()});
-
+                user.getEmail(), user.getPassword(), user.getEnabled(), user.getToken(), roleId});
     }
 
     @Override
@@ -56,7 +52,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
 
     public User findByEmail(String email) {
 
-        String sql = "select * from App_User where USER_EMAIL= ?";
+        String sql = UserMapper.BASE_SQL + "WHERE email = ?";
 
         List<User> users = this.getJdbcTemplate().query(sql,new Object[]{email},new UserMapper());
 
@@ -65,7 +61,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
 
     public User findByName(String name) {
 
-        String sql = "select * from App_User where USER_NAME= ?";
+        String sql = UserMapper.BASE_SQL + "WHERE name = ?";
 
         List<User> users = this.getJdbcTemplate().query(sql,new Object[]{name},new UserMapper());
 
@@ -82,11 +78,86 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
     }
 
     @Override
+    public User findByToken(String token) {
+
+        String sql = UserMapper.BASE_SQL + "WHERE Token = ?";
+
+        User user = this.getJdbcTemplate().queryForObject(sql,new Object[]{token},new UserMapper());
+
+        return user;
+    }
+
+    @Override
+    public void updateToken(User user, String token) {
+
+        String sql ="UPDATE users SET token = ? WHERE userId = ?";
+
+        this.getJdbcTemplate().update(sql, token, user.getUserId());
+    }
+
+    @Override
+    public void resetToken(User user) {
+
+        String sql ="UPDATE users SET token = ? WHERE token = ?";
+
+        this.getJdbcTemplate().update(sql, null, user.getToken());
+    }
+
+    @Override
+    public void confirmRegister(User user) {
+
+        String sql = "UPDATE users SET enabled = ? WHERE userId = ?";
+
+        this.getJdbcTemplate().update(sql, user.getEnabled(), user.getUserId());
+    }
+
+    @Override
+    public void setNewPassword(String password, String token) {
+
+        String sql = "UPDATE users SET password = ? WHERE token = ?";
+
+        this.getJdbcTemplate().update(sql, password, token);
+    }
+
+    @Override
     public User findById(Long id) {
-        String sql = "select * from App_User where USER_ID = ?";
+        String sql = UserMapper.BASE_SQL + "where userId = ?";
 
         User user = this.getJdbcTemplate().queryForObject(sql,new Object[]{id},new UserMapper());
 
         return user;
+    }
+
+    @Override
+    public List<User> findAllByRole(Long roleId) {
+        String sql = UserMapper.BASE_SQL + "where roleId = ?";
+
+        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{roleId},new UserMapper());
+
+        return users;
+    }
+
+    @Override
+    public void update(User user) {
+        String sql = UserMapper.UPDATE_SQL + " WHERE userId = ?";
+
+        this.getJdbcTemplate().update(sql,
+                user.getUserName(),user.getEmail(),
+                user.getEnabled(),user.getRoleId(),
+                user.getUserId());
+    }
+
+    @Override
+    public void deleteById(Long userId) {
+        String sql = "DELETE FROM users WHERE userId = ?";
+
+        this.getJdbcTemplate().update(sql, userId);
+    }
+
+    @Override
+    public void deleteAllByRole(Long roleId) {
+        String sql = "DELETE FROM users WHERE roleId = ?";
+
+        this.getJdbcTemplate().update(sql, roleId);
     }
 }
