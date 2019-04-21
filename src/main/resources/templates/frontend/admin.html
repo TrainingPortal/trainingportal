@@ -1,0 +1,54 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All trainers</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
+    <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" />
+    <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}" />
+    <link rel="stylesheet" href="/../css/admin.css" th:href="@{/css/admin.css}" />
+</head>
+    <body>
+    <div th:insert="frontend/navbar :: nav"></div>
+
+    <div class="justify-content-center d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+        <a href="/trainers">
+            <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+                <div class="my-3 p-3">
+                    <h2 class="display-5">Trainers</h2>
+                    <p class="lead">Show all trainers</p>
+                </div>
+                <div class="bg-dark box-shadow mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            </div>
+        </a>
+        <a href="/managers">
+            <div class="bg-primary mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+                <div class="my-3 py-3">
+                    <h2 class="display-5">Managers</h2>
+                    <p class="lead">Show all managers</p>
+                </div>
+                <div class="bg-light box-shadow mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
+                <div class="my-3 p-3">
+                    <h2 class="display-5">Courses</h2>
+                    <p class="lead">Show all courses</p>
+                </div>
+                <div class="bg-dark box-shadow mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            </div>
+        </a>
+        <a href="#">
+            <div class="bg-primary mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
+                <div class="my-3 py-3">
+                    <h2 class="display-5">Groups</h2>
+                    <p class="lead">Show all groups.</p>
+                </div>
+                <div class="bg-light box-shadow mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
+            </div>
+        </a>
+    </div>
+
+    </body>
+</html>

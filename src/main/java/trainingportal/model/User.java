@@ -97,7 +97,7 @@ public class User {
 
     @Override
     public String toString() {
-        return this.userName + "/" + this.password;
+        return this.userName + " " + this.email;
     }
  
 }
