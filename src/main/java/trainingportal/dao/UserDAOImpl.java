@@ -144,7 +144,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
         this.getJdbcTemplate().update(sql,
                 user.getUserName(),user.getEmail(),
                 user.getEnabled(),user.getRoleId(),
-                user.getPassword(),user.getUserId());
+                user.getUserId());
     }
 
     @Override

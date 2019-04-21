@@ -11,7 +11,7 @@ public class UserMapper implements RowMapper<User> {
     public static final String BASE_SQL
             = "SELECT u.userId, u.name, u.email, u.password, u.enabled, u.token, u.roleId FROM users u ";
     public static final String UPDATE_SQL
-            = "UPDATE users SET name = ?, email = ?, enabled = ?, roleId = ?, password = ? ";
+            = "UPDATE users SET name = ?, email = ?, enabled = ?, roleId = ?";
     @Override
     public User mapRow(ResultSet rs, int rowNum) throws SQLException {
  
