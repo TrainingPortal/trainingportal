@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import springemail.Sender;
+import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.UserDetailsServiceImpl;
 import trainingportal.service.UserService;
@@ -63,12 +64,10 @@ public class UserController {
             // Generate random 36-character string token for confirmation link
             user.setToken(UUID.randomUUID().toString());
 
-            user.setRoleId((long) 2);
-
             //Encode provided password
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
 
-            userService.saveUser(user);
+            userService.save(user, Role.EMPLOYEE);
 
             //String appUrl = request.getScheme() + "://" + request.getServerName();
 

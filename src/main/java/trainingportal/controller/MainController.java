@@ -18,6 +18,12 @@ public class MainController {
         return "frontend/index";
     }
 
+    @GetMapping({"/admin"})
+    public String admin(Model model) {
+
+        return "frontend/admin";
+    }
+
     @GetMapping("/login")
     public String loginPage(Model model) {
 
