@@ -13,6 +13,42 @@
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
 
+<div class="container-fluid">
+    <h2>Courses</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="row">Id</th>
+            <th scope="row">courseName</th>
+            <th scope="row">courseLevel</th>
+            <th scope="row">courseStatus</th>
+            <th scope="row">dateStart</th>
+            <th scope="row">dateEnd</th>
+            <th scope="row">groupNumber</th>
+            <th scope="row">minNumber</th>
+            <th scope="row">description</th>
+            <th scope="row">trainer</th>
+            <th scope="row">Edit</th>
+            <th scope="row">Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="course : ${courseAll}">
+            <td th:text="${course.getId()}"></td>
+            <td th:text="${course.getCourseName()}"></td>
+            <td th:text="${course.getCourseLevel()}"></td>
+            <td th:text="${course.getCourseStatus()}"></td>
+            <td th:text="${course.getDateStart()}"></td>
+            <td th:text="${course.getDateEnd()}"></td>
+            <td th:text="${course.getGroupNumber()}"></td>
+            <td th:text="${course.getMinNumber()}"></td>
+            <td th:text="${course.getDescription()}"></td>
+            <td th:text="${course.getTrainer()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</table>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

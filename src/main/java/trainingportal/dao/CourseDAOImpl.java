@@ -1,60 +1,70 @@
 package trainingportal.dao;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.mapper.CourseRowMapper;
+import trainingportal.mapper.CourseMapper;
 import trainingportal.model.Course;
 
+import javax.sql.DataSource;
 import java.util.List;
 
-@Transactional
 @Repository
-public class CourseDAOImpl implements CourseDao {
-
+@Transactional
+public class CourseDAOImpl extends JdbcDaoSupport {
     @Autowired
-    private JdbcTemplate jdbcTemplate;
+    public CourseDAOImpl(DataSource dataSource) {
+        this.setDataSource(dataSource);
+    }
 
-    @Override
-    public List<Course> getAllCourse() {
-        String query = "SELECT * FROM COURSES";
-        RowMapper<Course> rowMapper = new CourseRowMapper();
-        List<Course> list = jdbcTemplate.query(query, rowMapper);
+    public List<Course> getCoursAll() {
+        String sql = "SELECT * from COURSE";
+
+        Object[] params = new Object[]{};
+        CourseMapper courseMapper = new CourseMapper();
+        List<Course> list = this.getJdbcTemplate().query(sql, params, courseMapper);
+
         return list;
     }
 
-    @Override
-    public Course findCourseById(Integer Id) {
-        String query = "SELECT * FROM COURSES WHERE courseId = ?";
-        RowMapper<Course> rowMapper = new BeanPropertyRowMapper<>(Course.class);
-        Course course = jdbcTemplate.queryForObject(query, rowMapper, Id);
-        return course;
+    public Course findCourseById(Long id) {
+        String sql = "SELECT * FROM COURSE WHERE id = ?";
+        Object[] params = new Object[]{id};
+        CourseMapper courseMapper = new CourseMapper();
+        try {
+            Course course = this.getJdbcTemplate().queryForObject(sql, params, courseMapper);
+            return course;
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
-    @Override
     public void addCourse(Course course) {
-        String query = "INSERT INTO COURSES(Id, courseName, courseLevel, courseStatus, dateStart, dateEnd, groupNumber, minNumber, description, trainer ) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
-        jdbcTemplate.update(query, course.getId(), course.getCourseName(), course.getCourseLevel(),
-                course.getCourseStatus(), course.getDateStart(), course.getDateEnd(), course.getGroupNumber(),
+        //Add Course
+        String sql = "INSERT INTO COURSE (ID, NAME, COURSE_LEVEL,STATUS,DATE_START,DATE_END,GROUP_NUMBER,MINN_NUMBER,DESCRIPTION,TRAINER) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+        this.getJdbcTemplate().update(sql, course.getId(), course.getCourseName(), course.getCourseLevel(),
+                course.getDateStart(), course.getDateEnd(), course.getGroupNumber(),
+                course.getMinNumber(), course.getDescription(), course.getTrainer());
+
+    }
+
+    public void updateCourse(Course course) {
+        String sql = CourseMapper.BASE_SQL + "UPDATE WHERE Id = ?";
+
+        this.getJdbcTemplate().update(sql,
+                course.getId(), course.getCourseName(), course.getCourseLevel(),
+                course.getDateStart(), course.getDateEnd(), course.getGroupNumber(),
                 course.getMinNumber(), course.getDescription(), course.getTrainer());
     }
 
-    @Override
-    public void updateCourse(Course course) {
-        String query = "UPDATE COURSES SET courseName=?, courseLevel=?, courseStatus=?, dateStart=?, dateEnd=?, groupNumber=?, minNumber=?, description=?, trainer=? WHERE ID=?";
-        jdbcTemplate.update(query, course.getCourseName(), course.getCourseLevel(),
-                course.getCourseStatus(), course.getDateStart(), course.getDateEnd(), course.getGroupNumber(),
-                course.getMinNumber(), course.getDescription(), course.getTrainer(), course.getId());
 
-    }
+    public void deleteCourseById(Long Id) {
+        String sql = CourseMapper.BASE_SQL + "DELETE  WHERE ID = ?";
 
-    @Override
-    public void deleteCourse(Integer Id) {
-        String query = "DELETE FROM  COURSES WHERE Id=?";
-        jdbcTemplate.update(query, Id);
+        this.getJdbcTemplate().update(sql, Id);
     }
 
 }

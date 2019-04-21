@@ -1,40 +1,54 @@
 package trainingportal.model;
 
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import javax.validation.constraints.Size;
 
 public class Course {
-    @NotNull
-    private Integer Id;
+
+    private Long id;
+    @Size(min = 1, max = 40)
     @NotNull
     private String courseName;
+    @Size(min = 1, max = 30)
     @NotNull
     private String courseLevel;
+    @Size(min = 2, max = 10)
     @NotNull
     private String courseStatus;
     @NotNull
-    private Date dateStart;
+    private String dateStart;
     @NotNull
-    private Date dateEnd;
+    private String dateEnd;
     @NotNull
     private int groupNumber;
     @NotNull
     private int minNumber;
+    @Size(min = 1, max = 100)
     @NotNull
     private String description;
+    @Size(min = 1, max = 30)
     @NotNull
     private String trainer;
 
-    public Course() {
-
+    public Course(Long id, @Size(min = 1, max = 40) @NotNull String courseName, @Size(min = 1, max = 30) @NotNull String courseLevel, @Size(min = 2, max = 10) @NotNull String courseStatus, @NotNull String dateStart, @NotNull String dateEnd, @NotNull int groupNumber, @NotNull int minNumber, @Size(min = 1, max = 100) @NotNull String description, @Size(min = 1, max = 30) @NotNull String trainer) {
+        this.id = id;
+        this.courseName = courseName;
+        this.courseLevel = courseLevel;
+        this.courseStatus = courseStatus;
+        this.dateStart = dateStart;
+        this.dateEnd = dateEnd;
+        this.groupNumber = groupNumber;
+        this.minNumber = minNumber;
+        this.description = description;
+        this.trainer = trainer;
     }
 
-    public Integer getId() {
-        return Id;
+    public Long getId() {
+        return id;
     }
 
-    public void setId(Integer id) {
-        Id = id;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCourseName() {
@@ -61,19 +75,19 @@ public class Course {
         this.courseStatus = courseStatus;
     }
 
-    public Date getDateStart() {
+    public String getDateStart() {
         return dateStart;
     }
 
-    public void setDateStart(Date dateStart) {
+    public void setDateStart(String dateStart) {
         this.dateStart = dateStart;
     }
 
-    public Date getDateEnd() {
+    public String getDateEnd() {
         return dateEnd;
     }
 
-    public void setDateEnd(Date dateEnd) {
+    public void setDateEnd(String dateEnd) {
         this.dateEnd = dateEnd;
     }
 

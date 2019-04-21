@@ -43,9 +43,4 @@ public class MainController {
         return "frontend/helppage";
     }
 
-    @GetMapping("/course_create")
-    String courseCreate(Model model) {
-
-        return "admin/course_create";
-    }
 }
