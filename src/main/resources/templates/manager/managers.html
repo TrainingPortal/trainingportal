@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All managers</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
+    <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" />
+    <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}" />
+    <link type="text/css" rel="stylesheet" href="/../css/custom.css" th:href="@{css/custom.css}"/>
+</head>
+    <body>
+    <div th:insert="frontend/navbar :: nav"></div>
+    <div th:if="${successMessage}"
+         class="alert alert-success" role="alert"
+         th:text="${successMessage}">
+    </div>
+    <h1>Managers</h1>
+        <table class="table table-fit">
+            <thead class="">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tr th:each = "manager,iter:${managers}">
+                <td th:text="${manager.userName}"></td>
+                <td th:text="${manager.email}"></td>
+                <td>
+                    <a th:href="@{/manager-{id}(id=${manager.userId})}" class="btn btn-primary">Show</a>
+                    <a th:href="@{/manager-update-{id}(id=${manager.userId})}" class="btn btn-primary">Update</a>
+                    <a th:href="@{/manager-delete-{id}(id=${manager.userId})}" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        </table>
+    <a th:href="@{/manager-add}" class="btn btn-info">Add manager</a>
+    <a th:href="@{/managers-delete-all}" class="btn btn-danger">Delete all managers</a>
+    </body>
+</html>
