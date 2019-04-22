@@ -2,11 +2,21 @@ package trainingportal.dao;
 
 import trainingportal.model.User;
 
+import java.util.List;
+
 public interface UserDao {
 
-    void save(User user);
+    void save(User user, Long roleId);
 
     boolean isUserExists(User login);
+
+    List<User> findAllByRole(Long roleId);
+
+    void update(User user);
+
+    void deleteById(Long userId);
+
+    void deleteAllByRole(Long roleId);
 
     User findById(Long id);
 

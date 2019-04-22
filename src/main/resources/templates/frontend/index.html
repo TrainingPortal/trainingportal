@@ -45,8 +45,8 @@
          class="card text-center">
         <div class="card-body">
             <h1 class="card-title" style="color: indigo">Welcome to the language courses!</h1>
-            <a href="/login" class="btn btn-primary" role="button">LOGIN</a>
-            <a href="/registration" class="btn btn-success" role="button">REGISTRATION</a>
+            <a th:if="${#request.userPrincipal == null}" href="/login" class="btn btn-primary" role="button">LOGIN</a>
+            <a th:if="${#request.userPrincipal == null}" href="/registration" class="btn btn-success" role="button">REGISTRATION</a>
         </div>
     </div>
 </div>
