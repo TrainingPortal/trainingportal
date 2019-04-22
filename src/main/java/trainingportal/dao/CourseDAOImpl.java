@@ -15,6 +15,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
+
     @Autowired
     public CourseDAOImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
@@ -22,14 +23,17 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
     @Override
     public List<Course> getCoursAll() {
-        String sql = "SELECT * FROM COURSE";
-//        String sql = CourseMapper.BASE_SQL;
+//        String sql = "SELECT * FROM COURSE";
+        String sql = CourseMapper.BASE_SQL;
 
         Object[] params = new Object[]{};
         CourseMapper courseMapper = new CourseMapper();
-        List<Course> list = this.getJdbcTemplate().query(sql, params, courseMapper);
-
-        return list;
+        try {
+            List<Course> list = this.getJdbcTemplate().query(sql, params, courseMapper);
+            return list;
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 
     @Override
@@ -48,33 +52,36 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
     @Override
     public void addCourse(Course course) {
         //Add Course
-        String sql = "INSERT INTO COURSE(name, course_level, status, date_start, date_end, group_number, min_number, description, trainer) VALUES (?,?,?,?,?,?,?,?,?)";
-        this.getJdbcTemplate().update(sql, course.getId(), course.getCourse_level(), course.getStatus(),
+        String sql = "INSERT INTO COURSE(NAME, COURSE_LEVEL, STATUS, DATE_START, DATE_END, GROUP_NUMBER, MIN_NUMBER, DESCRIPTION, TRAINER) VALUES (?,?,?,?,?,?,?,?,?)";
+        this.getJdbcTemplate().update(sql, course.getId(), course.getName(), course.getCourse_level(), course.getStatus(),
                 course.getDate_start(), course.getDate_end(), course.getGroup_number(),
                 course.getMin_number(), course.getDescription(), course.getTrainer());
 
     }
 
     @Override
-    public void updateCourseById(Long id) {
-        String sql = "UPDATE COURSE SET name = ?, course_level = ?, status = ?, date_start = ?,date_end = ?, group_number = ?, group_number = ?, min_number =?,description =?, trainer =? WHERE Id = ? ";
-        this.getJdbcTemplate().update(sql, id);
+    public void updateCourse(Course course) {
+//        String sql = "UPDATE COURSE SET name = ?, course_level = ?, status = ?, date_start = ?,date_end = ?, group_number = ?,min_number =?,description =?, trainer =? WHERE Id = ? ";
+        String sql = "UPDATE COURSE set NAME = ?, COURSE_LEVEL = ?, STATUS = ?, DATE_START = ?,DATE_END = ?, GROUP_NUMBER = ?, MIN_NUMBER = ?, DESCRIPTION =?, TRAINER =? WHERE ID=?";
+
+        this.getJdbcTemplate().update(sql, course.getId(), course.getName(), course.getCourse_level(), course.getStatus(),
+                course.getDate_start(), course.getDate_end(), course.getGroup_number(),
+                course.getMin_number(), course.getDescription(), course.getTrainer());
     }
 
     @Override
     public void deleteCourseById(Long Id) {
         String sql = "DELETE FROM COURSE WHERE Id = ?";
-
         this.getJdbcTemplate().update(sql, Id);
     }
 
     @Override
-    public void saveCourse(Course course, Long Id) {
+    public void saveCourse(Course course) {
 
-        String sql = "INSERT INTO COURSE(name, course_level, status, date_start, date_end, group_number, min_number, description, trainer) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO COURSE(NAME, COURSE_LEVEL, STATUS, DATE_START, DATE_END, GROUP_NUMBER, MIN_NUMBER, DESCRIPTION, TRAINER) VALUES (?,?,?,?,?,?,?,?,?)";
 
         this.getJdbcTemplate().update(sql,
-                course.getId(), course.getCourse_level(), course.getStatus(),
+                course.getId(), course.getName(), course.getCourse_level(), course.getStatus(),
                 course.getDate_start(), course.getDate_end(), course.getGroup_number(),
                 course.getMin_number(), course.getDescription(), course.getTrainer());
     }

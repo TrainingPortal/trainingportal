@@ -25,18 +25,31 @@ public class CourseController {
     }
 
 
-    @RequestMapping(value = "/course-delete-by-id", method = RequestMethod.GET)
-    public ModelAndView deleteCourseById(Long Id, ModelAndView model, RedirectAttributes redirect) {
-        courseDAO.deleteCourseById(Id);
-        redirect.addFlashAttribute("successMessage", "Course deleted successfully");
+    @RequestMapping(value = "/edit-course", method = RequestMethod.GET)
+    public ModelAndView updateCourseById(Course course, ModelAndView model, RedirectAttributes redirect) {
+        Course courseUpdate = courseDAO.findCourseById(course.getId());
+        if (courseUpdate != null) {
+            courseUpdate.setId(course.getId());
+            courseUpdate.setName(course.getName());
+            courseUpdate.setCourse_level(course.getCourse_level());
+            courseUpdate.setStatus(course.getStatus());
+            courseUpdate.setDate_start(course.getDate_start());
+            courseUpdate.setDate_end(course.getDate_end());
+            courseUpdate.setGroup_number(course.getGroup_number());
+            courseUpdate.setMin_number(course.getMin_number());
+            courseUpdate.setDescription(course.getDescription());
+            courseUpdate.setTrainer(course.getTrainer());
+        }
+        courseDAO.updateCourse(courseUpdate);
+        redirect.addFlashAttribute("successMessage", "Course edited");
         model.setViewName("redirect:/course_create");
         return model;
     }
 
-    @RequestMapping(value = "/edit-course", method = RequestMethod.GET)
-    public ModelAndView updateCourseById(Long id, ModelAndView model, RedirectAttributes redirect) {
-        courseDAO.updateCourseById(id);
-        redirect.addFlashAttribute("successMessage", "Course edited");
+    @RequestMapping(value = "/course-delete-by-id", method = RequestMethod.GET)
+    public ModelAndView deleteCourseById(Long Id, ModelAndView model, RedirectAttributes redirect) {
+        courseDAO.deleteCourseById(Id);
+        redirect.addFlashAttribute("successMessage", "Course deleted successfully");
         model.setViewName("redirect:/course_create");
         return model;
     }

@@ -7,8 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CourseMapper implements RowMapper<Course> {
-    public static final String UPDATE_SQL
-            = "UPDATE COURSE SET name = ?, course_level = ?, status = ?, date_start = ?,date_end = ?, group_number = ?, group_number = ?, min_number =?,description =?, trainer =?";
     public static String BASE_SQL
             = "Select Id, name, course_level, status, date_start, date_end, group_number, min_number, description, trainer From COURSE ";
 

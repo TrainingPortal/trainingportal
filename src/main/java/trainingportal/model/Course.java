@@ -34,7 +34,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(@NotNull Long id, @Size(min = 1, max = 40) @NotNull String name, @Size(min = 1, max = 30) @NotNull String course_level, @Size(min = 2, max = 10) @NotNull String status, @NotNull String date_start, @NotNull String date_end, @NotNull Long group_number, @NotNull Long min_number, @Size(min = 1, max = 100) @NotNull String description, @Size(min = 1, max = 30) @NotNull String trainer) {
+    public Course(@NotNull Long id, @Size(min = 1, max = 40) @NotEmpty(message = "enter course name") String name, @Size(min = 1, max = 30) @NotEmpty(message = "enter course level") String course_level, @Size(min = 2, max = 10) @NotEmpty(message = "enter status of course open/closed") String status, @NotEmpty(message = "enter date when course start") String date_start, @NotEmpty(message = "enter date when course end") String date_end, @NotEmpty(message = "enter group number") Long group_number, @NotEmpty(message = "minimum number of people is 1") Long min_number, @Size(min = 1, max = 100) @NotEmpty(message = "describe course if you want to") String description, @Size(min = 1, max = 30) @NotEmpty(message = "enter trainer name") String trainer) {
         this.id = id;
         this.name = name;
         this.course_level = course_level;
