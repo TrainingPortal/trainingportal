@@ -28,23 +28,30 @@
             <th scope="row">minNumber</th>
             <th scope="row">description</th>
             <th scope="row">trainer</th>
-            <th scope="row">Edit</th>
-            <th scope="row">Delete</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="course : ${courseAll}">
             <td th:text="${course.getId()}"></td>
-            <td th:text="${course.getCourseName()}"></td>
-            <td th:text="${course.getCourseLevel()}"></td>
-            <td th:text="${course.getCourseStatus()}"></td>
-            <td th:text="${course.getDateStart()}"></td>
-            <td th:text="${course.getDateEnd()}"></td>
-            <td th:text="${course.getGroupNumber()}"></td>
-            <td th:text="${course.getMinNumber()}"></td>
+            <td th:text="${course.getName()}"></td>
+            <td th:text="${course.getCourse_level()}"></td>
+            <td th:text="${course.getStatus()}"></td>
+            <td th:text="${course.getDate_start()}"></td>
+            <td th:text="${course.getDate_end()}"></td>
+            <td th:text="${course.getGroup_number()}"></td>
+            <td th:text="${course.getMin_number()}"></td>
             <td th:text="${course.getDescription()}"></td>
             <td th:text="${course.getTrainer()}"></td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-dark" th:href="@{/course-delete-by-id}">Delete</a>
+                    <a class="btn btn-info" th:href="@{/edit-course}">Edit</a>
+                </div>
+
+            </td>
         </tr>
+
+
         </tbody>
     </table>
 </div>

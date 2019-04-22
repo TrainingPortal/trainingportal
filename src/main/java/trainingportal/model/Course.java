@@ -4,25 +4,25 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class Course {
-
+    @NotNull
     private Long id;
     @Size(min = 1, max = 40)
     @NotNull
-    private String courseName;
+    private String name;
     @Size(min = 1, max = 30)
     @NotNull
-    private String courseLevel;
+    private String course_level;
     @Size(min = 2, max = 10)
     @NotNull
-    private String courseStatus;
+    private String status;
     @NotNull
-    private String dateStart;
+    private String date_start;
     @NotNull
-    private String dateEnd;
+    private String date_end;
     @NotNull
-    private int groupNumber;
+    private Long group_number;
     @NotNull
-    private int minNumber;
+    private Long min_number;
     @Size(min = 1, max = 100)
     @NotNull
     private String description;
@@ -30,15 +30,18 @@ public class Course {
     @NotNull
     private String trainer;
 
-    public Course(Long id, @Size(min = 1, max = 40) @NotNull String courseName, @Size(min = 1, max = 30) @NotNull String courseLevel, @Size(min = 2, max = 10) @NotNull String courseStatus, @NotNull String dateStart, @NotNull String dateEnd, @NotNull int groupNumber, @NotNull int minNumber, @Size(min = 1, max = 100) @NotNull String description, @Size(min = 1, max = 30) @NotNull String trainer) {
+    public Course() {
+    }
+
+    public Course(@NotNull Long id, @Size(min = 1, max = 40) @NotNull String name, @Size(min = 1, max = 30) @NotNull String course_level, @Size(min = 2, max = 10) @NotNull String status, @NotNull String date_start, @NotNull String date_end, @NotNull Long group_number, @NotNull Long min_number, @Size(min = 1, max = 100) @NotNull String description, @Size(min = 1, max = 30) @NotNull String trainer) {
         this.id = id;
-        this.courseName = courseName;
-        this.courseLevel = courseLevel;
-        this.courseStatus = courseStatus;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.groupNumber = groupNumber;
-        this.minNumber = minNumber;
+        this.name = name;
+        this.course_level = course_level;
+        this.status = status;
+        this.date_start = date_start;
+        this.date_end = date_end;
+        this.group_number = group_number;
+        this.min_number = min_number;
         this.description = description;
         this.trainer = trainer;
     }
@@ -51,60 +54,60 @@ public class Course {
         this.id = id;
     }
 
-    public String getCourseName() {
-        return courseName;
+    public String getName() {
+        return name;
     }
 
-    public void setCourseName(String courseName) {
-        this.courseName = courseName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getCourseLevel() {
-        return courseLevel;
+    public String getCourse_level() {
+        return course_level;
     }
 
-    public void setCourseLevel(String courseLevel) {
-        this.courseLevel = courseLevel;
+    public void setCourse_level(String course_level) {
+        this.course_level = course_level;
     }
 
-    public String getCourseStatus() {
-        return courseStatus;
+    public String getStatus() {
+        return status;
     }
 
-    public void setCourseStatus(String courseStatus) {
-        this.courseStatus = courseStatus;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
-    public String getDateStart() {
-        return dateStart;
+    public String getDate_start() {
+        return date_start;
     }
 
-    public void setDateStart(String dateStart) {
-        this.dateStart = dateStart;
+    public void setDate_start(String date_start) {
+        this.date_start = date_start;
     }
 
-    public String getDateEnd() {
-        return dateEnd;
+    public String getDate_end() {
+        return date_end;
     }
 
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
+    public void setDate_end(String date_end) {
+        this.date_end = date_end;
     }
 
-    public int getGroupNumber() {
-        return groupNumber;
+    public Long getGroup_number() {
+        return group_number;
     }
 
-    public void setGroupNumber(int groupNumber) {
-        this.groupNumber = groupNumber;
+    public void setGroup_number(Long group_number) {
+        this.group_number = group_number;
     }
 
-    public int getMinNumber() {
-        return minNumber;
+    public Long getMin_number() {
+        return min_number;
     }
 
-    public void setMinNumber(int minNumber) {
-        this.minNumber = minNumber;
+    public void setMin_number(Long min_number) {
+        this.min_number = min_number;
     }
 
     public String getDescription() {
