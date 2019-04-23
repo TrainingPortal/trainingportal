@@ -12,11 +12,13 @@ public interface CourseDao {
 
     void addCourse(Course course);
 
-    void updateCourse(Course course);
+    void editCourseById(Course course);
 
 
     void deleteCourseById(Long Id);
 
     void saveCourse(Course course);
+
+    void save(Course course, Long id);
 
 }

@@ -16,6 +16,87 @@
 
 <div th:insert="frontend/navbar :: nav"></div>
 
+<!-- do something with TEXT(problem is it goes out of rang if it a lot)-->
+<div class="container-fluid">
+    <div class="card">
+        <div class="row no-gutters">
+            <div class="col-auto w-25">
+                <img alt="missing img" class="img-fluid"
+                     src="../../static/img/britain.jpg" th:src="@{/img/britain.jpg}">
+            </div>
+            <div class="col-auto">
+                <div class="card-block px-2">
+                    <h5 class="card-title">ENGLISH course</h5>
+                    <p class="card-text">Description</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer w-auto">
+            <a class="btn btn-primary" href="#">Create group</a>
+            <a class="btn btn-primary" href="#">Sign up</a>
+            Footer stating cats are CUTE little animals
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="row no-gutters">
+            <div class="col-auto w-25">
+                <img alt="missing img" class="img-fluid"
+                     src="../../static/img/berlin.jpg" th:src="@{/img/berlin.jpg}">
+            </div>
+            <div class="col-auto">
+                <div class="card-block px-2">
+                    <h5 class="card-title"> how admin see course + here will be level of course(if i understand how to
+                        do it) </h5>
+                    <p class="card-text">Description of course</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer w-auto">
+            <div class="row no-gutters">
+                <div class="col-auto w-25">
+                    <a class="btn btn-primary" href="#">Create group</a>
+                </div>
+                <div class="col-auto">
+                    <div class="card-block px-2">
+                        <p class="text-right">Start time of course time End of course time</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="row no-gutters">
+            <div class="col-auto w-25">
+                <img alt="missing img" class="img-fluid"
+                     src="../../static/img/krakiv.jpg" th:src="@{/img/krakiv.jpg}">
+            </div>
+            <div class="col-auto">
+                <div class="card-block px-2">
+                    <h5 class="card-title">how employee see course + here will be level of course(if i understand how to
+                        do it)</h5>
+                    <p class="card-text">Description of course</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer w-auto">
+            <div class="row no-gutters">
+                <div class="col-auto w-25">
+                    <a class="btn btn-primary" href="#">Start course</a>
+                </div>
+                <div class="col-auto">
+                    <div class="card-block px-2">
+                        <p class="text-right">Start time of course time End of course time + here will be level of
+                            course(if i understand how to do it)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

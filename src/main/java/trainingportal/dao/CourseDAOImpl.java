@@ -21,6 +21,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
         this.setDataSource(dataSource);
     }
 
+    //work
     @Override
     public List<Course> getCoursAll() {
 //        String sql = "SELECT * FROM COURSE";
@@ -36,6 +37,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
         }
     }
 
+    //dont find where to use
     @Override
     public Course findCourseById(Long id) {
         String sql = "SELECT * FROM COURSE where ID = ? ";
@@ -52,7 +54,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
     @Override
     public void addCourse(Course course) {
         //Add Course
-        String sql = "INSERT INTO COURSE(NAME, COURSE_LEVEL, STATUS, DATE_START, DATE_END, GROUP_NUMBER, MIN_NUMBER, DESCRIPTION, TRAINER) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO COURSE(ID,NAME, COURSE_LEVEL, STATUS, DATE_START, DATE_END, GROUP_NUMBER, MIN_NUMBER, DESCRIPTION, TRAINER) VALUES (?,?,?,?,?,?,?,?,?)";
         this.getJdbcTemplate().update(sql, course.getId(), course.getName(), course.getCourse_level(), course.getStatus(),
                 course.getDate_start(), course.getDate_end(), course.getGroup_number(),
                 course.getMin_number(), course.getDescription(), course.getTrainer());
@@ -60,20 +62,15 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
     }
 
     @Override
-    public void updateCourse(Course course) {
+    public void editCourseById(Course course) {
 //        String sql = "UPDATE COURSE SET name = ?, course_level = ?, status = ?, date_start = ?,date_end = ?, group_number = ?,min_number =?,description =?, trainer =? WHERE Id = ? ";
         String sql = "UPDATE COURSE set NAME = ?, COURSE_LEVEL = ?, STATUS = ?, DATE_START = ?,DATE_END = ?, GROUP_NUMBER = ?, MIN_NUMBER = ?, DESCRIPTION =?, TRAINER =? WHERE ID=?";
 
-        this.getJdbcTemplate().update(sql, course.getId(), course.getName(), course.getCourse_level(), course.getStatus(),
+        this.getJdbcTemplate().update(sql, course.getName(), course.getCourse_level(), course.getStatus(),
                 course.getDate_start(), course.getDate_end(), course.getGroup_number(),
-                course.getMin_number(), course.getDescription(), course.getTrainer());
+                course.getMin_number(), course.getDescription(), course.getTrainer(), course.getId());
     }
 
-    @Override
-    public void deleteCourseById(Long Id) {
-        String sql = "DELETE FROM COURSE WHERE Id = ?";
-        this.getJdbcTemplate().update(sql, Id);
-    }
 
     @Override
     public void saveCourse(Course course) {
@@ -86,4 +83,20 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
                 course.getMin_number(), course.getDescription(), course.getTrainer());
     }
 
+    @Override
+    public void save(Course course, Long Id) {
+
+        String sql = "INSERT INTO COURSE(ID,NAME, COURSE_LEVEL, STATUS, DATE_START, DATE_END, GROUP_NUMBER, MIN_NUMBER, DESCRIPTION, TRAINER) VALUES (?,?,?,?,?,?,?,?,?)";
+
+        this.getJdbcTemplate().update(sql, new Object[]{course.getId(), course.getName(), course.getCourse_level(), course.getStatus(),
+                course.getDate_start(), course.getDate_end(), course.getGroup_number(),
+                course.getMin_number(), course.getDescription(), course.getTrainer()});
+    }
+
+    @Override
+    public void deleteCourseById(Long Id) {
+        String sql = "DELETE FROM COURSE WHERE Id = ?";
+
+        this.getJdbcTemplate().update(sql, Id);
+    }
 }

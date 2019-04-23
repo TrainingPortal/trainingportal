@@ -13,9 +13,11 @@
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
 
-
 <div class="container-fluid">
     <h2>Courses</h2>
+    <h4>
+        <a class="btn btn-success" th:href="@{/course-add}">CREATE NEW COURSE</a>
+    </h4>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -32,7 +34,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="course : ${courseAll}">
+        <tr th:each="course, iter : ${courseAll}">
             <td th:text="${course.getId()}"></td>
             <td th:text="${course.getName()}"></td>
             <td th:text="${course.getCourse_level()}"></td>
@@ -45,10 +47,11 @@
             <td th:text="${course.getTrainer()}"></td>
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-dark" th:href="@{/course-delete-by-id}">Delete</a>
-                    <a class="btn btn-info" th:href="@{/edit-course}">Edit</a>
+                    <!--                    Delete button use @PathVariable to understand what id it need-->
+                    <a class="btn btn-dark" th:href="@{/course-delete-by-{id} (id=${course.getId()}) }">Delete</a>
+                    <a class="btn btn-info" th:href="@{/edit-course-{id}(id=${course.getId()})}">Edit</a>
+                    <!--                    <a class="btn btn-info" th:href="@{/edit-course}">Edit</a>-->
                 </div>
-
             </td>
         </tr>
 
