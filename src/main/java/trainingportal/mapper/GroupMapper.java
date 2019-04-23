@@ -12,7 +12,10 @@ import java.sql.SQLException;
 public class GroupMapper implements RowMapper<Group> {
     
     public static final String BASE_SQL
-            = "SELECT gr.id, gr.name, gr.trainer_id, gr.capacity FROM GROUPS gr";
+            = "SELECT gr.id, gr.name, gr.trainer_id, gr.capacity FROM groups gr";
+    
+    public static final String INSERT_SQL
+            = "INSERT INTO groups (name, trainer_id, capacity) VALUES (?, ?, ?)";
     
     @Override
     public Group mapRow(ResultSet rs, int rowNum) throws SQLException {
