@@ -15,22 +15,31 @@
 		<div class="row justify-content-center" >
 			<div class="col-md-4 col-md-offset-4">
 				<form th:object="${trainer}" th:action="@{/trainer-update-{id}(id=${trainer.userId})}" action="#" method="post">
+
 					<input type="hidden" th:field="*{userId}" class="form-control"
 					placeholder="name" />
+
+					<label>Username</label>
 					<input type="text" th:field="*{userName}" class="form-control"
 						   placeholder="name" />
 					<p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="alert alert-danger">Name Error</p>
+
+					<label>Email</label>
 					<input type="email" th:field="*{email}" class="form-control"
 						   placeholder="email" />
 					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger">Email Error</p>
+
+					<label>Is enabled or not?</label>
 					<input type="text" th:field="*{enabled}" class="form-control"
 						   placeholder="enabled"/>
 					<p th:if="${#fields.hasErrors('enabled')}" th:errors="*{enabled}" class="alert alert-danger">Password Error</p>
+
+					<label>Role ID</label>
 					<input type="text" th:field="*{roleId}" class="form-control"
 						   placeholder="role"/>
 					<p th:if="${#fields.hasErrors('roleId')}" th:errors="*{roleId}" class="alert alert-danger">Password Error</p>
 
-					<input type="submit" class="btn btn-success" value="Save"/>
+					<input type="submit" class="btn btn-success" value="Save changes"/>
 				</form>
 			</div>
 		</div>
