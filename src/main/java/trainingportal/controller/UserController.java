@@ -10,7 +10,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import springemail.Sender;
 import trainingportal.model.Role;
 import trainingportal.model.User;
-import trainingportal.service.UserDetailsServiceImpl;
 import trainingportal.service.UserService;
 
 import javax.validation.Valid;
@@ -30,9 +29,6 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Autowired
-    private UserDetailsServiceImpl loginService;
-
     // Return registration form template
     @GetMapping("/registration")
     public ModelAndView showRegistrationPage(ModelAndView modelAndView, User user) {
@@ -49,7 +45,8 @@ public class UserController {
         User userExists = userService.findByEmail(user.getEmail());
 
         if (userExists != null) {
-            modelAndView.addObject("alreadyRegisteredMessage", "Oops!  There is already a user registered with the email provided.");
+            modelAndView.addObject("alreadyRegisteredMessage",
+                    "Oops! There is already a user registered with the email provided.");
             modelAndView.setViewName("user/registration");
             bindingResult.reject("email");
         }
@@ -69,10 +66,6 @@ public class UserController {
 
             userService.save(user, Role.EMPLOYEE);
 
-            //String appUrl = request.getScheme() + "://" + request.getServerName();
-
-            //System.out.println("\n\n\n\n\n\n\n" + appUrl);
-
             mailSender.sendMail(user.getEmail(),
                     "Registration Confirmation",
                     "To confirm your e-mail address, please click the link below:\n"
@@ -82,7 +75,6 @@ public class UserController {
                     "A confirmation e-mail has been sent to " + user.getEmail());
             modelAndView.setViewName("user/registration");
         }
-
         return modelAndView;
     }
 
@@ -92,7 +84,8 @@ public class UserController {
         User user = userService.findByToken(token);
 
         if (user == null) { // No token found in DB
-            modelAndView.addObject("errorMessage", "Oops!  This is an invalid confirmation link.");
+            modelAndView.addObject("errorMessage",
+                    "Oops! This is an invalid confirmation link.");
         } else { // Token found
             user.setEnabled(1);
             userService.confirmRegister(user);
@@ -129,7 +122,6 @@ public class UserController {
 
             userExists.setToken(token);
 
-
             mailSender.sendMail(user.getEmail(),
                     "Password recovery",
                     "To change your password, please click the link below:\n"
@@ -148,7 +140,8 @@ public class UserController {
         User user = userService.findByToken(token);
 
         if(user == null){
-            modelAndView.addObject("errorMessage", "Oops!  This is an invalid confirmation link.");
+            modelAndView.addObject("errorMessage",
+                    "Oops! This is an invalid confirmation link.");
         } else {
             user.setPassword("");
             modelAndView.addObject("token", user.getToken());
@@ -159,12 +152,16 @@ public class UserController {
     }
 
     @PostMapping("changepassword")
-    public ModelAndView changePassword(ModelAndView modelAndView, User user, BindingResult bindingResult, RedirectAttributes redir){
+    public ModelAndView changePassword(ModelAndView modelAndView,
+                                       @Valid User user, BindingResult bindingResult, RedirectAttributes redir){
 
-        if(bindingResult.hasErrors()){
-            modelAndView.setViewName("user/changepassword");
+        if(bindingResult.hasFieldErrors("password")){
+            redir.addFlashAttribute("errorMessage",
+                    "Nu ne! You can't make your password empty or shorter than 3 symbols!");
+            modelAndView.setViewName("redirect:changepassword?token=" + user.getToken());
             return modelAndView;
         } else {
+
             //Encode provided password
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
             userService.setNewPassword(user.getPassword(), user.getToken());
