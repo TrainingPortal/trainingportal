@@ -52,10 +52,10 @@ public class GroupDAO extends JdbcDaoSupport {
         }
     }
     
-    public void createGroup(String name, int trainer_id, int capacity){
+    public void createGroup(String name, int capacity){
         
         String sql = GroupMapper.INSERT_SQL;
-        Object[] params = new Object[]{name, trainer_id, capacity};
+        Object[] params = new Object[]{name, capacity};
         this.getJdbcTemplate().update(sql, params);
         
     }
