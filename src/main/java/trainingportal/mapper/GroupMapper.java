@@ -15,7 +15,7 @@ public class GroupMapper implements RowMapper<Group> {
             = "SELECT gr.id, gr.name, gr.trainer_id, gr.capacity FROM groups gr";
     
     public static final String INSERT_SQL
-            = "INSERT INTO groups (name, trainer_id, capacity) VALUES (?, ?, ?)";
+            = "INSERT INTO groups (name, trainer_id, capacity) VALUES (?, 1, ?)";
     
     @Override
     public Group mapRow(ResultSet rs, int rowNum) throws SQLException {
