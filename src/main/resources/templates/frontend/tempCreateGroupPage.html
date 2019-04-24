@@ -1,0 +1,32 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+   <head>
+      <title>Create</title>
+   </head>
+   
+   <body>      
+      <!-- Include _menu.html -->
+      <th:block th:include="/_menu"></th:block>
+       
+      <h2>Create Group</h2>
+      
+       
+      
+       
+      <form th:action="@{/createGroup}" th:object="${createGroupForm}" method="POST">
+         <table>
+ 
+           <tr>
+              <td>Group Name</td>
+              <td><input type="text" th:field="*{groupName}"/></td>
+           </tr>
+           <tr>
+              <td>Group Capacity</td>
+              <td><input type="text" th:field="*{groupCapacity}"/></td>
+           </tr>
+                 
+         </table>      
+      </form>
+       
+   </body>
+</html>
