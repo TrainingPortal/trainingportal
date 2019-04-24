@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Bank</title>
+ 
+<style>
+th, td {
+    padding: 5px;
+}
+</style>
+ 
+</head>
+ 
+<body>
+    <!-- Include _menu.html -->
+    <th:block th:include="/_menu"></th:block>
+ 
+    <h2>Groups</h2>
+ 
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>capacity</th>
+        </tr>
+        <tr th:each="groupInfo : ${groupInfos}">
+            <td th:utext="${groupInfo.id}">..</td>
+            <td th:utext="${groupInfo.name}">..</td>
+            <td th:utext="${groupInfo.capacity}">..</td>
+        </tr>
+ 
+    </table>
+</body>
+</html>
