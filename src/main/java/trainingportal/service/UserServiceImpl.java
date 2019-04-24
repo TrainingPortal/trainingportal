@@ -6,6 +6,8 @@ import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.UserDAOImpl;
 import trainingportal.model.User;
 
+import java.util.List;
+
 @Service("userService")
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -24,9 +26,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void saveUser(User user) {
-        userRepository.save(user);
+    public User findByName(String name) {
+        return userRepository.findByName(name);
     }
+
+    @Override
+    public void save(User user, Long roleId) {
+        userRepository.save(user, roleId);
+    }
+
     @Override
     public void setDefaultRole(Long userId){
         userRepository.setDefaultRole(userId);
@@ -61,5 +69,32 @@ public class UserServiceImpl implements UserService {
         return userRepository.isUserExists(user);
     }
 
+    @Override
+    public List<User> findAllByRole(Long roleId) {
+        return userRepository.findAllByRole(roleId);
+    }
 
+    @Override
+    public void update(User user) {
+        User updatedUser = userRepository.findById(user.getUserId());
+        if(updatedUser!=null){
+            updatedUser.setUserId(user.getUserId());
+            updatedUser.setUserName(user.getUserName());
+            updatedUser.setEmail(user.getEmail());
+            updatedUser.setPassword(user.getPassword());
+            updatedUser.setEnabled(user.getEnabled());
+            updatedUser.setRoleId(user.getRoleId());
+        }
+        userRepository.update(updatedUser);
+    }
+
+    @Override
+    public void deleteById(Long userId) {
+        userRepository.deleteById(userId);
+    }
+
+    @Override
+    public void deleteAllByRole(Long roleId) {
+        userRepository.deleteAllByRole(roleId);
+    }
 }

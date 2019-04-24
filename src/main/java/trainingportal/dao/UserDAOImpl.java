@@ -37,15 +37,12 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
         }
     }
 
-    public void save(User user) {
+    public void save(User user, Long roleId) {
 
         String sql = "INSERT INTO users (name, email, password, enabled, token, roleId) values (?,?,?,?,?,?)";
 
-        //user.setEncryptedPassword(passwordEncoder.encode(user.getEncryptedPassword()));
-        //user.setEnabled(0);
-
         this.getJdbcTemplate().update(sql, new Object[] { user.getUserName(),
-                user.getEmail(), user.getPassword(), user.getEnabled(), user.getToken(), user.getRoleId()});
+                user.getEmail(), user.getPassword(), user.getEnabled(), user.getToken(), roleId});
     }
 
     @Override
@@ -124,10 +121,43 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
 
     @Override
     public User findById(Long id) {
-        String sql = UserMapper.BASE_SQL + "users where userId = ?";
+        String sql = UserMapper.BASE_SQL + "where userId = ?";
 
         User user = this.getJdbcTemplate().queryForObject(sql,new Object[]{id},new UserMapper());
 
         return user;
+    }
+
+    @Override
+    public List<User> findAllByRole(Long roleId) {
+        String sql = UserMapper.BASE_SQL + "where roleId = ?";
+
+        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{roleId},new UserMapper());
+
+        return users;
+    }
+
+    @Override
+    public void update(User user) {
+        String sql = UserMapper.UPDATE_SQL + " WHERE userId = ?";
+
+        this.getJdbcTemplate().update(sql,
+                user.getUserName(),user.getEmail(),
+                user.getEnabled(),user.getRoleId(),
+                user.getUserId());
+    }
+
+    @Override
+    public void deleteById(Long userId) {
+        String sql = "DELETE FROM users WHERE userId = ?";
+
+        this.getJdbcTemplate().update(sql, userId);
+    }
+
+    @Override
+    public void deleteAllByRole(Long roleId) {
+        String sql = "DELETE FROM users WHERE roleId = ?";
+
+        this.getJdbcTemplate().update(sql, roleId);
     }
 }
