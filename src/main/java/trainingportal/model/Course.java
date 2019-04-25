@@ -1,24 +1,27 @@
 package trainingportal.model;
 
+import javax.validation.constraints.NotEmpty;
+
 public class Course {
+
     private Long courseId;
-
+    @NotEmpty(message = "Please enter course name")
     private String courseName;
-
+    @NotEmpty(message = "Please enter course level")
     private String courseLevel;
-
+    @NotEmpty(message = "Please enter course status")
     private String courseStatus;
-
+    @NotEmpty(message = "Please enter date start")
     private String dateStart;
-
+    @NotEmpty(message = "Please enter date end")
     private String dateEnd;
-
+    @NotEmpty(message = "Please enter group number")
     private int groupNumber;
-
+    @NotEmpty(message = "Please enter min number")
     private int minNumber;
 
     private String description;
-
+    @NotEmpty(message = "Please enter Trainer")
     private String courseTrainer;
 
     public Course() {

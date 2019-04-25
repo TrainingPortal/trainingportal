@@ -1,5 +1,6 @@
 package trainingportal.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,14 +16,8 @@ import java.util.List;
 @Controller
 public class CourseController {
 
-    private final CourseServiceImpl courseService;
-
-    public CourseController(CourseServiceImpl courseService) {
-        this.courseService = courseService;
-    }
-    //used fo old realisation
-//    @Autowired
-//    CourseDAOImpl courseDAO;
+    @Autowired
+    CourseServiceImpl courseService;
 
     @RequestMapping(value = "/course_create")
     public ModelAndView showCoursesList(Long courseId, ModelAndView modelAndView) {
