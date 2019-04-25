@@ -64,13 +64,12 @@ public class CourseController {
     }
 
     @RequestMapping(value = {"/edit-course-{id}"}, method = RequestMethod.POST)
-    public ModelAndView editCourseById(Course courseEdit, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
+    public ModelAndView editCourseById(Course course, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("courseCreator/edit_course_by_id");
             return modelAndView;
         } else {
-            courseService.editCourse(courseEdit);
-            modelAndView.addObject("courseEdit", courseEdit);
+            courseService.editCourse(course);
             modelAndView.setViewName("redirect:/course_create");
             return modelAndView;
         }

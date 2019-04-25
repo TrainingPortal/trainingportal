@@ -52,11 +52,11 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDAO {
 
     @Override
     public void editCourse(Course course) {
-        String sql = CourseMapper.EDIT_SQL + " WHERE CourseId = ?";
+        String sql = CourseMapper.EDIT_SQL + " WHERE courseId = ?";
 
         this.getJdbcTemplate().update(sql, course.getCourseName(), course.getCourseLevel(),
                 course.getCourseStatus(), course.getDateStart(), course.getDateEnd(), course.getGroupNumber(),
-                course.getMinNumber(), course.getDescription(), course.getCourseTrainer());
+                course.getMinNumber(), course.getDescription(), course.getCourseTrainer(), course.getCourseId());
     }
 
     @Override
