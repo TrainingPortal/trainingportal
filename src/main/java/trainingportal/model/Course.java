@@ -116,4 +116,20 @@ public class Course {
     public void setCourseTrainer(String courseTrainer) {
         this.courseTrainer = courseTrainer;
     }
+
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseId=" + courseId +
+                ", courseName='" + courseName + '\'' +
+                ", courseLevel='" + courseLevel + '\'' +
+                ", courseStatus='" + courseStatus + '\'' +
+                ", dateStart='" + dateStart + '\'' +
+                ", dateEnd='" + dateEnd + '\'' +
+                ", groupNumber=" + groupNumber +
+                ", minNumber=" + minNumber +
+                ", description='" + description + '\'' +
+                ", courseTrainer='" + courseTrainer + '\'' +
+                '}';
+    }
 }

@@ -19,40 +19,58 @@
 
             <input class="form-control" placeholder="Id" th:field="*{courseId}" type="hidden"/>
 
-            <input class="form-control" placeholder="name" th:field="*{courseName}" type="text"/>
+            <label>course name
+                <input class="form-control" placeholder="name" th:field="*{courseName}" type="text"/>
+            </label>
             <p class="alert alert-danger" th:errors="*{courseName}" th:if="${#fields.hasErrors('courseName')}">Error,
                 check name field</p>
 
-            <input class="form-control" placeholder="course level" th:field="*{courseLevel}" type="text"/>
+            <label> course level
+                <input class="form-control" placeholder="course level" th:field="*{courseLevel}" type="text"/>
+            </label>
             <p class="alert alert-danger" th:errors="*{courseLevel}"
                th:if="${#fields.hasErrors('courseLevel')}">Error, check level field</p>
 
-            <input class="form-control" placeholder="status" th:field="*{courseStatus}" type="text"/>
+            <label> course status
+                <input class="form-control" placeholder="status" th:field="*{courseStatus}" type="text"/>
+            </label>
             <p class="alert alert-danger" th:errors="*{courseStatus}" th:if="${#fields.hasErrors('courseStatus')}">
                 Error,
                 check status field</p>
 
-            <input class="form-control" placeholder="date start" th:field="*{dateStart}" type="text"/>
+            <label> date start
+                <input class="form-control" placeholder="date start" th:field="*{dateStart}" type="text"/>
+            </label>
             <p class="alert alert-danger" th:errors="*{dateStart}"
                th:if="${#fields.hasErrors('dateStart')}">Error, check date</p>
 
-            <input class="form-control" placeholder="date end" th:field="*{dateEnd}" type="text"/>
+            <label> date end
+                <input class="form-control" placeholder="date end" th:field="*{dateEnd}" type="text"/>
+            </label>
             <p class="alert alert-danger" th:errors="*{dateEnd}" th:if="${#fields.hasErrors('dateEnd')}">
                 Error, check date</p>
 
-            <input class="form-control" placeholder="group number" th:field="*{groupNumber}" type="number"/>
+            <label> group number
+                <input class="form-control" placeholder="group number" th:field="*{groupNumber}" type="number"/>
+            </label>
             <p class="alert alert-danger" th:errors="*{groupNumber}"
                th:if="${#fields.hasErrors('groupNumber')}">Error, check group number</p>
 
-            <input class="form-control" placeholder="min number" th:field="*{minNumber}" type="number"/>
+            <label> min number
+                <input class="form-control" placeholder="min number" th:field="*{minNumber}" type="number"/>
+            </label>
             <p class="alert alert-danger" th:errors="*{minNumber}"
                th:if="${#fields.hasErrors('minNumber')}">Error, check min number</p>
 
-            <input class="form-control" placeholder="description" th:field="*{description}" type="text"/>
+            <label> description
+                <input class="form-control" placeholder="description" th:field="*{description}" type="text"/>
+            </label>
             <p class="alert alert-danger" th:errors="*{description}"
                th:if="${#fields.hasErrors('description')}">Error, check description</p>
 
-            <input class="form-control" placeholder="trainer" th:field="*{courseTrainer}" type="text"/>
+            <label> trainer
+                <input class="form-control" placeholder="trainer" th:field="*{courseTrainer}" type="text"/>
+            </label>
             <p class="alert alert-danger" th:errors="*{courseTrainer}" th:if="${#fields.hasErrors('courseTrainer')}">
                 Error, check trainer</p>
 

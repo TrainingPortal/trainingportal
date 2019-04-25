@@ -14,11 +14,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private CourseDAOImpl courseDAO;
-//not working realisation
-//    @Override
-//    public List<Course> getAllCoursesById(Long courseId) {
-//        return courseDAO.getAllCoursesById(courseId);
-//    }
 
     @Override
     public List<Course> CoursesList() {

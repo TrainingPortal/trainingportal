@@ -78,7 +78,9 @@ public class CourseController {
     @RequestMapping(value = "/course-delete-by-{id}", method = RequestMethod.GET)
     public ModelAndView deleteCourseById(@PathVariable("id") Long courseId, ModelAndView model, RedirectAttributes redirect) {
         courseService.deleteCourseById(courseId);
+
         redirect.addFlashAttribute("successMessage", "course deleted successfully");
+
         model.setViewName("redirect:/course_create");
         return model;
     }

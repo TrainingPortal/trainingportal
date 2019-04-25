@@ -27,12 +27,6 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDAO {
         return this.getJdbcTemplate().query(sql, new Object[]{}, new CourseMapper());
     }
 
-//    @Override
-//    public List<Course> getAllCoursesById(Long courseId) {
-//        String sql = CourseMapper.SELECT_SQL + " WHERE courseId = ?";
-//        return this.getJdbcTemplate().query(sql,new Object[]{courseId}, new CourseMapper());
-//    }
-
     @Override
     public Course findCourseById(Long courseId) {
         String sql = CourseMapper.SELECT_SQL + " WHERE courseId = ?";
