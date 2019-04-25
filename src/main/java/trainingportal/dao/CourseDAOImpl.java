@@ -44,7 +44,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDAO {
     //insert into database new Course
     @Override
     public void saveCourse(Course course) {
-        String sql = CourseMapper.ADD_SQL;
+        String sql = "INSERT INTO COURSE (name, course_level, course_status, date_start, date_end, group_number, min_number,description, trainer) VALUES (?,?,?,?,?,?,?,?,?)";
         this.getJdbcTemplate().update(sql, new Object[]{course.getCourseName(), course.getCourseLevel(),
                 course.getCourseStatus(), course.getDateStart(), course.getDateEnd(), course.getGroupNumber(),
                 course.getMinNumber(), course.getDescription(), course.getCourseTrainer()});

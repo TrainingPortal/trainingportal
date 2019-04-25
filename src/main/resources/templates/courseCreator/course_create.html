@@ -15,10 +15,10 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="container-fluid">
-    <h2>Courses</h2>
-    <h4>
+    <h2>Courses List</h2>
+    <h2>
         <a class="btn btn-success" th:href="@{/course-add}">CREATE NEW COURSE</a>
-    </h4>
+    </h2>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -49,8 +49,8 @@
             <td>
                 <div class="btn-group">
                     <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <!--                    <a class="btn btn-dark" th:href="@{/course-delete-by-{id} (id=${course.getId()}) }">Delete</a>-->
-                    <!--                    <a class="btn btn-info" th:href="@{/edit-course-{id}(id=${course.getId()})}">Edit</a>-->
+                    <a class="btn btn-info" th:href="@{/edit-course-{id} (id = ${course.courseId}) }">Edit</a>
+                    <a class="btn btn-dark" th:href="@{/course-delete-by-{id} (id = ${course.courseId}) }">Delete</a>
                 </div>
             </td>
         </tr>
@@ -59,7 +59,7 @@
         </tbody>
     </table>
 </div>
-</table>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

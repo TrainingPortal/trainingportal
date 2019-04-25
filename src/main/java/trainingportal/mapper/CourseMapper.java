@@ -14,8 +14,8 @@ public class CourseMapper implements RowMapper<Course> {
     public static final String EDIT_SQL
             = "UPDATE COURSE SET  name = ?, course_level = ?, course_status = ?, date_start = ?, date_end =?, group_number = ?, min_number = ?, description = ?, trainer = ?";
 
-    public static final String ADD_SQL
-            = "INSERT INTO COURSE (name, course_level, course_status, date_start, date_end, group_number, description, trainer) VALUES (?,?,?,?,?,?,?,?,?)";
+//    public static final String ADD_SQL
+//            = "INSERT INTO COURSE (name, course_level, course_status, date_start, date_end, group_number, description, trainer) VALUES (?,?,?,?,?,?,?,?,?)";
 
     @Override
     public Course mapRow(ResultSet resultSet, int rowNum) throws SQLException {

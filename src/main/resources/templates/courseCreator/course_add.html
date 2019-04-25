@@ -14,42 +14,51 @@
 <h1>New Course</h1>
 <div class="container-fluid">
 
-    <!--    <div class="row no-gutters ">-->
-    <!--        <div class="col">-->
-    <!--            <form action="#" method="post" th:action="@{saveCourse}" th:object="${courseAdd}">-->
-    <!--                <input class="form-control" placeholder="Id" th:field="*{getId()}" type="number"/>-->
+    <div class="row no-gutters ">
+        <div class="col">
+            <form action="#" method="post" th:action="@{saveCourse}" th:object="${course}">
+                <input class="form-control" placeholder="Id" th:field="*{courseId}" type="hidden"/>
 
-    <!--                <input class="form-control" placeholder="name" th:field="*{getName()}" type="text"/>-->
-    <!--                &lt;!&ndash;            <p th:if="${#value.hasErrors('getName()')}" th:errors="*{getName()}" class="alert alert-danger">Error, check name field</p>&ndash;&gt;-->
+                <input class="form-control" placeholder="name" th:field="*{courseName}" type="text"/>
+                <p class="alert alert-danger" th:errors="*{courseName}" th:if="${#fields.hasErrors('courseName')}">
+                    Error, check name field</p>
 
-    <!--                <input class="form-control" placeholder="course level" th:field="*{getCourse_level()}" type="text"/>-->
-    <!--                &lt;!&ndash;            <p th:if="${#fields.hasErrors('getCourse_level()')}" th:errors="*{getCourse_level()}" class="alert alert-danger">Error, check level field</p>&ndash;&gt;-->
+                <input class="form-control" placeholder="course level" th:field="*{courseLevel}" type="text"/>
+                <p class="alert alert-danger" th:errors="*{courseLevel}" th:if="${#fields.hasErrors('courseLevel')}">
+                    Error, check level field</p>
 
-    <!--                <input class="form-control" placeholder="status" th:field="*{getStatus()}" type="text"/>-->
-    <!--                &lt;!&ndash;            <p th:if="${#fields.hasErrors('getStatus()')}" th:errors="*{getStatus()}" class="alert alert-danger">Error, check status field</p>&ndash;&gt;-->
+                <input class="form-control" placeholder="status" th:field="*{courseStatus}" type="text"/>
+                <p class="alert alert-danger" th:errors="*{courseStatus}" th:if="${#fields.hasErrors('courseStatus')}">
+                    Error, check status field</p>
 
-    <!--                <input class="form-control" placeholder="date start" th:field="*{getDate_start()}" type="text"/>-->
-    <!--                &lt;!&ndash;            <p th:if="${#fields.hasErrors('getDate_start()')}" th:errors="*{getDate_start()}" class="alert alert-danger">Error, check date</p>&ndash;&gt;-->
+                <input class="form-control" placeholder="date start" th:field="*{dateStart}" type="text"/>
+                <p class="alert alert-danger" th:errors="*{dateStart}" th:if="${#fields.hasErrors('dateStart')}">Error,
+                    check date</p>
 
-    <!--                <input class="form-control" placeholder="date end" th:field="*{getDate_end()}" type="text"/>-->
-    <!--                &lt;!&ndash;            <p th:if="${#fields.hasErrors('getDate_end()')}" th:errors="*{getDate_end()}" class="alert alert-danger">Error, check date</p>&ndash;&gt;-->
+                <input class="form-control" placeholder="date end" th:field="*{dateEnd}" type="text"/>
+                <p class="alert alert-danger" th:errors="*{dateEnd}" th:if="${#fields.hasErrors('dateEnd')}">Error,
+                    check date</p>
 
-    <!--                <input class="form-control" placeholder="group number" th:field="*{getGroup_number()}" type="number"/>-->
-    <!--                &lt;!&ndash;            <p th:if="${#fields.hasErrors('getGroup_number()')}" th:errors="*{getGroup_number()}" class="alert alert-danger">Error, check group number</p>&ndash;&gt;-->
+                <input class="form-control" placeholder="group number" th:field="*{groupNumber}" type="number"/>
+                <p class="alert alert-danger" th:errors="*{groupNumber}" th:if="${#fields.hasErrors('groupNumber')}">
+                    Error, check group number</p>
 
-    <!--                <input class="form-control" placeholder="min number" th:field="*{getMin_number()}" type="number"/>-->
-    <!--                &lt;!&ndash;            <p th:if="${#fields.hasErrors('getMin_number()')}" th:errors="*{getMin_number()}" class="alert alert-danger">Error, check min number</p>&ndash;&gt;-->
+                <input class="form-control" placeholder="min number" th:field="*{minNumber}" type="number"/>
+                <p class="alert alert-danger" th:errors="*{minNumber}" th:if="${#fields.hasErrors('minNumber')}">Error,
+                    check min number</p>
 
-    <!--                <input class="form-control" placeholder="description" th:field="*{getDescription()}" type="text"/>-->
-    <!--                &lt;!&ndash;            <p th:if="${#fields.hasErrors('getDescription()')}" th:errors="*{getDescription()}" class="alert alert-danger">Error, check description</p>&ndash;&gt;-->
+                <input class="form-control" placeholder="description" th:field="*{description}" type="text"/>
+                <p class="alert alert-danger" th:errors="*{description}" th:if="${#fields.hasErrors('description')}">
+                    Error, check description</p>
 
-    <!--                <input class="form-control" placeholder="trainer" th:field="*{getTrainer()}" type="text"/>-->
-    <!--                &lt;!&ndash;            <p th:if="${#fields.hasErrors('getTrainer()')}" th:errors="*{getTrainer()}" class="alert alert-danger">Error, check trainer</p>&ndash;&gt;-->
+                <input class="form-control" placeholder="trainer" th:field="*{courseTrainer}" type="text"/>
+                <p class="alert alert-danger" th:errors="*{courseTrainer}"
+                   th:if="${#fields.hasErrors('courseTrainer')}">Error, check trainer</p>
 
-    <!--                <input class="btn btn-success" type="submit" value="Save"/>-->
-    <!--            </form>-->
-    <!--        </div>-->
-    <!--    </div>-->
+                <input class="btn btn-success" type="submit" value="Save"/>
+            </form>
+        </div>
+    </div>
 
 </div>
 
