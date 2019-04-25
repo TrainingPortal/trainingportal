@@ -42,8 +42,7 @@ public class CourseController {
     public ModelAndView saveCourse(Course course, ModelAndView model) {
 
         courseService.saveCourse(course);
-//        courseDAO.save(course);
-        model.setViewName("courseCreator/course_add");
+        model.setViewName("redirect:/course_create");
 
         return model;
     }
