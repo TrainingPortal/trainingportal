@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Course;
-import trainingportal.service.CourseServiceImpl;
+import trainingportal.service.CourseService;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import java.util.List;
 public class CourseController {
 
     @Autowired
-    CourseServiceImpl courseService;
+    CourseService courseService;
 
     @RequestMapping(value = "/course_create")
     public ModelAndView showCoursesList(Long courseId, ModelAndView modelAndView) {
@@ -39,12 +39,12 @@ public class CourseController {
     }
 
     @RequestMapping(value = "courseSave", method = RequestMethod.POST)
-    public ModelAndView saveCourse(Course course, ModelAndView model) {
+    public ModelAndView saveCourse(Course course, ModelAndView modelAndView) {
 
         courseService.saveCourse(course);
-        model.setViewName("redirect:/course_create");
+        modelAndView.setViewName("redirect:/course_create");
 
-        return model;
+        return modelAndView;
     }
 
     @RequestMapping(value = {"/edit-course-{id}"}, method = RequestMethod.GET)
