@@ -8,8 +8,6 @@ public interface CourseDAO {
 
     List<Course> CoursesList();
 
-//    List<Course> getAllCoursesById(Long courseId);
-
     Course findCourseById(Long courseId);
 
     void saveCourse(Course course);
