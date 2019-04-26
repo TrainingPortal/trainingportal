@@ -37,12 +37,11 @@ public class CourseServiceImpl implements CourseService {
             courseEdit.setCourseName(course.getCourseName());
             courseEdit.setCourseLevel(course.getCourseLevel());
             courseEdit.setCourseStatus(course.getCourseStatus());
-            courseEdit.setDateStart(course.getDateStart());
-            courseEdit.setDateEnd(course.getDateEnd());
-            courseEdit.setGroupNumber(course.getGroupNumber());
             courseEdit.setMinNumber(course.getMinNumber());
+            courseEdit.setMaxNumber(course.getMaxNumber());
             courseEdit.setDescription(course.getDescription());
-            courseEdit.setCourseTrainer(course.getCourseTrainer());
+            courseEdit.setTrainerId(course.getTrainerId());
+            courseEdit.setLessonNumber(course.getLessonNumber());
         }
         courseDAO.editCourse(courseEdit);
     }

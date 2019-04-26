@@ -28,33 +28,29 @@
                 <p class="alert alert-danger" th:errors="*{courseLevel}" th:if="${#fields.hasErrors('courseLevel')}">
                     Error, check level field</p>
 
-                <input class="form-control" placeholder="status" th:field="*{courseStatus}" type="text"/>
+                <input class="form-control" placeholder="course status" th:field="*{courseStatus}" type="number"/>
                 <p class="alert alert-danger" th:errors="*{courseStatus}" th:if="${#fields.hasErrors('courseStatus')}">
                     Error, check status field</p>
 
-                <input class="form-control" placeholder="date start" th:field="*{dateStart}" type="text"/>
-                <p class="alert alert-danger" th:errors="*{dateStart}" th:if="${#fields.hasErrors('dateStart')}">Error,
-                    check date</p>
-
-                <input class="form-control" placeholder="date end" th:field="*{dateEnd}" type="text"/>
-                <p class="alert alert-danger" th:errors="*{dateEnd}" th:if="${#fields.hasErrors('dateEnd')}">Error,
-                    check date</p>
-
-                <input class="form-control" placeholder="group number" th:field="*{groupNumber}" type="number"/>
-                <p class="alert alert-danger" th:errors="*{groupNumber}" th:if="${#fields.hasErrors('groupNumber')}">
-                    Error, check group number</p>
-
                 <input class="form-control" placeholder="min number" th:field="*{minNumber}" type="number"/>
                 <p class="alert alert-danger" th:errors="*{minNumber}" th:if="${#fields.hasErrors('minNumber')}">Error,
-                    check min number</p>
+                    min number</p>
+
+                <input class="form-control" placeholder="max number" th:field="*{maxNumber}" type="number"/>
+                <p class="alert alert-danger" th:errors="*{maxNumber}" th:if="${#fields.hasErrors('maxNumber')}">Error,
+                    max number</p>
 
                 <input class="form-control" placeholder="description" th:field="*{description}" type="text"/>
                 <p class="alert alert-danger" th:errors="*{description}" th:if="${#fields.hasErrors('description')}">
                     Error, check description</p>
 
-                <input class="form-control" placeholder="trainer" th:field="*{courseTrainer}" type="text"/>
-                <p class="alert alert-danger" th:errors="*{courseTrainer}"
-                   th:if="${#fields.hasErrors('courseTrainer')}">Error, check trainer</p>
+                <input class="form-control" placeholder="trainer Id" th:field="*{trainerId}" type="number"/>
+                <p class="alert alert-danger" th:errors="*{trainerId}" th:if="${#fields.hasErrors('trainerId')}">Error,
+                    check trainer Id</p>
+
+                <input class="form-control" placeholder="lesson number" th:field="*{lessonNumber}" type="number"/>
+                <p class="alert alert-danger" th:errors="*{lessonNumber}" th:if="${#fields.hasErrors('lessonNumber')}">
+                    Error, check lesson number</p>
 
                 <input class="btn btn-success" type="submit" value="Save course"/>
             </form>

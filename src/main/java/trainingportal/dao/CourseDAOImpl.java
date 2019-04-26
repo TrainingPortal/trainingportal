@@ -38,10 +38,10 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDAO {
     //insert into database new Course
     @Override
     public void saveCourse(Course course) {
-        String sql = "INSERT INTO COURSE (name, course_level, course_status, date_start, date_end, group_number, min_number,description, trainer) VALUES (?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO COURSE (name, course_level, course_status_id, min_number, max_number, description, trainer_id, lessons_number) VALUES (?,?,?,?,?,?,?,?)";
         this.getJdbcTemplate().update(sql, new Object[]{course.getCourseName(), course.getCourseLevel(),
-                course.getCourseStatus(), course.getDateStart(), course.getDateEnd(), course.getGroupNumber(),
-                course.getMinNumber(), course.getDescription(), course.getCourseTrainer()});
+                course.getCourseStatus(), course.getMinNumber(), course.getMaxNumber(), course.getDescription(),
+                course.getTrainerId(), course.getLessonNumber()});
     }
 
     @Override
@@ -49,8 +49,8 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDAO {
         String sql = CourseMapper.EDIT_SQL + " WHERE courseId = ?";
 
         this.getJdbcTemplate().update(sql, course.getCourseName(), course.getCourseLevel(),
-                course.getCourseStatus(), course.getDateStart(), course.getDateEnd(), course.getGroupNumber(),
-                course.getMinNumber(), course.getDescription(), course.getCourseTrainer(), course.getCourseId());
+                course.getCourseStatus(), course.getMinNumber(), course.getMaxNumber(), course.getDescription(),
+                course.getTrainerId(), course.getLessonNumber(), course.getCourseId());
     }
 
     @Override

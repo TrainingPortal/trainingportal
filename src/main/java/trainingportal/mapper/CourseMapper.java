@@ -9,13 +9,11 @@ import java.sql.SQLException;
 public class CourseMapper implements RowMapper<Course> {
 
     public static final String SELECT_SQL
-            = "SELECT courseId, name, course_level, course_status, date_start, date_end, group_number, min_number, description, trainer FROM COURSE";
+            = "SELECT courseId, name, course_level, course_status_id, min_number, max_number, description, trainer_id, lessons_number FROM COURSE";
 
     public static final String EDIT_SQL
-            = "UPDATE COURSE SET  name = ?, course_level = ?, course_status = ?, date_start = ?, date_end =?, group_number = ?, min_number = ?, description = ?, trainer = ?";
+            = "UPDATE COURSE SET  name = ?, course_level = ?, course_status_id = ?, min_number = ?, max_number =?, description = ?, trainer_id = ?, lessons_number = ?";
 
-//    public static final String ADD_SQL
-//            = "INSERT INTO COURSE (name, course_level, course_status, date_start, date_end, group_number, description, trainer) VALUES (?,?,?,?,?,?,?,?,?)";
 
     @Override
     public Course mapRow(ResultSet resultSet, int rowNum) throws SQLException {
@@ -26,20 +24,18 @@ public class CourseMapper implements RowMapper<Course> {
 
         String courseLevel = resultSet.getString("course_level");
 
-        String courseStatus = resultSet.getString("course_status");
-
-        String dateStart = resultSet.getString("date_start");
-
-        String dateEnd = resultSet.getString("date_end");
-
-        int groupNumber = resultSet.getInt("group_number");
+        int courseStatus = resultSet.getInt("course_status_id");
 
         int minNumber = resultSet.getInt("min_number");
 
+        int maxNumber = resultSet.getInt("max_number");
+
         String description = resultSet.getString("description");
 
-        String courseTrainer = resultSet.getString("trainer");
+        int trainerId = resultSet.getInt("trainer_id");
 
-        return new Course(courseId, courseName, courseLevel, courseStatus, dateStart, dateEnd, groupNumber, minNumber, description, courseTrainer);
+        int lessonNumber = resultSet.getInt("lessons_number");
+
+        return new Course(courseId, courseName, courseLevel, courseStatus, minNumber, maxNumber, description, trainerId, lessonNumber);
     }
 }

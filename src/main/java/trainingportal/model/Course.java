@@ -1,51 +1,47 @@
 package trainingportal.model;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 public class Course {
 
     private Long courseId;
 
-    @Size(min = 1, max = 40, message = "Please enter course name")
+    @Size(min = 1, max = 70, message = "Please enter course name")
     private String courseName;
 
-    @Size(min = 1, max = 30, message = "Please enter course level")
+    @NotEmpty(message = "Please enter courseLevel")
     private String courseLevel;
 
-    @Size(min = 1, max = 30, message = "Please enter course status")
-    private String courseStatus;
+    @NotNull
+    private int courseStatus;
 
-    @Size(min = 1, max = 30, message = "Please enter date start")
-    private String dateStart;
-
-    @Size(min = 1, max = 30, message = "Please enter date end")
-    private String dateEnd;
-
-    @Size(min = 1, max = 10000000, message = "Please enter group number")
-    private int groupNumber;
-
-    @Size(min = 1, max = 1000000000, message = "Please enter min number")
+    @NotNull
     private int minNumber;
+
+    @NotNull
+    private int maxNumber;
 
     private String description;
 
-    @Size(min = 1, max = 1000000000, message = "Please enter Trainer")
-    private String courseTrainer;
+    private int trainerId;
+
+    private int lessonNumber;
 
     public Course() {
     }
 
-    public Course(Long courseId, String courseName, String courseLevel, String courseStatus, String dateStart, String dateEnd, int groupNumber, int minNumber, String description, String courseTrainer) {
+    public Course(Long courseId, String courseName, String courseLevel, int courseStatus, int minNumber, int maxNumber, String description, int trainerId, int lessonNumber) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.courseLevel = courseLevel;
         this.courseStatus = courseStatus;
-        this.dateStart = dateStart;
-        this.dateEnd = dateEnd;
-        this.groupNumber = groupNumber;
         this.minNumber = minNumber;
+        this.maxNumber = maxNumber;
         this.description = description;
-        this.courseTrainer = courseTrainer;
+        this.trainerId = trainerId;
+        this.lessonNumber = lessonNumber;
     }
 
     public Long getCourseId() {
@@ -72,36 +68,12 @@ public class Course {
         this.courseLevel = courseLevel;
     }
 
-    public String getCourseStatus() {
+    public int getCourseStatus() {
         return courseStatus;
     }
 
-    public void setCourseStatus(String courseStatus) {
+    public void setCourseStatus(int courseStatus) {
         this.courseStatus = courseStatus;
-    }
-
-    public String getDateStart() {
-        return dateStart;
-    }
-
-    public void setDateStart(String dateStart) {
-        this.dateStart = dateStart;
-    }
-
-    public String getDateEnd() {
-        return dateEnd;
-    }
-
-    public void setDateEnd(String dateEnd) {
-        this.dateEnd = dateEnd;
-    }
-
-    public int getGroupNumber() {
-        return groupNumber;
-    }
-
-    public void setGroupNumber(int groupNumber) {
-        this.groupNumber = groupNumber;
     }
 
     public int getMinNumber() {
@@ -112,6 +84,14 @@ public class Course {
         this.minNumber = minNumber;
     }
 
+    public int getMaxNumber() {
+        return maxNumber;
+    }
+
+    public void setMaxNumber(int maxNumber) {
+        this.maxNumber = maxNumber;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -120,27 +100,19 @@ public class Course {
         this.description = description;
     }
 
-    public String getCourseTrainer() {
-        return courseTrainer;
+    public int getTrainerId() {
+        return trainerId;
     }
 
-    public void setCourseTrainer(String courseTrainer) {
-        this.courseTrainer = courseTrainer;
+    public void setTrainerId(int trainerId) {
+        this.trainerId = trainerId;
     }
 
-    @Override
-    public String toString() {
-        return "Course{" +
-                "courseId=" + courseId +
-                ", courseName='" + courseName + '\'' +
-                ", courseLevel='" + courseLevel + '\'' +
-                ", courseStatus='" + courseStatus + '\'' +
-                ", dateStart='" + dateStart + '\'' +
-                ", dateEnd='" + dateEnd + '\'' +
-                ", groupNumber=" + groupNumber +
-                ", minNumber=" + minNumber +
-                ", description='" + description + '\'' +
-                ", courseTrainer='" + courseTrainer + '\'' +
-                '}';
+    public int getLessonNumber() {
+        return lessonNumber;
+    }
+
+    public void setLessonNumber(int lessonNumber) {
+        this.lessonNumber = lessonNumber;
     }
 }
