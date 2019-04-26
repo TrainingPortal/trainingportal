@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class CourseDAOImpl extends JdbcDaoSupport implements CourseDAO {
+public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
     //don't forget if it needed, when DAOImpl extends JdbcDaoSupport
     @Autowired

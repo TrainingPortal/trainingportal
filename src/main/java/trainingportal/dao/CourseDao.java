@@ -4,7 +4,7 @@ import trainingportal.model.Course;
 
 import java.util.List;
 
-public interface CourseDAO {
+public interface CourseDao {
 
     List<Course> CoursesList();
 
