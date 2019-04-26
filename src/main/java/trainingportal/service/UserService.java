@@ -35,4 +35,14 @@ public interface UserService {
     void confirmRegister(User user);
 
     void setNewPassword(String password, String token);
+
+    List<User> findSubordinatesById(Long id);
+
+    User findManagerBySubordinateId(Long id);
+
+    List<User> findFreeUsers();
+
+    void setManagerId(Long managerId, Long userIds);
+
+    String assignSubordinates(Long managerId, Long[] userIds);
 }
