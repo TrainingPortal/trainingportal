@@ -8,6 +8,7 @@
     <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
     <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
 </head>
+
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
 
@@ -16,7 +17,7 @@
 
     <div class="row no-gutters ">
         <div class="col">
-            <form action="#" method="post" th:action="@{saveCourse}" th:object="${course}">
+            <form action="#" method="post" th:action="@{course-save}" th:object="${course}">
                 <input class="form-control" placeholder="Id" th:field="*{courseId}" type="hidden"/>
 
                 <input class="form-control" placeholder="name" th:field="*{courseName}" type="text"/>

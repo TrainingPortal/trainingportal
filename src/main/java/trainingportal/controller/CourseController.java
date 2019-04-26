@@ -29,21 +29,19 @@ public class CourseController {
         return modelAndView;
     }
 
-    @RequestMapping("/course-add")
-    public ModelAndView addCourse(ModelAndView model) {
+    @RequestMapping(value = "/course-add", method = RequestMethod.GET)
+    public ModelAndView addCourse(ModelAndView modelAndView) {
 
-        model.addObject("course", new Course());
-        model.setViewName("courseCreator/course_add");
+        modelAndView.addObject("course", new Course());
+        modelAndView.setViewName("courseCreator/course_add");
 
-        return model;
+        return modelAndView;
     }
 
-    @RequestMapping(value = "courseSave", method = RequestMethod.POST)
+    @RequestMapping(value = "course-save", method = RequestMethod.POST)
     public ModelAndView saveCourse(Course course, ModelAndView modelAndView) {
-
         courseService.saveCourse(course);
         modelAndView.setViewName("redirect:/course_create");
-
         return modelAndView;
     }
 

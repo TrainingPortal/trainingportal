@@ -1,27 +1,35 @@
 package trainingportal.model;
 
-import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class Course {
 
     private Long courseId;
-    @NotEmpty(message = "Please enter course name")
+
+    @Size(min = 1, max = 40, message = "Please enter course name")
     private String courseName;
-    @NotEmpty(message = "Please enter course level")
+
+    @Size(min = 1, max = 30, message = "Please enter course level")
     private String courseLevel;
-    @NotEmpty(message = "Please enter course status")
+
+    @Size(min = 1, max = 30, message = "Please enter course status")
     private String courseStatus;
-    @NotEmpty(message = "Please enter date start")
+
+    @Size(min = 1, max = 30, message = "Please enter date start")
     private String dateStart;
-    @NotEmpty(message = "Please enter date end")
+
+    @Size(min = 1, max = 30, message = "Please enter date end")
     private String dateEnd;
-    @NotEmpty(message = "Please enter group number")
+
+    @Size(min = 1, max = 10000000, message = "Please enter group number")
     private int groupNumber;
-    @NotEmpty(message = "Please enter min number")
+
+    @Size(min = 1, max = 1000000000, message = "Please enter min number")
     private int minNumber;
 
     private String description;
-    @NotEmpty(message = "Please enter Trainer")
+
+    @Size(min = 1, max = 1000000000, message = "Please enter Trainer")
     private String courseTrainer;
 
     public Course() {
