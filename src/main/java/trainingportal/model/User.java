@@ -24,12 +24,15 @@ public class User {
     private String token;
 
     private Long roleId;
+
+    private Long managerId;
  
     public User() {
  
     }
 
-    public User(Long userId, String userName, String email, String password, int enabled, String token, Long roleId) {
+    public User(Long userId, String userName, String email, String password, int enabled,
+                String token, Long roleId, Long managerId) {
         this.userId = userId;
         this.userName = userName;
         this.email = email;
@@ -37,6 +40,7 @@ public class User {
         this.enabled = enabled;
         this.token = token;
         this.roleId = roleId;
+        this.managerId = managerId;
     }
 
     public Long getUserId() {
@@ -95,9 +99,16 @@ public class User {
         this.roleId = roleId;
     }
 
+    public Long getManagerId() {
+        return managerId;
+    }
+
+    public void setManagerId(Long managerId) {
+        this.managerId = managerId;
+    }
+
     @Override
     public String toString() {
         return this.userName + " " + this.email;
     }
- 
 }
