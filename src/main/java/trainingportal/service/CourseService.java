@@ -1,19 +1,19 @@
-package trainingportal.dao;
+package trainingportal.service;
+
 
 import trainingportal.model.Course;
 
 import java.util.List;
 
-public interface CourseDAO {
-
+public interface CourseService {
     List<Course> CoursesList();
 
-    Course findCourseById(Long courseId);
+    Course findCourseById(Long CourseId);
 
     void saveCourse(Course course);
 
     void editCourse(Course course);
 
-    void deleteCourseById(Long courseId);
+    void deleteCourseById(Long CourseId);
 
 }
