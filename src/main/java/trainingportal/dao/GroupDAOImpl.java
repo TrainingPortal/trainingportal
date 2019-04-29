@@ -48,7 +48,7 @@ public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
         String sql = GroupMapper.EDIT_SQL + " WHERE id = ?";
 
         this.getJdbcTemplate().update(sql, group.getGroupName(), group.getGroupCapacity(),
-                group.getCourseId(), group.getStatusId());
+                group.getCourseId(), group.getStatusId(), group.getGroupId());
     }
 
     @Override
