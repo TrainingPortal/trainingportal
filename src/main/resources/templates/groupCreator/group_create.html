@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Group Create</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport">
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<div class="container-fluid">
+    <h2>Groups List</h2>
+    <h2>
+        <a class="btn btn-success" th:href="@{/course-add}">CREATE NEW GROUP</a>
+    </h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="row">ID</th>
+            <th scope="row">Name</th>
+            <th scope="row">Capacity</th>
+            <th scope="row">Course ID</th>
+            <th scope="row">Status ID</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="group, iter : ${groupList}">
+            <td th:text="${group.groupId}"></td>
+            <td th:text="${group.groupName}"></td>
+            <td th:text="${group.groupCapacity}"></td>
+            <td th:text="${group.courseId}"></td>
+            <td th:text="${group.statusId}"></td>
+            <td>
+                <div class="btn-group">
+                    <!--                    Delete button use @PathVariable to understand what id it need-->
+                    <a class="btn btn-info" th:href="@{/edit-group-{id} (id = ${group.groupId}) }">Edit</a>
+                    <a class="btn btn-dark" th:href="@{/group-delete-by-{id} (id = ${group.groupId}) }">Delete</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
