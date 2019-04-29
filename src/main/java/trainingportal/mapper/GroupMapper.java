@@ -12,7 +12,7 @@ public class GroupMapper implements RowMapper<Group> {
             = "SELECT id, name, capacity, course_id, status_id FROM groups";
 
     public static final String EDIT_SQL
-            = "UPDATE groups SET  name = ?, capacity = ?, course_id = ?, status_id = ?";
+            = "UPDATE groups SET name = ?, capacity = ?, course_id = ?, status_id = ?";
 
 
     @Override
