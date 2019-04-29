@@ -1,30 +1,21 @@
 package trainingportal.service;
 
 import trainingportal.model.User;
+import trainingportal.service.generic.GenericService;
 
 import java.util.List;
 
-public interface UserService {
-
-    void save(User user, Long roleId);
+public interface UserService extends GenericService<User> {
 
     boolean isUserExists(User login);
 
     List<User> findAllByRole(Long roleId);
 
-    void update(User user);
-
-    void deleteById(Long userId);
-
     void deleteAllByRole(Long roleId);
-
-    User findById(Long id);
 
     User findByEmail(String email);
 
     User findByName(String name);
-
-    void setDefaultRole(Long userId);
 
     User findByToken (String token);
 

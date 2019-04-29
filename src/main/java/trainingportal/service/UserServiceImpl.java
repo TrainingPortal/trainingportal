@@ -36,13 +36,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void save(User user, Long roleId) {
-        userRepository.save(user, roleId);
-    }
-
-    @Override
-    public void setDefaultRole(Long userId){
-        userRepository.setDefaultRole(userId);
+    public void save(User user) {
+        userRepository.save(user);
     }
 
     @Override
@@ -101,6 +96,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteById(Long userId) {
         userRepository.deleteById(userId);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
     }
 
     @Override

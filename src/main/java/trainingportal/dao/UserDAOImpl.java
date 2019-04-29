@@ -37,12 +37,12 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
         }
     }
 
-    public void save(User user, Long roleId) {
+    public void save(User user) {
 
         String sql = "INSERT INTO users (name, email, password, enabled, token, roleId) values (?,?,?,?,?,?)";
 
         this.getJdbcTemplate().update(sql, new Object[] { user.getUserName(),
-                user.getEmail(), user.getPassword(), user.getEnabled(), user.getToken(), roleId});
+                user.getEmail(), user.getPassword(), user.getEnabled(), user.getToken(), user.getRoleId()});
     }
 
     @Override
@@ -66,15 +66,6 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
         List<User> users = this.getJdbcTemplate().query(sql,new Object[]{name},new UserMapper());
 
         return users.size() > 0 ? users.get(0) : null;
-    }
-
-    @Override
-    public void setDefaultRole(Long userId) {
-        String sql = "insert into USER_ROLE (USER_ID, ROLE_ID) values (?,?)";
-
-        User user = findById(userId);
-
-        this.getJdbcTemplate().update(sql, user.getUserId(),2);
     }
 
     @Override
@@ -152,6 +143,13 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
         String sql = "DELETE FROM users WHERE userId = ?";
 
         this.getJdbcTemplate().update(sql, userId);
+    }
+
+    @Override
+    public List<User> findAll() {
+        List<User> users = this.getJdbcTemplate().query(UserMapper.BASE_SQL ,new UserMapper());
+
+        return users;
     }
 
     @Override

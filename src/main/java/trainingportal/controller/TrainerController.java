@@ -106,7 +106,8 @@ public class TrainerController {
         }
         user.setEnabled(1);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        trainerService.save(user, Role.TRAINER);
+        user.setRoleId(Role.TRAINER);
+        trainerService.save(user);
         redir.addFlashAttribute("successMessage", "User " + user.getUserName() + " "+ user.getEmail() + " created successfully");
         model.setViewName("redirect:/trainers");
 
