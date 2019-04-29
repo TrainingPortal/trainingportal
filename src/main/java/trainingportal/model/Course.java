@@ -15,7 +15,7 @@ public class Course {
     private String courseLevel;
 
     @NotNull
-    private int courseStatus;
+    private Long courseStatus;
 
     @NotNull
     private int minNumber;
@@ -32,7 +32,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(Long courseId, String courseName, String courseLevel, int courseStatus, int minNumber, int maxNumber, String description, int trainerId, int lessonNumber) {
+    public Course(Long courseId, String courseName, String courseLevel, Long courseStatus, int minNumber, int maxNumber, String description, int trainerId, int lessonNumber) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.courseLevel = courseLevel;
@@ -68,11 +68,11 @@ public class Course {
         this.courseLevel = courseLevel;
     }
 
-    public int getCourseStatus() {
+    public Long getCourseStatus() {
         return courseStatus;
     }
 
-    public void setCourseStatus(int courseStatus) {
+    public void setCourseStatus(Long courseStatus) {
         this.courseStatus = courseStatus;
     }
 

@@ -24,7 +24,7 @@ public class CourseMapper implements RowMapper<Course> {
 
         String courseLevel = resultSet.getString("course_level");
 
-        int courseStatus = resultSet.getInt("course_status_id");
+        Long courseStatus = resultSet.getLong("course_status_id");
 
         int minNumber = resultSet.getInt("min_number");
 
