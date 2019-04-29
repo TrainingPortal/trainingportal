@@ -29,7 +29,7 @@ public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
 
     @Override
     public Group findGroupById(Long groupId) {
-        String sql = GroupMapper.SELECT_SQL + " WHERE groupId = ?";
+        String sql = GroupMapper.SELECT_SQL + " WHERE id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, new GroupMapper());
     }
