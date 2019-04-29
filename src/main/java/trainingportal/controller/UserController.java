@@ -60,11 +60,11 @@ public class UserController {
 
             // Generate random 36-character string token for confirmation link
             user.setToken(UUID.randomUUID().toString());
-
             //Encode provided password
             user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+            user.setRoleId(Role.EMPLOYEE);
 
-            userService.save(user, Role.EMPLOYEE);
+            userService.save(user);
 
             mailSender.sendMail(user.getEmail(),
                     "Registration Confirmation",

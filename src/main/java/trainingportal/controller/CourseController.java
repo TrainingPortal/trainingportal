@@ -21,7 +21,7 @@ public class CourseController {
 
     @RequestMapping(value = "/course_create")
     public ModelAndView showCoursesList(Long courseId, ModelAndView modelAndView) {
-        List<Course> courseList = courseService.CoursesList();
+        List<Course> courseList = courseService.findAll();
 //        List<Course> courseList = courseService.getAllCoursesById(courseId);
 //        Course courseList = courseService.findCourseById(courseId);
         modelAndView.addObject("courseList", courseList);
@@ -40,14 +40,14 @@ public class CourseController {
 
     @RequestMapping(value = "course-save", method = RequestMethod.POST)
     public ModelAndView saveCourse(Course course, ModelAndView modelAndView) {
-        courseService.saveCourse(course);
+        courseService.save(course);
         modelAndView.setViewName("redirect:/course_create");
         return modelAndView;
     }
 
     @RequestMapping(value = {"/edit-course-{id}"}, method = RequestMethod.GET)
     public ModelAndView editCourseBase(@PathVariable("id") Long courseId, ModelAndView modelAndView) {
-        Course course = courseService.findCourseById(courseId);
+        Course course = courseService.findById(courseId);
         modelAndView.addObject("course", course);
         modelAndView.addObject("edit", true);
         modelAndView.setViewName("courseCreator/edit_course_by_id");
@@ -61,7 +61,7 @@ public class CourseController {
             modelAndView.setViewName("courseCreator/edit_course_by_id");
             return modelAndView;
         } else {
-            courseService.editCourse(course);
+            courseService.update(course);
             modelAndView.setViewName("redirect:/course_create");
             return modelAndView;
         }
@@ -69,13 +69,11 @@ public class CourseController {
 
     @RequestMapping(value = "/course-delete-by-{id}", method = RequestMethod.GET)
     public ModelAndView deleteCourseById(@PathVariable("id") Long courseId, ModelAndView model, RedirectAttributes redirect) {
-        courseService.deleteCourseById(courseId);
+        courseService.deleteById(courseId);
 
         redirect.addFlashAttribute("successMessage", "course deleted successfully");
 
         model.setViewName("redirect:/course_create");
         return model;
     }
-
-
 }
