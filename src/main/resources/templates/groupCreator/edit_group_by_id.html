@@ -16,21 +16,21 @@
         <form action="#" method="post" th:action="@{/edit-group-{id}(id = ${group.groupId})}"
               th:object="${group}">
 
-            <input class="form-control" placeholder="Id" th:field="*{groupId}" type="hidden"/>
+            <input class="form-control" placeholder="ID" th:field="*{groupId}" type="hidden"/>
 
-            <input class="form-control" placeholder="name" th:field="*{groupName}" type="text"/>
+            <input class="form-control" placeholder="Name" th:field="*{groupName}" type="text"/>
             <p class="alert alert-danger" th:errors="*{groupName}" th:if="${#fields.hasErrors('groupName')}">
                 Error, check name field</p>
 
-            <input class="form-control" placeholder="groupCapacity" th:field="*{groupCapacity}" type="number"/>
+            <input class="form-control" placeholder="Group capacity" th:field="*{groupCapacity}" type="number"/>
             <p class="alert alert-danger" th:errors="*{groupCapacity}" th:if="${#fields.hasErrors('groupCapacity')}">
                 Error, check group capacity field</p>
 
-            <input class="form-control" placeholder="courceId" th:field="*{courceId}" type="number"/>
-            <p class="alert alert-danger" th:errors="*{courceId}" th:if="${#fields.hasErrors('courceId')}">
-                Error, check cource id field</p>
+            <input class="form-control" placeholder="Course ID" th:field="*{courseId}" type="number"/>
+            <p class="alert alert-danger" th:errors="*{courseId}" th:if="${#fields.hasErrors('courseId')}">
+                Error, check course id field</p>
 
-            <input class="form-control" placeholder="statusId" th:field="*{statusId}" type="number"/>
+            <input class="form-control" placeholder="Status ID" th:field="*{statusId}" type="number"/>
             <p class="alert alert-danger" th:errors="*{statusId}" th:if="${#fields.hasErrors('statusId')}">Error,
                 status id field</p>
 
