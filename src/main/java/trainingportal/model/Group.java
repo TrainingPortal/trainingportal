@@ -1,53 +1,76 @@
 package trainingportal.model;
 
-/**
- *
- * @author Vitalii Chernetskyi
- */
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Group {
+
+    private Long groupId;
+
+    @Size(min = 1, max = 70, message = "Please enter group name")
+    private String groupName;
+
+    @NotEmpty(message = "Please enter group capacity")
+    private int groupCapacity;
+
+    @NotNull
+    private Long courseId;
+
+    @NotNull
+    private Long statusId;
     
-    private int id;
-    private String name;
-    private int trainer_id;
-    private int capacity;
     
-    public Group(int id, String name, int trainer_id, int capacity){
-        super();
-        this.id = id;
-        this.name = name;
-        this.trainer_id = trainer_id;
-        this.capacity = capacity;
+
+    public Group() {
+    }
+
+    public Group(Long groupId, String groupName, int groupCapacity, Long courseId, Long statusId) {
+        this.groupId = groupId;
+        this.groupName = groupName;
+        this.groupCapacity = groupCapacity;
+        this.courseId = courseId;
+        this.statusId = statusId;
+    }
+
+    public Long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
+    }
+
+    public String getGroupName() {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
+    }
+
+    public int getGroupCapacity() {
+        return groupCapacity;
+    }
+
+    public void setGroupCapacity(int groupCapacity) {
+        this.groupCapacity = groupCapacity;
+    }
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    public Long getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(Long statusId) {
+        this.statusId = statusId;
     }
     
-    public int getId(){
-        return id;
-    }
-    
-    public void setId(int id){
-        this.id = id;
-    }
-    
-    public String getName(){
-        return name;
-    }
-    
-    public void setName(String name){
-        this.name = name;
-    }
-    
-    public int getTrainer_id(){
-        return trainer_id;
-    }
-    
-    public void setTrainer_id(int trainer_id){
-        this.trainer_id = trainer_id;
-    }
-    
-    public int getCapacity(){
-        return capacity;
-    }
-    
-    public void setCapacity(int capacity){
-        this.capacity = capacity;
-    }
 }
