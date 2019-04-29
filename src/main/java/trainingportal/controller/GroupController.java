@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Group;
@@ -19,7 +18,7 @@ public class GroupController {
     @Autowired
     GroupServiceImpl groupService;
 
-    @RequestMapping(value = "/group_create")
+    @GetMapping("/group_create")
     public ModelAndView showGroupsList(Long groupId, ModelAndView modelAndView) {
         List<Group> groupList = groupService.GroupsList();
 //        List<Group> groupList = groupService.getAllGroupsById(groupId);
@@ -29,7 +28,7 @@ public class GroupController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/group-add", method = RequestMethod.GET)
+    @GetMapping("/group-add")
     public ModelAndView addGroup(ModelAndView modelAndView) {
 
         modelAndView.addObject("group", new Group());
@@ -38,14 +37,14 @@ public class GroupController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "group-save", method = RequestMethod.POST)
+    @PostMapping("/group-save")
     public ModelAndView saveGroup(Group group, ModelAndView modelAndView) {
         groupService.saveGroup(group);
         modelAndView.setViewName("redirect:/group_create");
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-group-{id}"}, method = RequestMethod.GET)
+    @GetMapping({"/edit-group-{id}"})
     public ModelAndView editGroupBase(@PathVariable("id") Long groupId, ModelAndView modelAndView) {
         Group group = groupService.findGroupById(groupId);
         modelAndView.addObject("group", group);
@@ -55,7 +54,7 @@ public class GroupController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-group-{id}"}, method = RequestMethod.POST)
+    @PostMapping({"/edit-group-{id}"})
     public ModelAndView editGroupById(Group group, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("groupCreator/edit_group_by_id");
@@ -67,7 +66,7 @@ public class GroupController {
         }
     }
 
-    @RequestMapping(value = "/group-delete-by-{id}", method = RequestMethod.GET)
+    @GetMapping("/group-delete-by-{id}")
     public ModelAndView deleteGroupById(@PathVariable("id") Long groupId, ModelAndView model, RedirectAttributes redirect) {
         groupService.deleteGroupById(groupId);
 
