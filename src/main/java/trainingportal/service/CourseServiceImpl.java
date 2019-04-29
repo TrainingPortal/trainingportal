@@ -16,23 +16,23 @@ public class CourseServiceImpl implements CourseService {
     private CourseDAOImpl courseDAO;
 
     @Override
-    public List<Course> CoursesList() {
-        return courseDAO.CoursesList();
+    public List<Course> findAll() {
+        return courseDAO.findAll();
     }
 
     @Override
-    public Course findCourseById(Long CourseId) {
-        return courseDAO.findCourseById(CourseId);
+    public Course findById(Long CourseId) {
+        return courseDAO.findById(CourseId);
     }
 
     @Override
-    public void saveCourse(Course course) {
-        courseDAO.saveCourse(course);
+    public void save(Course course) {
+        courseDAO.save(course);
     }
 
     @Override
-    public void editCourse(Course course) {
-        Course courseEdit = courseDAO.findCourseById(course.getCourseId());
+    public void update(Course course) {
+        Course courseEdit = courseDAO.findById(course.getCourseId());
         if (courseEdit != null) {
             courseEdit.setCourseName(course.getCourseName());
             courseEdit.setCourseLevel(course.getCourseLevel());
@@ -43,11 +43,11 @@ public class CourseServiceImpl implements CourseService {
             courseEdit.setTrainerId(course.getTrainerId());
             courseEdit.setLessonNumber(course.getLessonNumber());
         }
-        courseDAO.editCourse(courseEdit);
+        courseDAO.update(courseEdit);
     }
 
     @Override
-    public void deleteCourseById(Long CourseId) {
-        courseDAO.deleteCourseById(CourseId);
+    public void deleteById(Long CourseId) {
+        courseDAO.deleteById(CourseId);
     }
 }
