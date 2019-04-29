@@ -58,22 +58,5 @@ public class MainController {
 
         return "frontend/helppage";
     }
-    
-    @GetMapping("/tempMenu")
-    String tempMenu(Model model){
 
-        return "frontend/tempMenu";
-    }
-    
-    @GetMapping("/tempCreateGroupPage")
-    String tempCreateGroupPage(Model model){
-
-        return "frontend/tempCreateGroupPage";
-    }
-    
-    @GetMapping("/tempGroupsPage")
-    String tempGroupsPage(Model model){
-
-        return "frontend/tempGroupsPage";
-    }
 }

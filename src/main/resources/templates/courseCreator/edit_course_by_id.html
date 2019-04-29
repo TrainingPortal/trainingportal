@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Course</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+</head>
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<h1>Edit Course</h1>
+<div class="row justify-content-center">
+    <div class="col-md-4 col-md-offset-4">
+        <form action="#" method="post" th:action="@{/edit-course-{id}(id = ${course.courseId})}"
+              th:object="${course}">
+
+            <input class="form-control" placeholder="Id" th:field="*{courseId}" type="hidden"/>
+
+            <input class="form-control" placeholder="name" th:field="*{courseName}" type="text"/>
+            <p class="alert alert-danger" th:errors="*{courseName}" th:if="${#fields.hasErrors('courseName')}">
+                Error, check name field</p>
+
+            <input class="form-control" placeholder="course level" th:field="*{courseLevel}" type="text"/>
+            <p class="alert alert-danger" th:errors="*{courseLevel}" th:if="${#fields.hasErrors('courseLevel')}">
+                Error, check level field</p>
+
+            <input class="form-control" placeholder="course status" th:field="*{courseStatus}" type="number"/>
+            <p class="alert alert-danger" th:errors="*{courseStatus}" th:if="${#fields.hasErrors('courseStatus')}">
+                Error, check status field</p>
+
+            <input class="form-control" placeholder="min number" th:field="*{minNumber}" type="number"/>
+            <p class="alert alert-danger" th:errors="*{minNumber}" th:if="${#fields.hasErrors('minNumber')}">Error,
+                min number</p>
+
+            <input class="form-control" placeholder="max number" th:field="*{maxNumber}" type="number"/>
+            <p class="alert alert-danger" th:errors="*{maxNumber}" th:if="${#fields.hasErrors('maxNumber')}">Error,
+                max number</p>
+
+            <input class="form-control" placeholder="description" th:field="*{description}" type="text"/>
+            <p class="alert alert-danger" th:errors="*{description}" th:if="${#fields.hasErrors('description')}">
+                Error, check description</p>
+
+            <input class="form-control" placeholder="trainer Id" th:field="*{trainerId}" type="number"/>
+            <p class="alert alert-danger" th:errors="*{trainerId}" th:if="${#fields.hasErrors('trainerId')}">Error,
+                check trainer Id</p>
+
+            <input class="form-control" placeholder="lesson number" th:field="*{lessonNumber}" type="number"/>
+            <p class="alert alert-danger" th:errors="*{lessonNumber}" th:if="${#fields.hasErrors('lessonNumber')}">
+                Error, check lesson number</p>
+
+            <input class="btn btn-success" type="submit" value="Save"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

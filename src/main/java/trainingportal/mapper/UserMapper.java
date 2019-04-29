@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class UserMapper implements RowMapper<User> {
  
     public static final String BASE_SQL
-            = "SELECT u.userId, u.name, u.email, u.password, u.enabled, u.token, u.roleId FROM users u ";
+            = "SELECT u.userId, u.name, u.email, u.password, u.enabled, u.token, u.roleId, u.managerId FROM users u ";
     public static final String UPDATE_SQL
             = "UPDATE users SET name = ?, email = ?, enabled = ?, roleId = ?";
     @Override
@@ -22,7 +22,8 @@ public class UserMapper implements RowMapper<User> {
         int enabled = rs.getInt("enabled");
         String token = rs.getString("token");
         Long roleId = rs.getLong("roleId");
+        Long managerId = rs.getLong("managerId");
 
-        return new User(userId, userName,userEmail, password, enabled, token, roleId);
+        return new User(userId, userName,userEmail, password, enabled, token, roleId, managerId);
     }
 }

@@ -4,15 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.UserService;
-import trainingportal.validators.UserValidator;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -45,6 +42,75 @@ public class ManagerController {
         return model;
     }
 
+    @GetMapping("/addsubordinates")
+    public ModelAndView showAddSubordinates(Long id, ModelAndView model) {
+
+        List<User> users = managerService.findFreeUsers();
+
+        model.addObject("users", users);
+        model.addObject("manager", managerService.findById(id));
+
+        model.setViewName("manager/addsubordinates");
+
+        return model;
+    }
+
+    @PostMapping("/addSelectedSubordinates")
+    public ModelAndView addSelectedSubordinates(Long managerId,
+                                                @RequestParam(value = "userId", required = false) Long[] userIds,
+                                                ModelAndView model, RedirectAttributes redir) {
+
+        String message = managerService.assignSubordinates(managerId, userIds);
+
+        redir.addFlashAttribute("infoMessage", message);
+
+        model.addObject("id", managerId);
+        model.setViewName("redirect:subordinates");
+
+        return model;
+    }
+
+    @GetMapping("/subordinates")
+    public ModelAndView viewSubordinates(Long id, ModelAndView model) {
+
+        User manager = managerService.findById(id);
+
+        // Find all subordinates of the manager by manager's id
+        List<User> subordinates = managerService.findSubordinatesById(id);
+
+        model.addObject("manager", manager);
+        model.addObject("subordinates", subordinates);
+
+        model.setViewName("manager/subordinates");
+
+        return model;
+    }
+
+    @GetMapping("/releaseSubordinate")
+    public ModelAndView setSubordinateFree(Long id, ModelAndView model, RedirectAttributes redir) {
+
+        User employee = managerService.findById(id);
+        User manager = managerService.findManagerBySubordinateId(id);
+
+        managerService.setManagerId(null, id);
+
+        redir.addFlashAttribute("successMessage",
+                "User " + employee.getUserName() + " " + employee.getEmail() + " has no manager now.");
+        model.addObject("id", manager.getUserId());
+        model.setViewName("redirect:subordinates");
+
+        return model;
+    }
+
+    @GetMapping("backtosubordinates")
+    public ModelAndView backToManager(Long id, ModelAndView model) {
+
+        model.addObject("id", id);
+        model.setViewName("redirect:subordinates");
+
+        return model;
+    }
+
     @RequestMapping("/manager-profile-{id}")
     public ModelAndView showManagerProfile(@PathVariable("id") Long id, ModelAndView model) {
 
@@ -55,10 +121,10 @@ public class ManagerController {
         return model;
     }
 
-    @RequestMapping("/manager-add")
+    @GetMapping("/manager-add")
     public ModelAndView addManager(ModelAndView model){
 
-        model.addObject("manager",new User());
+        model.addObject("user",new User());
         model.setViewName("manager/add");
 
         return model;
@@ -93,17 +159,25 @@ public class ManagerController {
     }
 
     @RequestMapping(value = "saveManager", method = RequestMethod.POST)
-    public ModelAndView saveManager(@Valid User manager, BindingResult bindingResult, ModelAndView model, RedirectAttributes redir){
+    public ModelAndView saveManager(@Valid User user, BindingResult bindingResult, ModelAndView model, RedirectAttributes redir){
 
-        if (bindingResult.hasErrors() || !UserValidator.correct(manager,managerService)) {
-            model.addObject("message", UserValidator.Check(manager,managerService));
+        User userExists = managerService.findByEmail(user.getEmail());
+
+        if (userExists != null) {
+            model.addObject("alreadyRegisteredMessage",
+                    "Oops! There is already a user registered with the email provided.");
+            model.setViewName("manager/add");
+            bindingResult.reject("email");
+            return model;
+        }
+        if (bindingResult.hasErrors()) {
             model.setViewName("manager/add");
             return model;
         }
-        manager.setEnabled(1);
-        manager.setPassword(bCryptPasswordEncoder.encode(manager.getPassword()));
-        managerService.save(manager, Role.MANAGER);
-        redir.addFlashAttribute("successMessage", "User " + manager.getUserName() + " "+ manager.getEmail() + " created successfully");
+        user.setEnabled(1);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        managerService.save(user, Role.MANAGER);
+        redir.addFlashAttribute("successMessage", "User " + user.getUserName() + " "+ user.getEmail() + " created successfully");
         model.setViewName("redirect:/managers");
 
         return model;
