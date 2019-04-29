@@ -22,26 +22,26 @@ public class GroupController {
     @Autowired
     private GroupDAO groupDAO;
     
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = "/tempGroupsPage", method = RequestMethod.GET)
     public String showGroups(Model model){
         List<Group> list = groupDAO.getGroups();
         
         model.addAttribute("groupInfos", list);
         
-        return "groupsPage";
+        return "tempGroupsPage";
     }
     
-    @RequestMapping(value ="/createGroup", method = RequestMethod.GET)
+    @RequestMapping(value ="/tempCreateGroupPage", method = RequestMethod.GET)
     public String viewCreateGroupPage(Model model) {
  
         CreateGroupForm form = new CreateGroupForm("Group1", 4);
  
         model.addAttribute("createGroupForm", form);
  
-        return "createGroupPage";
+        return "tempCreateGroupPage";
     }
     
-    @RequestMapping(value = "/createGroup", method = RequestMethod.POST)
+    @RequestMapping(value = "/tempCreateGroupPage", method = RequestMethod.POST)
     public String processCreateGroup(Model model, CreateGroupForm createGroupForm) {
  
         System.out.println("Create Group::" + createGroupForm.getGroupName());
@@ -50,7 +50,7 @@ public class GroupController {
         groupDAO.createGroup(createGroupForm.getGroupName(),
                     createGroupForm.getGroupCapacity());
         
-        return "redirect:/";
+        return "redirect:/tempCreateGroupPage";
     }
     
 }
