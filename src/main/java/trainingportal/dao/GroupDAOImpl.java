@@ -45,7 +45,7 @@ public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
 
     @Override
     public void editGroup(Group group) {
-        String sql = GroupMapper.EDIT_SQL + " WHERE groupId = ?";
+        String sql = GroupMapper.EDIT_SQL + " WHERE id = ?";
 
         this.getJdbcTemplate().update(sql, group.getGroupName(), group.getGroupCapacity(),
                 group.getCourseId(), group.getStatusId());
@@ -53,7 +53,7 @@ public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
 
     @Override
     public void deleteGroupById(Long groupId) {
-        String sql = "DELETE FROM groups WHERE groupId = ?";
+        String sql = "DELETE FROM groups WHERE id = ?";
 
         this.getJdbcTemplate().update(sql, groupId);
     }
