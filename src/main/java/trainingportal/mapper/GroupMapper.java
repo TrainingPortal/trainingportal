@@ -5,28 +5,30 @@ import trainingportal.model.Group;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-/**
- *
- * @author Vitalii Chernetskyi
- */
+
 public class GroupMapper implements RowMapper<Group> {
-    
-    public static final String BASE_SQL
-            = "SELECT gr.id, gr.name, gr.trainer_id, gr.capacity FROM groups gr";
-    
-    public static final String INSERT_SQL
-            = "INSERT INTO groups (name, trainer_id, capacity) VALUES (?, 1, ?)";
-    
+
+    public static final String SELECT_SQL
+            = "SELECT id, name, capacity, course_id, status_id FROM groups";
+
+    public static final String EDIT_SQL
+            = "UPDATE groups SET  name = ?, capacity = ?, course_id = ?, status_id = ?";
+
+
     @Override
-    public Group mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public Group mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+
+        Long groupId = resultSet.getLong("id");
+
+        String groupName = resultSet.getString("name");
+
+        int groupCapacity = resultSet.getInt("capacity");
+
+        Long courseId = resultSet.getLong("course_id");
+
+        Long statusId = resultSet.getLong("status_id");
         
-        int id = rs.getInt("id");
-        String name = rs.getString("name");
-        int trainer_id = rs.getInt("trainer_id");
-        int capacity = rs.getInt("capacity");
-        
-        return new Group(id, name, trainer_id, capacity);
-        
+
+        return new Group(groupId, groupName, groupCapacity, courseId, statusId);
     }
-    
 }
