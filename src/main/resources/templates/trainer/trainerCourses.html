@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>TrainerCourses</title>
 </head>
 <body>
+
+<h1>Trainers</h1>
+<table class="table table-fit">
+    <tr>
+        <th>Courses</th>
+    </tr>
+    <tr th:each="course,iter: ${trainerAllCourses}">
+        <td>
+            <a th:text="${course?.getCourseName()}"></a>
+        </td>
+    </tr>
+</table>
+
+<div class="container">
+    <p>Download the allCourses table file by clicking below.</p>
+    <a href="/trainingportal/allCourses.xlsx" download="allCourses.xlsx">Download</a>
+</div>
 
 </body>
 </html>

@@ -1,4 +1,4 @@
-package trainingportal.exceltest.dao;
+package trainingportal.exporttest.dao;
 
 import export.Export;
 import export.exception.ExportToExcelException;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
-import trainingportal.exceltest.model.Trainer;
+import trainingportal.exporttest.model.Trainer;
 
 import javax.sql.DataSource;
 import java.io.IOException;

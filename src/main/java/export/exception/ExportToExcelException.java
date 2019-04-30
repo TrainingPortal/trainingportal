@@ -1,4 +1,4 @@
-package excel.exception;
+package export.exception;
 
 public class ExportToExcelException extends Exception {
 

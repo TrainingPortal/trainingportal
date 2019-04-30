@@ -1,6 +1,6 @@
-package trainingportal.exceltest.service;
+package trainingportal.exporttest.service;
 
-import trainingportal.exceltest.model.Trainer;
+import trainingportal.exporttest.model.Trainer;
 
 import java.util.List;
 

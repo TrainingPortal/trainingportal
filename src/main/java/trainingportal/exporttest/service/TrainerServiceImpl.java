@@ -1,9 +1,9 @@
-package trainingportal.exceltest.service;
+package trainingportal.exporttest.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import trainingportal.exceltest.dao.TrainerDaoImpl;
-import trainingportal.exceltest.model.Trainer;
+import trainingportal.exporttest.dao.TrainerDaoImpl;
+import trainingportal.exporttest.model.Trainer;
 
 import java.util.List;
 

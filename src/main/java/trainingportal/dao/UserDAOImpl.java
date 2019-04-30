@@ -41,13 +41,13 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
 
         String sql = "INSERT INTO users (name, email, password, enabled, token, roleId) values (?,?,?,?,?,?)";
 
-        this.getJdbcTemplate().update(sql, new Object[] { user.getUserName(),
-                user.getEmail(), user.getPassword(), user.getEnabled(), user.getToken(), roleId});
+        this.getJdbcTemplate().update(sql, user.getUserName(),
+                user.getEmail(), user.getPassword(), user.getEnabled(), user.getToken(), roleId);
     }
 
     @Override
     public boolean isUserExists(User user) {
-        return findByEmail(user.getEmail())==null ? false : true;
+        return findByEmail(user.getEmail()) != null;
     }
 
     public User findByEmail(String email) {
