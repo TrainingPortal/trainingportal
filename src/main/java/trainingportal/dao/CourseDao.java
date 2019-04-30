@@ -1,24 +1,12 @@
 package trainingportal.dao;
 
+import org.apache.poi.ss.formula.functions.T;
+import trainingportal.dao.generic.GenericDao;
 import trainingportal.model.Course;
 
 import java.util.List;
 
-public interface CourseDao {
+public interface CourseDao extends GenericDao<Course> {
 
-    List<Course> getCoursAll();
-
-    Course findCourseById(Long id);
-
-    void addCourse(Course course);
-
-    void editCourseById(Course course);
-
-
-    void deleteCourseById(Long Id);
-
-    void saveCourse(Course course);
-
-    void save(Course course, Long id);
-
+    List<Course> getAllAsPage(int page, int total);
 }

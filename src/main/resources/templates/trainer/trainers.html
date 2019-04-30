@@ -2,38 +2,48 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>All trainers</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
-    <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" />
-    <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}"/>
     <link type="text/css" rel="stylesheet" href="/../css/custom.css" th:href="@{css/custom.css}"/>
 </head>
-    <body>
-    <div th:insert="frontend/navbar :: nav"></div>
-    <div th:if="${successMessage}"
-         class="alert alert-success" role="alert"
-         th:text="${successMessage}">
-    </div>
-    <h1>Trainers</h1>
-        <table class="table table-fit">
-            <thead class="">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tr th:each = "trainer,iter:${trainers}">
-                <td th:text="${trainer.userName}"></td>
-                <td th:text="${trainer.email}"></td>
-                <td>
-                    <a th:href="@{/trainer-{id}(id=${trainer.userId})}" class="btn btn-primary">Show</a>
-                    <a th:href="@{/trainer-update-{id}(id=${trainer.userId})}" class="btn btn-primary">Update</a>
-                    <a th:href="@{/trainer-delete-{id}(id=${trainer.userId})}" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        </table>
-    <a th:href="@{/trainer-add}" class="btn btn-info">Add trainer</a>
-    <a th:href="@{/trainers-delete-all}" class="btn btn-danger">Delete all trainers</a>
-    </body>
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+<div class="py-0 my-0 pl-3 bg-primary text-white">
+    <h1 class="my-0 py-0">Trainers</h1>
+</div>
+
+<div style="margin-bottom: 0;" th:if="${successMessage}"
+     class="alert alert-success" role="alert"
+     th:text="${successMessage}">
+</div>
+
+<div th:if="${trainers.size() == 0}">
+    <h1>There are no trainers.</h1>
+</div>
+<div th:unless="${trainers.size() == 0}">
+    <table class="table pt-0 mt-0 table-fit table-sm table-hover">
+        <thead class="">
+        <tr>
+            <th style="width: 20%">Name</th>
+            <th style="width: 50%">Email</th>
+            <th style="width: 30%">Actions</th>
+        </tr>
+        </thead>
+        <tr th:each="trainer,iter:${trainers}">
+            <td th:text="${trainer.userName}"></td>
+            <td th:text="${trainer.email}"></td>
+            <td>
+                <a th:href="@{/trainer-{id}(id=${trainer.userId})}" class="btn btn-primary">Show</a>
+                <a th:href="@{/trainer-update-{id}(id=${trainer.userId})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/trainer-delete-{id}(id=${trainer.userId})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    </table>
+    <div th:replace="frontend/pagination :: pagination"></div>
+</div>
+<a th:href="@{/trainer-add}" class="btn btn-info">Add trainer</a>
+<a th:href="@{/trainers-delete-all}" class="btn btn-danger">Delete all trainers</a>
+</body>
 </html>

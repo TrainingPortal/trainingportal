@@ -4,16 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.UserService;
-import trainingportal.validators.UserValidator;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -26,12 +22,18 @@ public class ManagerController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    /* Show all managers*/
-    @RequestMapping("/managers")
-    public ModelAndView allManagers(ModelAndView model) {
+    private static final int ROWS_LIMIT = 10;
 
-        List<User> managers = managerService.findAllByRole(Role.MANAGER);
+    /* Show all managers*/
+    @RequestMapping("/managers/{page}")
+    public ModelAndView allManagers(@PathVariable("page") int page, ModelAndView model) {
+
+        List<User> managers = managerService.getAllByRoleAsPage(page, ROWS_LIMIT, Role.MANAGER);
+
         model.addObject("managers", managers);
+        model.addObject("pages",
+                managerService.getNumberOfPages(managerService.findAllByRole(Role.MANAGER), ROWS_LIMIT));
+        model.addObject("currentUrl", "managers");
         model.setViewName("manager/managers");
 
         return model;
@@ -43,6 +45,79 @@ public class ManagerController {
         User manager= managerService.findById(id);
         model.addObject("manager", manager);
         model.setViewName("manager/show");
+        return model;
+    }
+
+    @GetMapping("/addsubordinates")
+    public ModelAndView showAddSubordinates(Long id, ModelAndView model) {
+
+        List<User> users = managerService.findFreeUsers();
+
+        model.addObject("users", users);
+        model.addObject("manager", managerService.findById(id));
+
+        model.setViewName("manager/addsubordinates");
+
+        return model;
+    }
+
+    @PostMapping("/addSelectedSubordinates")
+    public ModelAndView addSelectedSubordinates(Long managerId,
+                                                @RequestParam(value = "userId", required = false) Long[] userIds,
+                                                ModelAndView model, RedirectAttributes redir) {
+
+        String message = managerService.assignSubordinates(managerId, userIds);
+
+        redir.addFlashAttribute("infoMessage", message);
+
+        model.addObject("id", managerId);
+        model.setViewName("redirect:subordinates/1");
+
+        return model;
+    }
+
+    @GetMapping("/subordinates/{page}")
+    public ModelAndView viewSubordinates(@PathVariable("page") int page, Long id, ModelAndView model) {
+
+        User manager = managerService.findById(id);
+
+        // Find all subordinates of the manager by manager's id
+        List<User> subordinates = managerService.getSubordinatesByIdAsPage(page, ROWS_LIMIT, id);
+
+        model.addObject("manager", manager);
+        model.addObject("subordinates", subordinates);
+        model.addObject("pages",
+                managerService.getNumberOfPages(managerService.findSubordinatesById(id), ROWS_LIMIT));
+        model.addObject("currentUrl", "subordinates");
+        model.addObject("id", id);
+
+        model.setViewName("manager/subordinates");
+
+        return model;
+    }
+
+    @GetMapping("/releaseSubordinate")
+    public ModelAndView setSubordinateFree(Long id, ModelAndView model, RedirectAttributes redir) {
+
+        User employee = managerService.findById(id);
+        User manager = managerService.findManagerBySubordinateId(id);
+
+        managerService.setManagerId(null, id);
+
+        redir.addFlashAttribute("successMessage",
+                "User " + employee.getUserName() + " " + employee.getEmail() + " has no manager now.");
+        model.addObject("id", manager.getUserId());
+        model.setViewName("redirect:subordinates/1");
+
+        return model;
+    }
+
+    @GetMapping("backtosubordinates")
+    public ModelAndView backToManager(Long id, ModelAndView model) {
+
+        model.addObject("id", id);
+        model.setViewName("redirect:subordinates/1");
+
         return model;
     }
 
@@ -88,7 +163,7 @@ public class ManagerController {
         else {
             managerService.update(manager);
             redir.addFlashAttribute("successMessage", "User " + manager.getUserName() + " "+ manager.getEmail() + " updated successfully");
-            model.setViewName("redirect:/managers");
+            model.setViewName("redirect:/managers/1");
             return model;
         }
     }
@@ -111,9 +186,10 @@ public class ManagerController {
         }
         user.setEnabled(1);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        managerService.save(user, Role.MANAGER);
+        user.setRoleId(Role.MANAGER);
+        managerService.save(user);
         redir.addFlashAttribute("successMessage", "User " + user.getUserName() + " "+ user.getEmail() + " created successfully");
-        model.setViewName("redirect:/managers");
+        model.setViewName("redirect:/managers/1");
 
         return model;
     }
@@ -124,7 +200,7 @@ public class ManagerController {
         User manager = managerService.findById(managerId);
         managerService.deleteById(managerId);
         redir.addFlashAttribute("successMessage", "User " + manager.getUserName() + " "+ manager.getEmail() + " deleted successfully");
-        model.setViewName("redirect:/managers");
+        model.setViewName("redirect:/managers/1");
         return model;
     }
 
@@ -133,7 +209,7 @@ public class ManagerController {
 
         managerService.deleteAllByRole(Role.MANAGER);
         redir.addFlashAttribute("successMessage", "All users deleted successfully");
-        model.setViewName("redirect:/managers");
+        model.setViewName("redirect:/managers/1");
 
         return model;
     }

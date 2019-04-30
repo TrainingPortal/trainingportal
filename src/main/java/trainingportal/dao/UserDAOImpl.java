@@ -1,7 +1,9 @@
 package trainingportal.dao;
 
+import empexcel.model.Emp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -10,6 +12,8 @@ import trainingportal.mapper.UserMapper;
 import trainingportal.model.User;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -37,12 +41,12 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
         }
     }
 
-    public void save(User user, Long roleId) {
+    public void save(User user) {
 
         String sql = "INSERT INTO users (name, email, password, enabled, token, roleId) values (?,?,?,?,?,?)";
 
         this.getJdbcTemplate().update(sql, new Object[] { user.getUserName(),
-                user.getEmail(), user.getPassword(), user.getEnabled(), user.getToken(), roleId});
+                user.getEmail(), user.getPassword(), user.getEnabled(), user.getToken(), user.getRoleId()});
     }
 
     @Override
@@ -57,24 +61,6 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
         List<User> users = this.getJdbcTemplate().query(sql,new Object[]{email},new UserMapper());
 
         return users.size() > 0 ? users.get(0) : null;
-    }
-
-    public User findByName(String name) {
-
-        String sql = UserMapper.BASE_SQL + "WHERE name = ?";
-
-        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{name},new UserMapper());
-
-        return users.size() > 0 ? users.get(0) : null;
-    }
-
-    @Override
-    public void setDefaultRole(Long userId) {
-        String sql = "insert into USER_ROLE (USER_ID, ROLE_ID) values (?,?)";
-
-        User user = findById(userId);
-
-        this.getJdbcTemplate().update(sql, user.getUserId(),2);
     }
 
     @Override
@@ -155,9 +141,27 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
     }
 
     @Override
+    public List<User> findAll() {
+        List<User> users = this.getJdbcTemplate().query(UserMapper.BASE_SQL ,new UserMapper());
+
+        return users;
+    }
+
+    @Override
     public void deleteAllByRole(Long roleId) {
         String sql = "DELETE FROM users WHERE roleId = ?";
 
         this.getJdbcTemplate().update(sql, roleId);
+    }
+
+    @Override
+    public List<User> getAllByRoleAsPage(int page, int total, Long roleId) {
+
+        String sql = UserMapper.BASE_SQL +
+                "WHERE roleId = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        List<User> users = this.getJdbcTemplate().query(sql, new Object[]{roleId}, new UserMapper());
+
+        return users;
     }
 }

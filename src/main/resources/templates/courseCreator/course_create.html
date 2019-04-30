@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
 <head>
-    <meta charset="UTF-8">
-    <meta content="width=device-width" name="viewport">
     <title>Course Create</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport">
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
     <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
@@ -14,10 +15,10 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="container-fluid">
-    <h2>Courses</h2>
-    <h4>
+    <h2>Courses List</h2>
+    <h2>
         <a class="btn btn-success" th:href="@{/course-add}">CREATE NEW COURSE</a>
-    </h4>
+    </h2>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -25,41 +26,37 @@
             <th scope="row">courseName</th>
             <th scope="row">courseLevel</th>
             <th scope="row">courseStatus</th>
-            <th scope="row">dateStart</th>
-            <th scope="row">dateEnd</th>
-            <th scope="row">groupNumber</th>
             <th scope="row">minNumber</th>
+            <th scope="row">maxNumber</th>
             <th scope="row">description</th>
-            <th scope="row">trainer</th>
+            <th scope="row">trainerId</th>
+            <th scope="row">lessonNumber</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="course, iter : ${courseAll}">
-            <td th:text="${course.getId()}"></td>
-            <td th:text="${course.getName()}"></td>
-            <td th:text="${course.getCourse_level()}"></td>
-            <td th:text="${course.getStatus()}"></td>
-            <td th:text="${course.getDate_start()}"></td>
-            <td th:text="${course.getDate_end()}"></td>
-            <td th:text="${course.getGroup_number()}"></td>
-            <td th:text="${course.getMin_number()}"></td>
-            <td th:text="${course.getDescription()}"></td>
-            <td th:text="${course.getTrainer()}"></td>
+        <tr th:each="course, iter : ${courseList}">
+            <td th:text="${course.courseId}"></td>
+            <td th:text="${course.courseName}"></td>
+            <td th:text="${course.courseLevel}"></td>
+            <td th:text="${course.courseStatus}"></td>
+            <td th:text="${course.minNumber}"></td>
+            <td th:text="${course.maxNumber}"></td>
+            <td th:text="${course.description}"></td>
+            <td th:text="${course.trainerId}"></td>
+            <td th:text="${course.lessonNumber}"></td>
             <td>
                 <div class="btn-group">
                     <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <a class="btn btn-dark" th:href="@{/course-delete-by-{id} (id=${course.getId()}) }">Delete</a>
-                    <a class="btn btn-info" th:href="@{/edit-course-{id}(id=${course.getId()})}">Edit</a>
-                    <!--                    <a class="btn btn-info" th:href="@{/edit-course}">Edit</a>-->
+                    <a class="btn btn-info" th:href="@{/edit-course-{id} (id = ${course.courseId}) }">Edit</a>
+                    <a class="btn btn-dark" th:href="@{/course-delete-by-{id} (id = ${course.courseId}) }">Delete</a>
                 </div>
             </td>
         </tr>
-
-
         </tbody>
     </table>
+    <div th:replace="frontend/pagination :: pagination"></div>
 </div>
-</table>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>

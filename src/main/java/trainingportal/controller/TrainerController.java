@@ -21,12 +21,17 @@ public class TrainerController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    /* Show all trainers*/
-    @RequestMapping("/trainers")
-    public ModelAndView allTrainers(ModelAndView model) {
+    private static final int ROWS_LIMIT = 10;
 
-        List<User> trainers = trainerService.findAllByRole(Role.TRAINER);
+    /* Show all trainers*/
+    @RequestMapping("/trainers/{page}")
+    public ModelAndView allTrainers(@PathVariable("page") int page, ModelAndView model) {
+
+        List<User> trainers = trainerService.getAllByRoleAsPage(page, ROWS_LIMIT, Role.TRAINER);
         model.addObject("trainers", trainers);
+        model.addObject("pages",
+                trainerService.getNumberOfPages(trainerService.findAllByRole(Role.TRAINER), ROWS_LIMIT));
+        model.addObject("currentUrl", "trainers");
         model.setViewName("trainer/trainers");
 
         return model;
@@ -83,7 +88,7 @@ public class TrainerController {
         else {
             trainerService.update(trainer);
             redir.addFlashAttribute("successMessage", "User " + trainer.getUserName() + " "+ trainer.getEmail() + " updated successfully");
-            model.setViewName("redirect:/trainers");
+            model.setViewName("redirect:/trainers/1");
             return model;
         }
     }
@@ -106,9 +111,10 @@ public class TrainerController {
         }
         user.setEnabled(1);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        trainerService.save(user, Role.TRAINER);
+        user.setRoleId(Role.TRAINER);
+        trainerService.save(user);
         redir.addFlashAttribute("successMessage", "User " + user.getUserName() + " "+ user.getEmail() + " created successfully");
-        model.setViewName("redirect:/trainers");
+        model.setViewName("redirect:/trainers/1");
 
         return model;
     }
@@ -119,7 +125,7 @@ public class TrainerController {
         User trainer = trainerService.findById(trainerId);
         trainerService.deleteById(trainerId);
         redir.addFlashAttribute("successMessage", "User " + trainer.getUserName() + " "+ trainer.getEmail() + " deleted successfully");
-        model.setViewName("redirect:/trainers");
+        model.setViewName("redirect:/trainers/1");
         return model;
     }
 
@@ -128,7 +134,7 @@ public class TrainerController {
 
         trainerService.deleteAllByRole(Role.TRAINER);
         redir.addFlashAttribute("successMessage", "All users deleted successfully");
-        model.setViewName("redirect:/trainers");
+        model.setViewName("redirect:/trainers/1");
 
         return model;
     }

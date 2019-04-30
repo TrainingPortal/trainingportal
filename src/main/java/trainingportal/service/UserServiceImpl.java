@@ -3,6 +3,8 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.ModelAndView;
+import trainingportal.dao.SubordinateDAOImpl;
 import trainingportal.dao.UserDAOImpl;
 import trainingportal.model.User;
 
@@ -15,6 +17,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDAOImpl userRepository;
 
+    @Autowired
+    SubordinateDAOImpl subordinateRepository;
+
     @Override
     public User findById(Long id) {
         return userRepository.findById(id);
@@ -26,18 +31,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByName(String name) {
-        return userRepository.findByName(name);
-    }
-
-    @Override
-    public void save(User user, Long roleId) {
-        userRepository.save(user, roleId);
-    }
-
-    @Override
-    public void setDefaultRole(Long userId){
-        userRepository.setDefaultRole(userId);
+    public void save(User user) {
+        userRepository.save(user);
     }
 
     @Override
@@ -53,6 +48,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void setNewPassword(String password, String token) {
         userRepository.setNewPassword(password, token);
+    }
+
+    @Override
+    public List<User> findSubordinatesById(Long id) {
+        return subordinateRepository.findSubordinatesById(id);
     }
 
     @Override
@@ -94,7 +94,83 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
     public void deleteAllByRole(Long roleId) {
         userRepository.deleteAllByRole(roleId);
+    }
+
+    @Override
+    public User findManagerBySubordinateId(Long id) {
+        return subordinateRepository.findManagerBySubordinateId(id);
+    }
+
+    @Override
+    public List<User> findFreeUsers() {
+        return subordinateRepository.findFreeUsers();
+    }
+
+    @Override
+    public void setManagerId(Long managerId, Long userId) {
+        subordinateRepository.setManagerId(managerId, userId);
+    }
+
+    @Override
+    public String assignSubordinates(Long managerId, Long[] userIds) {
+
+        if(userIds == null) {
+            return "You chose nobody to add, no one is added";
+        }
+        for(Long userId : userIds){
+            subordinateRepository.setManagerId(managerId, userId);
+        }
+        return "Subordinates were added: " + userIds.length + "." ;
+    }
+
+    @Override
+    public List<User> getAllByRoleAsPage(int page, int total, Long roleId) {
+
+        if(page == 1){
+            //do nothing
+        } else {
+            page = (page - 1) * total + 1;
+        }
+        return userRepository.getAllByRoleAsPage(page, total, roleId);
+    }
+
+    @Override
+    public List<User> getSubordinatesByIdAsPage(int page, int total, Long id) {
+
+        if(page == 1){
+            //do nothing
+        } else {
+            page = (page - 1) * total + 1;
+        }
+        return subordinateRepository.getSubordinatesByIdAsPage(page, total, id);
+    }
+
+    @Override
+    public List<User> getFreeUsersAsPage(int page, int total) {
+
+        if(page == 1){
+            //do nothing
+        } else {
+            page = (page - 1) * total + 1;
+        }
+        return subordinateRepository.getFreeUsersAsPage(page, total);
+    }
+
+    @Override
+    public int getNumberOfPages(List<User> users, double total) {
+
+        return (int) Math.ceil(users.size() / total);
+    }
+
+    @Override
+    public List<User> getAllAsPage(int page, int total) {
+        return null;
     }
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Training Center Home</title>
+    <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link type="text/css" rel="stylesheet" href="/../css/custom.css" th:href="@{css/custom.css}"/>
+    <style>
+
+    </style>
+</head>
+<div th:fragment="pagination" class="d-flex justify-content-center">
+    <div th:if="${pages} > 1 and ${page} <= ${pages}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${page==1} ? 'active'">
+                <a class="page-link" th:href="@{/{link}/{page}(page=1, link=${currentUrl})}">First</a>
+            </li>
+            <th:block th:each="i: ${#numbers.sequence(page < 5 ? 1 : page - 4, pages > 4 + page ? page + 4 : pages)}">
+                <li class="page-item" th:classappend="${i==page} ? 'active'">
+                    <a class="page-link" th:href="@{/{link}/{page}(page=${i}, link=${currentUrl})}" th:text="${i}">></a>
+                </li>
+            </th:block>
+            <li class="page-item" th:classappend="${page==pages} ? 'active'">
+                <a class="page-link" th:href="@{/{link}/{page}(page=${pages}, link=${currentUrl})}">Last</a>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div th:fragment="pagination_with_id" class="d-flex justify-content-center">
+    <div th:if="${pages} > 1 and ${page} <= ${pages}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${page==1} ? 'active'">
+                <a class="page-link" th:href="@{/{link}/{page}(page=1, link=${currentUrl}, id=${id})}">First</a>
+            </li>
+            <th:block th:each="i: ${#numbers.sequence(page < 5 ? 1 : page - 4, pages > 4 + page ? page + 4 : pages)}">
+                <li class="page-item" th:classappend="${i==page} ? 'active'">
+                    <a class="page-link" th:href="@{/{link}/{page}(page=${i}, link=${currentUrl}, id=${id})}"
+                       th:text="${i}">></a>
+                </li>
+            </th:block>
+            <li class="page-item" th:classappend="${page==pages} ? 'active'">
+                <a class="page-link" th:href="@{/{link}/{page}(page=${pages}, link=${currentUrl}, id=${id})}">Last</a>
+            </li>
+        </ul>
+    </div>
+</div>
+</html>

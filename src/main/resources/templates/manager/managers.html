@@ -2,38 +2,50 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>All managers</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
-    <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" />
-    <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}"/>
     <link type="text/css" rel="stylesheet" href="/../css/custom.css" th:href="@{css/custom.css}"/>
 </head>
-    <body>
-    <div th:insert="frontend/navbar :: nav"></div>
-    <div th:if="${successMessage}"
-         class="alert alert-success" role="alert"
-         th:text="${successMessage}">
-    </div>
-    <h1>Managers</h1>
-        <table class="table table-fit">
-            <thead class="">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Actions</th>
-            </tr>
-            </thead>
-            <tr th:each = "manager,iter:${managers}">
-                <td th:text="${manager.userName}"></td>
-                <td th:text="${manager.email}"></td>
-                <td>
-                    <a th:href="@{/manager-{id}(id=${manager.userId})}" class="btn btn-primary">Show</a>
-                    <a th:href="@{/manager-update-{id}(id=${manager.userId})}" class="btn btn-primary">Update</a>
-                    <a th:href="@{/manager-delete-{id}(id=${manager.userId})}" class="btn btn-danger">Delete</a>
-                </td>
-            </tr>
-        </table>
-    <a th:href="@{/manager-add}" class="btn btn-info">Add manager</a>
-    <a th:href="@{/managers-delete-all}" class="btn btn-danger">Delete all managers</a>
-    </body>
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<div class="py-0 my-0 pl-3 bg-primary text-white">
+    <h1 class="my-0 py-0">Managers</h1>
+</div>
+
+<div style="margin-bottom: 0;" th:if="${successMessage}"
+     class="alert alert-success" role="alert"
+     th:text="${successMessage}">
+</div>
+
+<div th:if="${managers.size() == 0}">
+    <h1>There are no trainers.</h1>
+</div>
+<div th:unless="${managers.size() == 0}">
+    <table class="table pt-0 mt-0 table-fit table-sm table-hover">
+        <thead class="">
+        <tr>
+            <th style="width: 20%">Name</th>
+            <th style="width: 50%">Email</th>
+            <th style="width: 30%">Actions</th>
+        </tr>
+        </thead>
+        <tr th:each="manager,iter:${managers}">
+            <td th:text="${manager.userName}"></td>
+            <td th:text="${manager.email}"></td>
+            <td>
+                <a th:href="@{/manager-{id}(id=${manager.userId})}" class="btn btn-primary">Show</a>
+                <a th:href="@{/manager-update-{id}(id=${manager.userId})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/subordinates/{page}(id=${manager.userId}, page=1)}" class="btn btn-info">Subordinates</a>
+                <a th:href="@{/manager-delete-{id}(id=${manager.userId})}" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    </table>
+    <div th:replace="frontend/pagination :: pagination"></div>
+</div>
+<a th:href="@{/manager-add}" class="btn btn-info">Add manager</a>
+<a th:href="@{/managers-delete-all}" class="btn btn-danger">Delete all managers</a>
+</body>
 </html>
