@@ -11,6 +11,10 @@
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
 
+<div class="py-0 my-0 pl-3 bg-primary text-white">
+    <h1 class="my-0 py-0">Subordinates</h1>
+</div>
+
 <div style="margin-bottom: 0;" th:if="${successMessage}"
      class="alert alert-success" role="alert"
      th:text="${successMessage}">
@@ -25,9 +29,9 @@
     <p th:text="${manager.userName} + ' has no subordinates'"></p>
 </div>
 <div th:unless="${subordinates.size() == 0}">
-    <table class="table table-hover">
+    <table class="table pt-0 mt-0 table-fit table-sm table-hover">
         <caption th:text="'Subordinates of mr. ' + ${manager.userName}"></caption>
-        <thead class="thead-light">
+        <thead class="">
         <tr>
             <th style="width: 40%">Name</th>
             <th style="width: 50%">Email</th>
@@ -42,9 +46,10 @@
             </td>
         </tr>
     </table>
+    <div th:replace="frontend/pagination :: pagination_with_id"></div>
 </div>
 
 <a th:href="@{/addsubordinates(id=${manager.userId})}" class="btn btn-info">Add Subordinates</a>
-<a th:href="@{/managers}" class="btn btn-info">Return to managers</a>
+<a th:href="@{/managers/{page}(page=1)}" class="btn btn-info">Return to managers</a>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package trainingportal.dao;
 
+import empexcel.model.Emp;
 import trainingportal.model.User;
 
 import java.util.List;
@@ -35,4 +36,6 @@ public interface UserDao {
     void confirmRegister(User user);
 
     void setNewPassword(String password, String token);
+
+    List<User> getAllByRoleAsPage(int page, int total, Long roleId);
 }

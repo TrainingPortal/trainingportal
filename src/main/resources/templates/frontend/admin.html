@@ -12,7 +12,7 @@
     <div th:insert="frontend/navbar :: nav"></div>
 
     <div class="justify-content-center d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-        <a href="/trainers">
+        <a th:href="@{/trainers/{page}(page=1)}">
             <div class="bg-light mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center overflow-hidden">
                 <div class="my-3 p-3">
                     <h2 class="display-5">Trainers</h2>
@@ -21,7 +21,7 @@
                 <div class="bg-dark box-shadow mx-auto" style="width: 80%; height: 300px; border-radius: 21px 21px 0 0;"></div>
             </div>
         </a>
-        <a href="/managers">
+        <a th:href="@{/managers/{page}(page=1)}">
             <div class="bg-primary mr-md-3 pt-3 px-3 pt-md-5 px-md-5 text-center text-white overflow-hidden">
                 <div class="my-3 py-3">
                     <h2 class="display-5">Managers</h2>
