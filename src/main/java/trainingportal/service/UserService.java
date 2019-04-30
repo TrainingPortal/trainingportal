@@ -15,8 +15,6 @@ public interface UserService extends GenericService<User> {
 
     User findByEmail(String email);
 
-    User findByName(String name);
-
     User findByToken (String token);
 
     void updateToken (User user, String token);
@@ -36,4 +34,10 @@ public interface UserService extends GenericService<User> {
     void setManagerId(Long managerId, Long userIds);
 
     String assignSubordinates(Long managerId, Long[] userIds);
+
+    List<User> getAllByRoleAsPage(int page, int total, Long roleId);
+
+    List<User> getSubordinatesByIdAsPage(int page, int total, Long id);
+
+    List<User> getFreeUsersAsPage(int page, int total);
 }

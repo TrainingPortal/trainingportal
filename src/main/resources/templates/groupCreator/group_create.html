@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Course Create</title>
+    <title>Group Create</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <meta content="width=device-width" name="viewport">
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
@@ -15,46 +15,37 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="container-fluid">
-    <h2>Courses List</h2>
+    <h2>Groups List</h2>
     <h2>
-        <a class="btn btn-success" th:href="@{/course-add}">CREATE NEW COURSE</a>
+        <a class="btn btn-success" th:href="@{/group-add}">CREATE NEW GROUP</a>
     </h2>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="row">Id</th>
-            <th scope="row">courseName</th>
-            <th scope="row">courseLevel</th>
-            <th scope="row">courseStatus</th>
-            <th scope="row">minNumber</th>
-            <th scope="row">maxNumber</th>
-            <th scope="row">description</th>
-            <th scope="row">trainerId</th>
-            <th scope="row">lessonNumber</th>
+            <th scope="row">ID</th>
+            <th scope="row">Name</th>
+            <th scope="row">Capacity</th>
+            <th scope="row">Course ID</th>
+            <th scope="row">Status ID</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="course, iter : ${courseList}">
-            <td th:text="${course.courseId}"></td>
-            <td th:text="${course.courseName}"></td>
-            <td th:text="${course.courseLevel}"></td>
-            <td th:text="${course.courseStatus}"></td>
-            <td th:text="${course.minNumber}"></td>
-            <td th:text="${course.maxNumber}"></td>
-            <td th:text="${course.description}"></td>
-            <td th:text="${course.trainerId}"></td>
-            <td th:text="${course.lessonNumber}"></td>
+        <tr th:each="group, iter : ${groupList}">
+            <td th:text="${group.groupId}"></td>
+            <td th:text="${group.groupName}"></td>
+            <td th:text="${group.groupCapacity}"></td>
+            <td th:text="${group.courseId}"></td>
+            <td th:text="${group.statusId}"></td>
             <td>
                 <div class="btn-group">
                     <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <a class="btn btn-info" th:href="@{/edit-course-{id} (id = ${course.courseId}) }">Edit</a>
-                    <a class="btn btn-dark" th:href="@{/course-delete-by-{id} (id = ${course.courseId}) }">Delete</a>
+                    <a class="btn btn-info" th:href="@{/edit-group-{id} (id = ${group.groupId}) }">Edit</a>
+                    <a class="btn btn-dark" th:href="@{/group-delete-by-{id} (id = ${group.groupId}) }">Delete</a>
                 </div>
             </td>
         </tr>
         </tbody>
     </table>
-    <div th:replace="frontend/pagination :: pagination"></div>
 </div>
 
 

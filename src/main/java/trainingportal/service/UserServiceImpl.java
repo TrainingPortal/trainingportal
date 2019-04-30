@@ -31,11 +31,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByName(String name) {
-        return userRepository.findByName(name);
-    }
-
-    @Override
     public void save(User user) {
         userRepository.save(user);
     }
@@ -133,5 +128,49 @@ public class UserServiceImpl implements UserService {
             subordinateRepository.setManagerId(managerId, userId);
         }
         return "Subordinates were added: " + userIds.length + "." ;
+    }
+
+    @Override
+    public List<User> getAllByRoleAsPage(int page, int total, Long roleId) {
+
+        if(page == 1){
+            //do nothing
+        } else {
+            page = (page - 1) * total + 1;
+        }
+        return userRepository.getAllByRoleAsPage(page, total, roleId);
+    }
+
+    @Override
+    public List<User> getSubordinatesByIdAsPage(int page, int total, Long id) {
+
+        if(page == 1){
+            //do nothing
+        } else {
+            page = (page - 1) * total + 1;
+        }
+        return subordinateRepository.getSubordinatesByIdAsPage(page, total, id);
+    }
+
+    @Override
+    public List<User> getFreeUsersAsPage(int page, int total) {
+
+        if(page == 1){
+            //do nothing
+        } else {
+            page = (page - 1) * total + 1;
+        }
+        return subordinateRepository.getFreeUsersAsPage(page, total);
+    }
+
+    @Override
+    public int getNumberOfPages(List<User> users, double total) {
+
+        return (int) Math.ceil(users.size() / total);
+    }
+
+    @Override
+    public List<User> getAllAsPage(int page, int total) {
+        return null;
     }
 }

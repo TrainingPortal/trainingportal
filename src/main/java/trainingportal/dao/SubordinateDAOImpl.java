@@ -59,4 +59,26 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
 
         this.getJdbcTemplate().update(sql, managerId, userId);
     }
+
+    @Override
+    public List<User> getSubordinatesByIdAsPage(int page, int total, Long id) {
+
+        String sql = UserMapper.BASE_SQL +
+                "WHERE u.managerId = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        List<User> users = this.getJdbcTemplate().query(sql, new Object[]{id}, new UserMapper());
+
+        return users;
+    }
+
+    @Override
+    public List<User> getFreeUsersAsPage(int page, int total) {
+
+        String sql = UserMapper.BASE_SQL + "WHERE u.managerId IS NULL AND u.roleId = ? AND u.enabled = 1 " +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        List<User> users = this.getJdbcTemplate().query(sql, new Object[]{Role.EMPLOYEE}, new UserMapper());
+
+        return users;
+    }
 }
