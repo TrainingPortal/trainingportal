@@ -4,7 +4,7 @@ import trainingportal.model.Group;
 
 import java.util.List;
 
-public interface GroupDAO {
+public interface GroupDao {
 
     List<Group> GroupsList();
 
