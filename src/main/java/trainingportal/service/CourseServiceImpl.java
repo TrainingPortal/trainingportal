@@ -47,7 +47,23 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
+    public List<Course> getAllAsPage(int page, int total) {
+
+        if(page == 1){
+            //do nothing
+        } else {
+            page = (page - 1) * total + 1;
+        }
+        return courseDAO.getAllAsPage(page, total);
+    }
+
+    @Override
     public void deleteById(Long CourseId) {
         courseDAO.deleteById(CourseId);
+    }
+
+    @Override
+    public int getNumberOfPages(List<Course> users, double total) {
+        return (int) Math.ceil(users.size() / total);
     }
 }

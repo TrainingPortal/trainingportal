@@ -63,15 +63,6 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
         return users.size() > 0 ? users.get(0) : null;
     }
 
-    public User findByName(String name) {
-
-        String sql = UserMapper.BASE_SQL + "WHERE name = ?";
-
-        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{name},new UserMapper());
-
-        return users.size() > 0 ? users.get(0) : null;
-    }
-
     @Override
     public User findByToken(String token) {
 
