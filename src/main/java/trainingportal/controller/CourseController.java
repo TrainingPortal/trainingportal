@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Course;
-import trainingportal.model.Role;
-import trainingportal.model.User;
 import trainingportal.service.CourseServiceImpl;
 
 import java.util.List;
@@ -21,7 +19,7 @@ public class CourseController {
     @Autowired
     CourseServiceImpl courseService;
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_LIMIT = 6;
 
     @RequestMapping(value = "/course_create/{page}")
     public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId, ModelAndView modelAndView) {
