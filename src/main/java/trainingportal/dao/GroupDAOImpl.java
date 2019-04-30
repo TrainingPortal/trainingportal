@@ -12,7 +12,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class GroupDAOImpl extends JdbcDaoSupport implements GroupDAO {
+public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
 
     //don't forget if it needed, when DAOImpl extends JdbcDaoSupport
     @Autowired
