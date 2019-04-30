@@ -31,11 +31,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByName(String name) {
-        return userRepository.findByName(name);
-    }
-
-    @Override
     public void save(User user) {
         userRepository.save(user);
     }
@@ -172,5 +167,10 @@ public class UserServiceImpl implements UserService {
     public int getNumberOfPages(List<User> users, double total) {
 
         return (int) Math.ceil(users.size() / total);
+    }
+
+    @Override
+    public List<User> getAllAsPage(int page, int total) {
+        return null;
     }
 }

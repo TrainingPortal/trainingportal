@@ -15,8 +15,6 @@ public interface UserDao extends GenericDao<User> {
 
     User findByEmail(String email);
 
-    User findByName(String name);
-
     User findByToken (String token);
 
     void updateToken (User user, String token);

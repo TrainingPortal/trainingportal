@@ -58,4 +58,10 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
         this.getJdbcTemplate().update(sql, courseId);
     }
+
+    @Override
+    public List<Course> getAllAsPage(int page, int total) {
+        String sql = CourseMapper.SELECT_SQL + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+        return this.getJdbcTemplate().query(sql, new Object[]{}, new CourseMapper());
+    }
 }

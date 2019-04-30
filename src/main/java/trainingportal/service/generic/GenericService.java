@@ -8,4 +8,6 @@ public interface GenericService<T> {
     void update(T entity);
     void deleteById(Long id);
     List<T> findAll();
+    List<T> getAllAsPage(int page, int total);
+    int getNumberOfPages(List<T> users, double total);
 }
