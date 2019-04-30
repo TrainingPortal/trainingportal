@@ -1,4 +1,4 @@
-package trainingportal.exceltest.dao;
+package trainingportal.exporttest.dao;
 
 import export.Export;
 import export.exception.ExportToExcelException;
@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
-import trainingportal.exceltest.model.Trainer;
+import trainingportal.exporttest.model.Trainer;
 
 import javax.sql.DataSource;
 import java.io.IOException;
@@ -29,14 +29,14 @@ public class TrainerDaoImpl extends JdbcDaoSupport implements TrainerDao {
         String sql = "SELECT c.name FROM cource c, users u WHERE u.userid = c.trainerid";
         ArrayList<String> courseName = new ArrayList<>();
 
-        List<Trainer> allCourse = this.getJdbcTemplate().query(sql, new Object[]{}, new RowMapper<Trainer>() {
+        List<trainingportal.exceltest.model.Trainer> allCourse = this.getJdbcTemplate().query(sql, new Object[]{}, new RowMapper<trainingportal.exceltest.model.Trainer>() {
             @Override
-            public Trainer mapRow(ResultSet resultSet, int i) throws SQLException {
+            public trainingportal.exceltest.model.Trainer mapRow(ResultSet resultSet, int i) throws SQLException {
 
                 String cName = resultSet.getString("name");
                 courseName.add(cName);
 
-                return new Trainer(courseName);
+                return new trainingportal.exceltest.model.Trainer(courseName);
             }
         });
 

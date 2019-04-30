@@ -29,10 +29,7 @@ HELP.md
 .vscode/
 
 ### Lova Vardanian local settings ###
-<<<<<<< HEAD
 /src/main/java/email/simpleMail
 /src/main/java/email/
 /src/test/java/test/email
-=======
 /src/test/java/test
->>>>>>> f9ad89d242949353142f0fcfe932c7790f1acd89

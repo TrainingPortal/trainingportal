@@ -1,4 +1,4 @@
-package trainingportal.exceltest.model;
+package trainingportal.exporttest.model;
 
 import java.util.ArrayList;
 
