@@ -4,15 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.UserService;
-import trainingportal.validators.UserValidator;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -54,10 +51,10 @@ public class TrainerController {
         return model;
     }
 
-    @RequestMapping("/trainer-add")
+    @GetMapping("/trainer-add")
     public ModelAndView addTrainer(ModelAndView model){
 
-        model.addObject("trainer",new User());
+        model.addObject("user",new User());
         model.setViewName("trainer/add");
 
         return model;
@@ -92,17 +89,25 @@ public class TrainerController {
     }
 
     @RequestMapping(value = "saveTrainer", method = RequestMethod.POST)
-    public ModelAndView saveTrainer(@Valid User trainer, BindingResult bindingResult, ModelAndView model, RedirectAttributes redir){
+    public ModelAndView saveTrainer(@Valid User user, BindingResult bindingResult, ModelAndView model, RedirectAttributes redir){
 
-        if (bindingResult.hasErrors() || !UserValidator.correct(trainer,trainerService)) {
-            model.addObject("message", UserValidator.Check(trainer,trainerService));
+        User userExists = trainerService.findByEmail(user.getEmail());
+
+        if (userExists != null) {
+            model.addObject("alreadyRegisteredMessage",
+                    "Oops! There is already a user registered with the email provided.");
+            model.setViewName("trainer/add");
+            bindingResult.reject("email");
+            return model;
+        }
+        if (bindingResult.hasErrors()) {
             model.setViewName("trainer/add");
             return model;
         }
-        trainer.setEnabled(1);
-        trainer.setPassword(bCryptPasswordEncoder.encode(trainer.getPassword()));
-        trainerService.save(trainer, Role.TRAINER);
-        redir.addFlashAttribute("successMessage", "User " + trainer.getUserName() + " "+ trainer.getEmail() + " created successfully");
+        user.setEnabled(1);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        trainerService.save(user, Role.TRAINER);
+        redir.addFlashAttribute("successMessage", "User " + user.getUserName() + " "+ user.getEmail() + " created successfully");
         model.setViewName("redirect:/trainers");
 
         return model;
