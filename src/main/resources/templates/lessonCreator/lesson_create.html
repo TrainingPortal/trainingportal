@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Lesson Create</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport">
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<div class="container-fluid">
+    <h2>Lessons List</h2>
+    <h2>
+        <a class="btn btn-success" th:href="@{/lesson-add}">CREATE NEW LESSON</a>
+    </h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="row">lessonId</th>
+            <th scope="row">lessonName</th>
+            <th scope="row">lessonDescription</th>
+            <th scope="row">lessonDuration</th>
+            <th scope="row">lessonDate</th>
+            <th scope="row">homeworkId</th>
+            <th scope="row">groupId</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lesson, iter : ${LessonsList}">
+            <td th:text="${lesson.lessonId}"></td>
+            <td th:text="${lesson.lessonName}"></td>
+            <td th:text="${lesson.lessonDescription}"></td>
+            <td th:text="${lesson.lessonDuration}"></td>
+            <td th:text="${lesson.lessonDate}"></td>
+            <td th:text="${lesson.homeworkId}"></td>
+            <td th:text="${lesson.groupId}"></td>
+            <td>
+                <div class="btn-group">
+                    <!--                    Delete button use @PathVariable to understand what id it need-->
+                    <a class="btn btn-info" th:href="@{/edit-lesson-{id} (id = ${lesson.lessonId}) }">Edit</a>
+                    <a class="btn btn-dark" th:href="@{/lesson-delete-by-{id} (id = ${lesson.lessonId}) }">Delete</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

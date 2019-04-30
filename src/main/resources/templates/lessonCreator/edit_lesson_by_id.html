@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit Course</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+</head>
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<h1>Edit Lesson</h1>
+<div class="row justify-content-center">
+    <div class="col-md-4 col-md-offset-4">
+        <form action="#" method="post" th:action="@{/edit-lesson-{id}(id = ${lesson.lessonId})}"
+              th:object="${lesson}">
+
+            <input class="form-control" placeholder="Id" th:field="*{lessonId}" type="hidden"/>
+
+            <input class="form-control" placeholder="lesson Name" th:field="*{lessonName}" type="text"/>
+            <p class="alert alert-danger" th:errors="*{lessonName}" th:if="${#fields.hasErrors('lessonName')}">
+                Error, check name field</p>
+
+            <input class="form-control" placeholder="lesson Description" th:field="*{lessonDescription}" type="text"/>
+            <p class="alert alert-danger" th:errors="*{lessonDescription}"
+               th:if="${#fields.hasErrors('lessonDescription')}">
+                Error, check lesson Description field</p>
+
+            <input class="form-control" placeholder="lessonDuration" th:field="*{lessonDuration}" type="text"/>
+            <p class="alert alert-danger" th:errors="*{lessonDuration}" th:if="${#fields.hasErrors('lessonDuration')}">
+                Error, check lesson Duration field</p>
+
+            <input class="form-control" placeholder="lesson Date" th:field="*{lessonDate}" type="date"/>
+            <p class="alert alert-danger" th:errors="*{lessonDate}" th:if="${#fields.hasErrors('lessonDate')}">Error,
+                lesson Date</p>
+
+            <input class="form-control" placeholder="homeworkId" th:field="*{homeworkId}" type="number"/>
+            <p class="alert alert-danger" th:errors="*{homeworkId}" th:if="${#fields.hasErrors('homeworkId')}">Error,
+                homeworkId </p>
+
+            <input class="form-control" placeholder="groupId" th:field="*{groupId}" type="number"/>
+            <p class="alert alert-danger" th:errors="*{groupId}" th:if="${#fields.hasErrors('groupId')}">
+                Error, check group Id</p>
+
+            <input class="btn btn-success" type="submit" value="Save"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>
