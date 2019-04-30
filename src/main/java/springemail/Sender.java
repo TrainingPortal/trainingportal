@@ -21,11 +21,8 @@ public class Sender {
     @Autowired
     private JavaMailSender javaMailSender;
 
-    /**
-     * This method will send compose and send the message
-     * */
-    public void sendMail(String to, String subject, String body)
-    {
+
+    public void sendMail(String to, String subject, String body) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(to);
         message.setSubject(subject);
@@ -33,9 +30,6 @@ public class Sender {
         mailSender.send(message);
     }
 
-    /**
-     * This method will send compose and send the message with attachment
-     * */
     public void sendMailWithAttachment(String to, String subject, String text, String fullPathToAttachment) throws MessagingException {
 
         MimeMessage message = javaMailSender.createMimeMessage();
