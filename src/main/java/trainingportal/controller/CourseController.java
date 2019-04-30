@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Course;
+import trainingportal.model.CourseStatus;
 import trainingportal.service.CourseServiceImpl;
 
 import java.util.List;
@@ -26,6 +27,10 @@ public class CourseController {
         List<Course> courseList = courseService.getAllAsPage(page, ROWS_LIMIT);
 //        List<Course> courseList = courseService.getAllCoursesById(courseId);
 //        Course courseList = courseService.findCourseById(courseId);
+
+        List<CourseStatus> courseStatuses = courseService.selectStatus();
+        modelAndView.addObject("statusList", courseStatuses);
+
         modelAndView.addObject("courseList", courseList);
         modelAndView.addObject("pages",
                 courseService.getNumberOfPages(courseService.findAll(), ROWS_LIMIT));
@@ -81,4 +86,5 @@ public class CourseController {
         model.setViewName("redirect:/course_create/1");
         return model;
     }
+
 }
