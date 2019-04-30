@@ -29,14 +29,14 @@ public class TrainerDaoImpl extends JdbcDaoSupport implements TrainerDao {
         String sql = "SELECT c.name FROM cource c, users u WHERE u.userid = c.trainerid";
         ArrayList<String> courseName = new ArrayList<>();
 
-        List<trainingportal.exceltest.model.Trainer> allCourse = this.getJdbcTemplate().query(sql, new Object[]{}, new RowMapper<trainingportal.exceltest.model.Trainer>() {
+        List<Trainer> allCourse = this.getJdbcTemplate().query(sql, new Object[]{}, new RowMapper<Trainer>() {
             @Override
-            public trainingportal.exceltest.model.Trainer mapRow(ResultSet resultSet, int i) throws SQLException {
+            public Trainer mapRow(ResultSet resultSet, int i) throws SQLException {
 
                 String cName = resultSet.getString("name");
                 courseName.add(cName);
 
-                return new trainingportal.exceltest.model.Trainer(courseName);
+                return new Trainer(courseName);
             }
         });
 

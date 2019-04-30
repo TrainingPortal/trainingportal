@@ -1,6 +1,6 @@
-package springemail;
+package export;
 
-import export.Export;
+import export.exception.ExportToExcelException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -8,7 +8,7 @@ import java.io.IOException;
 class ExportTest {
 
     @Test
-    void testExportDataToExcel() throws IOException {
+    void testExportDataToExcel() throws IOException, ExportToExcelException {
 
         //Create 2D Array of Data
         Object[][] value = new Object[5][2];
