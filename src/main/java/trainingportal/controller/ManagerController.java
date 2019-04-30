@@ -186,7 +186,8 @@ public class ManagerController {
         }
         user.setEnabled(1);
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        managerService.save(user, Role.MANAGER);
+        user.setRoleId(Role.MANAGER);
+        managerService.save(user);
         redir.addFlashAttribute("successMessage", "User " + user.getUserName() + " "+ user.getEmail() + " created successfully");
         model.setViewName("redirect:/managers/1");
 
