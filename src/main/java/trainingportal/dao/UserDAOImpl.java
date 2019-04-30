@@ -1,7 +1,9 @@
 package trainingportal.dao;
 
+import empexcel.model.Emp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
@@ -10,6 +12,8 @@ import trainingportal.mapper.UserMapper;
 import trainingportal.model.User;
 
 import javax.sql.DataSource;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 @Repository
@@ -157,5 +161,16 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
         String sql = "DELETE FROM users WHERE roleId = ?";
 
         this.getJdbcTemplate().update(sql, roleId);
+    }
+
+    @Override
+    public List<User> getAllByRoleAsPage(int page, int total, Long roleId) {
+
+        String sql = UserMapper.BASE_SQL +
+                "WHERE roleId = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        List<User> users = this.getJdbcTemplate().query(sql, new Object[]{roleId}, new UserMapper());
+
+        return users;
     }
 }
