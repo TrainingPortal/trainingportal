@@ -22,32 +22,31 @@
 
                 <input class="form-control" placeholder="lesson Name" th:field="*{lessonName}" type="text"/>
                 <p class="alert alert-danger" th:errors="*{lessonName}" th:if="${#fields.hasErrors('lessonName')}">
-                    Error, check name field</p>
+                    Error, check lesson name field</p>
 
                 <input class="form-control" placeholder="lesson Description" th:field="*{lessonDescription}"
                        type="text"/>
                 <p class="alert alert-danger" th:errors="*{lessonDescription}"
                    th:if="${#fields.hasErrors('lessonDescription')}">
-                    Error, check level field</p>
+                    Error, check lesson description field</p>
 
                 <input class="form-control" placeholder="lesson Duration" th:field="*{lessonDuration}" type="number"/>
                 <p class="alert alert-danger" th:errors="*{lessonDuration}"
                    th:if="${#fields.hasErrors('lessonDuration')}">
-                    Error, check status field</p>
+                    Error, check lesson Duration field</p>
 
                 <input class="form-control" placeholder="lesson date" th:field="*{lessonDate}" type="date"/>
                 <p class="alert alert-danger" th:errors="*{lessonDate}" th:if="${#fields.hasErrors('lessonDate')}">
-                    Error,
-                    min number</p>
+                    Error, lesson date field</p>
 
                 <input class="form-control" placeholder="homework Id" th:field="*{homeworkId}" type="number"/>
                 <p class="alert alert-danger" th:errors="*{homeworkId}" th:if="${#fields.hasErrors('homeworkId')}">
-                    Error,
-                    max number</p>
+                    Error, homework Id field</p>
 
-                <input class="form-control" placeholder="groupId" th:field="*{groupId}" type="number"/>
+                <input class="form-control" placeholder="group Id" th:field="*{groupId}" type="number"/>
                 <p class="alert alert-danger" th:errors="*{groupId}" th:if="${#fields.hasErrors('groupId')}">
-                    Error, check description</p>
+                    Error, group Id</p>
+
 
                 <input class="btn btn-success" type="submit" value="Save lesson"/>
             </form>

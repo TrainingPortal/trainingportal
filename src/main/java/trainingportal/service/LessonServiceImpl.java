@@ -35,8 +35,8 @@ public class LessonServiceImpl implements LessonService {
         Lesson lessonEdit = lessonDao.findById(lesson.getLessonId());
         if (lessonEdit != null) {
             lessonEdit.setLessonName(lesson.getLessonName());
-            lessonEdit.setLessonDuration(lesson.getLessonDuration());
             lessonEdit.setLessonDescription(lesson.getLessonDescription());
+            lessonEdit.setLessonDuration(lesson.getLessonDuration());
             lessonEdit.setLessonDate(lesson.getLessonDate());
             lessonEdit.setHomeworkId(lesson.getHomeworkId());
             lessonEdit.setGroupId(lesson.getGroupId());

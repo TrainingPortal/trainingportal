@@ -14,20 +14,20 @@ public class Lesson {
     private String lessonDescription;
     @Size(min = 10, max = 120)
     @NotNull
-    private double lessonDuration;
+    private Double lessonDuration;
     @NotNull
     private String lessonDate;
     @NotNull
-    private long homeworkId;
+    private Long homeworkId;
     @Size(min = 1, max = 30)
 
     @NotNull
-    private long groupId;
+    private Long groupId;
 
     public Lesson() {
     }
 
-    public Lesson(Long lessonId, String lessonName, String lessonDescription, double lessonDuration, String lessonDate, long homeworkId, long groupId) {
+    public Lesson(@NotNull Long lessonId, @Size(min = 1, max = 40) @NotNull String lessonName, @Size(min = 1, max = 30) String lessonDescription, @Size(min = 10, max = 120) @NotNull Double lessonDuration, @NotNull String lessonDate, @NotNull Long homeworkId, @Size(min = 1, max = 30) @NotNull Long groupId) {
         this.lessonId = lessonId;
         this.lessonName = lessonName;
         this.lessonDescription = lessonDescription;
@@ -61,11 +61,11 @@ public class Lesson {
         this.lessonDescription = lessonDescription;
     }
 
-    public double getLessonDuration() {
+    public Double getLessonDuration() {
         return lessonDuration;
     }
 
-    public void setLessonDuration(double lessonDuration) {
+    public void setLessonDuration(Double lessonDuration) {
         this.lessonDuration = lessonDuration;
     }
 
@@ -77,19 +77,19 @@ public class Lesson {
         this.lessonDate = lessonDate;
     }
 
-    public long getHomeworkId() {
+    public Long getHomeworkId() {
         return homeworkId;
     }
 
-    public void setHomeworkId(long homeworkId) {
+    public void setHomeworkId(Long homeworkId) {
         this.homeworkId = homeworkId;
     }
 
-    public long getGroupId() {
+    public Long getGroupId() {
         return groupId;
     }
 
-    public void setGroupId(long groupId) {
+    public void setGroupId(Long groupId) {
         this.groupId = groupId;
     }
 }

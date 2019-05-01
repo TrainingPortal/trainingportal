@@ -18,27 +18,33 @@
 
             <input class="form-control" placeholder="Id" th:field="*{lessonId}" type="hidden"/>
 
+            <label>lesson Name</label>
             <input class="form-control" placeholder="lesson Name" th:field="*{lessonName}" type="text"/>
             <p class="alert alert-danger" th:errors="*{lessonName}" th:if="${#fields.hasErrors('lessonName')}">
                 Error, check name field</p>
 
+            <label>lesson Description</label>
             <input class="form-control" placeholder="lesson Description" th:field="*{lessonDescription}" type="text"/>
             <p class="alert alert-danger" th:errors="*{lessonDescription}"
                th:if="${#fields.hasErrors('lessonDescription')}">
                 Error, check lesson Description field</p>
 
-            <input class="form-control" placeholder="lessonDuration" th:field="*{lessonDuration}" type="text"/>
+            <label>lesson Duration</label>
+            <input class="form-control" placeholder="lesson Duration" th:field="*{lessonDuration}" type="text"/>
             <p class="alert alert-danger" th:errors="*{lessonDuration}" th:if="${#fields.hasErrors('lessonDuration')}">
                 Error, check lesson Duration field</p>
 
+            <label>lesson Date</label>
             <input class="form-control" placeholder="lesson Date" th:field="*{lessonDate}" type="date"/>
             <p class="alert alert-danger" th:errors="*{lessonDate}" th:if="${#fields.hasErrors('lessonDate')}">Error,
                 lesson Date</p>
 
+            <label>homework Id</label>
             <input class="form-control" placeholder="homeworkId" th:field="*{homeworkId}" type="number"/>
             <p class="alert alert-danger" th:errors="*{homeworkId}" th:if="${#fields.hasErrors('homeworkId')}">Error,
                 homeworkId </p>
 
+            <label>group Id</label>
             <input class="form-control" placeholder="groupId" th:field="*{groupId}" type="number"/>
             <p class="alert alert-danger" th:errors="*{groupId}" th:if="${#fields.hasErrors('groupId')}">
                 Error, check group Id</p>

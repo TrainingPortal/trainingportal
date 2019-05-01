@@ -36,16 +36,16 @@ public class LessonDaoImpl extends JdbcDaoSupport implements LessonDao {
     @Override
     public void save(Lesson lesson) {
         String sql = "INSERT INTO Lesson (lessonName, lessonDescription, lessonDuration, lessonDate, homeworkId, groupId) VALUES (?,?,?,?,?,?)";
-        this.getJdbcTemplate().update(sql, new Object[]{lesson.getLessonName(), lesson.getLessonDuration(),
-                lesson.getLessonDuration(), lesson.getLessonDate(), lesson.getGroupId()});
+        this.getJdbcTemplate().update(sql, new Object[]{lesson.getLessonName(), lesson.getLessonDescription(), lesson.getLessonDuration(),
+                lesson.getLessonDate(), lesson.getHomeworkId(), lesson.getGroupId()});
     }
 
     @Override
     public void update(Lesson lesson) {
         String sql = LessonMapper.EDIT_SQL + " WHERE lessonId = ?";
 
-        this.getJdbcTemplate().update(sql, lesson.getLessonName(), lesson.getLessonDuration(),
-                lesson.getLessonDate(), lesson.getHomeworkId(), lesson.getGroupId());
+        this.getJdbcTemplate().update(sql, lesson.getLessonName(), lesson.getLessonDescription(), lesson.getLessonDuration(),
+                lesson.getLessonDate(), lesson.getHomeworkId(), lesson.getGroupId(), lesson.getLessonId());
     }
 
     @Override
