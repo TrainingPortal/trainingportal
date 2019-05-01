@@ -19,6 +19,7 @@ public class LessonDaoImpl extends JdbcDaoSupport implements LessonDao {
         this.setDataSource(dataSource);
     }
 
+
     @Override
     public List<Lesson> findAll() {
         String sql = LessonMapper.SELECT_SQL;
@@ -35,6 +36,7 @@ public class LessonDaoImpl extends JdbcDaoSupport implements LessonDao {
 
     @Override
     public void save(Lesson lesson) {
+
         String sql = "INSERT INTO Lesson (lessonName, lessonDescription, lessonDuration, lessonDate, homeworkId, groupId) VALUES (?,?,?,?,?,?)";
         this.getJdbcTemplate().update(sql, new Object[]{lesson.getLessonName(), lesson.getLessonDuration(),
                 lesson.getLessonDuration(), lesson.getLessonDate(), lesson.getGroupId()});

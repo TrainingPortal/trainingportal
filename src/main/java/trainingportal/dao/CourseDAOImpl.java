@@ -69,6 +69,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
     @Override
     public List<CourseStatus> selectStatus() {
+
         String sql = "SELECT statusId, statusName FROM COURSESTATUS INNER JOIN COURSE ON statusId = course_status_id ";
         return this.getJdbcTemplate().query(sql, new Object[]{}, new CourseStatusMapper());
     }

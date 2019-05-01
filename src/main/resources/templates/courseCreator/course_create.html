@@ -54,6 +54,14 @@
             <!--                </select>-->
             <!--            </td>-->
             <td>
+                <select th:field="*{courseList}">
+                    <option value=""> --</option>
+                    <option th:each="country : ${statusList}"
+                            th:utext="${country.statusName}"
+                            th:value="${country.statusId}"/>
+                </select>
+            </td>
+            <td>
                 <div class="btn-group">
                     <!--                    Delete button use @PathVariable to understand what id it need-->
                     <a class="btn btn-info" th:href="@{/edit-course-{id} (id = ${course.courseId}) }">Edit</a>
@@ -66,6 +74,7 @@
             <!--            <td th:text="${status.statusName}"></td>-->
             <!--        </tr>-->
             <!--        </td>-->
+
 
         </tr>
         </tbody>

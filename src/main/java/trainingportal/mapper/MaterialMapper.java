@@ -9,6 +9,7 @@ import java.sql.SQLException;
 public class MaterialMapper implements RowMapper<Material> {
 
     public static final String SELECT_SQL
+
             = "SELECT id, lesson_id, description FROM MATERIAL";
 
     public static final String EDIT_SQL
@@ -23,7 +24,6 @@ public class MaterialMapper implements RowMapper<Material> {
         Long lessonId = resultSet.getLong("lesson_id");
 
         String materialDescription = resultSet.getString("description");
-
 
         return new Material(materialId, lessonId, materialDescription);
     }

@@ -30,6 +30,7 @@ public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
 
     @Override
     public Material findById(Long materialId) {
+      
         String sql = MaterialMapper.SELECT_SQL + " WHERE Id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{materialId}, new MaterialMapper());
@@ -38,13 +39,16 @@ public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
 
     @Override
     public void save(Material material) {
+
         String sql = "INSERT INTO MATERIAL (lesson_id, description) VALUES (?,?)";
         this.getJdbcTemplate().update(sql, new Object[]{material.getLessonId(),
                 material.getMaterialDescription(),});
+
     }
 
     @Override
     public void update(Material material) {
+
         String sql = MaterialMapper.EDIT_SQL + " WHERE Id = ?";
 
         this.getJdbcTemplate().update(sql, material.getLessonId(),
@@ -56,6 +60,7 @@ public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
         String sql = "DELETE FROM MATERIAL WHERE Id = ?";
 
         this.getJdbcTemplate().update(sql, materialId);
+
     }
 }
 

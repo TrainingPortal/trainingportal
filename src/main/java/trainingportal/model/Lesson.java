@@ -21,6 +21,7 @@ public class Lesson {
     private long homeworkId;
     @Size(min = 1, max = 30)
 
+
     @NotNull
     private long groupId;
 
@@ -28,6 +29,7 @@ public class Lesson {
     }
 
     public Lesson(Long lessonId, String lessonName, String lessonDescription, double lessonDuration, String lessonDate, long homeworkId, long groupId) {
+
         this.lessonId = lessonId;
         this.lessonName = lessonName;
         this.lessonDescription = lessonDescription;
@@ -37,12 +39,14 @@ public class Lesson {
         this.groupId = groupId;
     }
 
+
     public Long getLessonId() {
         return lessonId;
     }
 
     public void setLessonId(Long lessonId) {
         this.lessonId = lessonId;
+
     }
 
     public String getLessonName() {

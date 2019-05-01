@@ -48,6 +48,7 @@ public class MaterialServiceImpl implements MaterialService {
         materialDao.deleteById(materialId);
     }
 
+
     @Override
     public List<Material> findAll() {
         return materialDao.findAll();
@@ -57,5 +58,6 @@ public class MaterialServiceImpl implements MaterialService {
     public List<Material> getAllAsPage(int page, int total) {
         return null;
     }
+
 }
 

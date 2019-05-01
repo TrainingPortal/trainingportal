@@ -50,6 +50,7 @@ public class LessonServiceImpl implements LessonService {
         lessonDao.deleteById(LessonId);
     }
 
+
     @Override
     public List<Lesson> getAllAsPage(int page, int total) {
         return null;
@@ -59,4 +60,5 @@ public class LessonServiceImpl implements LessonService {
     public int getNumberOfPages(List<Lesson> users, double total) {
         return 0;
     }
+
 }
