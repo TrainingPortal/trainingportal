@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit homework</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+</head>
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<h1>Edit homework</h1>
+<div class="row justify-content-center">
+    <div class="col-md-4 col-md-offset-4">
+        <form action="#" method="post" th:action="@{/edit-homework-{id}(id = ${homework.homeworkId})}"
+              th:object="${homework}">
+
+            <input class="form-control" placeholder="homework Id" th:field="*{homeworkId}" type="hidden"/>
+
+            <label>homework Name</label>
+            <input class="form-control" placeholder="homework Name " th:field="*{homeworkName}"
+                   type="text"/>
+            <p class="alert alert-danger" th:errors="*{homeworkName}"
+               th:if="${#fields.hasErrors('homeworkName')}">Error, check homeworkName field</p>
+
+            <label>homeworkDeadlineDate</label>
+            <input class="form-control" placeholder="homeworkDeadlineDate id" th:field="*{homeworkDeadlineDate}"
+                   type="date"/>
+            <p class="alert alert-danger" th:errors="*{homeworkDeadlineDate}"
+               th:if="${#fields.hasErrors('homeworkDeadlineDate')}">Error, check homeworkDeadlineDate field</p>
+
+
+            <input class="btn btn-success" type="submit" value="Save"/>
+        </form>
+    </div>
+</div>
+</body>
+</html>

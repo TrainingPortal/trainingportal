@@ -51,6 +51,26 @@ public class Export {
         }
     }
 
+    public void exportDataToExcelGenerics(String fileName, String tabName, List<List> list) throws IOException, ExportToExcelException {
+
+        if (!list.isEmpty()) {
+
+            Object[][] objects = new Object[list.get(0).size()][list.size()];
+
+            for (int i = 0; i < list.size(); i++) {
+                for (int j = 0; j < list.get(i).size(); j++) {
+                    Object s = list.get(i).get(j);
+                    objects[j][i] = s;
+                }
+            }
+
+            exportDataToExcel(fileName, tabName, objects);
+
+        }else {
+            throw new ExportToExcelException("Input List is empty or list's inside List<List list> has different size");
+        }
+    }
+
     private void createFileInside(Sheet sheet,Object[][] data){
 
         //Create 2D Cell Array

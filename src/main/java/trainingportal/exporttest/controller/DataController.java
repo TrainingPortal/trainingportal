@@ -5,22 +5,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import trainingportal.exporttest.dao.TrainerDaoImpl;
-import trainingportal.exporttest.model.Trainer;
+import trainingportal.exporttest.dao.DataDaoImpl;
 
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class TrainerController2 {
+public class DataController {
 
     @Autowired
-    TrainerDaoImpl trainerDao;
+    DataDaoImpl dataDao;
 
     @RequestMapping(value = "trainer/trainerCourses", method = RequestMethod.GET)
     public ModelAndView showAllTrainerCourses(@NotNull ModelAndView model){
 
-        List<Trainer> courses = trainerDao.findAllTrainerCourse();
+        List courses = dataDao.findFieldsFromTable(new ArrayList<>(), "s");
 
         model.addObject("trainerAllCourses",courses);
         model.setViewName("trainer/trainerCourses");

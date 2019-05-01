@@ -5,7 +5,9 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.mapper.CourseMapper;
+import trainingportal.mapper.CourseStatusMapper;
 import trainingportal.model.Course;
+import trainingportal.model.CourseStatus;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -64,4 +66,12 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
         String sql = CourseMapper.SELECT_SQL + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
         return this.getJdbcTemplate().query(sql, new Object[]{}, new CourseMapper());
     }
+
+    @Override
+    public List<CourseStatus> selectStatus() {
+        String sql = "SELECT statusId, statusName FROM COURSESTATUS INNER JOIN COURSE ON statusId = course_status_id ";
+        return this.getJdbcTemplate().query(sql, new Object[]{}, new CourseStatusMapper());
+    }
+
+
 }
