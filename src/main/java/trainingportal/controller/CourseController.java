@@ -25,8 +25,6 @@ public class CourseController {
     @RequestMapping(value = "/course_create/{page}")
     public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId, ModelAndView modelAndView) {
         List<Course> courseList = courseService.getAllAsPage(page, ROWS_LIMIT);
-//        List<Course> courseList = courseService.getAllCoursesById(courseId);
-//        Course courseList = courseService.findCourseById(courseId);
 
         List<CourseStatus> courseStatuses = courseService.selectStatus();
         modelAndView.addObject("statusList", courseStatuses);
