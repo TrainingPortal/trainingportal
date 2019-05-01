@@ -8,21 +8,18 @@ import java.sql.SQLException;
 
 public class TaskMapper implements RowMapper<Task> {
     public static final String SELECT_SQL
-            = "SELECT taskId, homeworkId, taskDescription FROM MATERIAL";
+            = "SELECT taskId, homeworkId, taskDescription FROM TASK";
 
     public static final String EDIT_SQL
-            = "UPDATE MATERIAL SET  taskDescription = ?, homeworkId = ?";
+            = "UPDATE TASK SET  homeworkId = ?, taskDescription = ? ";
 
 
     @Override
     public Task mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 
         Long taskId = resultSet.getLong("taskId");
-
-        Long homeworkId = resultSet.getLong("homeworkId");
-
         String taskDescription = resultSet.getString("taskDescription");
-
+        Long homeworkId = resultSet.getLong("homeworkId");
 
         return new Task(taskId, taskDescription, homeworkId);
     }

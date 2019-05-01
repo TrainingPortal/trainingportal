@@ -38,20 +38,20 @@ public class TaskDaoImpl extends JdbcDaoSupport implements TaskDao {
 
     @Override
     public void save(Task task) {
-        String sql = "INSERT INTO TASK (homeworkId, taskDescription) VALUES (?,?)";
-        this.getJdbcTemplate().update(sql, new Object[]{task.getHomeworkId(), task.getTaskDescription()});
+        String sql = "INSERT INTO TASK (taskDescription,homeworkId) VALUES (?,?)";
+        this.getJdbcTemplate().update(sql, new Object[]{task.getTaskDescription(), task.getHomeworkId()});
     }
 
     @Override
     public void update(Task task) {
-        String sql = TaskMapper.EDIT_SQL + " WHERE getTaskId = ?";
+        String sql = TaskMapper.EDIT_SQL + " WHERE taskId = ?";
 
         this.getJdbcTemplate().update(sql, task.getHomeworkId(), task.getTaskDescription(), task.getTaskId());
     }
 
     @Override
     public void deleteById(Long getTaskId) {
-        String sql = "DELETE FROM TASK WHERE getTaskId = ?";
+        String sql = "DELETE FROM TASK WHERE taskId = ?";
 
         this.getJdbcTemplate().update(sql, getTaskId);
     }

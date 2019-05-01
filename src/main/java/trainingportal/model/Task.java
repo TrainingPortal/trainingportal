@@ -10,22 +10,16 @@ public class Task {
     @NotNull
     private String taskDescription;
     @Size(min = 1, max = 500)
-    private long homeworkId;
-
-    @Size(min = 1, max = 40)
-
-    public Task(@NotNull Long taskId, @Size(min = 1, max = 40) @NotNull String taskDescription, @Size(min = 1, max = 500) long homeworkId) {
-        this.taskId = taskId;
-        this.taskDescription = taskDescription;
-        this.homeworkId = homeworkId;
-    }
-
-    @Size(min = 10, max = 220)
-    @NotNull
-
+    private Long homeworkId;
 
     public Task() {
 
+    }
+
+    public Task(@NotNull Long taskId, @Size(min = 1, max = 40) @NotNull String taskDescription, @Size(min = 1, max = 500) Long homeworkId) {
+        this.taskId = taskId;
+        this.taskDescription = taskDescription;
+        this.homeworkId = homeworkId;
     }
 
     public Long getTaskId() {
@@ -44,11 +38,11 @@ public class Task {
         this.taskDescription = taskDescription;
     }
 
-    public long getHomeworkId() {
+    public Long getHomeworkId() {
         return homeworkId;
     }
 
-    public void setHomeworkId(long homeworkId) {
+    public void setHomeworkId(Long homeworkId) {
         this.homeworkId = homeworkId;
     }
 }

@@ -34,9 +34,8 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void update(Task task) {
-        Task taskEdit = taskDao.findById(task.getHomeworkId());
+        Task taskEdit = taskDao.findById(task.getTaskId());
         if (taskEdit != null) {
-            taskEdit.setTaskId(task.getTaskId());
             taskEdit.setHomeworkId(task.getHomeworkId());
             taskEdit.setTaskDescription(task.getTaskDescription());
 
