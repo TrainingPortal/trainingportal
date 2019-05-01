@@ -9,21 +9,21 @@ import java.sql.SQLException;
 public class MaterialMapper implements RowMapper<Material> {
 
     public static final String SELECT_SQL
-            = "SELECT materialId, lessonId, materialDescription FROM MATERIAL";
+
+            = "SELECT id, lesson_id, description FROM MATERIAL";
 
     public static final String EDIT_SQL
-            = "UPDATE MATERIAL SET  materialId = ?, lessonId = ?, materialDescription = ?";
+            = "UPDATE MATERIAL SET lesson_id = ?, description = ?";
 
 
     @Override
     public Material mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 
-        Long materialId = resultSet.getLong("materialId");
+        Long materialId = resultSet.getLong("id");
 
-        Long lessonId = resultSet.getLong("lessonId");
+        Long lessonId = resultSet.getLong("lesson_id");
 
-        String materialDescription = resultSet.getString("materialDescription");
-
+        String materialDescription = resultSet.getString("description");
 
         return new Material(materialId, lessonId, materialDescription);
     }

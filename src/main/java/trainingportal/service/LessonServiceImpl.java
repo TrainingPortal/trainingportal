@@ -21,16 +21,6 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public List<Lesson> getAllAsPage(int page, int total) {
-        return null;
-    }
-
-    @Override
-    public int getNumberOfPages(List<Lesson> users, double total) {
-        return 0;
-    }
-
-    @Override
     public Lesson findById(Long LessonId) {
         return lessonDao.findById(LessonId);
     }
@@ -59,4 +49,16 @@ public class LessonServiceImpl implements LessonService {
     public void deleteById(Long LessonId) {
         lessonDao.deleteById(LessonId);
     }
+
+
+    @Override
+    public List<Lesson> getAllAsPage(int page, int total) {
+        return null;
+    }
+
+    @Override
+    public int getNumberOfPages(List<Lesson> users, double total) {
+        return 0;
+    }
+
 }

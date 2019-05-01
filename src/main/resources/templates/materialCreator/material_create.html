@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Lesson Create</title>
+    <title>Material Create</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <meta content="width=device-width" name="viewport">
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
@@ -15,37 +15,31 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="container-fluid">
-    <h2>Lessons List</h2>
+    <h2>Material List</h2>
     <h2>
-        <a class="btn btn-success" th:href="@{/lesson-add}">CREATE NEW LESSON</a>
+        <a class="btn btn-success" th:href="@{/material-add}">CREATE NEW MATERIAL</a>
     </h2>
     <table class="table table-striped">
         <thead>
         <tr>
+            <th scope="row">materialId</th>
             <th scope="row">lessonId</th>
-            <th scope="row">lessonName</th>
-            <th scope="row">lessonDescription</th>
-            <th scope="row">lessonDuration</th>
-            <th scope="row">lessonDate</th>
-            <th scope="row">homeworkId</th>
-            <th scope="row">groupId</th>
+            <th scope="row">materialDescription</th>
+
         </tr>
         </thead>
         <tbody>
-        <tr th:each="lesson, iter : ${lessonList}">
+        <tr th:each="material, iter : ${materialList}">
+            <td th:text="${material.materialId}"></td>
+            <td th:text="${material.lessonId}"></td>
+            <td th:text="${material.materialDescription}"></td>
 
-            <td th:text="${lesson.lessonId}"></td>
-            <td th:text="${lesson.lessonName}"></td>
-            <td th:text="${lesson.lessonDescription}"></td>
-            <td th:text="${lesson.lessonDuration}"></td>
-            <td th:text="${lesson.lessonDate}"></td>
-            <td th:text="${lesson.homeworkId}"></td>
-            <td th:text="${lesson.groupId}"></td>
             <td>
                 <div class="btn-group">
-                    <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <a class="btn btn-info" th:href="@{/edit-lesson-{id} (id = ${lesson.lessonId}) }">Edit</a>
-                    <a class="btn btn-dark" th:href="@{/lesson-delete-by-{id} (id = ${lesson.lessonId}) }">Delete</a>
+
+                    <a class="btn btn-info" th:href="@{/edit-material-{id} (id = ${material.materialId}) }">Edit</a>
+                    <a class="btn btn-dark"
+                       th:href="@{/material-delete-by-{id} (id = ${material.materialId}) }">Delete</a>
                 </div>
             </td>
         </tr>

@@ -17,16 +17,6 @@ public class MaterialServiceImpl implements MaterialService {
     private MaterialDaoImpl materialDao;
 
     @Override
-    public List<Material> findAll() {
-        return materialDao.findAll();
-    }
-
-    @Override
-    public List<Material> getAllAsPage(int page, int total) {
-        return null;
-    }
-
-    @Override
     public int getNumberOfPages(List<Material> users, double total) {
         return 0;
     }
@@ -45,9 +35,8 @@ public class MaterialServiceImpl implements MaterialService {
     public void update(Material material) {
         Material materialEdit = materialDao.findById(material.getMaterialId());
         if (materialEdit != null) {
-            materialEdit.setMaterialId(material.getMaterialId());
-            materialEdit.setMaterialDescription(material.getMaterialDescription());
             materialEdit.setLessonId(material.getLessonId());
+            materialEdit.setMaterialDescription(material.getMaterialDescription());
 
         }
         materialDao.update(materialEdit);
@@ -58,5 +47,17 @@ public class MaterialServiceImpl implements MaterialService {
     public void deleteById(Long materialId) {
         materialDao.deleteById(materialId);
     }
+
+
+    @Override
+    public List<Material> findAll() {
+        return materialDao.findAll();
+    }
+
+    @Override
+    public List<Material> getAllAsPage(int page, int total) {
+        return null;
+    }
+
 }
 

@@ -30,7 +30,8 @@ public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
 
     @Override
     public Material findById(Long materialId) {
-        String sql = MaterialMapper.SELECT_SQL + " WHERE materialId = ?";
+      
+        String sql = MaterialMapper.SELECT_SQL + " WHERE Id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{materialId}, new MaterialMapper());
     }
@@ -38,24 +39,28 @@ public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
 
     @Override
     public void save(Material material) {
-        String sql = "INSERT INTO MATERIAL (materialId, lessonId, materialDescription) VALUES (?,?,?)";
-        this.getJdbcTemplate().update(sql, new Object[]{material.getMaterialId(), material.getMaterialDescription(),
-                material.getLessonId()});
+
+        String sql = "INSERT INTO MATERIAL (lesson_id, description) VALUES (?,?)";
+        this.getJdbcTemplate().update(sql, new Object[]{material.getLessonId(),
+                material.getMaterialDescription(),});
+
     }
 
     @Override
     public void update(Material material) {
-        String sql = MaterialMapper.EDIT_SQL + " WHERE getMaterialId = ?";
 
-        this.getJdbcTemplate().update(sql, material.getMaterialId(), material.getMaterialDescription(),
-                material.getLessonId());
+        String sql = MaterialMapper.EDIT_SQL + " WHERE Id = ?";
+
+        this.getJdbcTemplate().update(sql, material.getLessonId(),
+                material.getMaterialDescription(), material.getMaterialId());
     }
 
     @Override
-    public void deleteById(Long getMaterialId) {
-        String sql = "DELETE FROM MATERIAL WHERE getMaterialId = ?";
+    public void deleteById(Long materialId) {
+        String sql = "DELETE FROM MATERIAL WHERE Id = ?";
 
-        this.getJdbcTemplate().update(sql, getMaterialId);
+        this.getJdbcTemplate().update(sql, materialId);
+
     }
 }
 

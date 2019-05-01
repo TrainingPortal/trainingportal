@@ -66,8 +66,9 @@ public class MaterialController {
     }
 
     @RequestMapping(value = "/material-delete-by-{id}", method = RequestMethod.GET)
-    public ModelAndView deleteMaterialById(@PathVariable("id") Long MaterialId, ModelAndView model, RedirectAttributes redirect) {
-        materialService.deleteById(MaterialId);
+
+    public ModelAndView deleteMaterialById(@PathVariable("id") Long materialId, ModelAndView model, RedirectAttributes redirect) {
+        materialService.deleteById(materialId);
 
         redirect.addFlashAttribute("successMessage", "material deleted successfully");
 

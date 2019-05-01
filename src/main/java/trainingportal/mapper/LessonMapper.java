@@ -17,12 +17,14 @@ public class LessonMapper implements RowMapper<Lesson> {
     @Override
     public Lesson mapRow(ResultSet rtS, int rowNum) throws SQLException {
         Long lessonId = rtS.getLong("lessonId");
-        String lessonName = rtS.getString("name");
-        String lessonDescription = rtS.getString("course_level");
-        Double lessonDuration = rtS.getDouble("lesson_description");
-        String lessonDate = rtS.getString("lesson_date");
-        Long homeworkId = rtS.getLong("homework_id");
-        Long groupId = rtS.getLong("group_id");
+
+        String lessonName = rtS.getString("lessonName");
+        String lessonDescription = rtS.getString("lessonDescription");
+        Double lessonDuration = rtS.getDouble("lessonDuration");
+        String lessonDate = rtS.getString("lessonDate");
+        Long homeworkId = rtS.getLong("homeworkId");
+        Long groupId = rtS.getLong("groupId");
+
 
         return new Lesson(lessonId, lessonName, lessonDescription, lessonDuration, lessonDate, homeworkId, groupId);
     }
