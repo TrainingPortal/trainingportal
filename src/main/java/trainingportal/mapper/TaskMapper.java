@@ -11,19 +11,19 @@ public class TaskMapper implements RowMapper<Task> {
             = "SELECT taskId, homeworkId, taskDescription FROM MATERIAL";
 
     public static final String EDIT_SQL
-            = "UPDATE MATERIAL SET  taskId = ?, taskDescription = ?, homeworkId = ?";
+            = "UPDATE MATERIAL SET  taskDescription = ?, homeworkId = ?";
 
 
     @Override
     public Task mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 
-        Long tasklId = resultSet.getLong("tasklId");
+        Long taskId = resultSet.getLong("taskId");
 
         Long homeworkId = resultSet.getLong("homeworkId");
 
         String taskDescription = resultSet.getString("taskDescription");
 
 
-        return new Task(tasklId, taskDescription, homeworkId);
+        return new Task(taskId, taskDescription, homeworkId);
     }
 }

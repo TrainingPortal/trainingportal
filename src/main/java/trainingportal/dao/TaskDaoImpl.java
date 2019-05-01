@@ -38,8 +38,8 @@ public class TaskDaoImpl extends JdbcDaoSupport implements TaskDao {
 
     @Override
     public void save(Task task) {
-        String sql = "INSERT INTO TASK (taskId, homeworkId, taskDescription) VALUES (?,?,?)";
-        this.getJdbcTemplate().update(sql, new Object[]{task.getHomeworkId(), task.getTaskDescription(), task.getTaskId()});
+        String sql = "INSERT INTO TASK (homeworkId, taskDescription) VALUES (?,?)";
+        this.getJdbcTemplate().update(sql, new Object[]{task.getHomeworkId(), task.getTaskDescription()});
     }
 
     @Override

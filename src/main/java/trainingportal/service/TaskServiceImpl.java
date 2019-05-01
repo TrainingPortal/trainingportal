@@ -23,16 +23,6 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<Task> getAllAsPage(int page, int total) {
-        return null;
-    }
-
-    @Override
-    public int getNumberOfPages(List<Task> users, double total) {
-        return 0;
-    }
-
-    @Override
     public Task findById(Long taskId) {
         return taskDao.findById(taskId);
     }
@@ -54,10 +44,19 @@ public class TaskServiceImpl implements TaskService {
         taskDao.update(taskEdit);
     }
 
-
     @Override
     public void deleteById(Long taskId) {
         taskDao.deleteById(taskId);
+    }
+
+    @Override
+    public List<Task> getAllAsPage(int page, int total) {
+        return null;
+    }
+
+    @Override
+    public int getNumberOfPages(List<Task> users, double total) {
+        return 0;
     }
 }
 
