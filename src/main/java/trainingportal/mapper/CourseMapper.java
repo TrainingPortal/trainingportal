@@ -9,10 +9,10 @@ import java.sql.SQLException;
 public class CourseMapper implements RowMapper<Course> {
 
     public static final String SELECT_SQL
-            = "SELECT courseId, name, course_level, course_status_id, min_number, max_number, description, trainer_id, lessons_number FROM COURSE";
+            = "SELECT courseId, name, course_level, course_status_id, min_number, max_number, description, trainer_id, lessons_number FROM Course";
 
     public static final String EDIT_SQL
-            = "UPDATE COURSE SET  name = ?, course_level = ?, course_status_id = ?, min_number = ?, max_number =?, description = ?, trainer_id = ?, lessons_number = ?";
+            = "UPDATE Course SET  name = ?, course_level = ?, course_status_id = ?, min_number = ?, max_number =?, description = ?, trainer_id = ?, lessons_number = ?";
 
 
     @Override

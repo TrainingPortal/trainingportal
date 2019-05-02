@@ -5,9 +5,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.mapper.CourseMapper;
-import trainingportal.mapper.CourseStatusMapper;
 import trainingportal.model.Course;
-import trainingportal.model.CourseStatus;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -39,7 +37,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
     //insert into database new Course
     @Override
     public void save(Course course) {
-        String sql = "INSERT INTO COURSE (name, course_level, course_status_id, min_number, max_number, description, trainer_id, lessons_number) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Course (name, course_level, course_status_id, min_number, max_number, description, trainer_id, lessons_number) VALUES (?,?,?,?,?,?,?,?)";
         this.getJdbcTemplate().update(sql, new Object[]{course.getCourseName(), course.getCourseLevel(),
                 course.getCourseStatus(), course.getMinNumber(), course.getMaxNumber(), course.getDescription(),
                 course.getTrainerId(), course.getLessonNumber()});
@@ -56,7 +54,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
     @Override
     public void deleteById(Long courseId) {
-        String sql = "DELETE FROM COURSE WHERE courseId = ?";
+        String sql = "DELETE FROM Course WHERE courseId = ?";
 
         this.getJdbcTemplate().update(sql, courseId);
     }
@@ -66,12 +64,5 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
         String sql = CourseMapper.SELECT_SQL + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
         return this.getJdbcTemplate().query(sql, new Object[]{}, new CourseMapper());
     }
-
-    @Override
-    public List<CourseStatus> selectStatus() {
-        String sql = "SELECT statusId, statusName FROM COURSESTATUS INNER JOIN COURSE ON statusId = course_status_id ";
-        return this.getJdbcTemplate().query(sql, new Object[]{}, new CourseStatusMapper());
-    }
-
 
 }

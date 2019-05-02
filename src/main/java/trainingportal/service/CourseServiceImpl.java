@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.CourseDAOImpl;
 import trainingportal.model.Course;
-import trainingportal.model.CourseStatus;
 
 import java.util.List;
 
@@ -68,8 +67,4 @@ public class CourseServiceImpl implements CourseService {
         return (int) Math.ceil(users.size() / total);
     }
 
-    @Override
-    public List<CourseStatus> selectStatus() {
-        return courseDAO.selectStatus();
-    }
 }

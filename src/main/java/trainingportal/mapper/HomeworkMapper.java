@@ -3,6 +3,7 @@ package trainingportal.mapper;
 import org.springframework.jdbc.core.RowMapper;
 import trainingportal.model.Homework;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -23,7 +24,7 @@ public class HomeworkMapper implements RowMapper<Homework> {
 
         String homeworkName = resultSet.getString("homeworkName");
 
-        String homeworkDeadlineDate = resultSet.getString("homeworkDeadlineDate");
+        Date homeworkDeadlineDate = resultSet.getDate("homeworkDeadlineDate");
 
 
         return new Homework(homeworkId, homeworkName, homeworkDeadlineDate);
