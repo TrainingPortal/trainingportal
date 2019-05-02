@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.GroupDAOImpl;
+import trainingportal.model.CourseStatus;
 import trainingportal.model.Group;
+import trainingportal.model.GroupStatus;
 
 import java.util.List;
 
@@ -45,5 +47,10 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public void deleteGroupById(Long GroupId) {
         groupDAO.deleteGroupById(GroupId);
+    }
+
+    @Override
+    public List<GroupStatus> getStatusList() {
+        return groupDAO.getStatusList();
     }
 }

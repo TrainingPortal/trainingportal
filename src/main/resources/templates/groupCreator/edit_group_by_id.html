@@ -18,21 +18,40 @@
 
             <input class="form-control" placeholder="ID" th:field="*{groupId}" type="hidden"/>
 
-            <input class="form-control" placeholder="Name" th:field="*{groupName}" type="text"/>
-            <p class="alert alert-danger" th:errors="*{groupName}" th:if="${#fields.hasErrors('groupName')}">
-                Error, check name field</p>
+            <div class="form-group">
+                <label>Name</label>
+                <input class="form-control" placeholder="Group Name" th:field="*{groupName}" type="text"/>
+                <p class="alert alert-danger" th:errors="*{groupName}" th:if="${#fields.hasErrors('groupName')}">
+                    Error, check name field</p>
+            </div>
 
-            <input class="form-control" placeholder="Group capacity" th:field="*{groupCapacity}" type="number"/>
-            <p class="alert alert-danger" th:errors="*{groupCapacity}" th:if="${#fields.hasErrors('groupCapacity')}">
-                Error, check group capacity field</p>
+            <div class="form-group">
+                <label>Capacity</label>
+                <input class="form-control" placeholder="Group Capacity" th:field="*{groupCapacity}" type="number"/>
+                <p class="alert alert-danger" th:errors="*{groupCapacity}"
+                   th:if="${#fields.hasErrors('groupCapacity')}">
+                    Error, check capacity field</p>
+            </div>
 
-            <input class="form-control" placeholder="Course ID" th:field="*{courseId}" type="number"/>
-            <p class="alert alert-danger" th:errors="*{courseId}" th:if="${#fields.hasErrors('courseId')}">
-                Error, check course id field</p>
+            <div class="form-group">
+                <label for="formSelectCourse">Course</label>
+                <select id="formSelectCourse" class="form-control" th:field="*{courseId}">
+                    <option th:each="course : ${courses}"
+                            th:value="${course.courseId}"
+                            th:text="${course.courseName}">
+                    </option>
+                </select>
+            </div>
 
-            <input class="form-control" placeholder="Status ID" th:field="*{statusId}" type="number"/>
-            <p class="alert alert-danger" th:errors="*{statusId}" th:if="${#fields.hasErrors('statusId')}">Error,
-                status id field</p>
+            <div class="form-group">
+                <label for="formSelectStatus">Group status</label>
+                <select id="formSelectStatus" class="form-control" th:field="*{statusId}">
+                    <option th:each="status : ${statuses}"
+                            th:value="${status.statusId}"
+                            th:text="${status.statusName}">
+                    </option>
+                </select>
+            </div>
 
             <input class="btn btn-success" type="submit" value="Save"/>
         </form>

@@ -69,7 +69,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseStatus> selectStatus() {
-        return courseDAO.selectStatus();
+    public List<CourseStatus> getStatusList() {
+        return courseDAO.getStatusList();
     }
 }
