@@ -5,10 +5,17 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.mapper.CourseMapper;
+import trainingportal.mapper.CourseStatusMapper;
+import trainingportal.mapper.RoleMapper;
+import trainingportal.mapper.UserMapper;
 import trainingportal.model.Course;
+import trainingportal.model.CourseStatus;
+import trainingportal.model.User;
 
 import javax.sql.DataSource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional
@@ -54,7 +61,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
     @Override
     public void deleteById(Long courseId) {
-        String sql = "DELETE FROM Course WHERE courseId = ?";
+        String sql = "DELETE FROM COURSE WHERE courseId = ?";
 
         this.getJdbcTemplate().update(sql, courseId);
     }
@@ -65,4 +72,9 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
         return this.getJdbcTemplate().query(sql, new Object[]{}, new CourseMapper());
     }
 
+    @Override
+    public List<CourseStatus> getStatusList() {
+
+        return this.getJdbcTemplate().query(CourseStatusMapper.SELECT_SQL, new CourseStatusMapper());
+    }
 }

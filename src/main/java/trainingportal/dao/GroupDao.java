@@ -1,6 +1,8 @@
 package trainingportal.dao;
 
+import trainingportal.model.CourseStatus;
 import trainingportal.model.Group;
+import trainingportal.model.GroupStatus;
 
 import java.util.List;
 
@@ -16,4 +18,5 @@ public interface GroupDao {
 
     void deleteGroupById(Long groupId);
 
+    List<GroupStatus> getStatusList();
 }

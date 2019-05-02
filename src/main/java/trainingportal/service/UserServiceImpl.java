@@ -3,12 +3,15 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.ModelAndView;
+import trainingportal.dao.RoleDAOImpl;
 import trainingportal.dao.SubordinateDAOImpl;
 import trainingportal.dao.UserDAOImpl;
+import trainingportal.model.Role;
 import trainingportal.model.User;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service("userService")
 @Transactional
@@ -19,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     SubordinateDAOImpl subordinateRepository;
+
+    @Autowired
+    private RoleDAOImpl roleRepository;
 
     @Override
     public User findById(Long id) {
@@ -75,9 +81,17 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public List<User> findAllEnabledByRole(Long roleId) {
+        return userRepository.findAllEnabledByRole(roleId);
+    }
+
+    @Override
     public void update(User user) {
         User updatedUser = userRepository.findById(user.getUserId());
         if(updatedUser!=null){
+            if(updatedUser.getRoleId() == Role.MANAGER && user.getRoleId() != Role.MANAGER || user.getEnabled() == 0){
+                userRepository.resetManagerId(updatedUser.getUserId());
+            }
             updatedUser.setUserId(user.getUserId());
             updatedUser.setUserName(user.getUserName());
             updatedUser.setEmail(user.getEmail());
@@ -161,6 +175,21 @@ public class UserServiceImpl implements UserService {
             page = (page - 1) * total + 1;
         }
         return subordinateRepository.getFreeUsersAsPage(page, total);
+    }
+
+    @Override
+    public Map<Long, String> setMapStatus() {
+
+        Map<Long, String> mapStatus = new HashMap<>();
+        mapStatus.put(1L, "Enabled");
+        mapStatus.put(0L, "Disabled");
+
+        return mapStatus;
+    }
+
+    @Override
+    public List<Role> getRoles() {
+        return roleRepository.getRoles();
     }
 
     @Override
