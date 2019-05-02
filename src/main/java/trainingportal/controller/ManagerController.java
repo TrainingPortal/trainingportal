@@ -13,6 +13,7 @@ import trainingportal.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ManagerController {
@@ -144,6 +145,13 @@ public class ManagerController {
     public ModelAndView editManager(@PathVariable("id") Long id, ModelAndView model) {
 
         User manager = managerService.findById(id);
+
+        Map<Long, String> mapStatus = managerService.setMapStatus();
+
+        List<Role> roles = managerService.getRoles();
+
+        model.addObject("roles", roles);
+        model.addObject("mapStatus", mapStatus);
 
         manager.setPassword(bCryptPasswordEncoder.encode(manager.getPassword()));
         model.addObject("manager", manager);

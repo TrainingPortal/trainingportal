@@ -1,9 +1,11 @@
 package trainingportal.service;
 
+import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.generic.GenericService;
 
 import java.util.List;
+import java.util.Map;
 
 public interface UserService extends GenericService<User> {
 
@@ -11,11 +13,13 @@ public interface UserService extends GenericService<User> {
 
     List<User> findAllByRole(Long roleId);
 
+    List<User> findAllEnabledByRole(Long roleId);
+
     void deleteAllByRole(Long roleId);
 
     User findByEmail(String email);
 
-    User findByToken (String token);
+    User findByToken(String token);
 
     void updateToken (User user, String token);
 
@@ -39,5 +43,9 @@ public interface UserService extends GenericService<User> {
 
     List<User> getSubordinatesByIdAsPage(int page, int total, Long id);
 
+    Map<Long, String> setMapStatus();
+
     List<User> getFreeUsersAsPage(int page, int total);
+
+    List<Role> getRoles();
 }

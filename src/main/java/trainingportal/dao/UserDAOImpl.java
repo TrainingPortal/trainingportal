@@ -14,7 +14,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
+public class UserDAOImpl extends JdbcDaoSupport implements UserDao {
     @Autowired
     PasswordEncoder passwordEncoder;
 
@@ -112,7 +112,17 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
 
     @Override
     public List<User> findAllByRole(Long roleId) {
-        String sql = UserMapper.BASE_SQL + "where roleId = ?";
+
+        String sql = UserMapper.BASE_SQL + "WHERE roleId = ?";
+
+        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{roleId},new UserMapper());
+
+        return users;
+    }
+
+    @Override
+    public List<User> findAllEnabledByRole(Long roleId) {
+        String sql = UserMapper.BASE_SQL + "WHERE roleId = ?  AND enabled = 1";
 
         List<User> users = this.getJdbcTemplate().query(sql,new Object[]{roleId},new UserMapper());
 
@@ -127,6 +137,14 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao{
                 user.getUserName(),user.getEmail(),
                 user.getEnabled(),user.getRoleId(),
                 user.getUserId());
+    }
+
+    @Override
+    public void resetManagerId(Long managerId) {
+
+        String sql = "UPDATE users SET managerId = ? WHERE managerId = ?";
+
+        this.getJdbcTemplate().update(sql, null, managerId);
     }
 
     @Override

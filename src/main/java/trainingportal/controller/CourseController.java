@@ -9,15 +9,23 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Course;
+import trainingportal.model.CourseStatus;
+import trainingportal.model.Role;
+import trainingportal.model.User;
 import trainingportal.service.CourseServiceImpl;
+import trainingportal.service.UserService;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class CourseController {
 
     @Autowired
     CourseServiceImpl courseService;
+
+    @Autowired
+    UserService userService;
 
     private static final int ROWS_LIMIT = 6;
 
@@ -36,6 +44,11 @@ public class CourseController {
     @RequestMapping(value = "/course-add", method = RequestMethod.GET)
     public ModelAndView addCourse(ModelAndView modelAndView) {
 
+        List<User> trainers = userService.findAllEnabledByRole(Role.MANAGER);
+        List<CourseStatus> statuses = courseService.getStatusList();
+
+        modelAndView.addObject("statuses", statuses);
+        modelAndView.addObject("trainers", trainers);
         modelAndView.addObject("course", new Course());
         modelAndView.setViewName("courseCreator/course_add");
 
@@ -52,6 +65,12 @@ public class CourseController {
     @RequestMapping(value = {"/edit-course-{id}"}, method = RequestMethod.GET)
     public ModelAndView editCourseBase(@PathVariable("id") Long courseId, ModelAndView modelAndView) {
         Course course = courseService.findById(courseId);
+
+        List<User> trainers = userService.findAllEnabledByRole(Role.MANAGER);
+        List<CourseStatus> statuses = courseService.getStatusList();
+
+        modelAndView.addObject("statuses", statuses);
+        modelAndView.addObject("trainers", trainers);
         modelAndView.addObject("course", course);
         modelAndView.addObject("edit", true);
         modelAndView.setViewName("courseCreator/edit_course_by_id");
@@ -80,5 +99,4 @@ public class CourseController {
         model.setViewName("redirect:/course_create/1");
         return model;
     }
-
 }
