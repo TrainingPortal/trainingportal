@@ -1,11 +1,11 @@
-package trainingportal.exporttest.controller;
+package trainingportal.universalexportcreator.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import trainingportal.exporttest.dao.DataDaoImpl;
+import trainingportal.universalexportcreator.dao.DataDaoImpl;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -18,9 +18,20 @@ public class DataController {
     DataDaoImpl dataDao;
 
     @RequestMapping(value = "trainer/trainerCourses", method = RequestMethod.GET)
-    public ModelAndView showAllTrainerCourses(@NotNull ModelAndView model){
+    public ModelAndView showDataTable(@NotNull ModelAndView model){
 
-        List courses = dataDao.findFieldsFromTable(new ArrayList<>(), "s");
+        List list = new ArrayList();
+        list.add("empno");
+        list.add("ename");
+        list.add("job");
+        list.add("mgr");
+        list.add("hiredate");
+        list.add("sal");
+        list.add("comm");
+        list.add("deptno");
+
+
+        List<List> courses = dataDao.findFieldsFromTable(list, "emp","empTable","table");
 
         model.addObject("trainerAllCourses",courses);
         model.setViewName("trainer/trainerCourses");

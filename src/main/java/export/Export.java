@@ -12,14 +12,14 @@ import java.util.List;
 
 public class Export {
 
-    public void exportDataToExcel(String fileName, String tabName, Object[][] data) throws IOException, ExportToExcelException {
+    public void exportDataToExcel(String fileName, String labelName, Object[][] data) throws IOException, ExportToExcelException {
 
         if (data[0][0] != null) {
 
             //Create new workbook and tab
             try (XSSFWorkbook wb = new XSSFWorkbook()) {
 
-                Sheet sheet = wb.createSheet(tabName);
+                Sheet sheet = wb.createSheet(labelName);
 
                 createFileInside(sheet, data);
 
@@ -33,7 +33,7 @@ public class Export {
         }
     }
 
-    public void exportDataToExcel(String fileName, String tabName, List list) throws IOException, ExportToExcelException {
+    public void exportDataToExcel(String fileName, String labelName, List list) throws IOException, ExportToExcelException {
 
         if (!list.isEmpty()) {
 
@@ -44,14 +44,14 @@ public class Export {
                 objects[i][0] = s;
             }
 
-            exportDataToExcel(fileName, tabName, objects);
+            exportDataToExcel(fileName, labelName, objects);
 
         }else {
             throw new ExportToExcelException("Input List is empty");
         }
     }
 
-    public void exportDataToExcelGenerics(String fileName, String tabName, List<List> list) throws IOException, ExportToExcelException {
+    public void exportDataToExcelGenerics(String fileName, String labelName, List<List> list) throws IOException, ExportToExcelException {
 
         if (!list.isEmpty()) {
 
@@ -64,7 +64,7 @@ public class Export {
                 }
             }
 
-            exportDataToExcel(fileName, tabName, objects);
+            exportDataToExcel(fileName, labelName, objects);
 
         }else {
             throw new ExportToExcelException("Input List is empty or list's inside List<List list> has different size");
