@@ -29,3 +29,5 @@ HELP.md
 .vscode/
 
 ### Lova Vardanian local settings ###
+/src/main/resources/application.properties
+

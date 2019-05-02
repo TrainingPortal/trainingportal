@@ -11,12 +11,9 @@ import trainingportal.model.User;
 import javax.sql.DataSource;
 import java.util.List;
 
-import static javafx.scene.AccessibleAttribute.ROLE;
-
 @Repository
 @Transactional
-public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
-{
+public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO {
     @Autowired
     public SubordinateDAOImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
