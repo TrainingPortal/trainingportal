@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Course;
-import trainingportal.model.CourseStatus;
 import trainingportal.service.CourseServiceImpl;
 
 import java.util.List;
@@ -25,9 +24,6 @@ public class CourseController {
     @RequestMapping(value = "/course_create/{page}")
     public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId, ModelAndView modelAndView) {
         List<Course> courseList = courseService.getAllAsPage(page, ROWS_LIMIT);
-
-        List<CourseStatus> courseStatuses = courseService.selectStatus();
-        modelAndView.addObject("statusList", courseStatuses);
 
         modelAndView.addObject("courseList", courseList);
         modelAndView.addObject("pages",
