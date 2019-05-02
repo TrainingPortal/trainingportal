@@ -47,8 +47,11 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
             }
         }
 
+        //create new List<List> with name of fields
+        List<List> allColWithName = addNameToList(allCol,fields);
+
         //Use Export For our List<List> formed data
-        useExport(fileName,labelName,allCol);
+        useExport(fileName,labelName,allColWithName);
 
         return allCol;
     }
@@ -83,5 +86,25 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
             e.printStackTrace();
         }
 
+    }
+
+    private List<List> addNameToList(List<List> allCol,List<String> fields){
+
+        if (!(allCol.isEmpty()) && !(fields.isEmpty())) {
+
+            List<List> finalAllCol = new ArrayList<>();
+            List localCol;
+
+            for (int i = 0; i < allCol.size(); i++) {
+                localCol = new ArrayList();
+                localCol.add(fields.get(i));
+                for (int j = 0; j < allCol.get(i).size(); j++) {
+                    localCol.add(allCol.get(i).get(j));
+                }
+                finalAllCol.add(localCol);
+            }
+            return finalAllCol;
+        }else
+            throw new ArrayStoreException();
     }
 }
