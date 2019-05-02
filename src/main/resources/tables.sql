@@ -22,7 +22,7 @@ drop TABLE Weekday;
 drop TABLE NotificationStatus;
 drop TABLE DesiredPeriod;
 drop TABLE GroupStatus;
-drop TABLE CourceStatus;
+drop TABLE CourseStatus;
 
 
 
@@ -38,20 +38,66 @@ CREATE TABLE Users
     managerId number
 );
 
-INSERT INTO Users (name, email, password,enabled,token,roleid,managerid) 
-values ( 'Vitaliy', 'someemail@rambler.ru','password12345', 1, 'sometoken', 1, 1);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('adminBoss', 'boss@gmail.com', 'password123', 1, 1);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userTrainer1', 'userTrainer@gmail.com', 'password123', 1, 3);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userTrainer2', 'userTrainer@gmail.com', 'password123', 1, 3);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userTrainer3', 'userTrainer@gmail.com', 'password123', 1, 3);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userTrainer4', 'userTrainer@gmail.com', 'password123', 1, 3);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userTrainer5', 'userTrainer@gmail.com', 'password123', 1, 3);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userTrainer6', 'userTrainer@gmail.com', 'password123', 1, 3);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userTrainer7', 'userTrainer@gmail.com', 'password123', 1, 3);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userTrainer8', 'userTrainer@gmail.com', 'password123', 1, 3);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userManager1', 'userManager@gmail.com', 'password123', 1, 4);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userManager2', 'userManager@gmail.com', 'password123', 1, 4);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userManager3', 'userManager@gmail.com', 'password123', 1, 4);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userManager4', 'userManager@gmail.com', 'password123', 1, 4);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userManager5', 'userManager@gmail.com', 'password123', 1, 4);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userManager6', 'userManager@gmail.com', 'password123', 1, 4);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userManager7', 'userManager@gmail.com', 'password123', 1, 4);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userManager8', 'userManager@gmail.com', 'password123', 1, 4);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userManager9', 'userManager@gmail.com', 'password123', 1, 4);
+INSERT INTO users(name, email, password, enabled, roleId)
+        VALUES ('userManager10', 'userManager@gmail.com', 'password123', 1, 4);
+        INSERT INTO users(name, email, password, enabled, roleId, managerId)
+        VALUES ('userUser1', 'userUser@gmail.com', 'password123', 1, 2, 10);
+INSERT INTO users(name, email, password, enabled, roleId, managerId)
+        VALUES ('userUser2', 'userUser@gmail.com', 'password123', 1, 2, 10);
+INSERT INTO users(name, email, password, enabled, roleId, managerId)
+        VALUES ('userUser3', 'userUser@gmail.com', 'password123', 1, 2, 11);
+INSERT INTO users(name, email, password, enabled, roleId, managerId)
+        VALUES ('userUser4', 'userUser@gmail.com', 'password123', 1, 2, 11 );
+INSERT INTO users(name, email, password, enabled, roleId, managerId)
+        VALUES ('userUser5', 'userUser@gmail.com', 'password123', 1, 2, 11);
+INSERT INTO users(name, email, password, enabled, roleId, managerId)
+        VALUES ('userUser6', 'userUser@gmail.com', 'password123', 1, 2, 12);
+INSERT INTO users(name, email, password, enabled, roleId, managerId)
+        VALUES ('userUser7', 'userUser@gmail.com', 'password123', 1, 2, 13);
+INSERT INTO users(name, email, password, enabled, roleId, managerId)
+        VALUES ('userUser8', 'userUser@gmail.com', 'password123', 1, 2, 13);
+INSERT INTO users(name, email, password, enabled, roleId, managerId)
+        VALUES ('userUser9', 'userUser@gmail.com', 'password123', 1, 2, 15);
+INSERT INTO users(name, email, password, enabled, roleId, managerId)
+        VALUES ('userUser10', 'userUser@gmail.com', 'password123', 1, 2, 17);
 
-INSERT INTO Users (name, email, password,enabled,token,roleid,managerid) 
-values ( 'Oleg Vynnik', 'vinnik@gmail.com','password222', 1, 'token', 1, 1);
 
-INSERT INTO Users (name, email, password,enabled,token,roleid,managerid) 
-values ( 'Oleksandr', 'mail@gmail.com','1234567', 1, 'token', 1, 1);
-
-INSERT INTO Users (name, email, password,enabled,token,roleid,managerid) 
-values ( 'Andriy', 'mailyandex.ru','45678', 1, 'token', 1, 1);
-
-INSERT INTO Users (name, email, password,enabled,token,roleid,managerid) 
-values ( 'Max', 'max@email.com','12345', 1, 'token', 1, 1);
 
 CREATE TABLE roles
 (
@@ -65,10 +111,10 @@ INSERT INTO roles (name) VALUES('ROLE_TRAINER');
 INSERT INTO roles (name) VALUES('ROLE_MANAGER');
 
 CREATE TABLE Course
-(   
-    courceId NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+(
+    courseId NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     name VARCHAR2(50),
-    course_level VARCHAR2(10),
+    course_level VARCHAR2(40),
     course_status_id NUMBER,
     min_number NUMBER,
     max_number NUMBER,
@@ -78,15 +124,28 @@ CREATE TABLE Course
 
 );
 
+INSERT INTO Course(name, course_level,course_status_id,min_number, max_number,description,trainer_id,lessons_number)
+        VALUES ('Amazing English', 'B2', 1,5,30,'very good course', 2,10);
+INSERT INTO Course(name, course_level,course_status_id,min_number, max_number,description,trainer_id,lessons_number)
+        VALUES ('Good English', 'B2', 1,5,30,'very good course', 3,10);
+INSERT INTO Course(name, course_level,course_status_id,min_number, max_number,description,trainer_id,lessons_number)
+        VALUES ('Very good English', 'B2', 1,5,30,'very good course', 4,10);
+INSERT INTO Course(name, course_level,course_status_id,min_number, max_number,description,trainer_id,lessons_number)
+        VALUES ('Very amazing English', 'B2', 1,5,30,'very good course', 5,10);
+INSERT INTO Course(name, course_level,course_status_id,min_number, max_number,description,trainer_id,lessons_number)
+        VALUES ('Amazing very good English', 'B2', 1,5,30,'very good course', 6,10);
+
+        select * from course;
+
 CREATE TABLE UserGroup
-(  
+(
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     group_id NUMBER,
     user_id NUMBER
 );
 
 CREATE TABLE Groups
-(  
+(
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     name VARCHAR2(30),
     capacity NUMBER,
@@ -94,8 +153,21 @@ CREATE TABLE Groups
     status_id NUMBER
 );
 
+INSERT INTO Groups(name, capacity, course_id, status_id)
+        VALUES ('Group-1', 10, 1, 1 );
+INSERT INTO Groups(name, capacity, course_id, status_id)
+        VALUES ('Group-2', 10, 1, 1 );
+INSERT INTO Groups(name, capacity, course_id, status_id)
+        VALUES ('Group-3', 10, 2, 1 );
+INSERT INTO Groups(name, capacity, course_id, status_id)
+        VALUES ('Group-4', 10, 2, 1 );
+INSERT INTO Groups(name, capacity, course_id, status_id)
+        VALUES ('Group-5', 10, 3, 1 );
+
+
+
 CREATE TABLE Lesson
-(  
+(
     lessonId NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     lessonName VARCHAR2(20),
     lessonDescription VARCHAR2(100),
@@ -105,30 +177,105 @@ CREATE TABLE Lesson
     lesson_number NUMBER
 );
 
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-1','very helpful description', 60, 1, 1, 1);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-2','very helpful description', 60, 2, 1, 2);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-3','very helpful description', 60, 3, 1, 3);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-4','very helpful description', 60, 4, 1, 4);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-5','very helpful description', 60, 5, 1, 5);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-6','very helpful description', 60, 6, 1, 6);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-7','very helpful description', 60, 7, 1, 7);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-8','very helpful description', 60, 8, 1, 8);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-9','very helpful description', 60, 9, 1, 9);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-10','very helpful description', 60, 10, 1, 10);
+
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-1','very helpful description', 60, 1, 2, 1);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-2','very helpful description', 60, 2, 2, 2);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-3','very helpful description', 60, 3, 2, 3);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-4','very helpful description', 60, 4, 2, 4);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-5','very helpful description', 60, 5, 2, 5);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-6','very helpful description', 60, 6, 2, 6);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-7','very helpful description', 60, 7, 2, 7);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-8','very helpful description', 60, 8, 2, 8);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-9','very helpful description', 60, 9, 2, 9);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-10','very helpful description', 60, 10, 2, 10);
+
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-1','very helpful description', 60, 1, 3, 1);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-2','very helpful description', 60, 2, 3, 2);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-3','very helpful description', 60, 3, 3, 3);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-4','very helpful description', 60, 4, 3, 4);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-5','very helpful description', 60, 5, 3, 5);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-6','very helpful description', 60, 6, 3, 6);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-7','very helpful description', 60, 7, 3, 7);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-8','very helpful description', 60, 8, 3, 8);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-9','very helpful description', 60, 9, 3, 9);
+INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
+            values ('Lesson-10','very helpful description', 60, 10, 3, 10);
+
+
 CREATE TABLE Homework
-(  
+(
     homeworkId NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     homeworkName VARCHAR2(20),
     homeworkDeadlineDate DATE
 );
 
+INSERT INTO Homework (homeworkName) values ('Homework-1');
+INSERT INTO Homework (homeworkName) values ('Homework-2');
+INSERT INTO Homework (homeworkName) values ('Homework-3');
+INSERT INTO Homework (homeworkName) values ('Homework-4');
+INSERT INTO Homework (homeworkName) values ('Homework-5');
+INSERT INTO Homework (homeworkName) values ('Homework-6');
+INSERT INTO Homework (homeworkName) values ('Homework-7');
+INSERT INTO Homework (homeworkName) values ('Homework-8');
+INSERT INTO Homework (homeworkName) values ('Homework-9');
+INSERT INTO Homework (homeworkName) values ('Homework-10');
+
 CREATE TABLE Task
-(   
+(
     taskId NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     homeworkId NUMBER,
     taskDescription VARCHAR2(200)
 );
 
 CREATE TABLE Schedule
-(  
+(
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     group_id NUMBER,
     date_lesson DATE,
-    lesson_id NUMBER 
+    lesson_id NUMBER
 );
 
 CREATE TABLE Attendance
-(   
+(
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     user_id NUMBER,
     type_id NUMBER,
@@ -142,7 +289,7 @@ CREATE TABLE AttendanceType
 );
 
 CREATE TABLE Material
-(   
+(
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     lesson_id NUMBER,
     description VARCHAR2(1000)
@@ -155,7 +302,7 @@ CREATE TABLE Feedback
     employee_id NUMBER,
     description VARCHAR2(4000),
     date_feedback DATE,
-    course_id NUMBER 
+    course_id NUMBER
 );
 
 CREATE TABLE InfoDesk
@@ -173,7 +320,7 @@ CREATE TABLE QuestionStatus
 );
 
 CREATE TABLE Chat
-(   
+(
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     group_id NUMBER
 );
@@ -210,12 +357,12 @@ CREATE TABLE NotificationStatus
 );
 
 CREATE TABLE DesiredPeriod
-(   
+(
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     date_start DATE,
     date_end DATE,
     user_id NUMBER,
-    cource_id NUMBER
+    course_id NUMBER
 );
 
 CREATE TABLE Weekday
@@ -231,11 +378,20 @@ CREATE TABLE GroupStatus
     name_status VARCHAR2(20)
 );
 
-CREATE TABLE CourceStatus
+INSERT INTO GroupStatus (name_status) values ('Open');
+INSERT INTO GroupStatus (name_status) values ('Full');
+
+CREATE TABLE CourseStatus
 (
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     name_status VARCHAR2(20)
 );
+
+
+INSERT INTO CourseStatus (name_status) values ('Open');
+INSERT INTO CourseStatus (name_status) values ('Closed');
+INSERT INTO CourseStatus (name_status) values ('Stoped');
+
 
 
 
@@ -287,11 +443,11 @@ alter table chat add constraint chat_fk_group FOREIGN KEY (group_id) references 
 alter table InfoDesk add constraint idesk_emp_fk_user FOREIGN KEY (emp_id) references users (userId);
 alter table InfoDesk add constraint idesk_fk_qstatus FOREIGN KEY (status_id) references QuestionStatus (id);
 alter table Feedback add constraint fdbk_tr_fk_user FOREIGN KEY (trainer_id) references users (userId);
-alter table Feedback add constraint fdbk_fk_cource FOREIGN KEY (course_id) references course (courceId);
+alter table Feedback add constraint fdbk_fk_cource FOREIGN KEY (course_id) references course (courseId);
 alter table Feedback add constraint fdbk_emp_fk_user FOREIGN KEY (employee_id) references users (userId);
 alter table UserGroup add constraint ugroup_fk_user FOREIGN KEY (user_id) references users (userId);
 alter table UserGroup add constraint ugroup_fk_group FOREIGN KEY (group_id) references Groups (id);
-alter table Groups add constraint group_fk_course FOREIGN KEY (course_id) references Course (courceId);
+alter table Groups add constraint group_fk_course FOREIGN KEY (course_id) references Course (courseId);
 alter table Groups add constraint group_fr_status FOREIGN KEY (status_id) references GroupStatus (id);
 alter table UserChat add constraint uchat_fk_user FOREIGN KEY (user_id) references users (userId);
 alter table UserChat add constraint uchat_fk_chat FOREIGN KEY (chat_id) references Chat (id);
@@ -301,13 +457,13 @@ alter table Attendance add constraint atten_fk_type FOREIGN KEY (type_id) refere
 alter table Schedule add constraint schedule_fk_group FOREIGN KEY (group_id) references Groups (id);
 alter table Schedule add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson(lessonId);
 alter table Lesson add constraint lesson_fk_homework FOREIGN KEY (homeworkId) references Homework(homeworkId);
-alter table Lesson add constraint lesson_fk_course FOREIGN KEY (courseId) references Course (courceId);
+alter table Lesson add constraint lesson_fk_course FOREIGN KEY (courseId) references Course (courseId);
 alter table Material add constraint material_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lessonId);
 alter table Task add constraint task_fk_homework FOREIGN KEY (homeworkId) references Homework (homeworkId);
 alter table DesiredPeriod add constraint dperiod_fk_user FOREIGN KEY (user_id) references users (userId);
-alter table DesiredPeriod add constraint dperiod_fk_cource FOREIGN KEY (cource_id) references Course (courceId);
+alter table DesiredPeriod add constraint dperiod_fk_cource FOREIGN KEY (course_id) references Course (courseId);
 alter table Weekday add constraint weekday_fk_dperiod FOREIGN KEY (period_id) references DesiredPeriod (id);
-alter table Course add constraint cource_fk_status FOREIGN KEY (course_status_id) references CourceStatus(id);
+alter table Course add constraint cource_fk_status FOREIGN KEY (course_status_id) references CourseStatus(id);
 alter table Course add constraint cource_fk_trainer FOREIGN KEY (trainer_id) references users (userId);
 alter table Message add constraint message_fk_user FOREIGN KEY (sender_id) references users (userId);
 alter table Message add constraint message_fk_chat FOREIGN KEY (chat_id) references Chat(id);
