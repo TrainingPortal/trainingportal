@@ -5,6 +5,7 @@ import export.exception.ExportToExcelException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
+import trainingportal.universalexportcreator.dao.exception.DataDaoExceptions;
 import trainingportal.universalexportcreator.mapper.DataMapper;
 import trainingportal.universalexportcreator.model.Data;
 
@@ -23,7 +24,25 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
     public List<List> findFieldsFromTable(List<String> fields, String tableName, String fileName, String labelName) {
 
         //Here we use method that form sql string request query and set this string to our variable sql
-        String sql = setSQL(fields, tableName);
+        String sql = setSQL(fields, tableName, null);
+
+        List<List> dataList = getFieldsFromTableWhichCreateExcel(fields, fileName,labelName,sql);
+
+        return dataList;
+    }
+
+    @Override
+    public List<List> findFieldsFromTableWithCondition(List<String> fields, String tableName, String fileName, String labelName, String whereCondition) {
+
+        //Here we use method that form sql string request query and set this string to our variable sql
+        String sql = setSQL(fields, tableName, whereCondition);
+
+        List<List> dataList = getFieldsFromTableWhichCreateExcel(fields, fileName,labelName,sql);
+
+        return dataList;
+    }
+
+    private List<List> getFieldsFromTableWhichCreateExcel(List<String> fields, String fileName, String labelName, String sql){
 
         Data data = new Data();
 
@@ -45,6 +64,13 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
                 //Set our Data Class List variable by adding current Field List
                 data.setDataListByAdd(currentFieldsList);
             }
+        } else {
+
+            try {
+                throw new DataDaoExceptions("Input list is Empty");
+            } catch (DataDaoExceptions dataDaoExceptions) {
+                dataDaoExceptions.printStackTrace();
+            }
         }
 
         //create new List<List> with name of fields
@@ -56,7 +82,7 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
         return allCol;
     }
 
-    private String setSQL(List<String> fields, String tableName) throws ArrayStoreException {
+    private String setSQL(List<String> fields, String tableName, String whereCondition) {
 
         if (!fields.isEmpty()) {
             String sql = "SELECT ";
@@ -68,11 +94,22 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
                     sql = sql + ", ";
             }
 
-            sql = sql + " FROM " + tableName;
+            if (whereCondition != null ) {
+                sql = sql + " FROM " + tableName + " WHERE " + whereCondition;
+            }else{
+                sql = sql + " FROM " + tableName;
+            }
 
             return sql;
-        }else
-            throw new ArrayStoreException();
+        }else {
+            try {
+                throw new DataDaoExceptions("Input list is Empty");
+            } catch (DataDaoExceptions dataDaoExceptions) {
+                dataDaoExceptions.printStackTrace();
+            }
+        }
+
+            return null;
     }
 
     private void useExport(String fileName, String labelName, List<List> allCol){
@@ -105,6 +142,12 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
             }
             return finalAllCol;
         }else
-            throw new ArrayStoreException();
+            try {
+                throw new DataDaoExceptions("Input list OR list's is Empty");
+            } catch (DataDaoExceptions dataDaoExceptions) {
+                dataDaoExceptions.printStackTrace();
+            }
+
+            return null;
     }
 }
