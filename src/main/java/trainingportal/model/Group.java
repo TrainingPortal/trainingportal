@@ -20,7 +20,9 @@ public class Group {
     @NotNull
     private Long statusId;
     
-    
+    private Course course;
+
+    private GroupStatus status;
 
     public Group() {
     }
@@ -72,5 +74,20 @@ public class Group {
     public void setStatusId(Long statusId) {
         this.statusId = statusId;
     }
-    
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public void setCourse(Course course) {
+        this.course = course;
+    }
+
+    public GroupStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(GroupStatus status) {
+        this.status = status;
+    }
 }

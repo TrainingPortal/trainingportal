@@ -52,4 +52,9 @@ public class GroupServiceImpl implements GroupService {
     public List<GroupStatus> getStatusList() {
         return groupDAO.getStatusList();
     }
+
+    @Override
+    public GroupStatus findStatusById(Long id) {
+        return groupDAO.findStatusById(id);
+    }
 }

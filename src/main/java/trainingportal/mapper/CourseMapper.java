@@ -32,7 +32,7 @@ public class CourseMapper implements RowMapper<Course> {
 
         String description = resultSet.getString("description");
 
-        int trainerId = resultSet.getInt("trainer_id");
+        Long trainerId = resultSet.getLong("trainer_id");
 
         int lessonNumber = resultSet.getInt("lessons_number");
 

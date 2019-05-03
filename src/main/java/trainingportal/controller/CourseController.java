@@ -16,7 +16,6 @@ import trainingportal.service.CourseServiceImpl;
 import trainingportal.service.UserService;
 
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class CourseController {
@@ -33,6 +32,11 @@ public class CourseController {
     public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId, ModelAndView modelAndView) {
         List<Course> courseList = courseService.getAllAsPage(page, ROWS_LIMIT);
 
+        for(Course course : courseList){
+            course.setTrainer(userService.findById(course.getTrainerId()));
+            course.setStatus(courseService.findStatusById(course.getCourseStatus()));
+        }
+
         modelAndView.addObject("courseList", courseList);
         modelAndView.addObject("pages",
                 courseService.getNumberOfPages(courseService.findAll(), ROWS_LIMIT));
@@ -44,7 +48,7 @@ public class CourseController {
     @RequestMapping(value = "/course-add", method = RequestMethod.GET)
     public ModelAndView addCourse(ModelAndView modelAndView) {
 
-        List<User> trainers = userService.findAllEnabledByRole(Role.MANAGER);
+        List<User> trainers = userService.findAllEnabledByRole(Role.TRAINER);
         List<CourseStatus> statuses = courseService.getStatusList();
 
         modelAndView.addObject("statuses", statuses);
@@ -66,7 +70,7 @@ public class CourseController {
     public ModelAndView editCourseBase(@PathVariable("id") Long courseId, ModelAndView modelAndView) {
         Course course = courseService.findById(courseId);
 
-        List<User> trainers = userService.findAllEnabledByRole(Role.MANAGER);
+        List<User> trainers = userService.findAllEnabledByRole(Role.TRAINER);
         List<CourseStatus> statuses = courseService.getStatusList();
 
         modelAndView.addObject("statuses", statuses);

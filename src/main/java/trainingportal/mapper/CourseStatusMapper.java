@@ -11,11 +11,6 @@ public class CourseStatusMapper implements RowMapper<CourseStatus> {
     public static final String SELECT_SQL
             = "SELECT s.id, s.name_status FROM CourseStatus s ";
 
-    /*public static final String JOIN_SQL =
-            "SELECT b.name_status FROM Course a " +
-            "INNER JOIN CourseStatus b " +
-            "ON a.course_status_id = b.id ";*/
-
     @Override
     public CourseStatus mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 

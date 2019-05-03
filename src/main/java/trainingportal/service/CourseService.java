@@ -9,4 +9,6 @@ import java.util.List;
 public interface CourseService extends GenericService<Course> {
 
     List<CourseStatus> getStatusList();
+
+    CourseStatus findStatusById(Long id);
 }
