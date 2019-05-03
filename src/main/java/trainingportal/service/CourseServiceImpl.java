@@ -16,6 +16,12 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseDAOImpl courseDAO;
 
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CourseService courseService;
+
     @Override
     public List<Course> findAll() {
         return courseDAO.findAll();
@@ -71,5 +77,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<CourseStatus> getStatusList() {
         return courseDAO.getStatusList();
+    }
+
+    @Override
+    public CourseStatus findStatusById(Long id) {
+        return courseDAO.findStatusById(id);
     }
 }

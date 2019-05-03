@@ -67,4 +67,12 @@ public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
 
         return this.getJdbcTemplate().query(GroupStatusMapper.SELECT_SQL, new GroupStatusMapper());
     }
+
+    @Override
+    public GroupStatus findStatusById(Long id) {
+
+        String sql = GroupStatusMapper.SELECT_SQL + " WHERE id = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new GroupStatusMapper());
+    }
 }

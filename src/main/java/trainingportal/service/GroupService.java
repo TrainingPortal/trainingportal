@@ -18,4 +18,5 @@ public interface GroupService {
 
     List<GroupStatus> getStatusList();
 
+    GroupStatus findStatusById(Long id);
 }

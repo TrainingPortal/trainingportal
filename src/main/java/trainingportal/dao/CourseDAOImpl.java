@@ -77,4 +77,12 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
         return this.getJdbcTemplate().query(CourseStatusMapper.SELECT_SQL, new CourseStatusMapper());
     }
+
+    @Override
+    public CourseStatus findStatusById(Long id) {
+
+        String sql = CourseStatusMapper.SELECT_SQL + " WHERE id = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new CourseStatusMapper());
+    }
 }

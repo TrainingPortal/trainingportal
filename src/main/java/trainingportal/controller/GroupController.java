@@ -25,8 +25,12 @@ public class GroupController {
     @GetMapping("/group_create")
     public ModelAndView showGroupsList(Long groupId, ModelAndView modelAndView) {
         List<Group> groupList = groupService.GroupsList();
-//        List<Group> groupList = groupService.getAllGroupsById(groupId);
-//        Group groupList = groupService.findGroupById(groupId);
+
+        for(Group group : groupList){
+            group.setCourse(courseService.findById(group.getCourseId()));
+            group.setStatus(groupService.findStatusById(group.getStatusId()));
+        }
+
         modelAndView.addObject("groupList", groupList);
         modelAndView.setViewName("groupCreator/group_create");
         return modelAndView;
