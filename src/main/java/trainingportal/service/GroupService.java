@@ -1,7 +1,7 @@
 package trainingportal.service;
 
-
 import trainingportal.model.Group;
+import trainingportal.model.GroupStatus;
 
 import java.util.List;
 
@@ -16,4 +16,7 @@ public interface GroupService {
 
     void deleteGroupById(Long GroupId);
 
+    List<GroupStatus> getStatusList();
+
+    GroupStatus findStatusById(Long id);
 }

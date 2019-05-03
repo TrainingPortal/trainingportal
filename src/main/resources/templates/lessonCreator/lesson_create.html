@@ -22,13 +22,14 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="row">lessonId</th>
-            <th scope="row">lessonName</th>
-            <th scope="row">lessonDescription</th>
-            <th scope="row">lessonDuration</th>
-            <th scope="row">lessonDate</th>
-            <th scope="row">homeworkId</th>
-            <th scope="row">groupId</th>
+            <th scope="row">lesson Id</th>
+            <th scope="row">lesson name</th>
+            <th scope="row">lesson description</th>
+            <th scope="row">lesson duration</th>
+            <th scope="row">homework Id</th>
+            <th scope="row">course Id</th>
+            <th scope="row">lesson number</th>
+
         </tr>
         </thead>
         <tbody>
@@ -37,9 +38,9 @@
             <td th:text="${lesson.lessonName}"></td>
             <td th:text="${lesson.lessonDescription}"></td>
             <td th:text="${lesson.lessonDuration}"></td>
-            <td th:text="${lesson.lessonDate}"></td>
             <td th:text="${lesson.homeworkId}"></td>
-            <td th:text="${lesson.groupId}"></td>
+            <td th:text="${lesson.courseId}"></td>
+            <td th:text="${lesson.lessonNumber}"></td>
             <td>
                 <div class="btn-group">
                     <!--                    Delete button use @PathVariable to understand what id it need-->

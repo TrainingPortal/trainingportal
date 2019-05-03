@@ -29,7 +29,7 @@
             <th scope="row">minNumber</th>
             <th scope="row">maxNumber</th>
             <th scope="row">description</th>
-            <th scope="row">trainerId</th>
+            <th scope="row">Trainer Name</th>
             <th scope="row">lessonNumber</th>
             <th scope="row">Status Select</th>
         </tr>
@@ -39,20 +39,12 @@
             <td th:text="${course.courseId}"></td>
             <td th:text="${course.courseName}"></td>
             <td th:text="${course.courseLevel}"></td>
-            <td th:text="${course.courseStatus}"></td>
+            <td th:text="${course.status.statusName}"></td>
             <td th:text="${course.minNumber}"></td>
             <td th:text="${course.maxNumber}"></td>
             <td th:text="${course.description}"></td>
-            <td th:text="${course.trainerId}"></td>
+            <td th:text="${course.trainer.userName}"></td>
             <td th:text="${course.lessonNumber}"></td>
-            <!--            <td>-->
-            <!--                <select th:field="*{courseList}">-->
-            <!--                    <option value=""> &#45;&#45;</option>-->
-            <!--                    <option th:each="country : ${statusList}"-->
-            <!--                            th:utext="${country.statusName}"-->
-            <!--                            th:value="${country.statusId}"/>-->
-            <!--                </select>-->
-            <!--            </td>-->
             <td>
                 <div class="btn-group">
                     <!--                    Delete button use @PathVariable to understand what id it need-->
@@ -60,13 +52,6 @@
                     <a class="btn btn-dark" th:href="@{/course-delete-by-{id} (id = ${course.courseId}) }">Delete</a>
                 </div>
             </td>
-
-            <!--            <td>-->
-            <!--        <tr th:each="status : ${statusList}">-->
-            <!--            <td th:text="${status.statusName}"></td>-->
-            <!--        </tr>-->
-            <!--        </td>-->
-
         </tr>
         </tbody>
     </table>

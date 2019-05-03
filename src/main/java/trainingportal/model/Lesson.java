@@ -16,25 +16,24 @@ public class Lesson {
     @NotNull
     private Double lessonDuration;
     @NotNull
-    private String lessonDate;
-    @NotNull
     private Long homeworkId;
-    @Size(min = 1, max = 30)
-
     @NotNull
-    private Long groupId;
+    private Long courseId;
+    @NotNull
+    private int lessonNumber;
+
 
     public Lesson() {
     }
 
-    public Lesson(@NotNull Long lessonId, @Size(min = 1, max = 40) @NotNull String lessonName, @Size(min = 1, max = 30) String lessonDescription, @Size(min = 10, max = 120) @NotNull Double lessonDuration, @NotNull String lessonDate, @NotNull Long homeworkId, @Size(min = 1, max = 30) @NotNull Long groupId) {
+    public Lesson(@NotNull Long lessonId, @Size(min = 1, max = 40) @NotNull String lessonName, @Size(min = 1, max = 30) String lessonDescription, @Size(min = 10, max = 120) @NotNull Double lessonDuration, @NotNull Long homeworkId, @NotNull Long courseId, @NotNull int lessonNumber) {
         this.lessonId = lessonId;
         this.lessonName = lessonName;
         this.lessonDescription = lessonDescription;
         this.lessonDuration = lessonDuration;
-        this.lessonDate = lessonDate;
         this.homeworkId = homeworkId;
-        this.groupId = groupId;
+        this.courseId = courseId;
+        this.lessonNumber = lessonNumber;
     }
 
     public Long getLessonId() {
@@ -69,14 +68,6 @@ public class Lesson {
         this.lessonDuration = lessonDuration;
     }
 
-    public String getLessonDate() {
-        return lessonDate;
-    }
-
-    public void setLessonDate(String lessonDate) {
-        this.lessonDate = lessonDate;
-    }
-
     public Long getHomeworkId() {
         return homeworkId;
     }
@@ -85,11 +76,19 @@ public class Lesson {
         this.homeworkId = homeworkId;
     }
 
-    public Long getGroupId() {
-        return groupId;
+    public Long getCourseId() {
+        return courseId;
     }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
+    public int getLessonNumber() {
+        return lessonNumber;
+    }
+
+    public void setLessonNumber(int lessonNumber) {
+        this.lessonNumber = lessonNumber;
     }
 }

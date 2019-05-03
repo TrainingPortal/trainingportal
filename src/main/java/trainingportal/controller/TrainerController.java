@@ -13,6 +13,8 @@ import trainingportal.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
+
 @Controller
 public class TrainerController {
     @Autowired
@@ -69,6 +71,13 @@ public class TrainerController {
     public ModelAndView editTrainer(@PathVariable("id") Long id, ModelAndView model) {
 
         User trainer = trainerService.findById(id);
+
+        List<Role> roles = trainerService.getRoles();
+        model.addObject("roles", roles);
+
+        Map<Long, String> mapStatus = trainerService.setMapStatus();
+
+        model.addObject("mapStatus", mapStatus);
 
         trainer.setPassword(bCryptPasswordEncoder.encode(trainer.getPassword()));
         model.addObject("trainer", trainer);

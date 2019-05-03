@@ -3,6 +3,7 @@ package trainingportal.dao;
 
 import trainingportal.dao.generic.GenericDao;
 import trainingportal.model.User;
+
 import java.util.List;
 
 public interface UserDao extends GenericDao<User> {
@@ -11,15 +12,19 @@ public interface UserDao extends GenericDao<User> {
 
     List<User> findAllByRole(Long roleId);
 
+    List<User> findAllEnabledByRole(Long roleId);
+
     void deleteAllByRole(Long roleId);
 
     User findByEmail(String email);
 
-    User findByToken (String token);
+    User findByToken(String token);
 
     void updateToken (User user, String token);
 
     void resetToken (User user);
+
+    void resetManagerId(Long managerId);
 
     void confirmRegister(User user);
 

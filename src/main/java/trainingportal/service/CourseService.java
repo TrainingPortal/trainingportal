@@ -7,5 +7,8 @@ import trainingportal.service.generic.GenericService;
 import java.util.List;
 
 public interface CourseService extends GenericService<Course> {
-    List<CourseStatus> selectStatus();
+
+    List<CourseStatus> getStatusList();
+
+    CourseStatus findStatusById(Long id);
 }

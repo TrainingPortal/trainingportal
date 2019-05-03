@@ -39,7 +39,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
     //insert into database new Course
     @Override
     public void save(Course course) {
-        String sql = "INSERT INTO COURSE (name, course_level, course_status_id, min_number, max_number, description, trainer_id, lessons_number) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Course (name, course_level, course_status_id, min_number, max_number, description, trainer_id, lessons_number) VALUES (?,?,?,?,?,?,?,?)";
         this.getJdbcTemplate().update(sql, new Object[]{course.getCourseName(), course.getCourseLevel(),
                 course.getCourseStatus(), course.getMinNumber(), course.getMaxNumber(), course.getDescription(),
                 course.getTrainerId(), course.getLessonNumber()});
@@ -68,10 +68,16 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
     }
 
     @Override
-    public List<CourseStatus> selectStatus() {
-        String sql = "SELECT statusId, statusName FROM COURSESTATUS INNER JOIN COURSE ON statusId = course_status_id ";
-        return this.getJdbcTemplate().query(sql, new Object[]{}, new CourseStatusMapper());
+    public List<CourseStatus> getStatusList() {
+
+        return this.getJdbcTemplate().query(CourseStatusMapper.SELECT_SQL, new CourseStatusMapper());
     }
 
+    @Override
+    public CourseStatus findStatusById(Long id) {
 
+        String sql = CourseStatusMapper.SELECT_SQL + " WHERE id = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new CourseStatusMapper());
+    }
 }

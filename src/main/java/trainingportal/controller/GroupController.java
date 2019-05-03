@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import trainingportal.model.Group;
+import trainingportal.model.*;
+import trainingportal.service.CourseServiceImpl;
 import trainingportal.service.GroupServiceImpl;
 
 import java.util.List;
@@ -18,11 +19,18 @@ public class GroupController {
     @Autowired
     GroupServiceImpl groupService;
 
+    @Autowired
+    CourseServiceImpl courseService;
+
     @GetMapping("/group_create")
     public ModelAndView showGroupsList(Long groupId, ModelAndView modelAndView) {
         List<Group> groupList = groupService.GroupsList();
-//        List<Group> groupList = groupService.getAllGroupsById(groupId);
-//        Group groupList = groupService.findGroupById(groupId);
+
+        for(Group group : groupList){
+            group.setCourse(courseService.findById(group.getCourseId()));
+            group.setStatus(groupService.findStatusById(group.getStatusId()));
+        }
+
         modelAndView.addObject("groupList", groupList);
         modelAndView.setViewName("groupCreator/group_create");
         return modelAndView;
@@ -32,6 +40,12 @@ public class GroupController {
     public ModelAndView addGroup(ModelAndView modelAndView) {
 
         modelAndView.addObject("group", new Group());
+
+        List<Course> courses = courseService.findAll();
+        List<GroupStatus> statuses = groupService.getStatusList();
+
+        modelAndView.addObject("courses", courses);
+        modelAndView.addObject("statuses", statuses);
         modelAndView.setViewName("groupCreator/group_add");
 
         return modelAndView;
@@ -47,6 +61,12 @@ public class GroupController {
     @GetMapping({"/edit-group-{id}"})
     public ModelAndView editGroupBase(@PathVariable("id") Long groupId, ModelAndView modelAndView) {
         Group group = groupService.findGroupById(groupId);
+
+        List<Course> courses = courseService.findAll();
+        List<GroupStatus> statuses = groupService.getStatusList();
+
+        modelAndView.addObject("courses", courses);
+        modelAndView.addObject("statuses", statuses);
         modelAndView.addObject("group", group);
         modelAndView.addObject("edit", true);
         modelAndView.setViewName("groupCreator/edit_group_by_id");

@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import trainingportal.mapper.CourseStatusMapper;
 import trainingportal.mapper.GroupMapper;
+import trainingportal.mapper.GroupStatusMapper;
+import trainingportal.model.CourseStatus;
 import trainingportal.model.Group;
+import trainingportal.model.GroupStatus;
 
 import javax.sql.DataSource;
 import java.util.List;
@@ -56,5 +60,19 @@ public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
         String sql = "DELETE FROM groups WHERE id = ?";
 
         this.getJdbcTemplate().update(sql, groupId);
+    }
+
+    @Override
+    public List<GroupStatus> getStatusList() {
+
+        return this.getJdbcTemplate().query(GroupStatusMapper.SELECT_SQL, new GroupStatusMapper());
+    }
+
+    @Override
+    public GroupStatus findStatusById(Long id) {
+
+        String sql = GroupStatusMapper.SELECT_SQL + " WHERE id = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new GroupStatusMapper());
     }
 }

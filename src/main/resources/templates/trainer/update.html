@@ -1,47 +1,64 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Update trainer</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
-	<link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" />
-	<link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}" />
-	<link type="text/css" rel="stylesheet" href="/../css/custom.css" th:href="@{css/custom.css}"/>
+    <title>Update trainer</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link type="text/css" rel="stylesheet" href="/../css/custom.css" th:href="@{css/custom.css}"/>
 </head>
-	<body>
-	<div th:insert="frontend/navbar :: nav"></div>
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
 
-	<h1>Update Trainer</h1>
-		<div class="row justify-content-center" >
-			<div class="col-md-4 col-md-offset-4">
-				<form th:object="${trainer}" th:action="@{/trainer-update-{id}(id=${trainer.userId})}" action="#" method="post">
+<div class="py-0 my-0 pl-3 bg-primary text-white">
+    <h1 class="my-0 py-0">Update Trainer</h1>
+</div>
+<div class="row justify-content-center">
+    <div class="col-md-4 col-md-offset-4">
+        <form th:object="${trainer}" th:action="@{/trainer-update-{id}(id=${trainer.userId})}" action="#" method="post">
 
-					<input type="hidden" th:field="*{userId}" class="form-control"
-					placeholder="name" />
+            <input type="hidden" th:field="*{userId}" class="form-control"
+                   placeholder="name"/>
 
-					<label>Username</label>
-					<input type="text" th:field="*{userName}" class="form-control"
-						   placeholder="name" />
-					<p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="alert alert-danger">Name Error</p>
+            <div class="form-group">
+                <label for="formUsername">Username</label>
+                <input id="formUsername" type="text" th:field="*{userName}" class="form-control"
+                       placeholder="name"/>
+                <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="alert alert-danger">Name
+                    Error</p>
+            </div>
 
-					<label>Email</label>
-					<input type="email" th:field="*{email}" class="form-control"
-						   placeholder="email" />
-					<p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger">Email Error</p>
+            <div class="form-group">
+                <label for="formEmail">Email</label>
+                <input id="formEmail" type="email" th:field="*{email}" class="form-control"
+                       placeholder="email"/>
+                <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger">Email Error</p>
+            </div>
 
-					<label>Is enabled or not?</label>
-					<input type="text" th:field="*{enabled}" class="form-control"
-						   placeholder="enabled"/>
-					<p th:if="${#fields.hasErrors('enabled')}" th:errors="*{enabled}" class="alert alert-danger">Password Error</p>
+            <div class="form-group">
+                <label for="formStatus">Status </label>
+                <select id="formStatus" th:field="*{enabled}" class="form-control">
+                    <option th:each="entry : ${mapStatus.entrySet()}"
+                            th:value="${entry.key}"
+                            th:text="${entry.value}">
+                    </option>
+                </select>
+            </div>
 
-					<label>Role ID</label>
-					<input type="text" th:field="*{roleId}" class="form-control"
-						   placeholder="role"/>
-					<p th:if="${#fields.hasErrors('roleId')}" th:errors="*{roleId}" class="alert alert-danger">Password Error</p>
+            <div class="form-group">
+                <label for="formSelect">Role </label>
+                <select id="formSelect" class="form-control" th:field="*{roleId}">
+                    <option th:each="role : ${roles}"
+                            th:value="${role.roleId}"
+                            th:text="${role.roleName}">
+                    </option>
+                </select>
+            </div>
 
-					<input type="submit" class="btn btn-success" value="Save changes"/>
-				</form>
-			</div>
-		</div>
-	</body>
+            <input type="submit" class="btn btn-success" value="Save changes"/>
+        </form>
+    </div>
+</div>
+</body>
 </html>

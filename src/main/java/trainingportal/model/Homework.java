@@ -2,6 +2,7 @@ package trainingportal.model;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.sql.Date;
 
 public class Homework {
     @NotNull
@@ -13,12 +14,12 @@ public class Homework {
 
     @Size(min = 1, max = 40)
     @NotNull
-    private String homeworkDeadlineDate;
+    private Date homeworkDeadlineDate;
 
     public Homework() {
     }
 
-    public Homework(@NotNull Long homeworkId, @Size(min = 1, max = 40) @NotNull String homeworkName, @Size(min = 1, max = 40) @NotNull String homeworkDeadlineDate) {
+    public Homework(@NotNull Long homeworkId, @Size(min = 1, max = 40) @NotNull String homeworkName, @Size(min = 1, max = 40) @NotNull Date homeworkDeadlineDate) {
         this.homeworkId = homeworkId;
         this.homeworkName = homeworkName;
         this.homeworkDeadlineDate = homeworkDeadlineDate;
@@ -40,11 +41,11 @@ public class Homework {
         this.homeworkName = homeworkName;
     }
 
-    public String getHomeworkDeadlineDate() {
+    public Date getHomeworkDeadlineDate() {
         return homeworkDeadlineDate;
     }
 
-    public void setHomeworkDeadlineDate(String homeworkDeadlineDate) {
+    public void setHomeworkDeadlineDate(Date homeworkDeadlineDate) {
         this.homeworkDeadlineDate = homeworkDeadlineDate;
     }
 }
