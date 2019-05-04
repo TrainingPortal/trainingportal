@@ -202,4 +202,19 @@ public class UserServiceImpl implements UserService {
     public List<User> getAllAsPage(int page, int total) {
         return null;
     }
+
+    @Override
+    public int getPagesByRole(Long id, double total) {
+        return (int) Math.ceil(userRepository.countAllByRole(id) / total);
+    }
+
+    @Override
+    public int getPagesByManager(Long id, double total) {
+        return (int) Math.ceil(subordinateRepository.countAllByManager(id) / total);
+    }
+
+    @Override
+    public int getFreeUsersPages(double total) {
+        return (int) Math.ceil(subordinateRepository.countFreeUsers() / total);
+    }
 }

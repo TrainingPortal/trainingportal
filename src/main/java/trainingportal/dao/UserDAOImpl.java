@@ -178,4 +178,12 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao {
 
         return users;
     }
+
+    @Override
+    public int countAllByRole(Long id) {
+
+        String sql = "SELECT COUNT(userId) FROM users WHERE roleId = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
+    }
 }

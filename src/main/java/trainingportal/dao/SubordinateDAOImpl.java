@@ -78,4 +78,20 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
 
         return users;
     }
+
+    @Override
+    public int countAllByManager(Long id) {
+
+        String sql = "SELECT COUNT(userId) FROM users WHERE managerId = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
+    }
+
+    @Override
+    public int countFreeUsers() {
+
+        String sql = "SELECT COUNT(userId) FROM users WHERE managerId IS NULL AND roleId = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{Role.EMPLOYEE}, Integer.class);
+    }
 }

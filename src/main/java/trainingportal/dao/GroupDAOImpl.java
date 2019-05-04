@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import trainingportal.mapper.CourseMapper;
 import trainingportal.mapper.CourseStatusMapper;
 import trainingportal.mapper.GroupMapper;
 import trainingportal.mapper.GroupStatusMapper;
+import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
@@ -74,5 +76,19 @@ public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
         String sql = GroupStatusMapper.SELECT_SQL + " WHERE id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new GroupStatusMapper());
+    }
+
+    @Override
+    public int countAll() {
+
+        String sql = "SELECT COUNT(id) FROM Groups";
+
+        return this.getJdbcTemplate().queryForObject(sql, Integer.class);
+    }
+
+    @Override
+    public List<Group> getAllAsPage(int page, int total) {
+        String sql = GroupMapper.SELECT_SQL + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+        return this.getJdbcTemplate().query(sql, new Object[]{}, new GroupMapper());
     }
 }

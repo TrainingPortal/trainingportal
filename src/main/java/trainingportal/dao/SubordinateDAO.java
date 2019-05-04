@@ -17,4 +17,8 @@ public interface SubordinateDAO {
     List<User> getSubordinatesByIdAsPage(int page, int total, Long id);
 
     List<User> getFreeUsersAsPage(int page, int total);
+
+    int countAllByManager(Long id);
+
+    int countFreeUsers();
 }

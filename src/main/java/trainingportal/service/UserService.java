@@ -48,4 +48,10 @@ public interface UserService extends GenericService<User> {
     List<User> getFreeUsersAsPage(int page, int total);
 
     List<Role> getRoles();
+
+    int getPagesByRole(Long id, double total);
+
+    int getPagesByManager(Long id, double total);
+
+    int getFreeUsersPages(double total);
 }
