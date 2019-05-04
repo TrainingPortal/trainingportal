@@ -26,20 +26,19 @@ public class CourseController {
     @Autowired
     UserService userService;
 
-    private static final int ROWS_LIMIT = 6;
+    private static final int ROWS_LIMIT = 10;
 
     @RequestMapping(value = "/course_create/{page}")
     public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId, ModelAndView modelAndView) {
+
         List<Course> courseList = courseService.getAllAsPage(page, ROWS_LIMIT);
 
         for(Course course : courseList){
             course.setTrainer(userService.findById(course.getTrainerId()));
             course.setStatus(courseService.findStatusById(course.getCourseStatus()));
         }
-
         modelAndView.addObject("courseList", courseList);
-        modelAndView.addObject("pages",
-                courseService.getNumberOfPages(courseService.findAll(), ROWS_LIMIT));
+        modelAndView.addObject("pages", courseService.getPages(ROWS_LIMIT));
         modelAndView.setViewName("courseCreator/course_create");
         modelAndView.addObject("currentUrl", "course_create");
         return modelAndView;

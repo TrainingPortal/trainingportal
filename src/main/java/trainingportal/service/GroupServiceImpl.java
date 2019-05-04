@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.GroupDAOImpl;
+import trainingportal.model.Course;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
 
@@ -56,5 +57,21 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public GroupStatus findStatusById(Long id) {
         return groupDAO.findStatusById(id);
+    }
+
+    @Override
+    public int getPages(double total) {
+        return (int) Math.ceil(groupDAO.countAll() / total);
+    }
+
+    @Override
+    public List<Group> getAllAsPage(int page, int total) {
+
+        if(page == 1){
+            //do nothing
+        } else {
+            page = (page - 1) * total + 1;
+        }
+        return groupDAO.getAllAsPage(page, total);
     }
 }

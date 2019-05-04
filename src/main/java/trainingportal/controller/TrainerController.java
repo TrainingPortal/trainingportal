@@ -31,8 +31,7 @@ public class TrainerController {
 
         List<User> trainers = trainerService.getAllByRoleAsPage(page, ROWS_LIMIT, Role.TRAINER);
         model.addObject("trainers", trainers);
-        model.addObject("pages",
-                trainerService.getNumberOfPages(trainerService.findAllByRole(Role.TRAINER), ROWS_LIMIT));
+        model.addObject("pages", trainerService.getPagesByRole(Role.TRAINER, ROWS_LIMIT));
         model.addObject("currentUrl", "trainers");
         model.setViewName("trainer/trainers");
 
