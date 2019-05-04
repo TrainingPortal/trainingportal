@@ -6,16 +6,11 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.mapper.CourseMapper;
 import trainingportal.mapper.CourseStatusMapper;
-import trainingportal.mapper.RoleMapper;
-import trainingportal.mapper.UserMapper;
 import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
-import trainingportal.model.User;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 @Transactional
@@ -84,5 +79,13 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
         String sql = CourseStatusMapper.SELECT_SQL + " WHERE id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new CourseStatusMapper());
+    }
+
+    @Override
+    public int countAll() {
+
+        String sql = "SELECT COUNT(courseId) FROM Course";
+
+        return this.getJdbcTemplate().queryForObject(sql, Integer.class);
     }
 }

@@ -20,4 +20,8 @@ public interface GroupDao {
     List<GroupStatus> getStatusList();
 
     GroupStatus findStatusById(Long id);
+
+    int countAll();
+
+    List<Group> getAllAsPage(int page, int total);
 }

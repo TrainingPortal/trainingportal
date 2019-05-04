@@ -16,12 +16,6 @@ public class CourseServiceImpl implements CourseService {
     @Autowired
     private CourseDAOImpl courseDAO;
 
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private CourseService courseService;
-
     @Override
     public List<Course> findAll() {
         return courseDAO.findAll();
@@ -72,6 +66,11 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public int getNumberOfPages(List<Course> users, double total) {
         return (int) Math.ceil(users.size() / total);
+    }
+
+    @Override
+    public int getPages(double total) {
+        return (int) Math.ceil(courseDAO.countAll() / total);
     }
 
     @Override

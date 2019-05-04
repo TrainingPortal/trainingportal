@@ -31,4 +31,6 @@ public interface UserDao extends GenericDao<User> {
     void setNewPassword(String password, String token);
 
     List<User> getAllByRoleAsPage(int page, int total, Long roleId);
+
+    int countAllByRole(Long id);
 }

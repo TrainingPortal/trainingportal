@@ -12,6 +12,7 @@ import trainingportal.model.User;
 import trainingportal.service.UserService;
 
 import javax.validation.Valid;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +34,7 @@ public class ManagerController {
 
         model.addObject("managers", managers);
         model.addObject("pages",
-                managerService.getNumberOfPages(managerService.findAllByRole(Role.MANAGER), ROWS_LIMIT));
+                managerService.getPagesByRole(Role.MANAGER, ROWS_LIMIT));
         model.addObject("currentUrl", "managers");
         model.setViewName("manager/managers");
 
@@ -48,6 +49,22 @@ public class ManagerController {
         model.setViewName("manager/show");
         return model;
     }
+
+    /*@GetMapping("/addsubordinates/{page}")
+    public ModelAndView showAddSubordinates(@PathVariable("page") int page, Long id, ModelAndView model) {
+
+        List<User> users = managerService.getFreeUsersAsPage(page, ROWS_LIMIT);
+
+        model.addObject("users", users);
+        model.addObject("pages", managerService.getFreeUsersPages(ROWS_LIMIT));
+        model.addObject("manager", managerService.findById(id));
+        model.addObject("currentUrl", "addsubordinates");
+        model.addObject("id", id);
+
+        model.setViewName("manager/addsubordinates");
+
+        return model;
+    }*/
 
     @GetMapping("/addsubordinates")
     public ModelAndView showAddSubordinates(Long id, ModelAndView model) {
@@ -87,8 +104,7 @@ public class ManagerController {
 
         model.addObject("manager", manager);
         model.addObject("subordinates", subordinates);
-        model.addObject("pages",
-                managerService.getNumberOfPages(managerService.findSubordinatesById(id), ROWS_LIMIT));
+        model.addObject("pages", managerService.getPagesByManager(id, ROWS_LIMIT));
         model.addObject("currentUrl", "subordinates");
         model.addObject("id", id);
 

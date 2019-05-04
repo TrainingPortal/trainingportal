@@ -11,4 +11,6 @@ public interface CourseService extends GenericService<Course> {
     List<CourseStatus> getStatusList();
 
     CourseStatus findStatusById(Long id);
+
+    int getPages(double total);
 }
