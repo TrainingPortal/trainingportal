@@ -31,7 +31,6 @@ public class CourseController {
     @RequestMapping(value = "/course_create/{page}")
     public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId, ModelAndView modelAndView) {
         List<Course> courseList = courseService.getAllAsPage(page, ROWS_LIMIT);
-
         for(Course course : courseList){
             course.setTrainer(userService.findById(course.getTrainerId()));
             course.setStatus(courseService.findStatusById(course.getCourseStatus()));
@@ -44,7 +43,6 @@ public class CourseController {
         modelAndView.addObject("currentUrl", "course_create");
         return modelAndView;
     }
-
     @RequestMapping(value = "/course-add", method = RequestMethod.GET)
     public ModelAndView addCourse(ModelAndView modelAndView) {
 

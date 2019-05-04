@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import trainingportal.model.Course;
 import trainingportal.model.Lesson;
+import trainingportal.service.CourseServiceImpl;
 import trainingportal.service.LessonServiceImpl;
 
 import java.util.List;
@@ -19,11 +21,29 @@ public class LessonController {
     @Autowired
     LessonServiceImpl lessonService;
 
+    @Autowired
+    CourseServiceImpl courseService;
+
     @RequestMapping(value = "lesson_create")
     public ModelAndView showLessonsList(Long Id, ModelAndView modelAndView) {
         List<Lesson> lessonList = lessonService.findAll();
         modelAndView.addObject("lessonList", lessonList);
         modelAndView.setViewName("lessonCreator/lesson_create");
+        return modelAndView;
+    }
+
+    //here is new methods, need to think about replacing old methods
+    @RequestMapping("/course_lessons_{id}")
+    public ModelAndView showLessonListOfCourse(@PathVariable("id") Long courseId, ModelAndView modelAndView) {
+
+        Course course = courseService.findById(courseId);
+
+        List<Lesson> lessonsOfCourse = lessonService.getLessonCourseId(courseId);
+
+        modelAndView.addObject("courseLesson", course);
+        modelAndView.addObject("lessonsOfCourse", lessonsOfCourse);
+        modelAndView.setViewName("lessonCreator/course_lessons");
+
         return modelAndView;
     }
 
@@ -39,7 +59,7 @@ public class LessonController {
     @RequestMapping(value = "lesson-save", method = RequestMethod.POST)
     public ModelAndView saveLesson(Lesson lesson, ModelAndView modelAndView) {
         lessonService.save(lesson);
-        modelAndView.setViewName("redirect:/lesson_create");
+        modelAndView.setViewName("redirect:/course_lessons");
         return modelAndView;
     }
 
@@ -60,7 +80,7 @@ public class LessonController {
             return modelAndView;
         } else {
             lessonService.update(lesson);
-            modelAndView.setViewName("redirect:/lesson_create");
+            modelAndView.setViewName("redirect:/course_lessons");
             return modelAndView;
         }
     }
@@ -71,7 +91,7 @@ public class LessonController {
 
         redirect.addFlashAttribute("successMessage", "lesson deleted successfully");
 
-        model.setViewName("redirect:/lesson_create");
+        model.setViewName("redirect:/course_lessons");
         return model;
     }
 
