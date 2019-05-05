@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import trainingportal.model.Course;
 import trainingportal.model.Lesson;
 import trainingportal.service.CourseServiceImpl;
 import trainingportal.service.LessonServiceImpl;
@@ -50,11 +51,11 @@ public class LessonController {
     @RequestMapping("/course_lessons")
     public ModelAndView showLessonListOfCourse(Long id, ModelAndView modelAndView) {
 
-//        Course course = courseService.findById(id);
+        Course course = courseService.findById(id);
 
         List<Lesson> lessonsOfCourse = lessonService.getLessonCourseId(id);
 
-//        modelAndView.addObject("courseLesson", course);
+        modelAndView.addObject("courseLesson", course);
         modelAndView.addObject("lessonsOfCourse", lessonsOfCourse);
         modelAndView.addObject("id", id);
         modelAndView.setViewName("lessonCreator/course_lessons");
