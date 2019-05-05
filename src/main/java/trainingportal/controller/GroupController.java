@@ -24,17 +24,21 @@ public class GroupController {
     @Autowired
     CourseServiceImpl courseService;
 
-    @GetMapping("/group_create")
-    public ModelAndView showGroupsList(Long groupId, ModelAndView modelAndView) {
-        List<Group> groupList = groupService.GroupsList();
+    private static final int ROWS_LIMIT = 10;
+
+    @RequestMapping(value = "/group_create/{page}")
+    public ModelAndView showGroupsList(@PathVariable("page") int page, Long groupId, ModelAndView modelAndView) {
+
+        List<Group> groupList = groupService.getAllAsPage(page, ROWS_LIMIT);
 
         for(Group group : groupList){
             group.setCourse(courseService.findById(group.getCourseId()));
             group.setStatus(groupService.findStatusById(group.getStatusId()));
         }
-
         modelAndView.addObject("groupList", groupList);
+        modelAndView.addObject("pages", groupService.getPages(ROWS_LIMIT));
         modelAndView.setViewName("groupCreator/group_create");
+        modelAndView.addObject("currentUrl", "group_create");
         return modelAndView;
     }
 
@@ -56,7 +60,7 @@ public class GroupController {
     @PostMapping("/group-save")
     public ModelAndView saveGroup(Group group, ModelAndView modelAndView) {
         groupService.saveGroup(group);
-        modelAndView.setViewName("redirect:/group_create");
+        modelAndView.setViewName("redirect:/group_create/1");
         return modelAndView;
     }
 
@@ -83,7 +87,7 @@ public class GroupController {
             return modelAndView;
         } else {
             groupService.editGroup(group);
-            modelAndView.setViewName("redirect:/group_create");
+            modelAndView.setViewName("redirect:/group_create/1");
             return modelAndView;
         }
     }
@@ -94,7 +98,7 @@ public class GroupController {
 
         redirect.addFlashAttribute("successMessage", "Group deleted successfully");
 
-        model.setViewName("redirect:/group_create");
+        model.setViewName("redirect:/group_create/1");
         return model;
     }
 

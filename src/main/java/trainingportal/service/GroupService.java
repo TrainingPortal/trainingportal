@@ -1,5 +1,6 @@
 package trainingportal.service;
 
+import org.apache.poi.ss.formula.functions.T;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
 
@@ -19,4 +20,8 @@ public interface GroupService {
     List<GroupStatus> getStatusList();
 
     GroupStatus findStatusById(Long id);
+
+    int getPages(double total);
+
+    List<Group> getAllAsPage(int page, int total);
 }

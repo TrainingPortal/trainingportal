@@ -80,4 +80,12 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new CourseStatusMapper());
     }
+
+    @Override
+    public int countAll() {
+
+        String sql = "SELECT COUNT(courseId) FROM Course";
+
+        return this.getJdbcTemplate().queryForObject(sql, Integer.class);
+    }
 }

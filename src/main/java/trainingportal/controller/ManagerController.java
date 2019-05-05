@@ -13,7 +13,11 @@ import trainingportal.service.UserService;
 import trainingportal.universalexportcreator.dao.DataDaoImpl;
 
 import javax.validation.Valid;
+<<<<<<< HEAD
 import java.util.ArrayList;
+=======
+import java.util.Arrays;
+>>>>>>> 93f5a821b61d43fcd4793b153b5973a8fd0763f6
 import java.util.List;
 import java.util.Map;
 
@@ -35,7 +39,7 @@ public class ManagerController {
 
         model.addObject("managers", managers);
         model.addObject("pages",
-                managerService.getNumberOfPages(managerService.findAllByRole(Role.MANAGER), ROWS_LIMIT));
+                managerService.getPagesByRole(Role.MANAGER, ROWS_LIMIT));
         model.addObject("currentUrl", "managers");
         model.setViewName("manager/managers");
 
@@ -50,6 +54,22 @@ public class ManagerController {
         model.setViewName("manager/show");
         return model;
     }
+
+    /*@GetMapping("/addsubordinates/{page}")
+    public ModelAndView showAddSubordinates(@PathVariable("page") int page, Long id, ModelAndView model) {
+
+        List<User> users = managerService.getFreeUsersAsPage(page, ROWS_LIMIT);
+
+        model.addObject("users", users);
+        model.addObject("pages", managerService.getFreeUsersPages(ROWS_LIMIT));
+        model.addObject("manager", managerService.findById(id));
+        model.addObject("currentUrl", "addsubordinates");
+        model.addObject("id", id);
+
+        model.setViewName("manager/addsubordinates");
+
+        return model;
+    }*/
 
     @GetMapping("/addsubordinates")
     public ModelAndView showAddSubordinates(Long id, ModelAndView model) {
@@ -89,8 +109,7 @@ public class ManagerController {
 
         model.addObject("manager", manager);
         model.addObject("subordinates", subordinates);
-        model.addObject("pages",
-                managerService.getNumberOfPages(managerService.findSubordinatesById(id), ROWS_LIMIT));
+        model.addObject("pages", managerService.getPagesByManager(id, ROWS_LIMIT));
         model.addObject("currentUrl", "subordinates");
         model.addObject("id", id);
 
