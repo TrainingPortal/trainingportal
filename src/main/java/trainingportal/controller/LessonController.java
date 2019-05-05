@@ -81,10 +81,9 @@ public class LessonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-lesson-{lessonId}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/edit-lesson-{lessonId}-{id}"}, method = RequestMethod.GET)
     public ModelAndView editLessonBase(@PathVariable("lessonId") Long lessonId, ModelAndView modelAndView) {
         Lesson lesson = lessonService.findById(lessonId);
-//        modelAndView.addObject("id", id);
         modelAndView.addObject("lesson", lesson);
         modelAndView.addObject("edit", true);
         modelAndView.setViewName("lessonCreator/edit_lesson_by_id");
@@ -92,15 +91,14 @@ public class LessonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-lesson-{lessonId}"}, method = RequestMethod.POST)
-    public ModelAndView editLessonById(Long id, Lesson lesson, BindingResult bindingResult, ModelAndView modelAndView) {
+    @RequestMapping(value = {"/edit-lesson-{lessonId}-{id}"}, method = RequestMethod.POST)
+    public ModelAndView editLessonById(@PathVariable("id") Long id, Lesson lesson, BindingResult bindingResult, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("lessonCreator/edit_lesson_by_id");
             return modelAndView;
         } else {
             lessonService.update(lesson);
-
-
+            modelAndView.addObject("id", id);
             modelAndView.setViewName("redirect:/course_lessons");
             return modelAndView;
         }

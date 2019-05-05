@@ -30,11 +30,11 @@
         <thead>
         <tr>
             <th scope="row">lesson Id</th>
+            <th scope="row">course Id</th>
             <th scope="row">lesson name</th>
             <th scope="row">lesson description</th>
             <th scope="row">lesson duration</th>
             <th scope="row">homework Id</th>
-            <th scope="row">course Id</th>
             <th scope="row">lesson number</th>
 
         </tr>
@@ -42,21 +42,21 @@
         <tbody>
         <tr th:each="lesson, iter : ${lessonsOfCourse}">
             <td th:text="${lesson.lessonId}"></td>
+            <td th:text="${lesson.courseId}"></td>
             <td th:text="${lesson.lessonName}"></td>
             <td th:text="${lesson.lessonDescription}"></td>
             <td th:text="${lesson.lessonDuration}"></td>
             <td th:text="${lesson.homeworkId}"></td>
-            <td th:text="${lesson.courseId}"></td>
             <td th:text="${lesson.lessonNumber}"></td>
             <td>
                 <div class="btn-group">
                     <a class="btn btn-info"
-                       th:href="@{/edit-lesson-{lessonId} (lessonId = ${lesson.lessonId}) }">Edit</a>
+                       th:href="@{/edit-lesson-{lessonId}-{id} (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Edit</a>
                     <!--                    dont work-->
                     <!--                    <a class="btn btn-dark" th:href="@{/lesson-delete-by-{lessonId} (lessonId = ${lesson.lessonId} id = ${courseLesson.courseId}) }">Delete</a>-->
                     <!--                    <a class="btn btn-dark" th:href="@{/lesson-delete-by-{lessonId}-{id} (lessonId = ${lesson.lessonId} + id = ${lesson.courseId}) }">Delete</a>-->
                     <a class="btn btn-dark"
-                       th:href="@{/lesson-delete-by-{lessonId}-{id} (lessonId = ${lesson.lessonId},id = ${lesson.courseId}) }">Delete</a>
+                       th:href="@{/lesson-delete-by-{lessonId}-{id} (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Delete</a>
                 </div>
             </td>
         </tr>
