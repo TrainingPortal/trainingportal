@@ -13,11 +13,7 @@ import trainingportal.service.UserService;
 import trainingportal.universalexportcreator.dao.DataDaoImpl;
 
 import javax.validation.Valid;
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
-import java.util.Arrays;
->>>>>>> 93f5a821b61d43fcd4793b153b5973a8fd0763f6
 import java.util.List;
 import java.util.Map;
 
