@@ -84,6 +84,7 @@ public class LessonController {
     @RequestMapping(value = {"/edit-lesson-{lessonId}"}, method = RequestMethod.GET)
     public ModelAndView editLessonBase(@PathVariable("lessonId") Long lessonId, ModelAndView modelAndView) {
         Lesson lesson = lessonService.findById(lessonId);
+//        modelAndView.addObject("id", id);
         modelAndView.addObject("lesson", lesson);
         modelAndView.addObject("edit", true);
         modelAndView.setViewName("lessonCreator/edit_lesson_by_id");
@@ -91,16 +92,15 @@ public class LessonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-lesson-{id}"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/edit-lesson-{lessonId}"}, method = RequestMethod.POST)
     public ModelAndView editLessonById(Long id, Lesson lesson, BindingResult bindingResult, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("lessonCreator/edit_lesson_by_id");
             return modelAndView;
         } else {
             lessonService.update(lesson);
-//            Course course = courseService.findById(id);
-//            modelAndView.addObject("courseLesson", course);
-            modelAndView.addObject("id", id);
+
+
             modelAndView.setViewName("redirect:/course_lessons");
             return modelAndView;
         }
@@ -109,8 +109,6 @@ public class LessonController {
     @RequestMapping(value = "/lesson-delete-by-{lessonId}-{id}", method = RequestMethod.GET)
     public ModelAndView deleteLessonById(@PathVariable("lessonId") Long lessonId, @PathVariable("id") Long id, ModelAndView model) {
         lessonService.deleteById(lessonId);
-//        Course course = courseService.findById(id);
-//        model.addObject("courseLesson", course);
 //        redirect.addFlashAttribute("successMessage", "lesson deleted successfully");
         model.addObject("id", id);
         model.setViewName("redirect:/course_lessons");

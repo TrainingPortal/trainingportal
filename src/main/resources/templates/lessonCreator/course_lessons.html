@@ -50,14 +50,13 @@
             <td th:text="${lesson.lessonNumber}"></td>
             <td>
                 <div class="btn-group">
-                    <!--                    Delete button use @PathVariable to understand what id it need-->
                     <a class="btn btn-info"
                        th:href="@{/edit-lesson-{lessonId} (lessonId = ${lesson.lessonId}) }">Edit</a>
                     <!--                    dont work-->
                     <!--                    <a class="btn btn-dark" th:href="@{/lesson-delete-by-{lessonId} (lessonId = ${lesson.lessonId} id = ${courseLesson.courseId}) }">Delete</a>-->
                     <!--                    <a class="btn btn-dark" th:href="@{/lesson-delete-by-{lessonId}-{id} (lessonId = ${lesson.lessonId} + id = ${lesson.courseId}) }">Delete</a>-->
                     <a class="btn btn-dark"
-                       th:href="@{/lesson-delete-by-{lessonId}-{id} (lessonId = ${lesson.lessonId} id = ${lesson.courseId}) }">Delete</a>
+                       th:href="@{/lesson-delete-by-{lessonId}-{id} (lessonId = ${lesson.lessonId},id = ${lesson.courseId}) }">Delete</a>
                 </div>
             </td>
         </tr>
