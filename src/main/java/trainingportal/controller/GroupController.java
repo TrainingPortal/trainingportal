@@ -10,7 +10,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.*;
 import trainingportal.service.CourseServiceImpl;
 import trainingportal.service.GroupServiceImpl;
+import trainingportal.universalexportcreator.dao.DataDaoImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -93,6 +95,32 @@ public class GroupController {
         redirect.addFlashAttribute("successMessage", "Group deleted successfully");
 
         model.setViewName("redirect:/group_create");
+        return model;
+    }
+
+    @Autowired
+    public DataDaoImpl dataDao;
+
+    @RequestMapping(value = "/group-download-all-groups", method = RequestMethod.GET)
+    public ModelAndView downloadAllTrainers(ModelAndView model, RedirectAttributes redir){
+
+        List list = new ArrayList();
+        list.add("name");
+        list.add("capacity");
+        list.add("course_id");
+        list.add("status_id");
+
+        List<List> courses = dataDao.findFieldsFromTable(list, "groups","allGroups","table");
+
+//        String fromFile = "/Users/mrlova/Downloads/log.txt";
+//        String toFile = "/Users/mrlova/Downloads/log.txt";
+//
+//        try {
+//            FileUtils.copyURLToFile(new URL(fromFile), new File(toFile), 10000, 10000);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
         return model;
     }
 

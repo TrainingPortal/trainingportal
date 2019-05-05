@@ -32,9 +32,6 @@ public class DataController {
 
         List<List> courses = dataDao.findFieldsFromTableWithCondition(list, "emp","empTable","table", "deptno = 10 AND sal > 1300");
 
-        model.addObject("trainerAllCourses",courses);
-        model.setViewName("trainer/trainerCourses");
-
         return model;
     }
 
