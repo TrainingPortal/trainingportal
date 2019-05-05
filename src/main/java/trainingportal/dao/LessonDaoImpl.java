@@ -58,7 +58,7 @@ public class LessonDaoImpl extends JdbcDaoSupport implements LessonDao {
 
     @Override
     public List<Lesson> getLessonCourseId(Long courseId) {
-        String sql = LessonMapper.SELECT_SQL + " WHERE LESSON.courseId = ?";
+        String sql = LessonMapper.SELECT_SQL + " WHERE courseId = ?";
 //        String sql = LessonMapper.SELECT_SQL + " INNER JOIN COURSE ON LESSON.courseId = COURSE.COURSEID and LESSON.COURSEID=?";
         List<Lesson> lessonList = this.getJdbcTemplate().query(sql, new Object[]{courseId}, new LessonMapper());
         return lessonList;

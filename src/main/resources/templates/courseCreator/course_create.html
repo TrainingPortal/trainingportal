@@ -48,8 +48,8 @@
             <td th:text="${course.lessonNumber}"></td>
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-outline-primary" th:href="@{/course_lessons_{id} (id = ${course.courseId})}">Add
-                        Lessons</a>
+                    <a class="btn btn-outline-primary" th:href="@{/course_lessons (id = ${course.courseId})}">
+                        Show/Add Lessons</a>
                 </div>
             </td>
             <td>
