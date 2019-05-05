@@ -12,46 +12,46 @@
 </head>
 
 <body>
-<div th:insert="frontend/navbar :: nav"></div>
+<!--<div th:insert="frontend/navbar :: nav"></div>-->
 
-<div class="container-fluid">
-    <h2>Lessons List</h2>
-    <h2>
-        <a class="btn btn-success" th:href="@{/lesson-add}">CREATE NEW LESSON</a>
-    </h2>
-    <table class="table table-striped">
-        <thead>
-        <tr>
-            <th scope="row">lesson Id</th>
-            <th scope="row">lesson name</th>
-            <th scope="row">lesson description</th>
-            <th scope="row">lesson duration</th>
-            <th scope="row">homework Id</th>
-            <th scope="row">course Id</th>
-            <th scope="row">lesson number</th>
+<!--<div class="container-fluid">-->
+<!--    <h2>Lessons List</h2>-->
+<!--    <h2>-->
+<!--        <a class="btn btn-success" th:href="@{/lesson-add}">CREATE NEW LESSON</a>-->
+<!--    </h2>-->
+<!--    <table class="table table-striped">-->
+<!--        <thead>-->
+<!--        <tr>-->
+<!--            <th scope="row">lesson Id</th>-->
+<!--            <th scope="row">lesson name</th>-->
+<!--            <th scope="row">lesson description</th>-->
+<!--            <th scope="row">lesson duration</th>-->
+<!--            <th scope="row">homework Id</th>-->
+<!--            <th scope="row">course Id</th>-->
+<!--            <th scope="row">lesson number</th>-->
 
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="lesson, iter : ${lessonList}">
-            <td th:text="${lesson.lessonId}"></td>
-            <td th:text="${lesson.lessonName}"></td>
-            <td th:text="${lesson.lessonDescription}"></td>
-            <td th:text="${lesson.lessonDuration}"></td>
-            <td th:text="${lesson.homeworkId}"></td>
-            <td th:text="${lesson.courseId}"></td>
-            <td th:text="${lesson.lessonNumber}"></td>
-            <td>
-                <div class="btn-group">
-                    <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <a class="btn btn-info" th:href="@{/edit-lesson-{id} (id = ${lesson.lessonId}) }">Edit</a>
-                    <a class="btn btn-dark" th:href="@{/lesson-delete-by-{id} (id = ${lesson.lessonId}) }">Delete</a>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
+<!--        </tr>-->
+<!--        </thead>-->
+<!--        <tbody>-->
+<!--        <tr th:each="lesson, iter : ${lessonList}">-->
+<!--            <td th:text="${lesson.lessonId}"></td>-->
+<!--            <td th:text="${lesson.lessonName}"></td>-->
+<!--            <td th:text="${lesson.lessonDescription}"></td>-->
+<!--            <td th:text="${lesson.lessonDuration}"></td>-->
+<!--            <td th:text="${lesson.homeworkId}"></td>-->
+<!--            <td th:text="${lesson.courseId}"></td>-->
+<!--            <td th:text="${lesson.lessonNumber}"></td>-->
+<!--            <td>-->
+<!--                <div class="btn-group">-->
+<!--                    &lt;!&ndash;                    Delete button use @PathVariable to understand what id it need&ndash;&gt;-->
+<!--                    <a class="btn btn-info" th:href="@{/edit-lesson-{id} (id = ${lesson.lessonId}) }">Edit</a>-->
+<!--                    <a class="btn btn-dark" th:href="@{/lesson-delete-by-{id} (id = ${lesson.lessonId}) }">Delete</a>-->
+<!--                </div>-->
+<!--            </td>-->
+<!--        </tr>-->
+<!--        </tbody>-->
+<!--    </table>-->
+<!--</div>-->
 
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

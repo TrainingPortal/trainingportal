@@ -13,6 +13,7 @@ import trainingportal.model.CourseStatus;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.CourseServiceImpl;
+import trainingportal.service.LessonServiceImpl;
 import trainingportal.service.UserService;
 
 import java.util.List;
@@ -26,6 +27,8 @@ public class CourseController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    LessonServiceImpl lessonService;
     private static final int ROWS_LIMIT = 10;
 
     @RequestMapping(value = "/course_create/{page}")

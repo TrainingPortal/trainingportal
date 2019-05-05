@@ -23,30 +23,6 @@ public class LessonController {
     @Autowired
     CourseServiceImpl courseService;
 
-    @RequestMapping(value = "lesson_create")
-    public ModelAndView showLessonsList(Long Id, ModelAndView modelAndView) {
-        List<Lesson> lessonList = lessonService.findAll();
-        modelAndView.addObject("lessonList", lessonList);
-        modelAndView.setViewName("lessonCreator/lesson_create");
-        return modelAndView;
-    }
-
-    //here is new methods, need to think about replacing old methods
-//    Old realization not working with redirect
-//    @RequestMapping("/course_lessons_{id}")
-//    public ModelAndView showLessonListOfCourse(@PathVariable("id") Long courseId, ModelAndView modelAndView) {
-//
-//        Course course = courseService.findById(courseId);
-//
-//        List<Lesson> lessonsOfCourse = lessonService.getLessonCourseId(courseId);
-//
-//        modelAndView.addObject("courseLesson", course);
-//        modelAndView.addObject("lessonsOfCourse", lessonsOfCourse);
-//        modelAndView.setViewName("lessonCreator/course_lessons");
-//
-//        return modelAndView;
-//    }
-
     @RequestMapping("/course_lessons")
     public ModelAndView showLessonListOfCourse(Long id, ModelAndView modelAndView) {
 
@@ -71,11 +47,9 @@ public class LessonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "lesson-save", method = RequestMethod.POST)
-    public ModelAndView saveLesson(Long id, Lesson lesson, ModelAndView modelAndView) {
+    @RequestMapping(value = "lesson-save-{id}", method = RequestMethod.POST)
+    public ModelAndView saveLesson(@PathVariable("id") Long id, Lesson lesson, ModelAndView modelAndView) {
         lessonService.save(lesson);
-//        Course course = courseService.findById(id);
-//        modelAndView.addObject("courseLesson", course);
         modelAndView.addObject("id", id);
         modelAndView.setViewName("redirect:/course_lessons");
         return modelAndView;
