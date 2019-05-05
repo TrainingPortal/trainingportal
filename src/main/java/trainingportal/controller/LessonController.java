@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import trainingportal.model.Course;
 import trainingportal.model.Lesson;
 import trainingportal.service.CourseServiceImpl;
 import trainingportal.service.LessonServiceImpl;
@@ -51,11 +50,11 @@ public class LessonController {
     @RequestMapping("/course_lessons")
     public ModelAndView showLessonListOfCourse(Long id, ModelAndView modelAndView) {
 
-        Course course = courseService.findById(id);
+//        Course course = courseService.findById(id);
 
         List<Lesson> lessonsOfCourse = lessonService.getLessonCourseId(id);
 
-        modelAndView.addObject("courseLesson", course);
+//        modelAndView.addObject("courseLesson", course);
         modelAndView.addObject("lessonsOfCourse", lessonsOfCourse);
         modelAndView.addObject("id", id);
         modelAndView.setViewName("lessonCreator/course_lessons");
@@ -77,7 +76,7 @@ public class LessonController {
         lessonService.save(lesson);
 //        Course course = courseService.findById(id);
 //        modelAndView.addObject("courseLesson", course);
-//        modelAndView.addObject("id", id);
+        modelAndView.addObject("id", id);
         modelAndView.setViewName("redirect:/course_lessons");
         return modelAndView;
     }
@@ -101,17 +100,18 @@ public class LessonController {
             lessonService.update(lesson);
 //            Course course = courseService.findById(id);
 //            modelAndView.addObject("courseLesson", course);
-//            modelAndView.addObject("id", id);
+            modelAndView.addObject("id", id);
             modelAndView.setViewName("redirect:/course_lessons");
             return modelAndView;
         }
     }
 
     @RequestMapping(value = "/lesson-delete-by-{lessonId}", method = RequestMethod.GET)
-    public ModelAndView deleteLessonById(@PathVariable("lessonId") Long lessonId, ModelAndView model, RedirectAttributes redirect) {
+    public ModelAndView deleteLessonById(@PathVariable("lessonId") Long lessonId, Long id, ModelAndView model, RedirectAttributes redirect) {
         lessonService.deleteById(lessonId);
 
         redirect.addFlashAttribute("successMessage", "lesson deleted successfully");
+        model.addObject("id", id);
         model.setViewName("redirect:/course_lessons");
         return model;
     }
