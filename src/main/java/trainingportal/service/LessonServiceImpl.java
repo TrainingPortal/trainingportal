@@ -59,4 +59,10 @@ public class LessonServiceImpl implements LessonService {
     public int getNumberOfPages(List<Lesson> users, double total) {
         return 0;
     }
+
+
+    @Override
+    public List<Lesson> getLessonCourseId(Long courseId) {
+        return lessonDao.getLessonCourseId(courseId);
+    }
 }

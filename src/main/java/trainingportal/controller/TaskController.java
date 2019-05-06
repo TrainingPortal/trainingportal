@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Task;
+import trainingportal.service.HomeworkServiceImpl;
 import trainingportal.service.TaskServiceImpl;
 
 import java.util.List;
@@ -20,11 +21,18 @@ public class TaskController {
     @Autowired
     TaskServiceImpl taskService;
 
-    @RequestMapping(value = "task_create")
-    public ModelAndView showTasksList(Long Id, ModelAndView modelAndView) {
-        List<Task> taskList = taskService.findAll();
+    @Autowired
+    HomeworkServiceImpl homeworkService;
+
+    @RequestMapping(value = "/homework_task")
+    public ModelAndView showTaskListOfHomework(Long id, ModelAndView modelAndView) {
+        List<Task> taskList = taskService.getTaskLessonById(id);
+
+//        Homework homework = homeworkService.findById(id);
+//        modelAndView.addObject("homework",homework);
+
         modelAndView.addObject("taskList", taskList);
-        modelAndView.setViewName("taskCreator/task_create");
+        modelAndView.setViewName("taskCreator/homework_task");
         return modelAndView;
     }
 
@@ -37,15 +45,16 @@ public class TaskController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "task-save", method = RequestMethod.POST)
-    public ModelAndView saveTask(Task task, ModelAndView modelAndView) {
+    @RequestMapping(value = "task-save-{id}", method = RequestMethod.POST)
+    public ModelAndView saveTask(@PathVariable("id") Long id, Task task, ModelAndView modelAndView) {
         taskService.save(task);
-        modelAndView.setViewName("redirect:/task_create");
+        modelAndView.addObject("id", id);
+        modelAndView.setViewName("redirect:/homework_task");
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-task-{id}"}, method = RequestMethod.GET)
-    public ModelAndView editTaskBase(@PathVariable("id") Long taskId, ModelAndView modelAndView) {
+    @RequestMapping(value = {"/edit-task-{taskId}-{id}"}, method = RequestMethod.GET)
+    public ModelAndView editTaskBase(@PathVariable("taskId") Long taskId, ModelAndView modelAndView) {
         Task task = taskService.findById(taskId);
         modelAndView.addObject("task", task);
         modelAndView.addObject("edit", true);
@@ -54,25 +63,28 @@ public class TaskController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-task-{id}"}, method = RequestMethod.POST)
-    public ModelAndView editTaskById(Task task, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
+    @RequestMapping(value = {"/edit-task-{taskId}-{id}"}, method = RequestMethod.POST)
+    public ModelAndView editTaskById(@PathVariable("id") Long id, Task task, BindingResult bindingResult,
+                                     ModelAndView modelAndView, RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("taskCreator/edit_task_by_id");
             return modelAndView;
         } else {
             taskService.update(task);
-            modelAndView.setViewName("redirect:/task_create");
+            modelAndView.addObject("id", id);
+            modelAndView.setViewName("redirect:/homework_task");
             return modelAndView;
         }
     }
 
-    @RequestMapping(value = "/task-delete-by-{id}", method = RequestMethod.GET)
-    public ModelAndView deleteTaskById(@PathVariable("id") Long TaskId, ModelAndView model, RedirectAttributes redirect) {
-        taskService.deleteById(TaskId);
+    @RequestMapping(value = "/task-delete-by-{taskId}-{id}", method = RequestMethod.GET)
+    public ModelAndView deleteTaskById(@PathVariable("taskId") Long taskId,
+                                       @PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirect) {
 
+        taskService.deleteById(taskId);
         redirect.addFlashAttribute("successMessage", "task deleted successfully");
-
-        model.setViewName("redirect:/task_create");
+        model.addObject("id", id);
+        model.setViewName("redirect:/homework_task");
         return model;
     }
 

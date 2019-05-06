@@ -17,7 +17,8 @@
 
     <div class="row no-gutters ">
         <div class="col">
-            <form action="#" method="post" th:action="@{task-save}" th:object="${task}">
+            <form action="#" method="post" th:action="@{task-save-{id} (id = ${task.homeworkId})}"
+                  th:object="${task}">
                 <input class="form-control" placeholder="Id" th:field="*{taskId}" type="hidden"/>
 
                 <input class="form-control" placeholder="homeworkId" th:field="*{homeworkId}" type="number"/>

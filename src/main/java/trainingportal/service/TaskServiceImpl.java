@@ -57,6 +57,11 @@ public class TaskServiceImpl implements TaskService {
     public int getNumberOfPages(List<Task> users, double total) {
         return 0;
     }
+
+    @Override
+    public List<Task> getTaskLessonById(Long homeworkId) {
+        return taskDao.getTaskLessonById(homeworkId);
+    }
 }
 
 

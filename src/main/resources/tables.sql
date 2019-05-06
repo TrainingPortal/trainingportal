@@ -472,7 +472,7 @@ INSERT INTO CourseStatus (name_status) values ('Stoped');
 
 
 
-
+COMMIT;
 
 
 --delete dependencies

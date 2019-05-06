@@ -36,9 +36,11 @@
 
             <td>
                 <div class="btn-group">
-                    <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <a class="btn btn-info" th:href="@{/edit-task-{id} (id = ${task.taskId}) }">Edit</a>
-                    <a class="btn btn-dark" th:href="@{/task-delete-by-{id} (id = ${task.taskId}) }">Delete</a>
+                    <a class="btn btn-info" th:href="@{/edit-task-{taskId}-{id}
+                    (taskId = ${task.taskId}, id = ${task.homeworkId}) }">Edit</a>
+
+                    <a class="btn btn-dark" th:href="@{/task-delete-by-{taskId}-{id}
+                    (taskId = ${task.taskId}, id = ${task.homeworkId}) }">Delete</a>
                 </div>
             </td>
         </tr>

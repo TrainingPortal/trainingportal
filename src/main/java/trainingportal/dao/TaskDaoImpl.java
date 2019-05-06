@@ -29,6 +29,13 @@ public class TaskDaoImpl extends JdbcDaoSupport implements TaskDao {
     }
 
     @Override
+    public List<Task> getTaskLessonById(Long homeworkId) {
+        String sql = TaskMapper.SELECT_SQL + " WHERE homeworkId = ?";
+        List<Task> taskList = this.getJdbcTemplate().query(sql, new Object[]{homeworkId}, new TaskMapper());
+        return taskList;
+    }
+
+    @Override
     public Task findById(Long taskId) {
         String sql = TaskMapper.SELECT_SQL + " WHERE taskId = ?";
 
