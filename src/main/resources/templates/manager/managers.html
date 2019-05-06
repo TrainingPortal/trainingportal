@@ -36,10 +36,10 @@
             <td th:text="${manager.userName}"></td>
             <td th:text="${manager.email}"></td>
             <td>
-                <a th:href="@{/manager-{id}(id=${manager.userId})}" class="btn btn-primary">Show</a>
-                <a th:href="@{/manager-update-{id}(id=${manager.userId})}" class="btn btn-primary">Update</a>
-                <a th:href="@{/subordinates/{page}(id=${manager.userId}, page=1)}" class="btn btn-info">Subordinates</a>
-                <a th:href="@{/manager-delete-{id}(id=${manager.userId})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/manager-{key}(key=${manager.userId})}" class="btn btn-primary">Show</a>
+                <a th:href="@{/manager-update-{key}(key=${manager.userId})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/subordinates/{page}(key=${manager.userId}, page=1)}" class="btn btn-info">Subordinates</a>
+                <a th:href="@{/manager-delete-{key}(key=${manager.userId})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     </table>

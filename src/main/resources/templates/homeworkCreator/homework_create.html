@@ -37,9 +37,9 @@
             <td>
                 <div class="btn-group">
 
-                    <a class="btn btn-info" th:href="@{/edit-homework-{id} (id = ${homework.homeworkId}) }">Edit</a>
+                    <a class="btn btn-info" th:href="@{/edit-homework-{key} (key = ${homework.homeworkId}) }">Edit</a>
                     <a class="btn btn-dark"
-                       th:href="@{/homework-delete-by-{id} (id = ${homework.homeworkId}) }">Delete</a>
+                       th:href="@{/homework-delete-by-{key} (key = ${homework.homeworkId}) }">Delete</a>
                 </div>
             </td>
         </tr>

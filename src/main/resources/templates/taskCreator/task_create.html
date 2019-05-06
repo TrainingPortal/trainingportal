@@ -36,9 +36,9 @@
 
             <td>
                 <div class="btn-group">
-                    <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <a class="btn btn-info" th:href="@{/edit-task-{id} (id = ${task.taskId}) }">Edit</a>
-                    <a class="btn btn-dark" th:href="@{/task-delete-by-{id} (id = ${task.taskId}) }">Delete</a>
+                    <!--                    Delete button use @PathVariable to understand what key it need-->
+                    <a class="btn btn-info" th:href="@{/edit-task-{key} (key = ${task.taskId}) }">Edit</a>
+                    <a class="btn btn-dark" th:href="@{/task-delete-by-{key} (key = ${task.taskId}) }">Delete</a>
                 </div>
             </td>
         </tr>

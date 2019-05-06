@@ -37,9 +37,9 @@
             <td>
                 <div class="btn-group">
 
-                    <a class="btn btn-info" th:href="@{/edit-material-{id} (id = ${material.materialId}) }">Edit</a>
+                    <a class="btn btn-info" th:href="@{/edit-material-{key} (key = ${material.materialId}) }">Edit</a>
                     <a class="btn btn-dark"
-                       th:href="@{/material-delete-by-{id} (id = ${material.materialId}) }">Delete</a>
+                       th:href="@{/material-delete-by-{key} (key = ${material.materialId}) }">Delete</a>
                 </div>
             </td>
         </tr>

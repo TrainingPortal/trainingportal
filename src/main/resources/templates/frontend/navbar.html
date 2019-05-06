@@ -20,7 +20,7 @@
                 data-target="#mynavbar" data-toggle="collapse" type="button">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="mynavbar">
+        <div class="collapse navbar-collapse" key="mynavbar">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link " href="/admin" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">ADMIN</a>
@@ -59,7 +59,7 @@
                 <li class="nav-item dropdown">
                     <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
                        data-toggle="dropdown"
-                       href="#" id="dropdown">CONTACTS</a>
+                       href="#" key="dropdown">CONTACTS</a>
                     <div aria-labelledby="dropdown" class="dropdown-menu">
                         <a class="dropdown-item" href="#">Contact One</a>
                         <a class="dropdown-item" href="#">Contact Two</a>
@@ -89,7 +89,7 @@
                     data-target="#mynavbarinv" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="mynavbarinv">
+            <div class="collapse navbar-collapse" key="mynavbarinv">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
                         <a class="nav-link " href="/admin"
@@ -129,7 +129,7 @@
                     <li class="nav-item dropdown">
                         <a aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
                            data-toggle="dropdown"
-                           href="#" id="dropdowninv">CONTACTS</a>
+                           href="#" key="dropdowninv">CONTACTS</a>
                         <div aria-labelledby="dropdown" class="dropdown-menu">
                             <a class="dropdown-item" href="#">Contact One</a>
                             <a class="dropdown-item" href="#">Contact Two</a>

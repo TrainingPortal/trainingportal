@@ -42,14 +42,14 @@
             <td th:text="${subordinate.userName}"></td>
             <td th:text="${subordinate.email}"></td>
             <td>
-                <a th:href="@{/releaseSubordinate(id=${subordinate.userId})}" class="btn btn-primary">Release</a>
+                <a th:href="@{/releaseSubordinate(key=${subordinate.userId})}" class="btn btn-primary">Release</a>
             </td>
         </tr>
     </table>
     <div th:replace="frontend/pagination :: pagination_with_id"></div>
 </div>
 
-<a th:href="@{/addsubordinates(id=${manager.userId})}" class="btn btn-info"
+<a th:href="@{/addsubordinates(key=${manager.userId})}" class="btn btn-info"
    th:unless="${manager.enabled == 0}">Add Subordinates</a>
 <a th:href="@{/managers/{page}(page=1)}" class="btn btn-info">Return to managers</a>
 </body>

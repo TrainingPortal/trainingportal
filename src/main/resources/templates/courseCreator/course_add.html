@@ -37,7 +37,7 @@
 
                 <div class="form-group">
                     <label for="formSelectStatus">course status</label>
-                    <select id="formSelectStatus" class="form-control" th:field="*{courseStatus}">
+                    <select key="formSelectStatus" class="form-control" th:field="*{courseStatus}">
                         <option th:each="status : ${statuses}"
                                 th:value="${status.statusId}"
                                 th:text="${status.statusName}">
@@ -71,7 +71,7 @@
 
                 <div class="form-group">
                     <label for="formSelectTrainer">Trainer</label>
-                    <select id="formSelectTrainer" class="form-control" th:field="*{trainerId}">
+                    <select key="formSelectTrainer" class="form-control" th:field="*{trainerId}">
                         <option th:each="trainer : ${trainers}"
                                 th:value="${trainer.userId}"
                                 th:text="${trainer.userName}">

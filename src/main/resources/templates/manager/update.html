@@ -16,14 +16,14 @@
 </div>
 <div class="row justify-content-center">
     <div class="col-md-4 col-md-offset-4">
-        <form th:object="${manager}" th:action="@{/manager-update-{id}(id=${manager.userId})}" action="#" method="post">
+        <form th:object="${manager}" th:action="@{/manager-update-{key}(key=${manager.userId})}" action="#" method="post">
 
             <input type="hidden" th:field="*{userId}" class="form-control"
                    placeholder="name"/>
 
             <div class="form-group">
                 <label for="formUsername">Username</label>
-                <input id="formUsername" type="text" th:field="*{userName}" class="form-control"
+                <input key="formUsername" type="text" th:field="*{userName}" class="form-control"
                        placeholder="name"/>
                 <p th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" class="alert alert-danger">Name
                     Error</p>
@@ -31,14 +31,14 @@
 
             <div class="form-group">
                 <label for="formEmail">Email</label>
-                <input id="formEmail" type="email" th:field="*{email}" class="form-control"
+                <input key="formEmail" type="email" th:field="*{email}" class="form-control"
                        placeholder="email"/>
                 <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger">Email Error</p>
             </div>
 
             <div class="form-group">
                 <label for="formStatus">Status </label>
-                <select id="formStatus" th:field="*{enabled}" class="form-control">
+                <select key="formStatus" th:field="*{enabled}" class="form-control">
                     <option th:each="entry : ${mapStatus.entrySet()}"
                             th:value="${entry.key}"
                             th:text="${entry.value}">
@@ -48,7 +48,7 @@
 
             <div class="form-group">
                 <label for="formSelect">Role </label>
-                <select id="formSelect" class="form-control" th:field="*{roleId}">
+                <select key="formSelect" class="form-control" th:field="*{roleId}">
                     <option th:each="role : ${roles}"
                             th:value="${role.roleId}"
                             th:text="${role.roleName}">

@@ -34,16 +34,16 @@
     <div th:if="${pages} > 1 and ${page} <= ${pages}">
         <ul class="pagination">
             <li class="page-item" th:classappend="${page==1} ? 'active'">
-                <a class="page-link" th:href="@{/{link}/{page}(page=1, link=${currentUrl}, id=${id})}">First</a>
+                <a class="page-link" th:href="@{/{link}/{page}(page=1, link=${currentUrl}, key=${key})}">First</a>
             </li>
             <th:block th:each="i: ${#numbers.sequence(page < 5 ? 1 : page - 4, pages > 4 + page ? page + 4 : pages)}">
                 <li class="page-item" th:classappend="${i==page} ? 'active'">
-                    <a class="page-link" th:href="@{/{link}/{page}(page=${i}, link=${currentUrl}, id=${id})}"
+                    <a class="page-link" th:href="@{/{link}/{page}(page=${i}, link=${currentUrl}, key=${key})}"
                        th:text="${i}">></a>
                 </li>
             </th:block>
             <li class="page-item" th:classappend="${page==pages} ? 'active'">
-                <a class="page-link" th:href="@{/{link}/{page}(page=${pages}, link=${currentUrl}, id=${id})}">Last</a>
+                <a class="page-link" th:href="@{/{link}/{page}(page=${pages}, link=${currentUrl}, key=${key})}">Last</a>
             </li>
         </ul>
     </div>

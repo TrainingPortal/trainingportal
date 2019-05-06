@@ -48,7 +48,7 @@
         <input type="submit" class="btn btn-success" value="Add selected"/>
     </form>
 </div><br>
-<a th:href="@{/backtosubordinates(id=${manager.userId})}" class="btn btn-info">Return to subordinates</a>
+<a th:href="@{/backtosubordinates(key=${manager.userId})}" class="btn btn-info">Return to subordinates</a>
 <a th:href="@{/managers/{page}(page=1)}" class="btn btn-info">Return to managers</a>
 </body>
 </html>

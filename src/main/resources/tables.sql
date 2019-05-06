@@ -139,14 +139,14 @@ INSERT INTO Course(name, course_level,course_status_id,min_number, max_number,de
 
 CREATE TABLE UserGroup
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     group_id NUMBER,
     user_id NUMBER
 );
 
 CREATE TABLE Groups
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     name VARCHAR2(30),
     capacity NUMBER,
     course_id NUMBER,
@@ -282,7 +282,7 @@ INSERT INTO Task (homeworkId, taskDescription) values (6, 'some helpful descript
 
 CREATE TABLE Schedule
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     group_id NUMBER,
     date_lesson DATE,
     lesson_id NUMBER
@@ -313,7 +313,7 @@ INSERT INTO Schedule (group_id, date_lesson, lesson_id) values (2, TO_DATE('28/1
 
 CREATE TABLE Attendance
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     user_id NUMBER,
     type_id NUMBER,
     schedule_id NUMBER
@@ -321,7 +321,7 @@ CREATE TABLE Attendance
 
 CREATE TABLE AttendanceType
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     type VARCHAR2(70)
 );
 
@@ -333,7 +333,7 @@ INSERT INTO AttendanceType (type)values('Absent due to project activities');
 
 CREATE TABLE Material
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     lesson_id NUMBER,
     description VARCHAR2(1000)
 );
@@ -351,7 +351,7 @@ INSERT INTO Material (lesson_id, description) values(10, 'some very interesting 
 
 CREATE TABLE Feedback
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     trainer_id NUMBER,
     employee_id NUMBER,
     description VARCHAR2(4000),
@@ -361,7 +361,7 @@ CREATE TABLE Feedback
 
 CREATE TABLE InfoDesk
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     emp_id NUMBER,
     description VARCHAR2(4000),
     status_id NUMBER
@@ -375,7 +375,7 @@ INSERT INTO InfoDesk (emp_id, description, status_id) values(21, 'Where is my mo
 
 CREATE TABLE QuestionStatus
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     name VARCHAR2(20)
 );
 
@@ -391,13 +391,13 @@ INSERT INTO QuestionStatus (name) values('Reopen');
 
 CREATE TABLE Chat
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     group_id NUMBER
 );
 
 CREATE TABLE Notification
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     message VARCHAR2(100),
     date_notification DATE,
     user_id NUMBER,
@@ -406,7 +406,7 @@ CREATE TABLE Notification
 
 CREATE TABLE Message
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     sender_id NUMBER,
     date_message DATE,
     message VARCHAR2(4000),
@@ -415,14 +415,14 @@ CREATE TABLE Message
 
 CREATE TABLE UserChat
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     user_id NUMBER,
     chat_id NUMBER
 );
 
 CREATE TABLE NotificationStatus
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     name VARCHAR2(20)
 );
 
@@ -434,7 +434,7 @@ INSERT INTO NotificationStatus (name) values('Closed');
 
 CREATE TABLE DesiredPeriod
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     date_start DATE,
     date_end DATE,
     user_id NUMBER,
@@ -443,7 +443,7 @@ CREATE TABLE DesiredPeriod
 
 CREATE TABLE Weekday
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     day_name VARCHAR2(20),
     period_id NUMBER
 );
@@ -452,7 +452,7 @@ CREATE TABLE Weekday
 
 CREATE TABLE GroupStatus
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     name_status VARCHAR2(20)
 );
 
@@ -461,7 +461,7 @@ INSERT INTO GroupStatus (name_status) values ('Full');
 
 CREATE TABLE CourseStatus
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    key NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     name_status VARCHAR2(20)
 );
 
@@ -516,23 +516,23 @@ alter table Message drop constraint message_fk_chat;
 alter table users add constraint user_fr_manager FOREIGN KEY(managerId) references users (userId);
 alter table users ADD constraint users_fk_roles FOREIGN KEY(roleId) references roles (roleId);
 alter table Notification ADD constraint ntfk_fk_user FOREIGN KEY (user_id) references users (userId);
-alter table Notification add constraint ntfk_fk_status FOREIGN KEY (status_id) references NotificationStatus (id);
-alter table chat add constraint chat_fk_group FOREIGN KEY (group_id) references groups (id);
+alter table Notification add constraint ntfk_fk_status FOREIGN KEY (status_id) references NotificationStatus (key);
+alter table chat add constraint chat_fk_group FOREIGN KEY (group_id) references groups (key);
 alter table InfoDesk add constraint idesk_emp_fk_user FOREIGN KEY (emp_id) references users (userId);
-alter table InfoDesk add constraint idesk_fk_qstatus FOREIGN KEY (status_id) references QuestionStatus (id);
+alter table InfoDesk add constraint idesk_fk_qstatus FOREIGN KEY (status_id) references QuestionStatus (key);
 alter table Feedback add constraint fdbk_tr_fk_user FOREIGN KEY (trainer_id) references users (userId);
 alter table Feedback add constraint fdbk_fk_cource FOREIGN KEY (course_id) references course (courseId);
 alter table Feedback add constraint fdbk_emp_fk_user FOREIGN KEY (employee_id) references users (userId);
 alter table UserGroup add constraint ugroup_fk_user FOREIGN KEY (user_id) references users (userId);
-alter table UserGroup add constraint ugroup_fk_group FOREIGN KEY (group_id) references Groups (id);
+alter table UserGroup add constraint ugroup_fk_group FOREIGN KEY (group_id) references Groups (key);
 alter table Groups add constraint group_fk_course FOREIGN KEY (course_id) references Course (courseId);
-alter table Groups add constraint group_fr_status FOREIGN KEY (status_id) references GroupStatus (id);
+alter table Groups add constraint group_fr_status FOREIGN KEY (status_id) references GroupStatus (key);
 alter table UserChat add constraint uchat_fk_user FOREIGN KEY (user_id) references users (userId);
-alter table UserChat add constraint uchat_fk_chat FOREIGN KEY (chat_id) references Chat (id);
+alter table UserChat add constraint uchat_fk_chat FOREIGN KEY (chat_id) references Chat (key);
 alter table Attendance add constraint atten_fk_user FOREIGN KEY (user_id) references users (userId);
-alter table Attendance add constraint atten_fk_schedule FOREIGN KEY (schedule_id) references Schedule (id);
-alter table Attendance add constraint atten_fk_type FOREIGN KEY (type_id) references AttendanceType(id);
-alter table Schedule add constraint schedule_fk_group FOREIGN KEY (group_id) references Groups (id);
+alter table Attendance add constraint atten_fk_schedule FOREIGN KEY (schedule_id) references Schedule (key);
+alter table Attendance add constraint atten_fk_type FOREIGN KEY (type_id) references AttendanceType(key);
+alter table Schedule add constraint schedule_fk_group FOREIGN KEY (group_id) references Groups (key);
 alter table Schedule add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson(lessonId);
 alter table Lesson add constraint lesson_fk_homework FOREIGN KEY (homeworkId) references Homework(homeworkId);
 alter table Lesson add constraint lesson_fk_course FOREIGN KEY (courseId) references Course (courseId);
@@ -540,11 +540,11 @@ alter table Material add constraint material_fk_lesson FOREIGN KEY (lesson_id) r
 alter table Task add constraint task_fk_homework FOREIGN KEY (homeworkId) references Homework (homeworkId);
 alter table DesiredPeriod add constraint dperiod_fk_user FOREIGN KEY (user_id) references users (userId);
 alter table DesiredPeriod add constraint dperiod_fk_cource FOREIGN KEY (course_id) references Course (courseId);
-alter table Weekday add constraint weekday_fk_dperiod FOREIGN KEY (period_id) references DesiredPeriod (id);
-alter table Course add constraint cource_fk_status FOREIGN KEY (course_status_id) references CourseStatus(id);
+alter table Weekday add constraint weekday_fk_dperiod FOREIGN KEY (period_id) references DesiredPeriod (key);
+alter table Course add constraint cource_fk_status FOREIGN KEY (course_status_id) references CourseStatus(key);
 alter table Course add constraint cource_fk_trainer FOREIGN KEY (trainer_id) references users (userId);
 alter table Message add constraint message_fk_user FOREIGN KEY (sender_id) references users (userId);
-alter table Message add constraint message_fk_chat FOREIGN KEY (chat_id) references Chat(id);
+alter table Message add constraint message_fk_chat FOREIGN KEY (chat_id) references Chat(key);
 
 
 

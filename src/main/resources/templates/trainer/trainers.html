@@ -35,9 +35,9 @@
             <td th:text="${trainer.userName}"></td>
             <td th:text="${trainer.email}"></td>
             <td>
-                <a th:href="@{/trainer-{id}(id=${trainer.userId})}" class="btn btn-primary">Show</a>
-                <a th:href="@{/trainer-update-{id}(id=${trainer.userId})}" class="btn btn-primary">Update</a>
-                <a th:href="@{/trainer-delete-{id}(id=${trainer.userId})}" class="btn btn-danger">Delete</a>
+                <a th:href="@{/trainer-{key}(key=${trainer.userId})}" class="btn btn-primary">Show</a>
+                <a th:href="@{/trainer-update-{key}(key=${trainer.userId})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/trainer-delete-{key}(key=${trainer.userId})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
     </table>

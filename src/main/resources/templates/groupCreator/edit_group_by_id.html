@@ -13,7 +13,7 @@
 <h1>Edit Course</h1>
 <div class="row justify-content-center">
     <div class="col-md-4 col-md-offset-4">
-        <form action="#" method="post" th:action="@{/edit-group-{id}(id = ${group.groupId})}"
+        <form action="#" method="post" th:action="@{/edit-group-{key}(key = ${group.groupId})}"
               th:object="${group}">
 
             <input class="form-control" placeholder="ID" th:field="*{groupId}" type="hidden"/>
@@ -35,7 +35,7 @@
 
             <div class="form-group">
                 <label for="formSelectCourse">Course</label>
-                <select id="formSelectCourse" class="form-control" th:field="*{courseId}">
+                <select key="formSelectCourse" class="form-control" th:field="*{courseId}">
                     <option th:each="course : ${courses}"
                             th:value="${course.courseId}"
                             th:text="${course.courseName}">
@@ -45,7 +45,7 @@
 
             <div class="form-group">
                 <label for="formSelectStatus">Group status</label>
-                <select id="formSelectStatus" class="form-control" th:field="*{statusId}">
+                <select key="formSelectStatus" class="form-control" th:field="*{statusId}">
                     <option th:each="status : ${statuses}"
                             th:value="${status.statusId}"
                             th:text="${status.statusName}">

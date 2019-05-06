@@ -13,7 +13,7 @@
 <h1>Edit Lesson</h1>
 <div class="row justify-content-center">
     <div class="col-md-4 col-md-offset-4">
-        <form action="#" method="post" th:action="@{/edit-lesson-{id}(id = ${lesson.lessonId})}"
+        <form action="#" method="post" th:action="@{/edit-lesson-{key}(key = ${lesson.lessonId})}"
               th:object="${lesson}">
 
             <input class="form-control" placeholder="Id" th:field="*{lessonId}" type="hidden"/>

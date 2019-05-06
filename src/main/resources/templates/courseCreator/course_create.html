@@ -47,9 +47,9 @@
             <td th:text="${course.lessonNumber}"></td>
             <td>
                 <div class="btn-group">
-                    <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <a class="btn btn-info" th:href="@{/edit-course-{id} (id = ${course.courseId}) }">Edit</a>
-                    <a class="btn btn-dark" th:href="@{/course-delete-by-{id} (id = ${course.courseId}) }">Delete</a>
+                    <!--                    Delete button use @PathVariable to understand what key it need-->
+                    <a class="btn btn-info" th:href="@{/edit-course-{key} (key = ${course.courseId}) }">Edit</a>
+                    <a class="btn btn-dark" th:href="@{/course-delete-by-{key} (key = ${course.courseId}) }">Delete</a>
                 </div>
             </td>
         </tr>
