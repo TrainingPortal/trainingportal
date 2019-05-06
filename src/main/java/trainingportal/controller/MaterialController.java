@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Material;
+import trainingportal.service.LessonServiceImpl;
 import trainingportal.service.MaterialServiceImpl;
 
 import java.util.List;
@@ -19,11 +20,29 @@ public class MaterialController {
     @Autowired
     MaterialServiceImpl materialService;
 
-    @RequestMapping(value = "material_create")
-    public ModelAndView showMaterialsList(Long Id, ModelAndView modelAndView) {
-        List<Material> materialList = materialService.findAll();
-        modelAndView.addObject("materialList", materialList);
-        modelAndView.setViewName("materialCreator/material_create");
+    @Autowired
+    LessonServiceImpl lessonService;
+
+//    @RequestMapping(value = "material_create")
+//    public ModelAndView showMaterialsList(Long Id, ModelAndView modelAndView) {
+//        List<Material> materialList = materialService.findAll();
+//        modelAndView.addObject("materialList", materialList);
+//        modelAndView.setViewName("materialCreator/material_lesson");
+//        return modelAndView;
+//    }
+
+    @RequestMapping("/material_lesson")
+    public ModelAndView showMaterialListOfLessons(Long id, ModelAndView modelAndView) {
+
+        List<Material> MaterialOfLesson = materialService.getMaterialLessonId(id);
+
+//        Lesson lesson =  lessonService.findById(id);
+//        modelAndView.addObject("MaterialOfLesson", lesson);
+//        modelAndView.addObject("id", id);
+
+        modelAndView.addObject("MaterialOfLesson", MaterialOfLesson);
+        modelAndView.setViewName("materialCreator/material_lesson");
+
         return modelAndView;
     }
 
@@ -36,15 +55,17 @@ public class MaterialController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "material-save", method = RequestMethod.POST)
-    public ModelAndView saveMaterial(Material material, ModelAndView modelAndView) {
+    @RequestMapping(value = "material-save-{lesson_id}", method = RequestMethod.POST)
+    public ModelAndView saveMaterial(@PathVariable("lesson_id") Long lessonId, Material material, ModelAndView modelAndView) {
         materialService.save(material);
-        modelAndView.setViewName("redirect:/material_create");
+
+        modelAndView.addObject("lesson_id", lessonId);
+        modelAndView.setViewName("redirect:/material_lesson");
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-material-{id}"}, method = RequestMethod.GET)
-    public ModelAndView editMaterialBase(@PathVariable("id") Long materialId, ModelAndView modelAndView) {
+    @RequestMapping(value = {"edit-material-{materialId}-{id}"}, method = RequestMethod.GET)
+    public ModelAndView editMaterialBase(@PathVariable("materialId") Long materialId, ModelAndView modelAndView) {
         Material material = materialService.findById(materialId);
         modelAndView.addObject("material", material);
         modelAndView.addObject("edit", true);
@@ -53,25 +74,28 @@ public class MaterialController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-material-{id}"}, method = RequestMethod.POST)
-    public ModelAndView editMaterialById(Material material, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
+    @RequestMapping(value = {"edit-material-{materialId}-{id}"}, method = RequestMethod.POST)
+    public ModelAndView editMaterialById(@PathVariable("id") Long lessonId, Material material,
+                                         BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("materialCreator/edit_material_by_id");
             return modelAndView;
         } else {
             materialService.update(material);
-            modelAndView.setViewName("redirect:/material_create");
+            modelAndView.addObject("id", lessonId);
+            modelAndView.setViewName("redirect:/material_lesson");
             return modelAndView;
         }
     }
 
-    @RequestMapping(value = "/material-delete-by-{id}", method = RequestMethod.GET)
-    public ModelAndView deleteMaterialById(@PathVariable("id") Long materialId, ModelAndView model, RedirectAttributes redirect) {
+    @RequestMapping(value = "/material-delete-by-{materialId}-{id}", method = RequestMethod.GET)
+    public ModelAndView deleteMaterialById(@PathVariable("materialId") Long materialId,
+                                           @PathVariable("id") Long lessonId, ModelAndView model, RedirectAttributes redirect) {
         materialService.deleteById(materialId);
 
         redirect.addFlashAttribute("successMessage", "material deleted successfully");
-
-        model.setViewName("redirect:/material_create");
+        model.addObject("id", lessonId);
+        model.setViewName("redirect:/material_lesson");
         return model;
     }
 

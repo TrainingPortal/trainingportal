@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Material Create</title>
+    <title>Homework Create</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <meta content="width=device-width" name="viewport">
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
@@ -15,31 +15,40 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="container-fluid">
-    <h2>Material List</h2>
+    <h2>Homework List</h2>
     <h2>
-        <a class="btn btn-success" th:href="@{/material-add}">CREATE NEW MATERIAL</a>
+        <a class="btn btn-success" th:href="@{/homework-add}">CREATE NEW HOMEWORK</a>
     </h2>
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="row">materialId</th>
-            <th scope="row">lessonId</th>
-            <th scope="row">materialDescription</th>
+            <th scope="row">homeworkId</th>
+            <th scope="row">homeworkName</th>
+            <th scope="row">homeworkDeadlineDate</th>
+            <th scope="row">Tasks</th>
 
         </tr>
         </thead>
         <tbody>
-        <tr th:each="material, iter : ${materialList}">
-            <td th:text="${material.materialId}"></td>
-            <td th:text="${material.lessonId}"></td>
-            <td th:text="${material.materialDescription}"></td>
+        <tr th:each="homework, iter : ${homeworkList}">
+            <td th:text="${homework.homeworkId}"></td>
+            <td th:text="${homework.homeworkName}"></td>
+            <td th:text="${homework.homeworkDeadlineDate}"></td>
+
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/homework_task (id = ${homework.homeworkId})}">
+                        Show/Add Task</a>
+                </div>
+            </td>
 
             <td>
                 <div class="btn-group">
 
-                    <a class="btn btn-info" th:href="@{/edit-material-{id} (id = ${material.materialId}) }">Edit</a>
-                    <a class="btn btn-dark"
-                       th:href="@{/material-delete-by-{id} (id = ${material.materialId}) }">Delete</a>
+                    <a class="btn btn-info" th:href="@{/edit-homework-{homeworkId}
+                    (homeworkId = ${homework.homeworkId}) }">Edit</a>
+                    <a class="btn btn-dark" th:href="@{/homework-delete-by-{homeworkId}
+                    (homeworkId = ${homework.homeworkId})}">Delete</a>
                 </div>
             </td>
         </tr>

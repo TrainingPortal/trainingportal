@@ -30,6 +30,14 @@ public class HomeworkDaoImpl extends JdbcDaoSupport implements HomeworkDao {
     }
 
     @Override
+    public List<Homework> getHomeworkLessonId(Long homeworkId) {
+        String sql = HomeworkMapper.SELECT_SQL + " WHERE homeworkId = ?";
+
+        List<Homework> homeworkList = this.getJdbcTemplate().query(sql, new Object[]{homeworkId}, new HomeworkMapper());
+        return homeworkList;
+    }
+
+    @Override
     public Homework findById(Long homeworkId) {
         String sql = HomeworkMapper.SELECT_SQL + " WHERE homeworkId = ?";
 

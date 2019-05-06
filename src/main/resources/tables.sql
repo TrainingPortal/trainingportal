@@ -24,7 +24,7 @@ drop TABLE DesiredPeriod;
 drop TABLE GroupStatus;
 drop TABLE CourseStatus;
 
-
+COMMIT;
 
 CREATE TABLE Users
 (
@@ -243,21 +243,31 @@ INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, co
 
 CREATE TABLE Homework
 (
-    homeworkId NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
-    homeworkName VARCHAR2(20),
+    homeworkId           NUMBER PRIMARY KEY,
+    homeworkName         VARCHAR2(20),
     homeworkDeadlineDate DATE
 );
 
-INSERT INTO Homework (homeworkName) values ('Homework-1');
-INSERT INTO Homework (homeworkName) values ('Homework-2');
-INSERT INTO Homework (homeworkName) values ('Homework-3');
-INSERT INTO Homework (homeworkName) values ('Homework-4');
-INSERT INTO Homework (homeworkName) values ('Homework-5');
-INSERT INTO Homework (homeworkName) values ('Homework-6');
-INSERT INTO Homework (homeworkName) values ('Homework-7');
-INSERT INTO Homework (homeworkName) values ('Homework-8');
-INSERT INTO Homework (homeworkName) values ('Homework-9');
-INSERT INTO Homework (homeworkName) values ('Homework-10');
+INSERT INTO Homework (1, homeworkName)
+values ('Homework-1');
+INSERT INTO Homework (1, homeworkName)
+values ('Homework-2');
+INSERT INTO Homework (1, homeworkName)
+values ('Homework-3');
+INSERT INTO Homework (2, homeworkName)
+values ('Homework-4');
+INSERT INTO Homework (2, homeworkName)
+values ('Homework-5');
+INSERT INTO Homework (2, homeworkName)
+values ('Homework-6');
+INSERT INTO Homework (3, homeworkName)
+values ('Homework-7');
+INSERT INTO Homework (3, homeworkName)
+values ('Homework-8');
+INSERT INTO Homework (3, homeworkName)
+values ('Homework-9');
+INSERT INTO Homework (3, homeworkName)
+values ('Homework-10');
 
 CREATE TABLE Task
 (
