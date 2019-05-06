@@ -52,10 +52,10 @@ public class HomeworkDaoImpl extends JdbcDaoSupport implements HomeworkDao {
     }
 
     @Override
-    public void deleteById(Long getHomeworkId) {
+    public void deleteById(Long homeworkId) {
         String sql = "DELETE FROM HOMEWORK WHERE homeworkId = ?";
 
-        this.getJdbcTemplate().update(sql, getHomeworkId);
+        this.getJdbcTemplate().update(sql, homeworkId);
     }
 }
 

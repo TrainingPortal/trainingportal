@@ -20,13 +20,13 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public Homework findById(Long MaterialId) {
-        return homeworkDao.findById(MaterialId);
+    public Homework findById(Long homeworkId) {
+        return homeworkDao.findById(homeworkId);
     }
 
     @Override
-    public void save(Homework material) {
-        homeworkDao.save(material);
+    public void save(Homework homework) {
+        homeworkDao.save(homework);
     }
 
     @Override

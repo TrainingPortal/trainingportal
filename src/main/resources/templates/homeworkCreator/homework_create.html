@@ -25,6 +25,7 @@
             <th scope="row">homeworkId</th>
             <th scope="row">homeworkName</th>
             <th scope="row">homeworkDeadlineDate</th>
+            <th scope="row">Tasks</th>
 
         </tr>
         </thead>
@@ -33,6 +34,13 @@
             <td th:text="${homework.homeworkId}"></td>
             <td th:text="${homework.homeworkName}"></td>
             <td th:text="${homework.homeworkDeadlineDate}"></td>
+
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/homework_task (id = ${homework.homeworkId})}">
+                        Show/Add Task</a>
+                </div>
+            </td>
 
             <td>
                 <div class="btn-group">
