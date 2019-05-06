@@ -38,6 +38,8 @@
             <th scope="row">lesson duration</th>
             <th scope="row">homework Id</th>
             <th scope="row">lesson number</th>
+            <th scope="row">Materials</th>
+            <th scope="row">Homework</th>
 
         </tr>
         </thead>
@@ -56,8 +58,22 @@
             <td th:text="${lesson.lessonDuration}"></td>
             <td th:text="${lesson.homeworkId}"></td>
             <td th:text="${lesson.lessonNumber}"></td>
-            <td>
 
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/material_lesson (id = ${lesson.lessonId})}">
+                        Show/Add Material</a>
+                </div>
+            </td>
+
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/lesson_homework (id = ${lesson.homeworkId})}">
+                        Show/Add Homework</a>
+                </div>
+            </td>
+
+            <td>
                 <div class="btn-group">
                     <a class="btn btn-info" th:href="@{/edit-lesson-{lessonId}-{id}
                        (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Edit</a>
@@ -66,6 +82,7 @@
                     (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Delete</a>
                 </div>
             </td>
+
         </tr>
         </tbody>
     </table>

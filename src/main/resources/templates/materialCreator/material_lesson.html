@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport">
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
+    <title>Lesson material list</title>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<!--<div th:if="${lessonsOfCourse.size() == 0}">-->
+<!--    <p th:text="${courseLesson.courseName} + 'Curse has no Lessons'"></p>-->
+<!--</div>-->
+<!--<div th:unless="${lessonsOfCourse.size() == 0}">-->
+<!--    <table class="table pt-0 mt-0 table-fit table-sm table-hover">-->
+<!--        <caption th:text="'Lessons of ' + ${courseLesson.courseName}"></caption>-->
+
+<div class="container-fluid">
+    <h2>Material List</h2>
+    <h2>
+        <a class="btn btn-success" th:href="@{/material-add}">CREATE NEW MATERIAL</a>
+    </h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="row">material Id</th>
+            <th scope="row">lesson Id</th>
+            <th scope="row">material Description</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="material, iter : ${MaterialOfLesson}">
+            <td th:text="${material.materialId}"></td>
+            <td th:text="${material.lessonId}"></td>
+            <td th:text="${material.materialDescription}"></td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-info" th:href="@{/edit-material-{materialId}-{id}
+                    (materialId = ${material.materialId}, id = ${material.lessonId}) }">Edit</a>
+
+                    <a class="btn btn-dark" th:href="@{/material-delete-by-{materialId}-{id}
+                     (materialId = ${material.materialId}, id = ${material.lessonId}) }">Delete</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

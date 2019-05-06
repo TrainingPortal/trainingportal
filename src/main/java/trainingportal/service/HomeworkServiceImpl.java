@@ -55,6 +55,11 @@ public class HomeworkServiceImpl implements HomeworkService {
     public int getNumberOfPages(List<Homework> users, double total) {
         return 0;
     }
+
+    @Override
+    public List<Homework> getHomeworkLessonId(Long homeworkId) {
+        return homeworkDao.getHomeworkLessonId(homeworkId);
+    }
 }
 
 
