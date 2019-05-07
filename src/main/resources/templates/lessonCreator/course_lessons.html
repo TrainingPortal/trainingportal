@@ -27,6 +27,7 @@
         <!--        <a class="btn btn-success" th:href="@{/lesson-add (id = ${lesson.courseId})} ">CREATE NEW LESSON</a>-->
         <!--        <a class="btn btn-success" th:href="@{/lesson-add-{id} (id =1)} ">CREATE NEW LESSON</a>-->
         <a class="btn btn-success" th:href="@{/lesson-add}">CREATE NEW LESSON</a>
+
     </h2>
     <table class="table table-striped">
         <thead>
@@ -46,7 +47,7 @@
         <tbody>
         <!--        <tr th:each="lesson, iter : ${lessonsOfCourse}">-->
         <!--        <td>-->
-        <!--            <a class="btn btn-success" th:href="@{/lesson-save-{id} (id = ${lesson.courseId})} ">CREATE NEW LESSON</a>-->
+        <!--        <a class="btn btn-success" th:href="@{/lesson-add-{lessonid}-{id} (lessonid = ${lesson.lessonId} , id={lesson.courseId})}">CREATE NEW LESSON</a>-->
         <!--        </td>-->
         <!--        </tr>-->
 

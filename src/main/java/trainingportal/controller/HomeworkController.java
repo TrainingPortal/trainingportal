@@ -60,7 +60,7 @@ public class HomeworkController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-homework-{homeworkId}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/edit-homework-{homeworkId}-{id}"}, method = RequestMethod.GET)
     public ModelAndView editHomeworkBase(@PathVariable("homeworkId") Long homeworkId, ModelAndView modelAndView) {
         Homework homework = homeworkService.findById(homeworkId);
         modelAndView.addObject("homework", homework);
@@ -70,23 +70,26 @@ public class HomeworkController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-homework-{homeworkId}"}, method = RequestMethod.POST)
-    public ModelAndView editHomeworkById(Homework homework, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
+    @RequestMapping(value = {"/edit-homework-{homeworkId}-{id}"}, method = RequestMethod.POST)
+    public ModelAndView editHomeworkById(@PathVariable("id") Long id, Homework homework,
+                                         BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("homeworkCreator/edit_homework_by_id");
             return modelAndView;
         } else {
             homeworkService.update(homework);
+            modelAndView.addObject("id", id);
             modelAndView.setViewName("redirect:/lesson_homework");
             return modelAndView;
         }
     }
 
-    @RequestMapping(value = "/homework-delete-by-{homeworkId}", method = RequestMethod.GET)
-    public ModelAndView deleteHomeworkById(@PathVariable("homeworkId") Long HomeworkId, ModelAndView model, RedirectAttributes redirect) {
+    @RequestMapping(value = "/homework-delete-by-{homeworkId}-{id}", method = RequestMethod.GET)
+    public ModelAndView deleteHomeworkById(@PathVariable("homeworkId") Long HomeworkId,
+                                           @PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirect) {
         homeworkService.deleteById(HomeworkId);
-
-        redirect.addFlashAttribute("successMessage", "homework deleted successfully");
+        model.addObject("id", id);
+//        redirect.addFlashAttribute("successMessage", "homework deleted successfully");
         model.setViewName("redirect:/lesson_homework");
         return model;
     }

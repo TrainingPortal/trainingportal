@@ -12,7 +12,6 @@ import java.util.List;
 
 @Repository
 @Transactional
-
 public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
 
 

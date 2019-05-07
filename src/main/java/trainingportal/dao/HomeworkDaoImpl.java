@@ -13,7 +13,6 @@ import java.util.List;
 
 @Repository
 @Transactional
-
 public class HomeworkDaoImpl extends JdbcDaoSupport implements HomeworkDao {
 
 
@@ -31,7 +30,7 @@ public class HomeworkDaoImpl extends JdbcDaoSupport implements HomeworkDao {
 
     @Override
     public List<Homework> getHomeworkLessonId(Long homeworkId) {
-        String sql = HomeworkMapper.SELECT_SQL + " WHERE homeworkId = ?";
+        String sql = HomeworkMapper.SELECT_SQL + " WHERE lesson_id = ?";
 
         List<Homework> homeworkList = this.getJdbcTemplate().query(sql, new Object[]{homeworkId}, new HomeworkMapper());
         return homeworkList;
@@ -39,7 +38,7 @@ public class HomeworkDaoImpl extends JdbcDaoSupport implements HomeworkDao {
 
     @Override
     public Homework findById(Long homeworkId) {
-        String sql = HomeworkMapper.SELECT_SQL + " WHERE homeworkId = ?";
+        String sql = HomeworkMapper.SELECT_SQL + " WHERE homework_id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{homeworkId}, new HomeworkMapper());
     }
@@ -47,21 +46,21 @@ public class HomeworkDaoImpl extends JdbcDaoSupport implements HomeworkDao {
 
     @Override
     public void save(Homework homework) {
-        String sql = "INSERT INTO HOMEWORK ( homeworkName, homeworkDeadlineDate) VALUES (?,?)";
-        this.getJdbcTemplate().update(sql, new Object[]{homework.getHomeworkName(),
+        String sql = "INSERT INTO HOMEWORK ( lesson_id,homework_name, homework_deadline_date) VALUES (?,?,?)";
+        this.getJdbcTemplate().update(sql, new Object[]{homework.getLessonId(), homework.getHomeworkName(),
                 homework.getHomeworkDeadlineDate()});
     }
 
     @Override
     public void update(Homework homework) {
-        String sql = HomeworkMapper.EDIT_SQL + " WHERE homeworkId = ?";
+        String sql = HomeworkMapper.EDIT_SQL + " WHERE homework_id = ?";
 
-        this.getJdbcTemplate().update(sql, homework.getHomeworkName(), homework.getHomeworkDeadlineDate(), homework.getHomeworkId());
+        this.getJdbcTemplate().update(sql, homework.getLessonId(), homework.getHomeworkName(), homework.getHomeworkDeadlineDate(), homework.getHomeworkId());
     }
 
     @Override
     public void deleteById(Long homeworkId) {
-        String sql = "DELETE FROM HOMEWORK WHERE homeworkId = ?";
+        String sql = "DELETE FROM HOMEWORK WHERE homework_id = ?";
 
         this.getJdbcTemplate().update(sql, homeworkId);
     }

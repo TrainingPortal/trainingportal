@@ -33,6 +33,7 @@ public class HomeworkServiceImpl implements HomeworkService {
     public void update(Homework homework) {
         Homework homeworkEdit = homeworkDao.findById(homework.getHomeworkId());
         if (homeworkEdit != null) {
+            homeworkEdit.setLessonId(homework.getLessonId());
             homeworkEdit.setHomeworkName(homework.getHomeworkName());
             homeworkEdit.setHomeworkDeadlineDate(homework.getHomeworkDeadlineDate());
 
