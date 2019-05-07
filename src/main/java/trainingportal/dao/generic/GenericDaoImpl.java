@@ -39,6 +39,8 @@ public abstract class GenericDaoImpl<T> extends JdbcDaoSupport implements Generi
     @Override
     public void save(T obj){
         setParamsMap(obj);
+        //remove Primary Key because we autoincrement it
+        getParamsMap().remove(getPrimaryKey());
 
         String sql = "INSERT INTO " + getTable() +" "
                 + getInsertColumnsNamesAsString()
