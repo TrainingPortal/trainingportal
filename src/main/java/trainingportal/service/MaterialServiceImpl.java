@@ -57,5 +57,11 @@ public class MaterialServiceImpl implements MaterialService {
     public List<Material> getAllAsPage(int page, int total) {
         return null;
     }
+
+    @Override
+    public List<Material> getMaterialLessonId(Long lessonId) {
+        return materialDao.getMaterialLessonId(lessonId);
+    }
+
 }
 

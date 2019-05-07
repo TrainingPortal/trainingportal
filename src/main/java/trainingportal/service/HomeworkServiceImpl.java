@@ -20,19 +20,20 @@ public class HomeworkServiceImpl implements HomeworkService {
     }
 
     @Override
-    public Homework findById(Long MaterialId) {
-        return homeworkDao.findById(MaterialId);
+    public Homework findById(Long homeworkId) {
+        return homeworkDao.findById(homeworkId);
     }
 
     @Override
-    public void save(Homework material) {
-        homeworkDao.save(material);
+    public void save(Homework homework) {
+        homeworkDao.save(homework);
     }
 
     @Override
     public void update(Homework homework) {
         Homework homeworkEdit = homeworkDao.findById(homework.getHomeworkId());
         if (homeworkEdit != null) {
+            homeworkEdit.setLessonId(homework.getLessonId());
             homeworkEdit.setHomeworkName(homework.getHomeworkName());
             homeworkEdit.setHomeworkDeadlineDate(homework.getHomeworkDeadlineDate());
 
@@ -54,6 +55,11 @@ public class HomeworkServiceImpl implements HomeworkService {
     @Override
     public int getNumberOfPages(List<Homework> users, double total) {
         return 0;
+    }
+
+    @Override
+    public List<Homework> getHomeworkLessonId(Long homeworkId) {
+        return homeworkDao.getHomeworkLessonId(homeworkId);
     }
 }
 

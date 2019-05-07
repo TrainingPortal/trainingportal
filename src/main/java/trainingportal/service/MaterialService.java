@@ -3,6 +3,8 @@ package trainingportal.service;
 import trainingportal.model.Material;
 import trainingportal.service.generic.GenericService;
 
-public interface MaterialService extends GenericService<Material> {
+import java.util.List;
 
+public interface MaterialService extends GenericService<Material> {
+    List<Material> getMaterialLessonId(Long lessonId);
 }

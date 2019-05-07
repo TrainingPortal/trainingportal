@@ -17,7 +17,8 @@
 
     <div class="row no-gutters ">
         <div class="col">
-            <form action="#" method="post" th:action="@{material-save}" th:object="${material}">
+            <form action="#" method="post" th:action="@{material-save-{lesson_id} (lesson_id = ${material.lessonId})}"
+                  th:object="${material}">
                 <input class="form-control" placeholder="Id" th:field="*{materialId}" type="hidden"/>
 
                 <input class="form-control" placeholder="lessonId" th:field="*{lessonId}" type="number"/>

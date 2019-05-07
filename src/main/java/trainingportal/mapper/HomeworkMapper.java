@@ -11,22 +11,24 @@ public class HomeworkMapper implements RowMapper<Homework> {
 
 
     public static final String SELECT_SQL
-            = "SELECT homeworkId, homeworkName, homeworkDeadlineDate FROM HOMEWORK";
+            = "SELECT homework_id, lesson_id, homework_name, homework_deadline_date FROM HOMEWORK";
 
     public static final String EDIT_SQL
-            = "UPDATE HOMEWORK SET homeworkName = ?, homeworkDeadlineDate = ?";
+            = "UPDATE HOMEWORK SET lesson_id = ?, homework_name = ?, homework_deadline_date = ?";
 
 
     @Override
     public Homework mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 
-        Long homeworkId = resultSet.getLong("homeworkId");
+        Long homeworkId = resultSet.getLong("homework_id");
 
-        String homeworkName = resultSet.getString("homeworkName");
+        Long lessonId = resultSet.getLong("lesson_id");
 
-        Date homeworkDeadlineDate = resultSet.getDate("homeworkDeadlineDate");
+        String homeworkName = resultSet.getString("homework_name");
+
+        Date homeworkDeadlineDate = resultSet.getDate("homework_deadline_date");
 
 
-        return new Homework(homeworkId, homeworkName, homeworkDeadlineDate);
+        return new Homework(homeworkId, lessonId, homeworkName, homeworkDeadlineDate);
     }
 }

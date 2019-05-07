@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Lesson;
+import trainingportal.service.CourseServiceImpl;
 import trainingportal.service.LessonServiceImpl;
 
 import java.util.List;
@@ -19,11 +19,20 @@ public class LessonController {
     @Autowired
     LessonServiceImpl lessonService;
 
-    @RequestMapping(value = "lesson_create")
-    public ModelAndView showLessonsList(Long Id, ModelAndView modelAndView) {
-        List<Lesson> lessonList = lessonService.findAll();
-        modelAndView.addObject("lessonList", lessonList);
-        modelAndView.setViewName("lessonCreator/lesson_create");
+    @Autowired
+    CourseServiceImpl courseService;
+
+    @RequestMapping("/course_lessons")
+    public ModelAndView showLessonListOfCourse(Long id, ModelAndView modelAndView) {
+
+        List<Lesson> lessonsOfCourse = lessonService.getLessonCourseId(id);
+
+//        Course course = courseService.findById(id);
+//        modelAndView.addObject("courseLesson", course);
+
+        modelAndView.addObject("lessonsOfCourse", lessonsOfCourse);
+        modelAndView.setViewName("lessonCreator/course_lessons");
+
         return modelAndView;
     }
 
@@ -36,15 +45,16 @@ public class LessonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "lesson-save", method = RequestMethod.POST)
+    @RequestMapping(value = "lesson-add", method = RequestMethod.POST)
     public ModelAndView saveLesson(Lesson lesson, ModelAndView modelAndView) {
         lessonService.save(lesson);
-        modelAndView.setViewName("redirect:/lesson_create");
+//        modelAndView.addObject("id", id);
+        modelAndView.setViewName("redirect:/course_lessons");
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-lesson-{id}"}, method = RequestMethod.GET)
-    public ModelAndView editLessonBase(@PathVariable("id") Long lessonId, ModelAndView modelAndView) {
+    @RequestMapping(value = {"/edit-lesson-{lessonId}-{id}"}, method = RequestMethod.GET)
+    public ModelAndView editLessonBase(@PathVariable("lessonId") Long lessonId, ModelAndView modelAndView) {
         Lesson lesson = lessonService.findById(lessonId);
         modelAndView.addObject("lesson", lesson);
         modelAndView.addObject("edit", true);
@@ -53,25 +63,25 @@ public class LessonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/edit-lesson-{id}"}, method = RequestMethod.POST)
-    public ModelAndView editLessonById(Lesson lesson, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
+    @RequestMapping(value = {"/edit-lesson-{lessonId}-{id}"}, method = RequestMethod.POST)
+    public ModelAndView editLessonById(@PathVariable("id") Long id, Lesson lesson, BindingResult bindingResult, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("lessonCreator/edit_lesson_by_id");
             return modelAndView;
         } else {
             lessonService.update(lesson);
-            modelAndView.setViewName("redirect:/lesson_create");
+            modelAndView.addObject("id", id);
+            modelAndView.setViewName("redirect:/course_lessons");
             return modelAndView;
         }
     }
 
-    @RequestMapping(value = "/lesson-delete-by-{id}", method = RequestMethod.GET)
-    public ModelAndView deleteLessonById(@PathVariable("id") Long lessonId, ModelAndView model, RedirectAttributes redirect) {
+    @RequestMapping(value = "/lesson-delete-by-{lessonId}-{id}", method = RequestMethod.GET)
+    public ModelAndView deleteLessonById(@PathVariable("lessonId") Long lessonId, @PathVariable("id") Long id, ModelAndView model) {
         lessonService.deleteById(lessonId);
-
-        redirect.addFlashAttribute("successMessage", "lesson deleted successfully");
-
-        model.setViewName("redirect:/lesson_create");
+//        redirect.addFlashAttribute("successMessage", "lesson deleted successfully");
+        model.addObject("id", id);
+        model.setViewName("redirect:/course_lessons");
         return model;
     }
 

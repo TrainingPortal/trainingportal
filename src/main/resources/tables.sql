@@ -24,8 +24,6 @@ drop TABLE DesiredPeriod;
 drop TABLE GroupStatus;
 drop TABLE CourseStatus;
 
-
-
 CREATE TABLE Users
 (
     userId      NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
@@ -243,21 +241,32 @@ INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, co
 
 CREATE TABLE Homework
 (
-    homeworkId NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
-    homeworkName VARCHAR2(20),
-    homeworkDeadlineDate DATE
+    homework_id            NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    lesson_id              NUMBER,
+    homework_name          VARCHAR2(20),
+    homework_deadline_date DATE
 );
 
-INSERT INTO Homework (homeworkName) values ('Homework-1');
-INSERT INTO Homework (homeworkName) values ('Homework-2');
-INSERT INTO Homework (homeworkName) values ('Homework-3');
-INSERT INTO Homework (homeworkName) values ('Homework-4');
-INSERT INTO Homework (homeworkName) values ('Homework-5');
-INSERT INTO Homework (homeworkName) values ('Homework-6');
-INSERT INTO Homework (homeworkName) values ('Homework-7');
-INSERT INTO Homework (homeworkName) values ('Homework-8');
-INSERT INTO Homework (homeworkName) values ('Homework-9');
-INSERT INTO Homework (homeworkName) values ('Homework-10');
+INSERT INTO Homework (lesson_id, homework_name)
+values (1, 'Homework-1');
+INSERT INTO Homework (lesson_id, homework_name)
+values (1, 'Homework-2');
+INSERT INTO Homework (lesson_id, homework_name)
+values (1, 'Homework-3');
+INSERT INTO Homework (lesson_id, homework_name)
+values (1, 'Homework-4');
+INSERT INTO Homework (lesson_id, homework_name)
+values (1, 'Homework-5');
+INSERT INTO Homework (lesson_id, homework_name)
+values (1, 'Homework-6');
+INSERT INTO Homework (lesson_id, homework_name)
+values (1, 'Homework-7');
+INSERT INTO Homework (lesson_id, homework_name)
+values (2, 'Homework-8');
+INSERT INTO Homework (lesson_id, homework_name)
+values (2, 'Homework-9');
+INSERT INTO Homework (lesson_id, homework_name)
+values (2, 'Homework-10');
 
 CREATE TABLE Task
 (
@@ -472,7 +481,7 @@ INSERT INTO CourseStatus (name_status) values ('Stoped');
 
 
 
-
+COMMIT;
 
 
 --delete dependencies
@@ -497,7 +506,8 @@ alter table Attendance drop constraint atten_fk_schedule;
 alter table Attendance drop constraint atten_fk_type;
 alter table Schedule drop constraint schedule_fk_group;
 alter table Schedule drop constraint schedule_fk_lesson;
-alter table Lesson drop constraint lesson_fk_homework;
+alter table Homework
+    drop constraint lesson_fk_homework;
 alter table Lesson drop constraint lesson_fk_course;
 alter table Material drop constraint material_fk_lesson;
 alter table Task drop constraint task_fk_homework;
@@ -534,10 +544,12 @@ alter table Attendance add constraint atten_fk_schedule FOREIGN KEY (schedule_id
 alter table Attendance add constraint atten_fk_type FOREIGN KEY (type_id) references AttendanceType(id);
 alter table Schedule add constraint schedule_fk_group FOREIGN KEY (group_id) references Groups (id);
 alter table Schedule add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson(lessonId);
-alter table Lesson add constraint lesson_fk_homework FOREIGN KEY (homeworkId) references Homework(homeworkId);
+alter table Homework
+    add constraint lesson_fk_homework FOREIGN KEY (lesson_id) references Lesson (lessonId);
 alter table Lesson add constraint lesson_fk_course FOREIGN KEY (courseId) references Course (courseId);
 alter table Material add constraint material_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lessonId);
-alter table Task add constraint task_fk_homework FOREIGN KEY (homeworkId) references Homework (homeworkId);
+alter table Task
+    add constraint task_fk_homework FOREIGN KEY (homeworkId) references Homework (homework_id);
 alter table DesiredPeriod add constraint dperiod_fk_user FOREIGN KEY (user_id) references users (userId);
 alter table DesiredPeriod add constraint dperiod_fk_cource FOREIGN KEY (course_id) references Course (courseId);
 alter table Weekday add constraint weekday_fk_dperiod FOREIGN KEY (period_id) references DesiredPeriod (id);

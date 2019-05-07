@@ -12,7 +12,6 @@ import java.util.List;
 
 @Repository
 @Transactional
-
 public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
 
 
@@ -21,7 +20,6 @@ public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
         this.setDataSource(dataSource);
     }
 
-    //old realisation, work but need to rework(need to understand how to put in service)
     @Override
     public List<Material> findAll() {
         String sql = MaterialMapper.SELECT_SQL;
@@ -29,8 +27,16 @@ public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
     }
 
     @Override
+    public List<Material> getMaterialLessonId(Long lessonId) {
+        String sql = MaterialMapper.SELECT_SQL + " WHERE lesson_id = ?";
+//        String sql = LessonMapper.SELECT_SQL + " INNER JOIN MATERIAL ON LESSON.lessonId = MATERIAL.lessonId and LESSON.lessonId=?";
+        List<Material> materialList = this.getJdbcTemplate().query(sql, new Object[]{lessonId}, new MaterialMapper());
+        return materialList;
+    }
+
+    @Override
     public Material findById(Long materialId) {
-        String sql = MaterialMapper.SELECT_SQL + " WHERE Id = ?";
+        String sql = MaterialMapper.SELECT_SQL + " WHERE id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{materialId}, new MaterialMapper());
     }
@@ -45,7 +51,7 @@ public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
 
     @Override
     public void update(Material material) {
-        String sql = MaterialMapper.EDIT_SQL + " WHERE Id = ?";
+        String sql = MaterialMapper.EDIT_SQL + " WHERE id = ?";
 
         this.getJdbcTemplate().update(sql, material.getLessonId(),
                 material.getMaterialDescription(), material.getMaterialId());
@@ -53,7 +59,7 @@ public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
 
     @Override
     public void deleteById(Long materialId) {
-        String sql = "DELETE FROM MATERIAL WHERE Id = ?";
+        String sql = "DELETE FROM MATERIAL WHERE id = ?";
 
         this.getJdbcTemplate().update(sql, materialId);
     }

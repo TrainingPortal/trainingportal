@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport">
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
+    <title>Course lessons list</title>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<!--<div th:if="${lessonsOfCourse.size() == 0}">-->
+<!--    <p th:text="${courseLesson.courseName} + 'Curse has no Lessons'"></p>-->
+<!--</div>-->
+<!--<div th:unless="${lessonsOfCourse.size() == 0}">-->
+<!--    <table class="table pt-0 mt-0 table-fit table-sm table-hover">-->
+<!--        <caption th:text="'Lessons of ' + ${courseLesson.courseName}"></caption>-->
+
+<div class="container-fluid">
+    <h2>Lessons List</h2>
+    <h2>
+        <!--        <a class="btn btn-success" th:href="@{/lesson-add (id = ${lesson.courseId})} ">CREATE NEW LESSON</a>-->
+        <!--        <a class="btn btn-success" th:href="@{/lesson-add-{id} (id =1)} ">CREATE NEW LESSON</a>-->
+        <a class="btn btn-success" th:href="@{/lesson-add}">CREATE NEW LESSON</a>
+
+    </h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="row">lesson Id</th>
+            <th scope="row">course Id</th>
+            <th scope="row">lesson name</th>
+            <th scope="row">lesson description</th>
+            <th scope="row">lesson duration</th>
+            <th scope="row">homework Id</th>
+            <th scope="row">lesson number</th>
+            <th scope="row">Materials</th>
+            <th scope="row">Homework</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <!--        <tr th:each="lesson, iter : ${lessonsOfCourse}">-->
+        <!--        <td>-->
+        <!--        <a class="btn btn-success" th:href="@{/lesson-add-{lessonid}-{id} (lessonid = ${lesson.lessonId} , id={lesson.courseId})}">CREATE NEW LESSON</a>-->
+        <!--        </td>-->
+        <!--        </tr>-->
+
+        <tr th:each="lesson, iter : ${lessonsOfCourse}">
+            <td th:text="${lesson.lessonId}"></td>
+            <td th:text="${lesson.courseId}"></td>
+            <td th:text="${lesson.lessonName}"></td>
+            <td th:text="${lesson.lessonDescription}"></td>
+            <td th:text="${lesson.lessonDuration}"></td>
+            <td th:text="${lesson.homeworkId}"></td>
+            <td th:text="${lesson.lessonNumber}"></td>
+
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/material_lesson (id = ${lesson.lessonId})}">
+                        Show/Add Material</a>
+                </div>
+            </td>
+
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/lesson_homework (id = ${lesson.homeworkId})}">
+                        Show/Add Homework</a>
+                </div>
+            </td>
+
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-info" th:href="@{/edit-lesson-{lessonId}-{id}
+                       (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Edit</a>
+
+                    <a class="btn btn-dark" th:href="@{/lesson-delete-by-{lessonId}-{id}
+                    (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Delete</a>
+                </div>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
