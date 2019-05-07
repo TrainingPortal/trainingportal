@@ -2,27 +2,31 @@ package trainingportal.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import trainingportal.dao.generic.GenericDaoImpl;
 import trainingportal.mapper.UserMapper;
+import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.User;
-
 import javax.sql.DataSource;
 import java.util.List;
 
 @Repository
 @Transactional
-public class UserDAOImpl extends JdbcDaoSupport implements UserDao {
+public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     @Autowired
     PasswordEncoder passwordEncoder;
+    //Define table and id column
+    private static final String TABLE_NAME = "users";
+    private static final String ID_COLUMN = "userId";
 
-    @Autowired
     public UserDAOImpl(DataSource dataSource) {
-        this.setDataSource(dataSource);
+        super(dataSource);
+        setTable(TABLE_NAME);
+        setPrimaryKey(ID_COLUMN);
     }
- 
+
     public User findUserAccount(String email) {
 
         String sql = UserMapper.BASE_SQL + " where u.email = ? ";
@@ -35,14 +39,6 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao {
         } catch (EmptyResultDataAccessException e) {
             return null;
         }
-    }
-
-    public void save(User user) {
-
-        String sql = "INSERT INTO users (name, email, password, enabled, token, roleId) values (?,?,?,?,?,?)";
-
-        this.getJdbcTemplate().update(sql, new Object[] { user.getUserName(),
-                user.getEmail(), user.getPassword(), user.getEnabled(), user.getToken(), user.getRoleId()});
     }
 
     @Override
@@ -102,15 +98,6 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao {
     }
 
     @Override
-    public User findById(Long id) {
-        String sql = UserMapper.BASE_SQL + "where userId = ?";
-
-        User user = this.getJdbcTemplate().queryForObject(sql,new Object[]{id},new UserMapper());
-
-        return user;
-    }
-
-    @Override
     public List<User> findAllByRole(Long roleId) {
 
         String sql = UserMapper.BASE_SQL + "WHERE roleId = ?";
@@ -130,16 +117,6 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao {
     }
 
     @Override
-    public void update(User user) {
-        String sql = UserMapper.UPDATE_SQL + " WHERE userId = ?";
-
-        this.getJdbcTemplate().update(sql,
-                user.getUserName(),user.getEmail(),
-                user.getEnabled(),user.getRoleId(),
-                user.getUserId());
-    }
-
-    @Override
     public void resetManagerId(Long managerId) {
 
         String sql = "UPDATE users SET managerId = ? WHERE managerId = ?";
@@ -148,17 +125,8 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao {
     }
 
     @Override
-    public void deleteById(Long userId) {
-        String sql = "DELETE FROM users WHERE userId = ?";
-
-        this.getJdbcTemplate().update(sql, userId);
-    }
-
-    @Override
-    public List<User> findAll() {
-        List<User> users = this.getJdbcTemplate().query(UserMapper.BASE_SQL ,new UserMapper());
-
-        return users;
+    protected BaseObjectMapper<User> getObjectMapper() {
+        return new UserMapper();
     }
 
     @Override
@@ -172,7 +140,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao {
     public List<User> getAllByRoleAsPage(int page, int total, Long roleId) {
 
         String sql = UserMapper.BASE_SQL +
-                "WHERE roleId = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                " WHERE roleId = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
         List<User> users = this.getJdbcTemplate().query(sql, new Object[]{roleId}, new UserMapper());
 

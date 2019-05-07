@@ -1,12 +1,13 @@
 package trainingportal.mapper;
 
-import org.springframework.jdbc.core.RowMapper;
+import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.User;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
-public class UserMapper implements RowMapper<User> {
+public class UserMapper implements BaseObjectMapper<User> {
  
     public static final String BASE_SQL
             = "SELECT u.userId, u.name, u.email, u.password, u.enabled, u.token, u.roleId, u.managerId FROM users u ";
@@ -25,5 +26,21 @@ public class UserMapper implements RowMapper<User> {
         Long managerId = rs.getLong("managerId");
 
         return new User(userId, userName,userEmail, password, enabled, token, roleId, managerId);
+    }
+
+    @Override
+    public Map<String, Object> mapObject(User obj) {
+        Map<String, Object> res = new HashMap<>();
+
+        res.put("userId", obj.getUserId());
+        res.put("name", obj.getUserName());
+        res.put("email", obj.getEmail());
+        res.put("password", obj.getPassword());
+        res.put("enabled", obj.getEnabled());
+        res.put("token", obj.getToken());
+        res.put("roleId",obj.getRoleId());
+        res.put("managerId", obj.getManagerId());
+
+        return  res;
     }
 }
