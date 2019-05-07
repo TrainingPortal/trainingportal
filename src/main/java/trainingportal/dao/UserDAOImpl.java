@@ -186,4 +186,24 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDao {
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
     }
+
+    @Override
+    public List<User> searchByRole(Long id, String request, int page, int total) {
+
+        String sql = UserMapper.BASE_SQL + "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND roleId = ? " +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{id},new UserMapper());
+
+        return users;
+    }
+
+    @Override
+    public int countSearchPagesByRole(Long id, String request) {
+
+        String sql = "SELECT COUNT(userId) FROM users " +
+                "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND roleId = ? ";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
+    }
 }
