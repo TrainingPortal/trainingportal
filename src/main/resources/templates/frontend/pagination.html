@@ -48,4 +48,23 @@
         </ul>
     </div>
 </div>
+
+<div th:fragment="pagination_with_search" class="d-flex justify-content-center">
+    <div th:if="${pages} > 1 and ${page} <= ${pages}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${page==1} ? 'active'">
+                <a class="page-link" th:href="@{/{link}/{page}(page=1, link=${currentUrl}, search=${search})}">First</a>
+            </li>
+            <th:block th:each="i: ${#numbers.sequence(page < 5 ? 1 : page - 4, pages > 4 + page ? page + 4 : pages)}">
+                <li class="page-item" th:classappend="${i==page} ? 'active'">
+                    <a class="page-link" th:href="@{/{link}/{page}(page=${i}, link=${currentUrl}, search=${search})}"
+                       th:text="${i}">></a>
+                </li>
+            </th:block>
+            <li class="page-item" th:classappend="${page==pages} ? 'active'">
+                <a class="page-link" th:href="@{/{link}/{page}(page=${pages}, link=${currentUrl}, search=${search})}">Last</a>
+            </li>
+        </ul>
+    </div>
+</div>
 </html>

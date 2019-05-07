@@ -54,4 +54,8 @@ public interface UserService extends GenericService<User> {
     int getPagesByManager(Long id, double total);
 
     int getFreeUsersPages(double total);
+
+    List<User> searchByRole(Long id, String request, int page, int total);
+
+    int getSearchPagesByRole(Long id, double total, String request);
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>All managers</title>
+    <title>Search result</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
     <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}"/>
@@ -12,23 +12,11 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="py-0 my-0 pl-3 bg-primary text-white">
-    <h1 class="my-0 py-0">Managers</h1>
-</div>
-
-<div class="md-form active-cyan-2 mb-0">
-    <form th:action="@{/manager_search/1}" action="#" method="get">
-        <input name="search" id="search" class="form-control" type="text" placeholder="Search" aria-label="Search">
-
-    </form>
-</div>
-
-<div style="margin-bottom: 0;" th:if="${successMessage}"
-     class="alert alert-success" role="alert"
-     th:text="${successMessage}">
+    <h1 class="my-0 py-0">Found managers</h1>
 </div>
 
 <div th:if="${managers.size() == 0}">
-    <h1>There are no managers.</h1>
+    <div class="alert alert-info" role="alert">Found no one for your request.</div>
 </div>
 <div th:unless="${managers.size() == 0}">
     <table class="table pt-0 mt-0 table-fit table-sm table-hover">
@@ -50,11 +38,8 @@
             </td>
         </tr>
     </table>
-    <div th:replace="frontend/pagination :: pagination"></div>
+    <div th:replace="frontend/pagination :: pagination_with_search"></div>
 </div>
-<a th:href="@{/manager-add}" class="btn btn-info">Add manager</a>
-<a th:href="@{/managers-delete-all}" class="btn btn-danger">Delete all managers</a>
-<a th:href="@{/managers-download-all-managers}" class="btn btn-dark">Download all managers</a>
-<!--href="/Users/mrlova/IdeaProjects/trainingportal/" download="allManagers.xlsx"-->
+<a th:href="@{/managers/{page}(page=1)}" class="btn btn-info">Return to managers</a>
 </body>
 </html>

@@ -9,6 +9,7 @@ import trainingportal.dao.UserDAOImpl;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -216,5 +217,25 @@ public class UserServiceImpl implements UserService {
     @Override
     public int getFreeUsersPages(double total) {
         return (int) Math.ceil(subordinateRepository.countFreeUsers() / total);
+    }
+
+    @Override
+    public List<User> searchByRole(Long id, String request, int page, int total) {
+
+        if(request.equals("")) {
+            return Collections.emptyList();
+        }
+
+        if(page == 1){
+            //do nothing
+        } else {
+            page = (page - 1) * total + 1;
+        }
+        return userRepository.searchByRole(id, request, page, total);
+    }
+
+    @Override
+    public int getSearchPagesByRole(Long id, double total, String request) {
+        return (int) Math.ceil(userRepository.countSearchPagesByRole(id, request) / total);
     }
 }

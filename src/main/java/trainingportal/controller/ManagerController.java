@@ -14,6 +14,7 @@ import trainingportal.universalexportcreator.dao.DataDaoImpl;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +39,21 @@ public class ManagerController {
                 managerService.getPagesByRole(Role.MANAGER, ROWS_LIMIT));
         model.addObject("currentUrl", "managers");
         model.setViewName("manager/managers");
+
+        return model;
+    }
+
+    @GetMapping("/manager_search/{page}")
+    public ModelAndView searchManagers(@PathVariable("page") int page, @RequestParam("search") String request,
+                                       ModelAndView model) {
+
+        List<User> managers = managerService.searchByRole(Role.MANAGER, request, page, ROWS_LIMIT);
+
+        model.addObject("managers", managers);
+        model.addObject("pages", managerService.getSearchPagesByRole(Role.MANAGER, ROWS_LIMIT, request));
+        model.addObject("currentUrl", "manager_search");
+        model.addObject("search", request);
+        model.setViewName("manager/manager_search");
 
         return model;
     }
