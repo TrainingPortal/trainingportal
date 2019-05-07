@@ -8,6 +8,9 @@ public class Homework {
     @NotNull
     private Long homeworkId;
 
+    @NotNull
+    private Long lessonId;
+
     @Size(min = 1, max = 40)
     @NotNull
     private String homeworkName;
@@ -19,8 +22,9 @@ public class Homework {
     public Homework() {
     }
 
-    public Homework(@NotNull Long homeworkId, @Size(min = 1, max = 40) @NotNull String homeworkName, @Size(min = 1, max = 40) @NotNull Date homeworkDeadlineDate) {
+    public Homework(@NotNull Long homeworkId, @NotNull Long lessonId, @Size(min = 1, max = 40) @NotNull String homeworkName, @Size(min = 1, max = 40) @NotNull Date homeworkDeadlineDate) {
         this.homeworkId = homeworkId;
+        this.lessonId = lessonId;
         this.homeworkName = homeworkName;
         this.homeworkDeadlineDate = homeworkDeadlineDate;
     }
@@ -31,6 +35,14 @@ public class Homework {
 
     public void setHomeworkId(Long homeworkId) {
         this.homeworkId = homeworkId;
+    }
+
+    public Long getLessonId() {
+        return lessonId;
+    }
+
+    public void setLessonId(Long lessonId) {
+        this.lessonId = lessonId;
     }
 
     public String getHomeworkName() {

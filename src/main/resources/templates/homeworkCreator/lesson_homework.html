@@ -23,6 +23,7 @@
         <thead>
         <tr>
             <th scope="row">homeworkId</th>
+            <th scope="row">lessonId</th>
             <th scope="row">homeworkName</th>
             <th scope="row">homeworkDeadlineDate</th>
             <th scope="row">Tasks</th>
@@ -32,6 +33,7 @@
         <tbody>
         <tr th:each="homework, iter : ${homeworkList}">
             <td th:text="${homework.homeworkId}"></td>
+            <td th:text="${homework.lessonId}"></td>
             <td th:text="${homework.homeworkName}"></td>
             <td th:text="${homework.homeworkDeadlineDate}"></td>
 
@@ -45,10 +47,10 @@
             <td>
                 <div class="btn-group">
 
-                    <a class="btn btn-info" th:href="@{/edit-homework-{homeworkId}
-                    (homeworkId = ${homework.homeworkId}) }">Edit</a>
-                    <a class="btn btn-dark" th:href="@{/homework-delete-by-{homeworkId}
-                    (homeworkId = ${homework.homeworkId})}">Delete</a>
+                    <a class="btn btn-info" th:href="@{/edit-homework-{homeworkId}-{id}
+                    (homeworkId = ${homework.homeworkId}, id = ${homework.lessonId})}">Edit</a>
+                    <a class="btn btn-dark" th:href="@{/homework-delete-by-{homeworkId}-{id}
+                    (homeworkId = ${homework.homeworkId}, id = ${homework.lessonId})}">Delete</a>
                 </div>
             </td>
         </tr>

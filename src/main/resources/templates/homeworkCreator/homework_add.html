@@ -20,10 +20,18 @@
             <form action="#" method="post" th:action="@{homework-save}" th:object="${homework}">
                 <input class="form-control" placeholder="Id" th:field="*{homeworkId}" type="hidden"/>
 
+                <label>lesson ID</label>
+                <input class="form-control" placeholder="homework lessonID " th:field="*{lessonId}"
+                       type="text"/>
+                <p class="alert alert-danger" th:errors="*{lessonId}"
+                   th:if="${#fields.hasErrors('lessonId')}">Error, check homeworkName field</p>
+
+                <label>homework name</label>
                 <input class="form-control" placeholder="homeworkName" th:field="*{homeworkName}" type="text"/>
                 <p class="alert alert-danger" th:errors="*{homeworkName}" th:if="${#fields.hasErrors('homeworkName')}">
                     Error, check homeworkName field</p>
 
+                <label>Dead line Date</label>
                 <input class="form-control" placeholder="homeworkDeadlineDate" th:field="*{homeworkDeadlineDate}"
                        type="date"/>
                 <p class="alert alert-danger" th:errors="*{homeworkDeadlineDate}"

@@ -17,8 +17,7 @@
 
     <div class="row no-gutters ">
         <div class="col">
-            <form action="#" method="post" th:action="@{lesson-save-{id} (id = ${lesson.courseId})}"
-                  th:object="${lesson}">
+            <form action="#" method="post" th:action="@{/lesson-add}" th:object="${lesson}">
                 <input class="form-control" placeholder="Id" th:field="*{lessonId}" type="hidden"/>
 
                 <input class="form-control" placeholder="lesson Name" th:field="*{lessonName}" type="text"/>
