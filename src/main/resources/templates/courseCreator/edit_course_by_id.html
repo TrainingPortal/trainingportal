@@ -73,13 +73,6 @@
                 </select>
             </div>
 
-            <div class="form-group">
-                <label>lesson number</label>
-                <input class="form-control" placeholder="lesson number" th:field="*{lessonNumber}" type="number"/>
-                <p class="alert alert-danger" th:errors="*{lessonNumber}" th:if="${#fields.hasErrors('lessonNumber')}">
-                    Error, check lesson number</p>
-            </div>
-
             <input class="btn btn-success" type="submit" value="Save"/>
         </form>
     </div>

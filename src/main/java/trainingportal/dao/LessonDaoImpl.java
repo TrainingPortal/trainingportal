@@ -25,21 +25,17 @@ public class LessonDaoImpl extends JdbcDaoSupport implements LessonDao {
         return this.getJdbcTemplate().query(sql, new Object[]{}, new LessonMapper());
     }
 
-    //        here first courseId is from Lesson and it = courseId from COURSE. This whole method needed
-//        to show current list of Lessons which belong to Course with particular courseId
-//        String sql = LessonMapper.SELECT_SQL +
-//                "WHERE courseId = (SELECT courseId From Course WHERE COURSE.courseId = ?)";
     @Override
     public List<Lesson> getLessonCourseId(Long courseId) {
-        String sql = LessonMapper.SELECT_SQL + " WHERE courseId = ?";
-//        String sql = LessonMapper.SELECT_SQL + " INNER JOIN COURSE ON LESSON.courseId = COURSE.COURSEID and LESSON.COURSEID=?";
+
+        String sql = LessonMapper.SELECT_SQL + " WHERE course_id = ?";
         List<Lesson> lessonList = this.getJdbcTemplate().query(sql, new Object[]{courseId}, new LessonMapper());
         return lessonList;
     }
 
     @Override
     public Lesson findById(Long lessonId) {
-        String sql = LessonMapper.SELECT_SQL + " WHERE lessonId = ?";
+        String sql = LessonMapper.SELECT_SQL + " WHERE lesson_id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{lessonId}, new LessonMapper());
     }
@@ -47,23 +43,22 @@ public class LessonDaoImpl extends JdbcDaoSupport implements LessonDao {
 
     @Override
     public void save(Lesson lesson) {
-        String sql = "INSERT INTO Lesson (lessonName, lessonDescription, lessonDuration,  homeworkId, courseId, lesson_number) VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number) VALUES (?,?,?,?,?)";
         this.getJdbcTemplate().update(sql, new Object[]{lesson.getLessonName(), lesson.getLessonDescription(),
-                lesson.getLessonDuration(), lesson.getHomeworkId(), lesson.getCourseId(), lesson.getLessonNumber()});
+                lesson.getLessonDuration(), lesson.getCourseId(), lesson.getLessonNumber()});
     }
 
     @Override
     public void update(Lesson lesson) {
-        String sql = LessonMapper.EDIT_SQL + " WHERE lessonId = ?";
+        String sql = LessonMapper.EDIT_SQL + " WHERE lesson_id = ?";
 
         this.getJdbcTemplate().update(sql, lesson.getLessonName(), lesson.getLessonDescription(),
-                lesson.getLessonDuration(), lesson.getHomeworkId(), lesson.getCourseId(),
-                lesson.getLessonNumber(), lesson.getLessonId());
+                lesson.getLessonDuration(), lesson.getCourseId(), lesson.getLessonNumber(), lesson.getLessonId());
     }
 
     @Override
     public void deleteById(Long lessonId) {
-        String sql = "DELETE FROM LESSON WHERE lessonId = ?";
+        String sql = "DELETE FROM LESSON WHERE lesson_id = ?";
 
         this.getJdbcTemplate().update(sql, lessonId);
     }

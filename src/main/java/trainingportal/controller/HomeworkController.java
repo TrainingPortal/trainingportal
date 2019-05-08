@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Homework;
-import trainingportal.service.HomeworkServiceImpl;
-import trainingportal.service.LessonServiceImpl;
+import trainingportal.service.HomeworkService;
+import trainingportal.service.LessonService;
 
 import java.util.List;
 
@@ -19,25 +19,16 @@ public class HomeworkController {
 
 
     @Autowired
-    HomeworkServiceImpl homeworkService;
+    HomeworkService homeworkService;
 
     @Autowired
-    LessonServiceImpl lessonService;
+    LessonService lessonService;
 
-//    @RequestMapping(value = "lesson_homework")
-//    public ModelAndView showHomeworksList(Long Id, ModelAndView modelAndView) {
-//        List<Homework> homeworkList = homeworkService.findAll();
-//        modelAndView.addObject("homeworkList", homeworkList);
-//        modelAndView.setViewName("homeworkCreator/lesson_homework");
-//        return modelAndView;
-//    }
+
 
     @RequestMapping(value = "/lesson_homework")
     public ModelAndView showHomeworkListOfLesson(Long id, ModelAndView modelAndView) {
         List<Homework> homeworkList = homeworkService.getHomeworkLessonId(id);
-
-//        Lesson lesson =  lessonService.findById(id);
-//        modelAndView.addObject("MaterialOfLesson", lesson);
 
         modelAndView.addObject("homeworkList", homeworkList);
         modelAndView.setViewName("homeworkCreator/lesson_homework");

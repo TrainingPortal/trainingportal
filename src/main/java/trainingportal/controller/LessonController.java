@@ -8,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import trainingportal.model.Lesson;
-import trainingportal.service.CourseServiceImpl;
-import trainingportal.service.LessonServiceImpl;
+import trainingportal.service.CourseService;
+import trainingportal.service.LessonService;
 
 import java.util.List;
 
@@ -17,10 +17,10 @@ import java.util.List;
 public class LessonController {
 
     @Autowired
-    LessonServiceImpl lessonService;
+    LessonService lessonService;
 
     @Autowired
-    CourseServiceImpl courseService;
+    CourseService courseService;
 
     @RequestMapping("/course_lessons")
     public ModelAndView showLessonListOfCourse(Long id, ModelAndView modelAndView) {
@@ -29,7 +29,7 @@ public class LessonController {
 
 //        Course course = courseService.findById(id);
 //        modelAndView.addObject("courseLesson", course);
-
+//        modelAndView.addObject("course_id", courseId);
         modelAndView.addObject("lessonsOfCourse", lessonsOfCourse);
         modelAndView.setViewName("lessonCreator/course_lessons");
 
@@ -45,10 +45,12 @@ public class LessonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "lesson-add", method = RequestMethod.POST)
-    public ModelAndView saveLesson(Lesson lesson, ModelAndView modelAndView) {
+    @RequestMapping(value = "lesson-save-{lesId}-{courId}", method = RequestMethod.POST)
+    public ModelAndView saveLesson(@PathVariable("lesId") Long lessonId,
+                                   @PathVariable("courId") Long courseId, Lesson lesson, ModelAndView modelAndView) {
         lessonService.save(lesson);
-//        modelAndView.addObject("id", id);
+        modelAndView.addObject("lesId", lessonId);
+        modelAndView.addObject("courId", courseId);
         modelAndView.setViewName("redirect:/course_lessons");
         return modelAndView;
     }

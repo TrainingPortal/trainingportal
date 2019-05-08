@@ -10,20 +10,19 @@ public class LessonMapper implements RowMapper<Lesson> {
 
 
     public static final String EDIT_SQL
-            = "UPDATE LESSON SET  lessonName = ?, lessonDescription = ?, lessonDuration = ?, homeworkId=?, courseId=?, lesson_number=?";
+            = "UPDATE LESSON SET  lesson_name = ?, lesson_description = ?, lesson_duration = ?, course_id=?, lesson_number=?";
     public static String SELECT_SQL
-            = "SELECT lessonId, lessonName, lessonDescription, lessonDuration,  homeworkId, courseId, lesson_number  From LESSON ";
+            = "SELECT lesson_id, lesson_name, lesson_description, lesson_duration, course_id, lesson_number  From LESSON ";
 
     @Override
     public Lesson mapRow(ResultSet rtS, int rowNum) throws SQLException {
-        Long lessonId = rtS.getLong("lessonId");
-        String lessonName = rtS.getString("lessonName");
-        String lessonDescription = rtS.getString("lessonDescription");
-        Double lessonDuration = rtS.getDouble("lessonDuration");
-        Long homeworkId = rtS.getLong("homeworkId");
-        Long courseId = rtS.getLong("courseId");
+        Long lessonId = rtS.getLong("lesson_id");
+        String lessonName = rtS.getString("lesson_name");
+        String lessonDescription = rtS.getString("lesson_description");
+        Double lessonDuration = rtS.getDouble("lesson_duration");
+        Long courseId = rtS.getLong("course_id");
         int lessonNumber = rtS.getInt("lesson_number");
 
-        return new Lesson(lessonId, lessonName, lessonDescription, lessonDuration, homeworkId, courseId, lessonNumber);
+        return new Lesson(lessonId, lessonName, lessonDescription, lessonDuration, courseId, lessonNumber);
     }
 }

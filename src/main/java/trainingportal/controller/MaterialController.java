@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Material;
-import trainingportal.service.LessonServiceImpl;
-import trainingportal.service.MaterialServiceImpl;
+import trainingportal.service.LessonService;
+import trainingportal.service.MaterialService;
 
 import java.util.List;
 
@@ -18,18 +18,10 @@ import java.util.List;
 public class MaterialController {
 
     @Autowired
-    MaterialServiceImpl materialService;
+    MaterialService materialService;
 
     @Autowired
-    LessonServiceImpl lessonService;
-
-//    @RequestMapping(value = "material_create")
-//    public ModelAndView showMaterialsList(Long Id, ModelAndView modelAndView) {
-//        List<Material> materialList = materialService.findAll();
-//        modelAndView.addObject("materialList", materialList);
-//        modelAndView.setViewName("materialCreator/material_lesson");
-//        return modelAndView;
-//    }
+    LessonService lessonService;
 
     @RequestMapping("/material_lesson")
     public ModelAndView showMaterialListOfLessons(Long id, ModelAndView modelAndView) {

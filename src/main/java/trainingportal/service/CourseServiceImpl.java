@@ -42,7 +42,6 @@ public class CourseServiceImpl implements CourseService {
             courseEdit.setMaxNumber(course.getMaxNumber());
             courseEdit.setDescription(course.getDescription());
             courseEdit.setTrainerId(course.getTrainerId());
-            courseEdit.setLessonNumber(course.getLessonNumber());
         }
         courseDAO.update(courseEdit);
     }

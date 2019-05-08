@@ -27,8 +27,6 @@ public class Course {
 
     private Long trainerId;
 
-    private int lessonNumber;
-
     private User trainer;
 
     private CourseStatus status;
@@ -36,7 +34,7 @@ public class Course {
     public Course() {
     }
 
-    public Course(Long courseId, String courseName, String courseLevel, Long courseStatus, int minNumber, int maxNumber, String description, Long trainerId, int lessonNumber) {
+    public Course(Long courseId, @Size(min = 1, max = 70, message = "Please enter course name") String courseName, @NotEmpty(message = "Please enter courseLevel") String courseLevel, @NotNull Long courseStatus, @NotNull int minNumber, @NotNull int maxNumber, String description, Long trainerId) {
         this.courseId = courseId;
         this.courseName = courseName;
         this.courseLevel = courseLevel;
@@ -45,7 +43,6 @@ public class Course {
         this.maxNumber = maxNumber;
         this.description = description;
         this.trainerId = trainerId;
-        this.lessonNumber = lessonNumber;
     }
 
     public Long getCourseId() {
@@ -110,14 +107,6 @@ public class Course {
 
     public void setTrainerId(Long trainerId) {
         this.trainerId = trainerId;
-    }
-
-    public int getLessonNumber() {
-        return lessonNumber;
-    }
-
-    public void setLessonNumber(int lessonNumber) {
-        this.lessonNumber = lessonNumber;
     }
 
     public User getTrainer() {

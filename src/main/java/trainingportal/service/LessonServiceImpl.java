@@ -37,7 +37,6 @@ public class LessonServiceImpl implements LessonService {
             lessonEdit.setLessonName(lesson.getLessonName());
             lessonEdit.setLessonDescription(lesson.getLessonDescription());
             lessonEdit.setLessonDuration(lesson.getLessonDuration());
-            lessonEdit.setHomeworkId(lesson.getHomeworkId());
             lessonEdit.setCourseId(lesson.getCourseId());
             lessonEdit.setLessonNumber(lesson.getLessonNumber());
         }
