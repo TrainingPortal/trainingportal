@@ -9,16 +9,16 @@ import java.sql.SQLException;
 public class CourseMapper implements RowMapper<Course> {
 
     public static final String SELECT_SQL
-            = "SELECT courseId, name, course_level, course_status_id, min_number, max_number, description, trainer_id, lessons_number FROM Course";
+            = "SELECT course_id, name, course_level, course_status_id, min_number, max_number, description, trainer_id FROM Course";
 
     public static final String EDIT_SQL
-            = "UPDATE Course SET  name = ?, course_level = ?, course_status_id = ?, min_number = ?, max_number =?, description = ?, trainer_id = ?, lessons_number = ?";
+            = "UPDATE Course SET  name = ?, course_level = ?, course_status_id = ?, min_number = ?, max_number =?, description = ?, trainer_id = ?";
 
 
     @Override
     public Course mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 
-        Long courseId = resultSet.getLong("courseId");
+        Long courseId = resultSet.getLong("course_id");
 
         String courseName = resultSet.getString("name");
 
@@ -34,8 +34,6 @@ public class CourseMapper implements RowMapper<Course> {
 
         Long trainerId = resultSet.getLong("trainer_id");
 
-        int lessonNumber = resultSet.getInt("lessons_number");
-
-        return new Course(courseId, courseName, courseLevel, courseStatus, minNumber, maxNumber, description, trainerId, lessonNumber);
+        return new Course(courseId, courseName, courseLevel, courseStatus, minNumber, maxNumber, description, trainerId);
     }
 }

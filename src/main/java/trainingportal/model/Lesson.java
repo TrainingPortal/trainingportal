@@ -16,8 +16,6 @@ public class Lesson {
     @NotNull
     private Double lessonDuration;
     @NotNull
-    private Long homeworkId;
-    @NotNull
     private Long courseId;
     @NotNull
     private int lessonNumber;
@@ -26,12 +24,11 @@ public class Lesson {
     public Lesson() {
     }
 
-    public Lesson(@NotNull Long lessonId, @Size(min = 1, max = 40) @NotNull String lessonName, @Size(min = 1, max = 30) String lessonDescription, @Size(min = 10, max = 120) @NotNull Double lessonDuration, @NotNull Long homeworkId, @NotNull Long courseId, @NotNull int lessonNumber) {
+    public Lesson(@NotNull Long lessonId, @Size(min = 1, max = 40) @NotNull String lessonName, @Size(min = 1, max = 30) String lessonDescription, @Size(min = 10, max = 120) @NotNull Double lessonDuration, @NotNull Long courseId, @NotNull int lessonNumber) {
         this.lessonId = lessonId;
         this.lessonName = lessonName;
         this.lessonDescription = lessonDescription;
         this.lessonDuration = lessonDuration;
-        this.homeworkId = homeworkId;
         this.courseId = courseId;
         this.lessonNumber = lessonNumber;
     }
@@ -68,14 +65,6 @@ public class Lesson {
         this.lessonDuration = lessonDuration;
     }
 
-    public Long getHomeworkId() {
-        return homeworkId;
-    }
-
-    public void setHomeworkId(Long homeworkId) {
-        this.homeworkId = homeworkId;
-    }
-
     public Long getCourseId() {
         return courseId;
     }
@@ -91,4 +80,5 @@ public class Lesson {
     public void setLessonNumber(int lessonNumber) {
         this.lessonNumber = lessonNumber;
     }
+
 }

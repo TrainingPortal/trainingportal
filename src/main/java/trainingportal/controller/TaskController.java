@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Task;
-import trainingportal.service.HomeworkServiceImpl;
-import trainingportal.service.TaskServiceImpl;
+import trainingportal.service.HomeworkService;
+import trainingportal.service.TaskService;
 
 import java.util.List;
 
@@ -19,17 +19,14 @@ public class TaskController {
 
 
     @Autowired
-    TaskServiceImpl taskService;
+    TaskService taskService;
 
     @Autowired
-    HomeworkServiceImpl homeworkService;
+    HomeworkService homeworkService;
 
     @RequestMapping(value = "/homework_task")
     public ModelAndView showTaskListOfHomework(Long id, ModelAndView modelAndView) {
         List<Task> taskList = taskService.getTaskLessonById(id);
-
-//        Homework homework = homeworkService.findById(id);
-//        modelAndView.addObject("homework",homework);
 
         modelAndView.addObject("taskList", taskList);
         modelAndView.setViewName("taskCreator/homework_task");

@@ -110,28 +110,26 @@ INSERT INTO roles (name) VALUES('ROLE_MANAGER');
 
 CREATE TABLE Course
 (
-    courseId NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
-    name VARCHAR2(50),
-    course_level VARCHAR2(40),
+    course_id        NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    name             VARCHAR2(50),
+    course_level     VARCHAR2(40),
     course_status_id NUMBER,
-    min_number NUMBER,
-    max_number NUMBER,
-    description VARCHAR2(1000),
-    trainer_id NUMBER,
-    lessons_number NUMBER
-
+    min_number       NUMBER,
+    max_number       NUMBER,
+    description      VARCHAR2(1000),
+    trainer_id       NUMBER
 );
 
-INSERT INTO Course(name, course_level,course_status_id,min_number, max_number,description,trainer_id,lessons_number)
-        VALUES ('Amazing English', 'B2', 1,5,30,'very good course', 2,10);
-INSERT INTO Course(name, course_level,course_status_id,min_number, max_number,description,trainer_id,lessons_number)
-        VALUES ('Good English', 'B2', 1,5,30,'very good course', 3,10);
-INSERT INTO Course(name, course_level,course_status_id,min_number, max_number,description,trainer_id,lessons_number)
-        VALUES ('Very good English', 'B2', 1,5,30,'very good course', 4,10);
-INSERT INTO Course(name, course_level,course_status_id,min_number, max_number,description,trainer_id,lessons_number)
-        VALUES ('Very amazing English', 'B2', 1,5,30,'very good course', 5,10);
-INSERT INTO Course(name, course_level,course_status_id,min_number, max_number,description,trainer_id,lessons_number)
-        VALUES ('Amazing very good English', 'B2', 1,5,30,'very good course', 6,10);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('Amazing English', 'B2', 1, 5, 30, 'very good course', 2);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('Good English', 'B2', 1, 5, 30, 'very good course', 3);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('Very good English', 'B2', 1, 5, 30, 'very good course', 4);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('Very amazing English', 'B2', 1, 5, 30, 'very good course', 5);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('Amazing very good English', 'B2', 1, 5, 30, 'very good course', 6);
 
 
 
@@ -166,77 +164,76 @@ INSERT INTO Groups(name, capacity, course_id, status_id)
 
 CREATE TABLE Lesson
 (
-    lessonId NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
-    lessonName VARCHAR2(20),
-    lessonDescription VARCHAR2(100),
-    lessonDuration NUMBER,
-    homeworkId NUMBER,
-    courseId NUMBER,
-    lesson_number NUMBER
+    lesson_id          NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    lesson_name        VARCHAR2(20),
+    lesson_description VARCHAR2(100),
+    lesson_duration    NUMBER,
+    course_id          NUMBER,
+    lesson_number      NUMBER
 );
 
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-1','very helpful description', 60, 1, 1, 1);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-2','very helpful description', 60, 2, 1, 2);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-3','very helpful description', 60, 3, 1, 3);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-4','very helpful description', 60, 4, 1, 4);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-5','very helpful description', 60, 5, 1, 5);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-6','very helpful description', 60, 6, 1, 6);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-7','very helpful description', 60, 7, 1, 7);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-8','very helpful description', 60, 8, 1, 8);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-9','very helpful description', 60, 9, 1, 9);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-10','very helpful description', 60, 10, 1, 10);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-1', 'very helpful description', 60, 1, 1);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-2', 'very helpful description', 60, 1, 2);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-3', 'very helpful description', 60, 1, 3);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-4', 'very helpful description', 60, 1, 4);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-5', 'very helpful description', 60, 1, 5);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-6', 'very helpful description', 60, 1, 6);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-7', 'very helpful description', 60, 1, 7);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-8', 'very helpful description', 60, 1, 8);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-9', 'very helpful description', 60, 1, 9);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-10', 'very helpful description', 60, 1, 10);
 
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-1','very helpful description', 60, 1, 2, 1);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-2','very helpful description', 60, 2, 2, 2);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-3','very helpful description', 60, 3, 2, 3);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-4','very helpful description', 60, 4, 2, 4);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-5','very helpful description', 60, 5, 2, 5);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-6','very helpful description', 60, 6, 2, 6);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-7','very helpful description', 60, 7, 2, 7);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-8','very helpful description', 60, 8, 2, 8);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-9','very helpful description', 60, 9, 2, 9);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-10','very helpful description', 60, 10, 2, 10);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-1', 'very helpful description', 60, 2, 1);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-2', 'very helpful description', 60, 2, 2);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-3', 'very helpful description', 60, 2, 3);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-4', 'very helpful description', 60, 2, 4);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-5', 'very helpful description', 60, 2, 5);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-6', 'very helpful description', 60, 2, 6);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-7', 'very helpful description', 60, 2, 7);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-8', 'very helpful description', 60, 2, 8);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-9', 'very helpful description', 60, 2, 9);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-10', 'very helpful description', 60, 2, 10);
 
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-1','very helpful description', 60, 1, 3, 1);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-2','very helpful description', 60, 2, 3, 2);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-3','very helpful description', 60, 3, 3, 3);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-4','very helpful description', 60, 4, 3, 4);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-5','very helpful description', 60, 5, 3, 5);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-6','very helpful description', 60, 6, 3, 6);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-7','very helpful description', 60, 7, 3, 7);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-8','very helpful description', 60, 8, 3, 8);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-9','very helpful description', 60, 9, 3, 9);
-INSERT INTO Lesson (lessonName,lessonDescription, lessonDuration, homeworkId, courseId, lesson_number)
-            values ('Lesson-10','very helpful description', 60, 10, 3, 10);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-1', 'very helpful description', 60, 3, 1);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-2', 'very helpful description', 60, 3, 2);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-3', 'very helpful description', 60, 3, 3);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-4', 'very helpful description', 60, 3, 4);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-5', 'very helpful description', 60, 3, 5);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-6', 'very helpful description', 60, 3, 6);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-7', 'very helpful description', 60, 3, 7);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-8', 'very helpful description', 60, 3, 8);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-9', 'very helpful description', 60, 3, 9);
+INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
+values ('Lesson-10', 'very helpful description', 60, 3, 10);
 
 
 CREATE TABLE Homework
@@ -270,23 +267,35 @@ values (2, 'Homework-10');
 
 CREATE TABLE Task
 (
-    taskId NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
-    homeworkId NUMBER,
-    taskDescription VARCHAR2(200)
+    task_id          NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    homework_id      NUMBER,
+    task_description VARCHAR2(200)
 );
 
-INSERT INTO Task (homeworkId, taskDescription) values (1, 'some helpful description1');
-INSERT INTO Task (homeworkId, taskDescription) values (1, 'some helpful description2');
-INSERT INTO Task (homeworkId, taskDescription) values (1, 'some helpful description2');
-INSERT INTO Task (homeworkId, taskDescription) values (2, 'some helpful description1');
-INSERT INTO Task (homeworkId, taskDescription) values (2, 'some helpful description2');
-INSERT INTO Task (homeworkId, taskDescription) values (3, 'some helpful description1');
-INSERT INTO Task (homeworkId, taskDescription) values (3, 'some helpful description2');
-INSERT INTO Task (homeworkId, taskDescription) values (3, 'some helpful description3');
-INSERT INTO Task (homeworkId, taskDescription) values (4, 'some helpful description');
-INSERT INTO Task (homeworkId, taskDescription) values (5, 'some helpful description');
-INSERT INTO Task (homeworkId, taskDescription) values (6, 'some helpful description1');
-INSERT INTO Task (homeworkId, taskDescription) values (6, 'some helpful description2');
+INSERT INTO Task (homework_id, task_description)
+values (1, 'some helpful description1');
+INSERT INTO Task (homework_id, task_description)
+values (1, 'some helpful description2');
+INSERT INTO Task (homework_id, task_description)
+values (1, 'some helpful description2');
+INSERT INTO Task (homework_id, task_description)
+values (2, 'some helpful description1');
+INSERT INTO Task (homework_id, task_description)
+values (2, 'some helpful description2');
+INSERT INTO Task (homework_id, task_description)
+values (3, 'some helpful description1');
+INSERT INTO Task (homework_id, task_description)
+values (3, 'some helpful description2');
+INSERT INTO Task (homework_id, task_description)
+values (3, 'some helpful description3');
+INSERT INTO Task (homework_id, task_description)
+values (4, 'some helpful description');
+INSERT INTO Task (homework_id, task_description)
+values (5, 'some helpful description');
+INSERT INTO Task (homework_id, task_description)
+values (6, 'some helpful description1');
+INSERT INTO Task (homework_id, task_description)
+values (6, 'some helpful description2');
 
 
 CREATE TABLE Schedule
@@ -506,8 +515,7 @@ alter table Attendance drop constraint atten_fk_schedule;
 alter table Attendance drop constraint atten_fk_type;
 alter table Schedule drop constraint schedule_fk_group;
 alter table Schedule drop constraint schedule_fk_lesson;
-alter table Homework
-    drop constraint lesson_fk_homework;
+-- alter table Homework drop constraint lesson_fk_homework;
 alter table Lesson drop constraint lesson_fk_course;
 alter table Material drop constraint material_fk_lesson;
 alter table Task drop constraint task_fk_homework;
@@ -531,11 +539,13 @@ alter table chat add constraint chat_fk_group FOREIGN KEY (group_id) references 
 alter table InfoDesk add constraint idesk_emp_fk_user FOREIGN KEY (emp_id) references users (userId);
 alter table InfoDesk add constraint idesk_fk_qstatus FOREIGN KEY (status_id) references QuestionStatus (id);
 alter table Feedback add constraint fdbk_tr_fk_user FOREIGN KEY (trainer_id) references users (userId);
-alter table Feedback add constraint fdbk_fk_cource FOREIGN KEY (course_id) references course (courseId);
+alter table Feedback
+    add constraint fdbk_fk_cource FOREIGN KEY (course_id) references course (course_id);
 alter table Feedback add constraint fdbk_emp_fk_user FOREIGN KEY (employee_id) references users (userId);
 alter table UserGroup add constraint ugroup_fk_user FOREIGN KEY (user_id) references users (userId);
 alter table UserGroup add constraint ugroup_fk_group FOREIGN KEY (group_id) references Groups (id);
-alter table Groups add constraint group_fk_course FOREIGN KEY (course_id) references Course (courseId);
+alter table Groups
+    add constraint group_fk_course FOREIGN KEY (course_id) references Course (course_id);
 alter table Groups add constraint group_fr_status FOREIGN KEY (status_id) references GroupStatus (id);
 alter table UserChat add constraint uchat_fk_user FOREIGN KEY (user_id) references users (userId);
 alter table UserChat add constraint uchat_fk_chat FOREIGN KEY (chat_id) references Chat (id);
@@ -543,15 +553,18 @@ alter table Attendance add constraint atten_fk_user FOREIGN KEY (user_id) refere
 alter table Attendance add constraint atten_fk_schedule FOREIGN KEY (schedule_id) references Schedule (id);
 alter table Attendance add constraint atten_fk_type FOREIGN KEY (type_id) references AttendanceType(id);
 alter table Schedule add constraint schedule_fk_group FOREIGN KEY (group_id) references Groups (id);
-alter table Schedule add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson(lessonId);
-alter table Homework
-    add constraint lesson_fk_homework FOREIGN KEY (lesson_id) references Lesson (lessonId);
-alter table Lesson add constraint lesson_fk_course FOREIGN KEY (courseId) references Course (courseId);
-alter table Material add constraint material_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lessonId);
+alter table Schedule
+    add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lesson_id);
+-- alter table Homework add constraint lesson_fk_homework FOREIGN KEY (lesson_id) references Lesson (lesson_id);
+alter table Lesson
+    add constraint lesson_fk_course FOREIGN KEY (course_id) references Course (course_id);
+alter table Material
+    add constraint material_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lesson_id);
 alter table Task
-    add constraint task_fk_homework FOREIGN KEY (homeworkId) references Homework (homework_id);
+    add constraint task_fk_homework FOREIGN KEY (homework_id) references Homework (homework_id);
 alter table DesiredPeriod add constraint dperiod_fk_user FOREIGN KEY (user_id) references users (userId);
-alter table DesiredPeriod add constraint dperiod_fk_cource FOREIGN KEY (course_id) references Course (courseId);
+alter table DesiredPeriod
+    add constraint dperiod_fk_cource FOREIGN KEY (course_id) references Course (course_id);
 alter table Weekday add constraint weekday_fk_dperiod FOREIGN KEY (period_id) references DesiredPeriod (id);
 alter table Course add constraint cource_fk_status FOREIGN KEY (course_status_id) references CourseStatus(id);
 alter table Course add constraint cource_fk_trainer FOREIGN KEY (trainer_id) references users (userId);

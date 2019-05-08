@@ -29,7 +29,6 @@ public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
     @Override
     public List<Material> getMaterialLessonId(Long lessonId) {
         String sql = MaterialMapper.SELECT_SQL + " WHERE lesson_id = ?";
-//        String sql = LessonMapper.SELECT_SQL + " INNER JOIN MATERIAL ON LESSON.lessonId = MATERIAL.lessonId and LESSON.lessonId=?";
         List<Material> materialList = this.getJdbcTemplate().query(sql, new Object[]{lessonId}, new MaterialMapper());
         return materialList;
     }

@@ -12,8 +12,8 @@ import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
 import trainingportal.model.Role;
 import trainingportal.model.User;
-import trainingportal.service.CourseServiceImpl;
-import trainingportal.service.LessonServiceImpl;
+import trainingportal.service.CourseService;
+import trainingportal.service.LessonService;
 import trainingportal.service.UserService;
 import trainingportal.universalexportcreator.dao.DataDaoImpl;
 
@@ -24,13 +24,14 @@ import java.util.List;
 public class CourseController {
 
     @Autowired
-    CourseServiceImpl courseService;
+    CourseService courseService;
 
     @Autowired
     UserService userService;
 
     @Autowired
-    LessonServiceImpl lessonService;
+    LessonService lessonService;
+
     private static final int ROWS_LIMIT = 10;
 
     @RequestMapping(value = "/course_create/{page}")
