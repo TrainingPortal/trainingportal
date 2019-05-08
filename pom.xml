@@ -99,10 +99,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.oracle</groupId>
+            <groupId>com.oracle.jdbc</groupId>
             <artifactId>ojdbc8</artifactId>
             <version>18.3.0.0</version>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
@@ -133,5 +132,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>
