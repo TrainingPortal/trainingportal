@@ -68,7 +68,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     @Override
     public void updateToken(User user, String token) {
 
-        String sql ="UPDATE users SET token = ? WHERE userId = ?";
+        String sql ="UPDATE users SET token = ? WHERE user_id = ?";
 
         this.getJdbcTemplate().update(sql, token, user.getUserId());
     }
@@ -100,7 +100,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     @Override
     public List<User> findAllByRole(Long roleId) {
 
-        String sql = UserMapper.BASE_SQL + "WHERE roleId = ?";
+        String sql = UserMapper.BASE_SQL + "WHERE role_id = ?";
 
         List<User> users = this.getJdbcTemplate().query(sql,new Object[]{roleId},new UserMapper());
 
@@ -109,7 +109,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
 
     @Override
     public List<User> findAllEnabledByRole(Long roleId) {
-        String sql = UserMapper.BASE_SQL + "WHERE roleId = ?  AND enabled = 1";
+        String sql = UserMapper.BASE_SQL + "WHERE role_id = ?  AND enabled = 1";
 
         List<User> users = this.getJdbcTemplate().query(sql,new Object[]{roleId},new UserMapper());
 
@@ -119,7 +119,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     @Override
     public void resetManagerId(Long managerId) {
 
-        String sql = "UPDATE users SET managerId = ? WHERE managerId = ?";
+        String sql = "UPDATE users SET manager_id = ? WHERE manager_id = ?";
 
         this.getJdbcTemplate().update(sql, null, managerId);
     }
@@ -131,7 +131,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
 
     @Override
     public void deleteAllByRole(Long roleId) {
-        String sql = "DELETE FROM users WHERE roleId = ?";
+        String sql = "DELETE FROM users WHERE role_id = ?";
 
         this.getJdbcTemplate().update(sql, roleId);
     }
@@ -140,7 +140,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     public List<User> getAllByRoleAsPage(int page, int total, Long roleId) {
 
         String sql = UserMapper.BASE_SQL +
-                " WHERE roleId = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                " WHERE role_id = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
         List<User> users = this.getJdbcTemplate().query(sql, new Object[]{roleId}, new UserMapper());
 
@@ -150,7 +150,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     @Override
     public int countAllByRole(Long id) {
 
-        String sql = "SELECT COUNT(userId) FROM users WHERE roleId = ?";
+        String sql = "SELECT COUNT(user_id) FROM users WHERE role_id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
     }
@@ -158,7 +158,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     @Override
     public List<User> searchByRole(Long id, String request, int page, int total) {
 
-        String sql = UserMapper.BASE_SQL + "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND roleId = ? " +
+        String sql = UserMapper.BASE_SQL + "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND role_id = ? " +
                 "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
         List<User> users = this.getJdbcTemplate().query(sql,new Object[]{id},new UserMapper());
@@ -169,8 +169,8 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     @Override
     public int countSearchPagesByRole(Long id, String request) {
 
-        String sql = "SELECT COUNT(userId) FROM users " +
-                "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND roleId = ? ";
+        String sql = "SELECT COUNT(user_id) FROM users " +
+                "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND role_id = ? ";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
     }
