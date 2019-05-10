@@ -453,8 +453,6 @@ INSERT INTO Notification_Status (name) values('Closed');
 CREATE TABLE Desired_Period
 (
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
-    date_start DATE,
-    date_end DATE,
     user_id NUMBER,
     course_id NUMBER
 );
@@ -463,6 +461,8 @@ CREATE TABLE Weekday
 (
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     day_name VARCHAR2(20),
+    time_start VARCHAR2(20),
+    time_end VARCHAR2(20),
     period_id NUMBER
 );
 
