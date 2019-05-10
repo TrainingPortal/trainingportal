@@ -12,7 +12,7 @@ import java.util.List;
 
 public class Export {
 
-    public void exportDataToExcel(String fileName, String labelName, Object[][] data) throws IOException, ExportToExcelException {
+    public void exportDataToExcel(String fileName, String labelName, Object[][] data) {
 
         if (data[0][0] != null) {
 
@@ -27,13 +27,17 @@ public class Export {
                 try (FileOutputStream fileOut = new FileOutputStream(fileName + ".xlsx")) {
                     wb.write(fileOut);
                 }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+            
         }else {
             throw new ExportToExcelException("Input data is empty");
         }
     }
 
-    public void exportDataToExcel(String fileName, String labelName, List list) throws IOException, ExportToExcelException {
+    public void exportDataToExcel(String fileName, String labelName, List list){
 
         if (!list.isEmpty()) {
 
@@ -51,7 +55,7 @@ public class Export {
         }
     }
 
-    public void exportDataToExcelGenerics(String fileName, String labelName, List<List> list) throws IOException, ExportToExcelException {
+    public void exportDataToExcelGenerics(String fileName, String labelName, List<List> list) {
 
         if (!list.isEmpty()) {
 

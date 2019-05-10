@@ -328,6 +328,7 @@ CREATE TABLE Attendance
     schedule_id NUMBER
 );
 
+--INSERT INTO Attendance (user_id, type_id, schedule_id) values (2, 2,10);
 CREATE TABLE AttendanceType
 (
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,

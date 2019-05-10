@@ -1,7 +1,6 @@
 package trainingportal.universalexportcreator.dao;
 
 import export.Export;
-import export.exception.ExportToExcelException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -10,7 +9,6 @@ import trainingportal.universalexportcreator.mapper.DataMapper;
 import trainingportal.universalexportcreator.model.Data;
 
 import javax.sql.DataSource;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +21,7 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
     @Override
     public List<List> findFieldsFromTable(List<String> fields, String tableName, String fileName, String labelName) {
 
-        //Here we use method that form sql string request query and set this string to our variable sql
+//        //Here we use method that form sql string request query and set this string to our variable sql
         String sql = setSQL(fields, tableName, null);
 
         List<List> dataList = getFieldsFromTableWhichCreateExcel(fields, fileName,labelName,sql);
@@ -42,6 +40,15 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
         return dataList;
     }
 
+    @Override
+    public List<List> findMultiFieldsFromTables(List<String> fields, String sql, String fileName, String labelName) {
+
+        List<List> dataList = getFieldsFromTableWhichCreateExcel(fields, fileName,labelName,sql);
+
+        return dataList;
+    }
+
+
     private List<List> getFieldsFromTableWhichCreateExcel(List<String> fields, String fileName, String labelName, String sql){
 
         Data data = new Data();
@@ -56,7 +63,7 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
                 int getField = ii;
 
                 //Here we get all column from ii field
-                List currentFieldsList = this.getJdbcTemplate().query(sql, new Object[]{}, new DataMapper(fields,getField));
+                List currentFieldsList = this.getJdbcTemplate().query(sql,new DataMapper(fields,getField));
 
                 //Adding to allCol current Fields List
                 allCol.add(currentFieldsList);
@@ -65,12 +72,7 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
                 data.setDataListByAdd(currentFieldsList);
             }
         } else {
-
-            try {
                 throw new DataDaoExceptions("Input list is Empty");
-            } catch (DataDaoExceptions dataDaoExceptions) {
-                dataDaoExceptions.printStackTrace();
-            }
         }
 
         //create new List<List> with name of fields
@@ -101,27 +103,14 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
             }
 
             return sql;
-        }else {
-            try {
+        }else
                 throw new DataDaoExceptions("Input list is Empty");
-            } catch (DataDaoExceptions dataDaoExceptions) {
-                dataDaoExceptions.printStackTrace();
-            }
-        }
-
-            return null;
     }
 
     private void useExport(String fileName, String labelName, List<List> allCol){
 
         Export export = new Export();
-        try {
-            export.exportDataToExcelGenerics(fileName,labelName,allCol);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ExportToExcelException e) {
-            e.printStackTrace();
-        }
+        export.exportDataToExcelGenerics(fileName,labelName,allCol);
 
     }
 
@@ -142,12 +131,6 @@ public class DataDaoImpl extends JdbcDaoSupport implements DataDao {
             }
             return finalAllCol;
         }else
-            try {
                 throw new DataDaoExceptions("Input list OR list's is Empty");
-            } catch (DataDaoExceptions dataDaoExceptions) {
-                dataDaoExceptions.printStackTrace();
-            }
-
-            return null;
     }
 }
