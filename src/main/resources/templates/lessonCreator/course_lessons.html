@@ -24,10 +24,7 @@
 <div class="container-fluid">
     <h2>Lessons List</h2>
     <h2>
-        <!--        <a class="btn btn-success" th:href="@{/lesson-add (id = ${lesson.courseId})} ">CREATE NEW LESSON</a>-->
-        <!--        <a class="btn btn-success" th:href="@{/lesson-add-{id} (id =1)} ">CREATE NEW LESSON</a>-->
         <a class="btn btn-success" th:href="@{/lesson-add}">CREATE NEW LESSON</a>
-
     </h2>
     <table class="table table-striped">
         <thead>
@@ -37,19 +34,21 @@
             <th scope="row">lesson name</th>
             <th scope="row">lesson description</th>
             <th scope="row">lesson duration</th>
-            <th scope="row">homework Id</th>
+            <!--            <th scope="row">homework Id</th>-->
             <th scope="row">lesson number</th>
             <th scope="row">Materials</th>
-            <th scope="row">Homework</th>
+
+            <!--            for better times-->
+            <!--            <th scope="row">Homework</th>-->
 
         </tr>
         </thead>
         <tbody>
-        <!--        <tr th:each="lesson, iter : ${lessonsOfCourse}">-->
-        <!--        <td>-->
-        <!--        <a class="btn btn-success" th:href="@{/lesson-add-{lessonid}-{id} (lessonid = ${lesson.lessonId} , id={lesson.courseId})}">CREATE NEW LESSON</a>-->
-        <!--        </td>-->
-        <!--        </tr>-->
+        <!--                <tr th:each="lesson, iter : ${lessonsOfCourse}">-->
+        <!--                <td>-->
+        <!--                <a class="btn btn-success" th:href="@{/lesson-add}">CREATE NEW LESSON</a>-->
+        <!--                </td>-->
+        <!--                </tr>-->
 
         <tr th:each="lesson, iter : ${lessonsOfCourse}">
             <td th:text="${lesson.lessonId}"></td>
@@ -57,7 +56,7 @@
             <td th:text="${lesson.lessonName}"></td>
             <td th:text="${lesson.lessonDescription}"></td>
             <td th:text="${lesson.lessonDuration}"></td>
-            <td th:text="${lesson.homeworkId}"></td>
+            <!--            <td th:text="${lesson.homeworkId}"></td>-->
             <td th:text="${lesson.lessonNumber}"></td>
 
             <td>
@@ -67,12 +66,13 @@
                 </div>
             </td>
 
-            <td>
-                <div class="btn-group">
-                    <a class="btn btn-outline-primary" th:href="@{/lesson_homework (id = ${lesson.homeworkId})}">
-                        Show/Add Homework</a>
-                </div>
-            </td>
+            <!--            for better times          -->
+            <!--            <td>-->
+            <!--                <div class="btn-group">-->
+            <!--                    <a class="btn btn-outline-primary" th:href="@{/lesson_homework (id = ${lesson.homeworkId})}">-->
+            <!--                        Show/Add Homework</a>-->
+            <!--                </div>-->
+            <!--            </td>-->
 
             <td>
                 <div class="btn-group">

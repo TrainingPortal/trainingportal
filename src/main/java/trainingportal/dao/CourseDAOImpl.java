@@ -15,7 +15,7 @@ import java.util.List;
 @Repository
 @Transactional
 public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
-    //don't forget if it needed, when DAOImpl extends JdbcDaoSupport
+
     @Autowired
     public CourseDAOImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
@@ -30,7 +30,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
     @Override
     public Course findById(Long courseId) {
-        String sql = CourseMapper.SELECT_SQL + " WHERE courseId = ?";
+        String sql = CourseMapper.SELECT_SQL + " WHERE course_id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{courseId}, new CourseMapper());
     }
@@ -39,24 +39,24 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
     //insert into database new Course
     @Override
     public void save(Course course) {
-        String sql = "INSERT INTO Course (name, course_level, course_status_id, min_number, max_number, description, trainer_id, lessons_number) VALUES (?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO Course (name, course_level, course_status_id, min_number, max_number, description, trainer_id) VALUES (?,?,?,?,?,?,?)";
         this.getJdbcTemplate().update(sql, new Object[]{course.getCourseName(), course.getCourseLevel(),
                 course.getCourseStatus(), course.getMinNumber(), course.getMaxNumber(), course.getDescription(),
-                course.getTrainerId(), course.getLessonNumber()});
+                course.getTrainerId(),});
     }
 
     @Override
     public void update(Course course) {
-        String sql = CourseMapper.EDIT_SQL + " WHERE courseId = ?";
+        String sql = CourseMapper.EDIT_SQL + " WHERE course_id = ?";
 
         this.getJdbcTemplate().update(sql, course.getCourseName(), course.getCourseLevel(),
                 course.getCourseStatus(), course.getMinNumber(), course.getMaxNumber(), course.getDescription(),
-                course.getTrainerId(), course.getLessonNumber(), course.getCourseId());
+                course.getTrainerId(), course.getCourseId());
     }
 
     @Override
     public void deleteById(Long courseId) {
-        String sql = "DELETE FROM COURSE WHERE courseId = ?";
+        String sql = "DELETE FROM COURSE WHERE course_id = ?";
 
         this.getJdbcTemplate().update(sql, courseId);
     }
@@ -84,7 +84,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
     @Override
     public int countAll() {
 
-        String sql = "SELECT COUNT(courseId) FROM Course";
+        String sql = "SELECT COUNT(course_id) FROM Course";
 
         return this.getJdbcTemplate().queryForObject(sql, Integer.class);
     }
