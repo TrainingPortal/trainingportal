@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class RoleMapper implements RowMapper<Role> {
 
     public static final String SELECT_SQL
-            = "SELECT r.roleId, (CASE r.name " +
+            = "SELECT r.role_id, (CASE r.name " +
                 "WHEN 'ROLE_ADMIN' THEN 'Admin' " +
                 "WHEN 'ROLE_EMPLOYEE' THEN 'Employee' " +
                 "WHEN 'ROLE_TRAINER' THEN 'Trainer' " +
@@ -20,7 +20,7 @@ public class RoleMapper implements RowMapper<Role> {
     @Override
     public Role mapRow(ResultSet rs, int i) throws SQLException {
 
-        Long roleId = rs.getLong("roleId");
+        Long roleId = rs.getLong("role_id");
         String roleName = rs.getString("name");
 
 

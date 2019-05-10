@@ -40,9 +40,9 @@ public class DataController {
 
         List<Course> courseLevels = courseService.findAll();
 
-        List allCourse = new ArrayList();
-        List repeated = new ArrayList();
-        List truee = new ArrayList();
+        List<String> allCourse = new ArrayList();
+        List<String> repeated = new ArrayList();
+        List<Boolean> truee = new ArrayList();
 
         //Select all uniq course name and set it in allCourse
         if (!courseLevels.isEmpty()) {
@@ -104,7 +104,7 @@ public class DataController {
         list.add("Course Name");
         list.add("Group Name");
 
-        String sql = "SELECT DISTINCT users.name as \"User Name\", roles.name as \"Role\", email, course.name as \"Course Name\", course.course_level as \"Course Level\", groups.name as \"Group Name\"  FROM users INNER JOIN course on users.roleid = course.trainer_id INNER JOIN roles ON roles.roleid = users.roleid LEFT OUTER JOIN groups ON course.courseid = groups.course_id WHERE ( users.roleid = 2 OR users.roleid = 4 ) AND course.course_level = " + "\'" + levelName + "\'";
+        String sql = "SELECT DISTINCT users.name as \"User Name\", roles.name as \"Role\", email, course.name as \"Course Name\", course.course_level as \"Course Level\", groups.name as \"Group Name\" FROM users INNER JOIN course on users.role_id = course.trainer_id INNER JOIN roles ON roles.role_id = users.role_id LEFT OUTER JOIN groups ON course.course_id = groups.course_id WHERE ( users.role_id = 2 OR users.role_id = 4 ) AND course.course_level = " + "\'" + levelName + "\'";
 
         List<List> courses = dataService.getMultiFieldsFromTables(list, sql,"Level","table");
 
@@ -119,7 +119,7 @@ public class DataController {
         list.add("Course Level");
         list.add("Course Status");
 
-        String sql = "SELECT DISTINCT users.name as \"Trainer Name\", course.name as \"Course Name\", course.course_level as \"Course Level\", coursestatus.name_status as \"Course Status\" FROM course INNER JOIN coursestatus ON course.course_status_id = coursestatus.id INNER JOIN users ON course.trainer_id = users.roleid WHERE ( users.roleid = 2 OR users.roleid = 4 ) AND users.userid = "  + trainerId;
+        String sql = "SELECT DISTINCT users.name as \"Trainer Name\", course.name as \"Course Name\", course.course_level as \"Course Level\", coursestatus.name_status as \"Course Status\" FROM course INNER JOIN coursestatus ON course.course_status_id = coursestatus.id INNER JOIN users ON course.trainer_id = users.role_id WHERE users.user_id =  " + trainerId;
 
         List<List> courses = dataService.getMultiFieldsFromTables(list, sql,"Trainer","table");
 

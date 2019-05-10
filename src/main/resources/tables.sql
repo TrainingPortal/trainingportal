@@ -556,6 +556,7 @@ alter table Attendance add constraint atten_fk_type FOREIGN KEY (type_id) refere
 alter table Schedule add constraint schedule_fk_group FOREIGN KEY (group_id) references Groups (id);
 alter table Schedule
     add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lesson_id);
+
 -- alter table Homework add constraint lesson_fk_homework FOREIGN KEY (lesson_id) references Lesson (lesson_id);
 alter table Lesson
     add constraint lesson_fk_course FOREIGN KEY (course_id) references Course (course_id);
