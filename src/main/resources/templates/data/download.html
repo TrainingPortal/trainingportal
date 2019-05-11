@@ -11,30 +11,50 @@
 
 <div th:insert="frontend/navbar :: nav"></div>
 
-<br>
-<br>
-<br>
-<br>
-<br>
-
-<div>
-<a th:href="@{downloadTrainer}" class="btn btn-light">Download by choice trainer</a>
+<div class="card text-center">
+    <div class="card-header">
+        TRAINER
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Filter by choosing one of the existing trainer</h5>
+        <p class="card-text">Includes such fields as: <br> "Trainer Name"  "Course Name"  "Course Level"  "Course Status" <br> ...</p>
+        <a th:href="@{downloadTrainer}" class="btn btn-outline-primary">Choose trainer</a>
+    </div>
+    <div class="card-footer text-muted">
+        xlsx Format
+    </div>
 </div>
 
-<div>
-    <br>
+<br>
+
+<div class="card text-center">
+    <div class="card-header">
+        LEVEL
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Filter by choosing one of the existing level</h5>
+        <p class="card-text">Includes such fields as: <br> "User Name"  "Role"  "Email"  "Course Name"  "Group Name" <br> ...</p>
+        <a th:href="@{downloadLevel}" class="btn btn-outline-primary">Choose Level</a>
+    </div>
+    <div class="card-footer text-muted">
+        xlsx Format
+    </div>
 </div>
 
-</div>
-<a th:href="@{downloadLevel}" class="btn btn-light">Download by choice level</a>
-</div>
+<br>
 
-<div>
-    <br>
-</div>
-
-</div>
-<a th:href="@{link/to/page2}" class="btn btn-light">Download by choice attendance</a>
+<div class="card text-center">
+    <div class="card-header">
+        ATTENDANCE
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">Filter by choosing one of the existing attendance</h5>
+        <p class="card-text"><!--Includes such fields as <br> ...--></p>
+        <a th:href="@{downloadAttendance}" class="btn btn-outline-primary">Choose attendance</a>
+    </div>
+    <div class="card-footer text-muted">
+        xlsx Format
+    </div>
 </div>
 
 </body>
