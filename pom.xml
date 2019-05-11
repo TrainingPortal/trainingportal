@@ -13,7 +13,7 @@
 
     <groupId>com.trainingportalgroupone</groupId>
     <artifactId>trainingportal</artifactId>
-    <version>0.1.5-SNAPSHOT</version>
+    <version>0.1.8-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>trainingportal</name>
     <description>one module for Spring Boot</description>

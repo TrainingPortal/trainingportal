@@ -95,8 +95,6 @@ INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
         VALUES ('userUser10', 'userUser@gmail.com', 'password123', 1, 2, 17);
 
-
-
 CREATE TABLE roles
 (
     role_Id      NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
