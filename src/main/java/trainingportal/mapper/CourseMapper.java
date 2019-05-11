@@ -14,7 +14,11 @@ public class CourseMapper implements RowMapper<Course> {
     public static final String EDIT_SQL
             = "UPDATE Course SET  name = ?, course_level = ?, course_status_id = ?, min_number = ?, max_number =?, description = ?, trainer_id = ?";
 
+    public static final String INSERT_SQL
+            = "INSERT INTO Course (name, course_level, course_status_id, min_number, max_number, description, trainer_id) VALUES (?,?,?,?,?,?,?)";
 
+    public static final String DELETE
+            ="DELETE FROM COURSE ";
     @Override
     public Course mapRow(ResultSet resultSet, int rowNum) throws SQLException {
 

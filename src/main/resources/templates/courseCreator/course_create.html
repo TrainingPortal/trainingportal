@@ -23,15 +23,13 @@
         <thead>
         <tr>
             <th scope="row">Id</th>
-            <th scope="row">courseName</th>
-            <th scope="row">courseLevel</th>
-            <th scope="row">courseStatus</th>
-            <th scope="row">minNumber</th>
-            <th scope="row">maxNumber</th>
+            <th scope="row">course name</th>
+            <th scope="row">course level</th>
+            <th scope="row">course status</th>
+            <th scope="row">min number of Students</th>
+            <th scope="row">max number of Students</th>
             <th scope="row">description</th>
-            <th scope="row">Trainer Name</th>
-            <th scope="row">lessonNumber</th>
-            <!--            <th scope="row">lessonNumberTest</th>-->
+            <th scope="row">Trainer</th>
         </tr>
         </thead>
         <tbody>
@@ -44,17 +42,13 @@
             <td th:text="${course.maxNumber}"></td>
             <td th:text="${course.description}"></td>
             <td th:text="${course.trainer.userName}"></td>
-
-            <!--            <td th:text="${courseList.size()}"></td>-->
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-outline-primary" th:href="@{/course_lessons(id = ${course.courseId})}">
-                        Show/Add Lessons</a>
+                    <a class="btn btn-outline-primary" th:href="@{/course_lessons(id = ${course.courseId})}">Lessons</a>
                 </div>
             </td>
             <td>
                 <div class="btn-group">
-                    <!--                    Delete button use @PathVariable to understand what id it need-->
                     <a class="btn btn-info" th:href="@{/edit-course-{id} (id = ${course.courseId}) }">Edit</a>
                     <a class="btn btn-dark" th:href="@{/course-delete-by-{id} (id = ${course.courseId}) }">Delete</a>
                 </div>
