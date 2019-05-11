@@ -26,14 +26,14 @@ drop TABLE Course_Status;
 
 CREATE TABLE Users
 (
-    user_Id      NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    user_id      NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     name        VARCHAR2(50) ,
     email       VARCHAR2(50) ,
     password    VARCHAR2(128),
     enabled     NUMBER(1),
     token       VARCHAR(36),
-    role_Id      number NOT NULL,
-    manager_Id number
+    role_id      number NOT NULL,
+    manager_id number
 );
 
 INSERT INTO users(name, email, password, enabled, role_Id)
@@ -94,8 +94,6 @@ INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
         VALUES ('userUser9', 'userUser@gmail.com', 'password123', 1, 2, 15);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
         VALUES ('userUser10', 'userUser@gmail.com', 'password123', 1, 2, 17);
-
-
 
 CREATE TABLE roles
 (

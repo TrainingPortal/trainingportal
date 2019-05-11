@@ -9,6 +9,7 @@ import trainingportal.dao.generic.GenericDaoImpl;
 import trainingportal.mapper.UserMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.User;
+
 import javax.sql.DataSource;
 import java.util.List;
 
@@ -58,7 +59,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     @Override
     public User findByToken(String token) {
 
-        String sql = UserMapper.BASE_SQL + "WHERE Token = ?";
+        String sql = UserMapper.BASE_SQL + "WHERE token = ?";
 
         User user = this.getJdbcTemplate().queryForObject(sql,new Object[]{token},new UserMapper());
 
