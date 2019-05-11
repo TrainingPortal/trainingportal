@@ -1,4 +1,4 @@
-package trainingportal.universalexportcreator.controller;
+package trainingportal.reports.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +12,8 @@ import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.CourseServiceImpl;
 import trainingportal.service.UserServiceImpl;
-import trainingportal.universalexportcreator.download.Download;
-import trainingportal.universalexportcreator.service.DataServiceImpl;
+import trainingportal.reports.download.Download;
+import trainingportal.reports.service.DataServiceImpl;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,6 +82,12 @@ public class DataController {
         return model;
     }
 
+    @RequestMapping(value = "data/downloadAttendance", method = RequestMethod.GET)
+    public ModelAndView downloadAttendance(@NotNull ModelAndView model){
+
+        return model;
+    }
+
     @RequestMapping(value = "data/downloadTrainer/{trainerId}", method = RequestMethod.GET)
     public ResponseEntity downloadTrainerFile(@PathVariable("trainerId") Long trainerId){
 
@@ -100,6 +106,15 @@ public class DataController {
         return null;
     }
 
+    @RequestMapping(value = "data/downloadAttendance/{attendance_type}", method = RequestMethod.GET)
+    public ResponseEntity downloadAttendanceFile(@PathVariable("attendance_type") Long attendance_type){
+
+        if (createNewAttendanceReport(attendance_type)){
+            return download.downloadFile("Attendance.xlsx");
+        }
+        return null;
+    }
+
     private boolean createNewTrainerReport(long trainerId){
 
         List list = new ArrayList();
@@ -108,7 +123,8 @@ public class DataController {
         list.add("Course Level");
         list.add("Course Status");
 
-        String sql = "SELECT DISTINCT users.name as \"Trainer Name\", course.name as \"Course Name\", course.course_level as \"Course Level\", coursestatus.name_status as \"Course Status\" FROM course INNER JOIN coursestatus ON course.course_status_id = coursestatus.id INNER JOIN users ON course.trainer_id = users.role_id WHERE users.user_id =  " + trainerId;
+        String sql = "SELECT DISTINCT users.name as \"Trainer Name\", course.name as \"Course Name\", course.course_level as \"Course Level\", coursestatus.name_status as \"Course Status\" \n" +
+                "FROM course INNER JOIN coursestatus ON course.course_status_id = coursestatus.id INNER JOIN users ON course.trainer_id = users.role_id WHERE users.user_id =  " + trainerId;
 
         List<List> courses = dataService.getMultiFieldsFromTables(list, sql,"Trainer","table");
         return true;
@@ -123,11 +139,34 @@ public class DataController {
         list.add("Course Name");
         list.add("Group Name");
 
+        //Choose by users who is managers or employee that have availability enter to course and course level = to ......
         String sql = "SELECT DISTINCT users.name as \"User Name\", email as \"Email\", course.name as \"Course Name\", course.course_level as \"Course Level\" \n" +
                 "FROM users INNER JOIN desiredperiod ON users.user_id = desiredperiod.user_id INNER JOIN course ON desiredperiod.course_id = course.course_id\n" +
                 "WHERE ( users.role_id = 2 OR users.role_id = 4 ) AND course.course_level = " + "\'" + levelName + "\'";
 
         List<List> courses = dataService.getMultiFieldsFromTables(list, sql,"Level","table");
+        return true;
+    }
+
+    private boolean createNewAttendanceReport(long attendance_type){
+
+        List list = new ArrayList();
+        list.add("User Name");
+        list.add("Lesson Date");
+        list.add("Lesson Name");
+        list.add("Group Name");
+        list.add("Course Name");
+        list.add("Status");
+
+        //Choose by attendance for only active or stopped course where attendance type = to ......
+        String sql = "SELECT users.name as \"User Name\", schedule.date_lesson as \"Lesson Date\", lesson.lesson_name as \"Lesson Name\", type, groups.name as \"Group Name\", course.name as \"Course Name\", course_status.name_status as \"Status\"  \n" +
+                "FROM attendance INNER JOIN users ON attendance.user_id = users.user_id INNER JOIN schedule ON attendance.schedule_id = schedule.id \n" +
+                "LEFT OUTER JOIN attendance_type ON attendance.type_id = attendance_type.id \n" +
+                "INNER JOIN lesson ON schedule.lesson_id = lesson.lesson_id LEFT OUTER JOIN groups ON schedule.group_id = groups.id\n" +
+                "LEFT OUTER JOIN course ON groups.course_id = course.course_id INNER JOIN course_status ON course.course_status_id = course_status.id\n" +
+                "WHERE ( course_status.id = 1 OR course_status.id = 3 ) AND attendance_type.id = " + attendance_type;
+
+        List<List> courses = dataService.getMultiFieldsFromTables(list, sql,"Attendance","table");
         return true;
     }
 }

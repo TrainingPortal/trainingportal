@@ -1,12 +1,12 @@
-package trainingportal.universalexportcreator.dao;
+package trainingportal.reports.dao;
 
 import export.Export;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
-import trainingportal.universalexportcreator.dao.exception.DataDaoExceptions;
-import trainingportal.universalexportcreator.mapper.DataMapper;
-import trainingportal.universalexportcreator.model.Data;
+import trainingportal.reports.dao.exception.DataDaoExceptions;
+import trainingportal.reports.mapper.DataMapper;
+import trainingportal.reports.model.Data;
 
 import javax.sql.DataSource;
 import java.util.ArrayList;

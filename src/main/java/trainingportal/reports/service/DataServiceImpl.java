@@ -1,10 +1,9 @@
-package trainingportal.universalexportcreator.service;
+package trainingportal.reports.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import trainingportal.universalexportcreator.dao.DataDaoImpl;
+import trainingportal.reports.dao.DataDaoImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service("dataService")

@@ -1,4 +1,4 @@
-package trainingportal.universalexportcreator.dao.exception;
+package trainingportal.reports.dao.exception;
 
 public class DataDaoExceptions extends RuntimeException {
 

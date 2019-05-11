@@ -1,4 +1,4 @@
-package trainingportal.universalexportcreator.service;
+package trainingportal.reports.service;
 
 import java.util.List;
 
