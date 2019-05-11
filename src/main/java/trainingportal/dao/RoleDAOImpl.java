@@ -25,7 +25,7 @@ public class RoleDAOImpl extends JdbcDaoSupport {
     public List<String> getRoleNames(Long userId) {
         String sql = "SELECT r.name FROM users u" //
                 + " INNER JOIN roles r " //
-                + "ON u.roleid = r.roleid AND u.userId = ? ";
+                + "ON u.role_id = r.role_id AND u.user_id = ? ";
 
         Object[] params = new Object[] { userId };
 

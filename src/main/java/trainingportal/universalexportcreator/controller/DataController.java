@@ -33,10 +33,26 @@ public class DataController {
     @Autowired
     CourseService courseService;
 
-    @RequestMapping(value = "trainer/trainerCourses", method = RequestMethod.GET)
+    @RequestMapping(value = "data/download", method = RequestMethod.GET)
+    public ModelAndView download(@NotNull ModelAndView model){
+
+        return model;
+
+    }
+
+    @RequestMapping(value = "data/downloadTrainer", method = RequestMethod.GET)
     public ModelAndView downloadTrainer(@NotNull ModelAndView model){
 
         List<User> trainers = userService.findAllEnabledByRole(Role.TRAINER);
+
+        model.addObject("trainers",trainers);
+
+        return model;
+
+    }
+
+    @RequestMapping(value = "data/downloadLevel", method = RequestMethod.GET)
+    public ModelAndView downloadLevel(@NotNull ModelAndView model){
 
         List<Course> courseLevels = courseService.findAll();
 
@@ -50,7 +66,7 @@ public class DataController {
                 if (!repeated.isEmpty()) {
                     for (int i = 0; i < repeated.size(); i++) {
                         if (courseLevel.getCourseLevel().equals(repeated.get(i))) {
-                           truee.add(new Boolean(true));
+                            truee.add(new Boolean(true));
                         }
                     }
                     if (truee.isEmpty()){
@@ -66,14 +82,13 @@ public class DataController {
         } else
             throw new NullPointerException();
 
-        model.addObject("trainers",trainers);
         model.addObject("allCourses",allCourse);
 
         return model;
 
     }
 
-    @RequestMapping(value = "trainer/trainerCoursesDownload/{trainerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "data/downloadTrainer/{trainerId}", method = RequestMethod.GET)
     public ResponseEntity downloadTrainerFile(@PathVariable("trainerId") Long trainerId){
 
         System.out.println(trainerId);
@@ -85,7 +100,7 @@ public class DataController {
         return null;
     }
 
-    @RequestMapping(value = "trainer/LevelCoursesDownload/{levelName}", method = RequestMethod.GET)
+    @RequestMapping(value = "data/downloadLevel/{levelName}", method = RequestMethod.GET)
     public ResponseEntity downloadLevelFile(@PathVariable("levelName") String levelName){
 
         if (createNewLevelReport(levelName)){
@@ -93,22 +108,6 @@ public class DataController {
         }
 
         return null;
-    }
-
-    private boolean createNewLevelReport(String levelName){
-
-        List list = new ArrayList();
-        list.add("User Name");
-        list.add("Role");
-        list.add("email");
-        list.add("Course Name");
-        list.add("Group Name");
-
-        String sql = "SELECT DISTINCT users.name as \"User Name\", roles.name as \"Role\", email, course.name as \"Course Name\", course.course_level as \"Course Level\", groups.name as \"Group Name\" FROM users INNER JOIN course on users.role_id = course.trainer_id INNER JOIN roles ON roles.role_id = users.role_id LEFT OUTER JOIN groups ON course.course_id = groups.course_id WHERE ( users.role_id = 2 OR users.role_id = 4 ) AND course.course_level = " + "\'" + levelName + "\'";
-
-        List<List> courses = dataService.getMultiFieldsFromTables(list, sql,"Level","table");
-
-        return true;
     }
 
     private boolean createNewTrainerReport(long trainerId){
@@ -126,4 +125,21 @@ public class DataController {
         return true;
     }
 
+    private boolean createNewLevelReport(String levelName){
+
+        List list = new ArrayList();
+        list.add("User Name");
+        list.add("Role");
+        list.add("email");
+        list.add("Course Name");
+        list.add("Group Name");
+
+        String sql = "SELECT DISTINCT users.name as \"User Name\", email, course.name as \"Course Name\", course.course_level as \"Course Level\" \n" +
+                "FROM users INNER JOIN desiredperiod ON users.user_id = desiredperiod.user_id INNER JOIN course ON desiredperiod.course_id = course.course_id\n" +
+                "WHERE ( users.role_id = 2 OR users.role_id = 4 ) AND course.course_level = '" + "\'" + levelName + "\'";
+
+        List<List> courses = dataService.getMultiFieldsFromTables(list, sql,"Level","table");
+
+        return true;
+    }
 }

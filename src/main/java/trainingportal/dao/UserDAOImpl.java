@@ -19,7 +19,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     PasswordEncoder passwordEncoder;
     //Define table and id column
     private static final String TABLE_NAME = "users";
-    private static final String ID_COLUMN = "userId";
+    private static final String ID_COLUMN = "user_id";
 
     public UserDAOImpl(DataSource dataSource) {
         super(dataSource);
@@ -84,7 +84,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     @Override
     public void confirmRegister(User user) {
 
-        String sql = "UPDATE users SET enabled = ? WHERE userId = ?";
+        String sql = "UPDATE users SET enabled = ? WHERE user_id = ?";
 
         this.getJdbcTemplate().update(sql, user.getEnabled(), user.getUserId());
     }
