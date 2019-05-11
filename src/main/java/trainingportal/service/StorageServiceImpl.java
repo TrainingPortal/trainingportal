@@ -1,32 +1,33 @@
 package trainingportal.service;
 
-import trainingportal.model.CarouselData;
-import trainingportal.repository.CarouselDataRepository;
+
+import trainingportal.model.FilesModel;
+import trainingportal.repository.DBFilesRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+
 import java.io.IOException;
 
 @Service
-public class StorageServiceImpl {
+public class StorageServiceImpl implements StorageService{
 
     @Autowired
-    private CarouselDataRepository carRepos;
+    private DBFilesRepository dbFileRepository;
 
-    public DBFile storeFile(MultipartFile file){
+    public FilesModel storeFile(MultipartFile file) throws IOException {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
-        /*try {
+        FilesModel dbFile = new FilesModel(fileName, file.getContentType(), file.getBytes());
 
-            CarouselData carData = new CarouselData(fileName, file.getContentType(), file.getBytes());
+        return dbFileRepository.save(dbFile);
 
-            return dbFileRepository.save(dbFile);
-        } catch (IOException ex) {
-            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
-        }
+    }
+
+    /*public FilesModel getFile(String fileId) {
+        return dbFileRepository.findById(fileId);
     }*/
-
 }
