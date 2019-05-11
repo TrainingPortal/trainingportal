@@ -84,8 +84,9 @@
                         <a class="nav-link " href="/admin"
                            th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">ADMIN</a>
                     </li>
-                    <li class="nav-item active">
-                        <a class="nav-link " href="/data/download" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">REPORTS</a>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/data/download"
+                           th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">REPORTS</a>
                     </li>
                     <li class="nav-item active">
                         <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
