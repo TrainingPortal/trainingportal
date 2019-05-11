@@ -22,9 +22,9 @@
         </tr>
         </thead>
         <tr th:each="allType,iter:${allTypes}">
-            <td th:text="${allType}"></td>
+            <td th:text="${allType.attendanceType}"></td>
             <td>
-                <a th:href="@{downloadLevel/{attendance_type}}" class="btn btn-dark">Download file</a>
+                <a th:href="@{downloadAttendance/{attendanceId} (attendanceId = ${allType.attendanceId})}" class="btn btn-dark">Download file</a>
             </td>
         </tr>
     </table>
