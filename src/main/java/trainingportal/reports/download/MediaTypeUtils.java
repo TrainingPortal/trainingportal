@@ -1,4 +1,4 @@
-package trainingportal.universalexportcreator.download;
+package trainingportal.reports.download;
 
 import javax.servlet.ServletContext;
 

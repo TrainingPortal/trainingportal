@@ -1,4 +1,4 @@
-package trainingportal.universalexportcreator.model;
+package trainingportal.reports.model;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>TrainerDownload</title>
+    <title>AttendanceDownload</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <meta content="width=device-width" name="viewport">
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
@@ -17,16 +17,16 @@
     <table class="table pt-0 mt-0 table-fit table-sm table-hover">
         <thead class="">
         <tr>
-            <th style="width: 20%">Name</th>
+            <th style="width: 20%">Attendance</th>
             <th style="width: 50%">Download</th>
         </tr>
         </thead>
-        <tr th:each="trainer,iter:${trainers}">
-            <td th:text="${trainer.userName}"></td>
+<!--        <tr th:each="allCourse,iter:${allCourses}">
+            <td th:text="${allCourse}"></td>
             <td>
-                <a th:href="@{downloadTrainer/{trainerId} (trainerId = ${trainer.userId})}" class="btn btn-dark">Download file</a>
+                <a th:href="@{downloadLevel/{levelName} (levelName = ${allCourse})}" class="btn btn-dark">Download file</a>
             </td>
-        </tr>
+        </tr>-->
     </table>
 </div>
 

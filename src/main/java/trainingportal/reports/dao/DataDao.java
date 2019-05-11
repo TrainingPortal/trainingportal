@@ -1,4 +1,4 @@
-package trainingportal.universalexportcreator.dao;
+package trainingportal.reports.dao;
 
 import java.util.List;
 
