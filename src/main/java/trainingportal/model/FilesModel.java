@@ -7,14 +7,14 @@ import javax.persistence.*;
 public class FilesModel {
 
     @Id
-    @Column
-    private String filesId;
-    @Column
+    @GeneratedValue
+    private Long filesId;
+    @Column(name = "files_name")
     private String filesName;
-    @Column
+    @Column(name = "files_type")
     private String filesType;
     @Lob
-    @Column
+    @Column(name = "files_data")
     private byte[] filesData;
 
     protected FilesModel() {
@@ -26,7 +26,7 @@ public class FilesModel {
         this.filesData = filesData;
     }
 
-    public String getFilesId() {
+    public Long getFilesId() {
         return filesId;
     }
 

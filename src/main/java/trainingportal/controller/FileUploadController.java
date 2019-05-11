@@ -33,8 +33,10 @@ public class FileUploadController {
 
 
     @GetMapping("/upload_form")
-    public String uploadForm(Model model){
-        return "/uploadData/upload_form";
+    public ModelAndView uploadForm(ModelAndView modelAndView){
+
+        modelAndView.setViewName("uploadData/upload_form");
+        return modelAndView;
     }
 
     @PostMapping("/file-save")

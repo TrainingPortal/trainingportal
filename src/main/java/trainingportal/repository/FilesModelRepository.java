@@ -5,5 +5,5 @@ import org.springframework.stereotype.Repository;
 import trainingportal.model.FilesModel;
 
 @Repository
-public interface DBFilesRepository extends JpaRepository<FilesModel, String> {
+public interface FilesModelRepository extends JpaRepository<FilesModel, Long> {
 }

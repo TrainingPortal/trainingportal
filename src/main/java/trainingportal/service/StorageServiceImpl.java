@@ -2,7 +2,7 @@ package trainingportal.service;
 
 
 import trainingportal.model.FilesModel;
-import trainingportal.repository.DBFilesRepository;
+import trainingportal.repository.FilesModelRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,15 +15,16 @@ import java.io.IOException;
 public class StorageServiceImpl implements StorageService{
 
     @Autowired
-    private DBFilesRepository dbFileRepository;
+    private FilesModelRepository dbFileRepository;
 
+    @Override
     public FilesModel storeFile(MultipartFile file) throws IOException {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         FilesModel dbFile = new FilesModel(fileName, file.getContentType(), file.getBytes());
 
-        return dbFileRepository.save(dbFile);
+        return dbFileRepository.saveAndFlush(dbFile);
 
     }
 
