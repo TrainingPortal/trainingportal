@@ -1,4 +1,4 @@
-package trainingportal.universalexportcreator.mapper;
+package trainingportal.reports.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
 
