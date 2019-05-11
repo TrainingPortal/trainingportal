@@ -123,8 +123,9 @@ public class DataController {
         list.add("Course Level");
         list.add("Course Status");
 
-        String sql = "SELECT DISTINCT users.name as \"Trainer Name\", course.name as \"Course Name\", course.course_level as \"Course Level\", coursestatus.name_status as \"Course Status\" \n" +
-                "FROM course INNER JOIN coursestatus ON course.course_status_id = coursestatus.id INNER JOIN users ON course.trainer_id = users.role_id WHERE users.user_id =  " + trainerId;
+        //Select
+        String sql = "SELECT DISTINCT users.name as \"Trainer Name\", course.name as \"Course Name\", course.course_level as \"Course Level\", course_status.name_status as \"Course Status\" \n" +
+                "FROM course INNER JOIN course_status ON course.course_status_id = course_status.id INNER JOIN users ON course.trainer_id = users.role_id WHERE users.user_id =  " + trainerId;
 
         List<List> courses = dataService.getMultiFieldsFromTables(list, sql,"Trainer","table");
         return true;
@@ -141,7 +142,7 @@ public class DataController {
 
         //Choose by users who is managers or employee that have availability enter to course and course level = to ......
         String sql = "SELECT DISTINCT users.name as \"User Name\", email as \"Email\", course.name as \"Course Name\", course.course_level as \"Course Level\" \n" +
-                "FROM users INNER JOIN desiredperiod ON users.user_id = desiredperiod.user_id INNER JOIN course ON desiredperiod.course_id = course.course_id\n" +
+                "FROM users INNER JOIN desired_period ON users.user_id = desired_period.user_id INNER JOIN course ON desired_period.course_id = course.course_id\n" +
                 "WHERE ( users.role_id = 2 OR users.role_id = 4 ) AND course.course_level = " + "\'" + levelName + "\'";
 
         List<List> courses = dataService.getMultiFieldsFromTables(list, sql,"Level","table");
