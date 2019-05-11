@@ -30,5 +30,7 @@ HELP.md
 
 ### Lova Vardanian local settings ###
 /src/main/resources/application.properties
+Trainer.xlsx
+Level.xlsx
 
 
