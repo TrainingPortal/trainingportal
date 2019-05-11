@@ -9,7 +9,7 @@ import java.sql.SQLException;
 public class CourseStatusMapper implements RowMapper<CourseStatus> {
 
     public static final String SELECT_SQL
-            = "SELECT s.id, s.name_status FROM Course_Status s ";
+            = "SELECT s.id, s.name_status FROM CourseStatus s ";
 
     @Override
     public CourseStatus mapRow(ResultSet resultSet, int rowNum) throws SQLException {
