@@ -8,6 +8,7 @@ public class FilesModel {
 
     @Id
     @GeneratedValue
+    @Column(name = "files_id")
     private Long filesId;
     @Column(name = "files_name")
     private String filesName;
