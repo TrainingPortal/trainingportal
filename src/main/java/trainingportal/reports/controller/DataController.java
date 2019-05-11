@@ -10,10 +10,11 @@ import org.springframework.web.servlet.ModelAndView;
 import trainingportal.model.Course;
 import trainingportal.model.Role;
 import trainingportal.model.User;
-import trainingportal.service.CourseServiceImpl;
-import trainingportal.service.UserServiceImpl;
+import trainingportal.reports.service.DataService;
+import trainingportal.service.AttendanceType;
+import trainingportal.service.CourseService;
+import trainingportal.service.UserService;
 import trainingportal.reports.download.Download;
-import trainingportal.reports.service.DataServiceImpl;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,16 +23,19 @@ import java.util.List;
 public class DataController {
 
     @Autowired
-    private DataServiceImpl dataService;
+    private DataService dataService;
 
     @Autowired
     private Download download;
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
-    private CourseServiceImpl courseService;
+    private CourseService courseService;
+
+    @Autowired
+    private AttendanceType attendanceType;
 
     @RequestMapping(value = "data/download", method = RequestMethod.GET)
     public ModelAndView download(@NotNull ModelAndView model){
@@ -85,6 +89,8 @@ public class DataController {
     @RequestMapping(value = "data/downloadAttendance", method = RequestMethod.GET)
     public ModelAndView downloadAttendance(@NotNull ModelAndView model){
 
+        List<String> allTypes = attendanceType.getAllReasonsList();
+        model.addObject("allTypes",allTypes);
         return model;
     }
 
@@ -107,7 +113,7 @@ public class DataController {
     }
 
     @RequestMapping(value = "data/downloadAttendance/{attendance_type}", method = RequestMethod.GET)
-    public ResponseEntity downloadAttendanceFile(@PathVariable("attendance_type") Long attendance_type){
+    public ResponseEntity downloadAttendanceFile(@PathVariable("attendance_type") String attendance_type){
 
         if (createNewAttendanceReport(attendance_type)){
             return download.downloadFile("Attendance.xlsx");
@@ -149,7 +155,7 @@ public class DataController {
         return true;
     }
 
-    private boolean createNewAttendanceReport(long attendance_type){
+    private boolean createNewAttendanceReport(String attendance_type){
 
         List list = new ArrayList();
         list.add("User Name");
@@ -165,7 +171,7 @@ public class DataController {
                 "LEFT OUTER JOIN attendance_type ON attendance.type_id = attendance_type.id \n" +
                 "INNER JOIN lesson ON schedule.lesson_id = lesson.lesson_id LEFT OUTER JOIN groups ON schedule.group_id = groups.id\n" +
                 "LEFT OUTER JOIN course ON groups.course_id = course.course_id INNER JOIN course_status ON course.course_status_id = course_status.id\n" +
-                "WHERE ( course_status.id = 1 OR course_status.id = 3 ) AND attendance_type.id = " + attendance_type;
+                "WHERE ( course_status.id = 1 OR course_status.id = 3 ) AND attendance_type.id = " + "\'" + attendance_type + "\'";
 
         List<List> courses = dataService.getMultiFieldsFromTables(list, sql,"Attendance","table");
         return true;
