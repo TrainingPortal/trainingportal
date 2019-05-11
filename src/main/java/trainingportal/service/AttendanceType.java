@@ -1,10 +1,10 @@
 package trainingportal.service;
 
-import trainingportal.model.CourseStatus;
+import trainingportal.model.Attendance;
 
 import java.util.List;
 
 public interface AttendanceType {
 
-    List<String> getAllReasonsList();
+    List<Attendance> getAllAttendanceList();
 }

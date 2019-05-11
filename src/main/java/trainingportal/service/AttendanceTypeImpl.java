@@ -3,18 +3,19 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import trainingportal.dao.AttendanceTypeDaoImpl;
+import trainingportal.model.Attendance;
 
 import java.util.List;
 
 @Service
-public class AttendanceTypeImpl implements AttendanceType {
+public class AttendanceTypeImpl implements trainingportal.service.AttendanceType {
 
     @Autowired
     AttendanceTypeDaoImpl attendanceTypeDao;
 
     @Override
-    public List<String> getAllReasonsList() {
-        List<String> allType = attendanceTypeDao.findAllReasonsList();
+    public List<Attendance> getAllAttendanceList() {
+        List<Attendance> allType = attendanceTypeDao.findAllAttendanceList();
         return allType;
     }
 }
