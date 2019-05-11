@@ -15,9 +15,6 @@ import trainingportal.model.User;
 import trainingportal.service.CourseService;
 import trainingportal.service.LessonService;
 import trainingportal.service.UserService;
-import trainingportal.universalexportcreator.dao.DataDaoImpl;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -104,38 +101,6 @@ public class CourseController {
         redirect.addFlashAttribute("successMessage", "course deleted successfully");
 
         model.setViewName("redirect:/course_create/1");
-        return model;
-    }
-
-    @Autowired
-    public DataDaoImpl dataDao;
-
-    @RequestMapping(value = "/course-download-all-courses", method = RequestMethod.GET)
-    public ModelAndView downloadAllTrainers(ModelAndView model, RedirectAttributes redir){
-
-        List list = new ArrayList();
-        list.add("name");
-        list.add("courseid");
-        list.add("course_level");
-        list.add("course_status_id");
-        list.add("min_number");
-        list.add("max_number");
-        list.add("description");
-        list.add("trainer_id");
-        list.add("lessons_number");
-
-
-        List<List> courses = dataDao.findFieldsFromTable(list, "course","allCourses","table");
-
-//        String fromFile = "/Users/mrlova/Downloads/log.txt";
-//        String toFile = "/Users/mrlova/Downloads/log.txt";
-//
-//        try {
-//            FileUtils.copyURLToFile(new URL(fromFile), new File(toFile), 10000, 10000);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         return model;
     }
 }

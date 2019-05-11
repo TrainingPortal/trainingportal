@@ -1,6 +1,6 @@
 package export.exception;
 
-public class ExportToExcelException extends Exception {
+public class ExportToExcelException extends RuntimeException {
 
     public ExportToExcelException(String message) {
         super(message);

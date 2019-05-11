@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Download</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+</head>
+<body>
+
+<div th:insert="frontend/navbar :: nav"></div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div>
+<a th:href="@{downloadTrainer}" class="btn btn-light">Download by choice trainer</a>
+</div>
+
+<div>
+    <br>
+</div>
+
+</div>
+<a th:href="@{downloadLevel}" class="btn btn-light">Download by choice level</a>
+</div>
+
+<div>
+    <br>
+</div>
+
+</div>
+<a th:href="@{link/to/page2}" class="btn btn-light">Download by choice attendance</a>
+</div>
+
+</body>
+</html>
