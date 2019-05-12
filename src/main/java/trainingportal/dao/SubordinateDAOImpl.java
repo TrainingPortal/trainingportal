@@ -22,7 +22,7 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
     @Override
     public List<User> findSubordinatesById(Long id) {
 
-        String sql = UserMapper.BASE_SQL + "WHERE u.managerId = ?";
+        String sql = UserMapper.BASE_SQL + "WHERE u.manager_id = ?";
 
         List<User> users = this.getJdbcTemplate().query(sql,new Object[]{id}, new UserMapper());
 
@@ -32,7 +32,7 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
     @Override
     public User findManagerBySubordinateId(Long id) {
 
-        String sql = UserMapper.BASE_SQL + "WHERE u.userId = (SELECT managerId FROM users WHERE userId = ?)";
+        String sql = UserMapper.BASE_SQL + "WHERE u.user_id = (SELECT manager_id FROM users WHERE user_id = ?)";
 
         User user = this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new UserMapper());
 
@@ -42,7 +42,7 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
     @Override
     public List<User> findFreeUsers() {
 
-        String sql = UserMapper.BASE_SQL + "WHERE u.managerId IS NULL AND u.roleId = ? AND u.enabled = 1";
+        String sql = UserMapper.BASE_SQL + "WHERE u.manager_id IS NULL AND u.role_id = ? AND u.enabled = 1";
 
         List<User> users = this.getJdbcTemplate().query(sql, new Object[]{Role.EMPLOYEE}, new UserMapper());
 
@@ -52,7 +52,7 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
     @Override
     public void setManagerId(Long managerId, Long userId) {
 
-        String sql = "UPDATE users SET managerId = ? WHERE userId = ?";
+        String sql = "UPDATE users SET manager_id = ? WHERE user_id = ?";
 
         this.getJdbcTemplate().update(sql, managerId, userId);
     }
@@ -61,7 +61,7 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
     public List<User> getSubordinatesByIdAsPage(int page, int total, Long id) {
 
         String sql = UserMapper.BASE_SQL +
-                "WHERE u.managerId = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "WHERE u.manager_id = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
         List<User> users = this.getJdbcTemplate().query(sql, new Object[]{id}, new UserMapper());
 
@@ -71,7 +71,7 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
     @Override
     public List<User> getFreeUsersAsPage(int page, int total) {
 
-        String sql = UserMapper.BASE_SQL + "WHERE u.managerId IS NULL AND u.roleId = ? AND u.enabled = 1 " +
+        String sql = UserMapper.BASE_SQL + "WHERE u.manager_id IS NULL AND u.role_id = ? AND u.enabled = 1 " +
                 "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
         List<User> users = this.getJdbcTemplate().query(sql, new Object[]{Role.EMPLOYEE}, new UserMapper());
@@ -82,7 +82,7 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
     @Override
     public int countAllByManager(Long id) {
 
-        String sql = "SELECT COUNT(userId) FROM users WHERE managerId = ?";
+        String sql = "SELECT COUNT(user_id) FROM users WHERE manager_id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
     }
@@ -90,7 +90,7 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
     @Override
     public int countFreeUsers() {
 
-        String sql = "SELECT COUNT(userId) FROM users WHERE managerId IS NULL AND roleId = ?";
+        String sql = "SELECT COUNT(user_id) FROM users WHERE manager_id IS NULL AND role_id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{Role.EMPLOYEE}, Integer.class);
     }

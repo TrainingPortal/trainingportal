@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
+import trainingportal.model.Course;
 import trainingportal.model.Lesson;
 import trainingportal.service.CourseService;
 import trainingportal.service.LessonService;
@@ -27,9 +28,9 @@ public class LessonController {
 
         List<Lesson> lessonsOfCourse = lessonService.getLessonCourseId(id);
 
-//        Course course = courseService.findById(id);
-//        modelAndView.addObject("courseLesson", course);
-//        modelAndView.addObject("course_id", courseId);
+        Course course = courseService.findById(id);
+        modelAndView.addObject("courseLesson", course);
+        modelAndView.addObject("id", id);
         modelAndView.addObject("lessonsOfCourse", lessonsOfCourse);
         modelAndView.setViewName("lessonCreator/course_lessons");
 

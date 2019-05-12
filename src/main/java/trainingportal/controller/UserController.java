@@ -21,8 +21,8 @@ public class UserController {
     @Autowired
     private Sender mailSender;
 
-//    public static final String SERVER_NAME = "http://localhost:8080";
-    public static final String SERVER_NAME = "http://Trainingportal-env.mqetbmxd4x.eu-west-2.elasticbeanstalk.com";
+    public static final String SERVER_NAME = "http://localhost:8080";
+//    public static final String SERVER_NAME = "http://Trainingportal-env.mqetbmxd4x.eu-west-2.elasticbeanstalk.com";
 
     @Autowired
     private UserService userService;
