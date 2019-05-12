@@ -40,4 +40,9 @@ public class MainSliderServiceImpl implements MainSliderService {
         return dataList;
     }
 
+    @Override
+    public void deleteById(Long mainSliderId){
+        mainSliderRepository.deleteById(mainSliderId);
+    }
+
 }

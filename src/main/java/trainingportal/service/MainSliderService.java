@@ -13,4 +13,5 @@ public interface MainSliderService {
 
     List<MainSliderModel> getAll();
 
+    void deleteById(Long mainSliderId);
 }

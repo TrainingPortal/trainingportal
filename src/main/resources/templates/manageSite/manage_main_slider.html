@@ -15,7 +15,7 @@
 <div class="container-fluid">
     <h3>Add Slider</h3>
 
-    <form class="fv-form-horizontal" method="post" enctype="multipart/form-data" action="/file-save">
+    <form class="fv-form-horizontal" method="post" enctype="multipart/form-data" action="/data-save">
 
         <div class="form-group">
             <label class="control label col-sm-2" for="file">Upload file:</label>
@@ -46,7 +46,36 @@
 
     </form>
 
+</div>
 
+<div class="container-fluid">
+    <h3>List of slider datas</h3>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="row">Image</th>
+            <th scope="row">Image Name</th>
+            <th scope="row">Button Name</th>
+            <th scope="row">Button URL</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="data : ${dataList}">
+            <td th:text="tempNoImage"></td>
+            <td th:text="${data.filesName}"></td>
+            <td th:text="${data.buttonName}"></td>
+            <td th:text="${data.buttonUrl}"></td>
+            <td>
+                <div class="btn-group">
+                    <!--                    Delete button use @PathVariable to understand what id it need-->
+                    <button type="button" class="btn btn-outline-warning" disabled>Edit</button>
+                    <a class="btn btn-outline-danger" th:href="@{/data-delete-by-{id} (id = ${data.mainSliderId}) }">Delete</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 
