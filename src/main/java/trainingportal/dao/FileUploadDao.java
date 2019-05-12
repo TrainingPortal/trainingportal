@@ -2,7 +2,7 @@
 package trainingportal.dao;
 
 import org.springframework.web.multipart.MultipartFile;
-import trainingportal.model.FilesModel;
+import trainingportal.model.MainSliderModel;
 import java.io.IOException;
 
 public interface FileUploadDao {
