@@ -82,4 +82,11 @@ public class MainController {
         return "frontend/helppage";
     }
 
+    @GetMapping("/website_settings")
+    public ModelAndView settingsPage(ModelAndView modelAndView){
+
+        modelAndView.setViewName("/manageSite/website_settings");
+        return modelAndView;
+    }
+
 }
