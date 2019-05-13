@@ -16,4 +16,6 @@ public interface MainSliderDao {
 
     void deleteById(Long mainSliderId);
 
+    int countAll();
+
 }

@@ -17,6 +17,12 @@ public class MainSliderMapper implements RowMapper<MainSliderModel> {
     public static final String EDIT_SQL
             = "UPDATE main_slider SET  files_name = ?, files_type = ?, files_data = ?, button_name = ?, button_url =?";
 
+    public static final String COUNT_ALL_SQL
+            = "SELECT COUNT (*) FROM main_slider";
+
+    public static final String DELETE_SQL
+            = "DELETE FROM main_slider";
+
 
     @Override
     public MainSliderModel mapRow(ResultSet resultSet, int rowNum) throws SQLException {

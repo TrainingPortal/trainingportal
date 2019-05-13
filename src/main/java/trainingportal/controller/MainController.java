@@ -7,11 +7,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
+import trainingportal.model.MainCardModel;
 import trainingportal.model.MainSliderModel;
+import trainingportal.service.MainCardService;
 import trainingportal.service.MainSliderService;
 import trainingportal.utils.WebUtils;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -20,12 +23,20 @@ public class MainController {
     @Autowired
     MainSliderService mainSliderService;
 
+    @Autowired
+    MainCardService mainCardService;
+
     @GetMapping({"/", "/index"})
     public ModelAndView welcomePage(ModelAndView modelAndView) {
 
         List<MainSliderModel> sliderList = mainSliderService.getAll();
+        ArrayList<Integer> indicatorList = mainSliderService.getSlideIndicators();
+        List<MainCardModel> cardList = mainCardService.getAll();
+
 
         modelAndView.addObject("sliderList", sliderList);
+        modelAndView.addObject("indicatorList", indicatorList);
+        modelAndView.addObject("cardList", cardList);
         modelAndView.setViewName("frontend/index");
         return modelAndView;
     }

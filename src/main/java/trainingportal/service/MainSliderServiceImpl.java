@@ -9,6 +9,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -42,6 +43,23 @@ public class MainSliderServiceImpl implements MainSliderService {
     @Override
     public void deleteById(Long mainSliderId){
         mainSliderDao.deleteById(mainSliderId);
+    }
+
+    @Override
+    public int countAll(){
+        return mainSliderDao.countAll();
+    }
+
+    // Needed for carousel indicators
+    @Override
+    public ArrayList<Integer> getSlideIndicators(){
+        int number;
+        number = countAll();
+        ArrayList<Integer> indicatorList = new ArrayList<Integer>();
+        for (int i = 0; i <= number; i++){
+            indicatorList.add(i);
+        }
+        return indicatorList;
     }
 
 }

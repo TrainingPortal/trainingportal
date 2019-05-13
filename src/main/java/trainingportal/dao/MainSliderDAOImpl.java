@@ -51,9 +51,17 @@ public class MainSliderDAOImpl extends JdbcDaoSupport implements MainSliderDao {
 
     @Override
     public void deleteById(Long mainSliderId) {
-        String sql = "DELETE FROM main_slider WHERE main_slider_id = ?";
+        String sql = MainSliderMapper.DELETE_SQL + " WHERE main_slider_id = ?";
 
         this.getJdbcTemplate().update(sql, mainSliderId);
+    }
+
+    @Override
+    public int countAll() {
+
+        String sql = MainSliderMapper.COUNT_ALL_SQL;
+
+        return this.getJdbcTemplate().queryForObject(sql, Integer.class);
     }
 
 }
