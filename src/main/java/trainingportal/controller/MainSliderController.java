@@ -4,9 +4,6 @@ package trainingportal.controller;
 import trainingportal.model.MainSliderModel;
 import trainingportal.service.MainSliderService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,7 +16,6 @@ import java.util.List;
 @RestController
 public class MainSliderController {
 
-    private static final Logger logger = LoggerFactory.getLogger(MainSliderController.class);
 
     @Autowired
     private MainSliderService mainSliderService;
@@ -35,7 +31,7 @@ public class MainSliderController {
         return modelAndView;
     }
 
-    @PostMapping("/data-save")
+    @PostMapping("/slider-save")
     public ModelAndView uploadData(@RequestParam MultipartFile file, @RequestParam String name, @RequestParam String url, ModelAndView modelAndView) throws IOException {
         mainSliderService.storeData(file, name, url);
 
@@ -51,7 +47,7 @@ public class MainSliderController {
 
     }*/
 
-    @GetMapping("/data-delete-by-{id}")
+    @GetMapping("/slider-delete-by-{id}")
     public ModelAndView editMainSlider(@PathVariable("id") Long dataId, ModelAndView modelAndView){
 
         mainSliderService.deleteById(dataId);

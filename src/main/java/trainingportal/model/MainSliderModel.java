@@ -1,25 +1,23 @@
 package trainingportal.model;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "main_slider")
+//@Entity
+//@Table(name = "main_slider")
 public class MainSliderModel {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "main_slider_id")
+//    @Id
+//    @GeneratedValue
+//    @Column(name = "main_slider_id")
     private Long mainSliderId;
-    @Column(name = "files_name")
+//    @Column(name = "files_name")
     private String filesName;
-    @Column(name = "files_type")
+//    @Column(name = "files_type")
     private String filesType;
-    @Lob
-    @Column(name = "files_data")
+//    @Lob
+//    @Column(name = "files_data")
     private byte[] filesData;
-    @Column(name = "button_name")
+//    @Column(name = "button_name")
     private String buttonName;
-    @Column (name = "button_url")
+//    @Column (name = "button_url")
     private String buttonUrl;
 
     private String filesDataString;
@@ -27,7 +25,8 @@ public class MainSliderModel {
     protected MainSliderModel() {
     }
 
-    public MainSliderModel(String filesName, String filesType, byte[] filesData, String buttonName, String buttonUrl) {
+    public MainSliderModel(Long mainSliderId, String filesName, String filesType, byte[] filesData, String buttonName, String buttonUrl) {
+        this.mainSliderId = mainSliderId;
         this.filesName = filesName;
         this.filesType = filesType;
         this.filesData = filesData;

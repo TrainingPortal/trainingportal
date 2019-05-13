@@ -1,7 +1,7 @@
 package trainingportal.service;
 
 import trainingportal.model.MainSliderModel;
-import trainingportal.repository.MainSliderModelRepository;
+import trainingportal.dao.MainSliderDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,22 +16,23 @@ import java.util.List;
 public class MainSliderServiceImpl implements MainSliderService {
 
     @Autowired
-    private MainSliderModelRepository mainSliderRepository;
+    private MainSliderDao mainSliderDao;
 
     @Override
-    public MainSliderModel storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException {
+    public void storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        Long mainSliderId = 0L;
 
-        MainSliderModel data = new MainSliderModel(fileName, file.getContentType(), file.getBytes(), buttonName, buttonUrl);
+        MainSliderModel data = new MainSliderModel(mainSliderId, fileName, file.getContentType(), file.getBytes(), buttonName, buttonUrl);
 
-        return mainSliderRepository.saveAndFlush(data);
+        mainSliderDao.storeData(data);
 
     }
 
     @Override
     public List<MainSliderModel> getAll(){
-        List<MainSliderModel> dataList = mainSliderRepository.findAll();
+        List<MainSliderModel> dataList = mainSliderDao.getAll();
         for (MainSliderModel data : dataList){
             data.setFilesDataString(Base64.getEncoder().encodeToString(data.getFilesData()));
         }
@@ -40,7 +41,7 @@ public class MainSliderServiceImpl implements MainSliderService {
 
     @Override
     public void deleteById(Long mainSliderId){
-        mainSliderRepository.deleteById(mainSliderId);
+        mainSliderDao.deleteById(mainSliderId);
     }
 
 }

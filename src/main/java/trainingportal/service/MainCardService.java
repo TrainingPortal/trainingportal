@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface MainCardService {
 
-    MainCardModel storeData(MultipartFile file, String cardTitle, String cardText, String buttonName, String cardUrl) throws IOException;
+    void storeData(MultipartFile file, String cardTitle, String cardText, String buttonName, String cardUrl) throws IOException;
 
     List<MainCardModel> getAll();
 

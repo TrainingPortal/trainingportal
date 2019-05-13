@@ -8,7 +8,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 import trainingportal.model.MainSliderModel;
-import trainingportal.repository.MainSliderModelRepository;
 import trainingportal.service.MainSliderService;
 import trainingportal.utils.WebUtils;
 

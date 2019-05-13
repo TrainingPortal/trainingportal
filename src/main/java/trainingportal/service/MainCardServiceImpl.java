@@ -1,7 +1,7 @@
 package trainingportal.service;
 
 import trainingportal.model.MainCardModel;
-import trainingportal.repository.MainCardModelRepository;
+import trainingportal.dao.MainCardDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,25 +12,27 @@ import java.io.IOException;
 import java.util.Base64;
 import java.util.List;
 
+@Service
 public class MainCardServiceImpl implements MainCardService {
 
     @Autowired
-    private MainCardModelRepository mainCardRepository;
+    private MainCardDao mainCardDao;
 
     @Override
-    public MainCardModel storeData(MultipartFile file,  String cardTitle, String cardText, String buttonName, String cardUrl) throws IOException {
+    public void storeData(MultipartFile file,  String cardTitle, String cardText, String buttonName, String cardUrl) throws IOException {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        Long mainCardId = 0L;
 
-        MainCardModel data = new MainCardModel(fileName, file.getContentType(), file.getBytes(), cardTitle, cardText, buttonName, cardUrl);
+        MainCardModel data = new MainCardModel(mainCardId, fileName, file.getContentType(), file.getBytes(), cardTitle, cardText, buttonName, cardUrl);
 
-        return mainCardRepository.saveAndFlush(data);
+        mainCardDao.storeData(data);
 
     }
 
     @Override
     public List<MainCardModel> getAll(){
-        List<MainCardModel> dataList = mainCardRepository.findAll();
+        List<MainCardModel> dataList = mainCardDao.getAll();
         for (MainCardModel data : dataList){
             data.setFilesDataString(Base64.getEncoder().encodeToString(data.getFilesData()));
         }
@@ -38,8 +40,8 @@ public class MainCardServiceImpl implements MainCardService {
     }
 
     @Override
-    public void deleteById(Long mainSliderId){
-        mainCardRepository.deleteById(mainSliderId);
+    public void deleteById(Long mainCardId){
+        mainCardDao.deleteById(mainCardId);
     }
 
 }

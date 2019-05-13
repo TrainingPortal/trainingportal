@@ -15,31 +15,31 @@
 <div class="container-fluid">
     <h3>Add Slider</h3>
 
-    <form class="fv-form-horizontal" method="post" enctype="multipart/form-data" action="/data-save">
+    <form method="post" enctype="multipart/form-data" action="/slider-save">
 
-        <div class="form-group">
-            <label class="control label col-sm-2" for="file">Upload Image:</label>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="file">Upload Image:</label>
             <div class="col-sm-10">
                 <input class="form-control" type="file" id="file" name="file"/>
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control label col-sm-2" for="name">Button name:</label>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="name">Button name:</label>
             <div class="col-sm-10">
                 <input class="form-control" type="text" id="name" placeholder="Button's name" name="name"/>
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control label col-sm-2" for="url">Page:</label>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="url">Page:</label>
             <div class="col-sm-10">
                 <input class="form-control" type="url" id="url" placeholder="Input URL for button" name="url"/>
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
+        <div class="form-group row">
+            <div class="col-sm-2 col-form-label">
                 <button type="submit" class="btn btn-success">Save data</button>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 <div class="btn-group">
                     <!--                    Delete button use @PathVariable to understand what id it need-->
                     <!--<button type="button" class="btn btn-outline-warning" disabled>Edit</button>-->
-                    <a class="btn btn-outline-danger" th:href="@{/data-delete-by-{id} (id = ${data.mainSliderId}) }">Delete</a>
+                    <a class="btn btn-outline-danger" th:href="@{/slider-delete-by-{id} (id = ${data.mainSliderId}) }">Delete</a>
                 </div>
             </td>
         </tr>

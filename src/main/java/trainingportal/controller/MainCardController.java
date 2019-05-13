@@ -4,9 +4,6 @@ package trainingportal.controller;
 import trainingportal.model.MainCardModel;
 import trainingportal.service.MainCardService;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,8 +15,6 @@ import java.util.List;
 
 @RestController
 public class MainCardController {
-
-    private static final Logger logger = LoggerFactory.getLogger(MainSliderController.class);
 
     @Autowired
     private MainCardService mainCardService;
@@ -35,7 +30,7 @@ public class MainCardController {
         return modelAndView;
     }
 
-    @PostMapping("/data-save")
+    @PostMapping("/card-save")
     public ModelAndView uploadData(@RequestParam MultipartFile file, @RequestParam String title,
                                    @RequestParam String description, @RequestParam String name,
                                    @RequestParam String url, ModelAndView modelAndView) throws IOException {
@@ -53,7 +48,7 @@ public class MainCardController {
 
     }*/
 
-    @GetMapping("/data-delete-by-{id}")
+    @GetMapping("/card-delete-by-{id}")
     public ModelAndView editMainSlider(@PathVariable("id") Long dataId, ModelAndView modelAndView){
 
         mainCardService.deleteById(dataId);

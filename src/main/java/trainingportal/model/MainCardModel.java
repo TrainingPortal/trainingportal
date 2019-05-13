@@ -1,29 +1,27 @@
 package trainingportal.model;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "main_cards")
+//@Entity
+//@Table(name = "main_cards")
 public class MainCardModel {
 
-    @Id
-    @GeneratedValue
-    @Column(name = "main_card_id")
+//    @Id
+//    @GeneratedValue
+//    @Column(name = "main_card_id")
     private Long mainCardId;
-    @Column(name = "files_name")
+//    @Column(name = "files_name")
     private String filesName;
-    @Column(name = "files_type")
+//    @Column(name = "files_type")
     private String filesType;
-    @Lob
-    @Column(name = "files_data")
+//    @Lob
+//    @Column(name = "files_data")
     private byte[] filesData;
-    @Column(name = "card_title")
+//    @Column(name = "card_title")
     private String cardTitle;
-    @Column(name = "card_text")
+//    @Column(name = "card_text")
     private String cardText;
-    @Column(name = "button_name")
+//    @Column(name = "button_name")
     private String buttonName;
-    @Column (name = "card_url")
+//    @Column (name = "card_url")
     private String cardUrl;
 
     private String filesDataString;
@@ -31,7 +29,8 @@ public class MainCardModel {
     protected MainCardModel() {
     }
 
-    public MainCardModel(String filesName, String filesType, byte[] filesData, String cardTitle, String cardText, String buttonName, String cardUrl) {
+    public MainCardModel(Long mainCardId, String filesName, String filesType, byte[] filesData, String cardTitle, String cardText, String buttonName, String cardUrl) {
+        this.mainCardId = mainCardId;
         this.filesName = filesName;
         this.filesType = filesType;
         this.filesData = filesData;
