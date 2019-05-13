@@ -14,5 +14,9 @@ public interface CourseDao extends GenericDao<Course> {
 
     CourseStatus findStatusById(Long id);
 
+    int countAllByUserId(Long userId);
+
     int countAll();
+
+    List<Course> getAllAsPageById(Long id, int page, int total);
 }

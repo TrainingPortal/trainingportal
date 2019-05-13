@@ -1,5 +1,7 @@
 package trainingportal.service;
 
+import org.apache.poi.ss.formula.functions.T;
+import org.springframework.security.core.Authentication;
 import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
 import trainingportal.service.generic.GenericService;
@@ -12,5 +14,7 @@ public interface CourseService extends GenericService<Course> {
 
     CourseStatus findStatusById(Long id);
 
-    int getPages(double total);
+    int getPagesByUserId(Long userId, double total);
+
+    List<Course> getCoursesPage(int page, int total, Authentication auth);
 }

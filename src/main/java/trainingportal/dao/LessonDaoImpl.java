@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.mapper.LessonMapper;
+import trainingportal.model.Course;
 import trainingportal.model.Lesson;
 
 import javax.sql.DataSource;
@@ -63,5 +64,51 @@ public class LessonDaoImpl extends JdbcDaoSupport implements LessonDao {
         this.getJdbcTemplate().update(sql, lessonId);
     }
 
+    @Override
+    public List<Lesson> getAllAsPageByCourseId(Long courseId, int page, int total) {
+
+        String sql = LessonMapper.SELECT_SQL + " WHERE course_id = ? " +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        return this.getJdbcTemplate().query(sql, new Object[]{courseId}, new LessonMapper());
+    }
+
+    @Override
+    public List<Lesson> getAllAsPageByTrainerId(Long userId, Long courseId, int page, int total) {
+
+        String sql = LessonMapper.SELECT_SQL + " WHERE course_id = ?" +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        return this.getJdbcTemplate().query(sql, new Object[]{courseId}, new LessonMapper());
+    }
+
+    @Override
+    public int countAllByCourseId(Long courseId) {
+
+        String sql = "SELECT COUNT(lesson_id) FROM Lesson WHERE course_id = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{courseId}, Integer.class);
+    }
+
+    /*@Override
+    public boolean isConnectedWithTrainer(Long id) {
+        String sql = "SELECT COUNT(lesson_id) FROM Lesson a " +
+                "INNER JOIN Course b " +
+                "ON b.trainer_id = ? AND a.course_id = b.course_id";
+        Long lessons = this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Long.class);
+
+        if(lessons>0)
+            return true;
+        else
+            return false;
+    }*/
+
+    @Override
+    public Long getTrainerIdByCourseId(Long id) {
+
+        String sql = "SELECT trainer_id from Course WHERE course_id = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Long.class);
+    }
 }
 
