@@ -44,7 +44,9 @@ public class MainCardModel {
         return mainCardId;
     }
 
-
+    /*public void setMainCardId(Long mainCardId){
+        this.mainCardId = mainCardId;
+    }*/
 
     public String getFilesName() {
         return filesName;
