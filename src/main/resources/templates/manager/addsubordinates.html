@@ -27,7 +27,7 @@
 </div>
 
 <div th:unless="${users.size() == 0}">
-    <form action="#" th:object="${users}" th:action="@{addSelectedSubordinates}" method="post">
+    <form action="#" th:object="${users}" th:action="@{/addSelectedSubordinates/{id}(id=${manager.userId})}" method="post">
         <table class="table pt-0 mt-0 table-fit table-sm table-hover">
             <thead class="">
             <tr>
@@ -49,7 +49,7 @@
         <input type="submit" class="btn btn-success" value="Add selected"/>
     </form>
 </div><br>
-<a th:href="@{/backtosubordinates(id=${manager.userId})}" class="btn btn-info">Return to subordinates</a>
+<a th:href="@{/backtosubordinates{id}(id=${manager.userId})}" class="btn btn-info">Return to subordinates</a>
 <a th:href="@{/managers/{page}(page=1)}" class="btn btn-info">Return to managers</a>
 <!--<div th:replace="frontend/pagination :: pagination_with_id"></div>-->
 </body>

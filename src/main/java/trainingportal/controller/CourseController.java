@@ -1,6 +1,7 @@
 package trainingportal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -8,10 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import trainingportal.model.Course;
-import trainingportal.model.CourseStatus;
-import trainingportal.model.Role;
-import trainingportal.model.User;
+import trainingportal.model.*;
 import trainingportal.service.CourseService;
 import trainingportal.service.LessonService;
 import trainingportal.service.UserService;
@@ -32,17 +30,17 @@ public class CourseController {
     private static final int ROWS_LIMIT = 10;
 
     @RequestMapping(value = "/course_create/{page}")
-    public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId, ModelAndView modelAndView) {
+    public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId,
+                                        ModelAndView modelAndView, Authentication auth) {
 
-        List<Course> courseList = courseService.getAllAsPage(page, ROWS_LIMIT);
-        for(Course course : courseList){
-            course.setTrainer(userService.findById(course.getTrainerId()));
-            course.setStatus(courseService.findStatusById(course.getCourseStatus()));
-        }
+        List<Course> courseList = courseService.getCoursesPage(page, ROWS_LIMIT, auth);
+
         modelAndView.addObject("courseList", courseList);
-        modelAndView.addObject("pages", courseService.getPages(ROWS_LIMIT));
+        modelAndView.addObject("pages",
+                courseService.getPagesByUserId(((LoggedInUser)auth.getPrincipal()).getId() ,ROWS_LIMIT));
         modelAndView.setViewName("courseCreator/course_create");
         modelAndView.addObject("currentUrl", "course_create");
+
         return modelAndView;
     }
     @RequestMapping(value = "/course-add", method = RequestMethod.GET)
