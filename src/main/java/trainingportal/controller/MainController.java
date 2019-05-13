@@ -1,21 +1,44 @@
 package trainingportal.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
+import trainingportal.model.MainCardModel;
+import trainingportal.model.MainSliderModel;
+import trainingportal.service.MainCardService;
+import trainingportal.service.MainSliderService;
 import trainingportal.utils.WebUtils;
 
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class MainController {
 
-    @GetMapping({"/", "/index"})
-    public String welcomePage(Model model) {
+    @Autowired
+    MainSliderService mainSliderService;
 
-        return "frontend/index";
+    @Autowired
+    MainCardService mainCardService;
+
+    @GetMapping({"/", "/index"})
+    public ModelAndView welcomePage(ModelAndView modelAndView) {
+
+        List<MainSliderModel> sliderList = mainSliderService.getAll();
+        ArrayList<Integer> indicatorList = mainSliderService.getSlideIndicators();
+        List<MainCardModel> cardList = mainCardService.getAll();
+
+
+        modelAndView.addObject("sliderList", sliderList);
+        modelAndView.addObject("indicatorList", indicatorList);
+        modelAndView.addObject("cardList", cardList);
+        modelAndView.setViewName("frontend/index");
+        return modelAndView;
     }
 
     @GetMapping({"/admin"})
@@ -57,6 +80,13 @@ public class MainController {
     String helpPage(Model model){
 
         return "frontend/helppage";
+    }
+
+    @GetMapping("/website_settings")
+    public ModelAndView settingsPage(ModelAndView modelAndView){
+
+        modelAndView.setViewName("/manageSite/website_settings");
+        return modelAndView;
     }
 
 }
