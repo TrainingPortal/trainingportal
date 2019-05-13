@@ -23,17 +23,19 @@ drop TABLE Notification_Status;
 drop TABLE Desired_Period;
 drop TABLE Group_Status;
 drop TABLE Course_Status;
+drop table main_slider;
+DROP TABLE main_cards;
 
 CREATE TABLE Users
 (
-    user_id      NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    user_Id      NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     name        VARCHAR2(50) ,
     email       VARCHAR2(50) ,
     password    VARCHAR2(128),
     enabled     NUMBER(1),
     token       VARCHAR(36),
-    role_id      number NOT NULL,
-    manager_id number
+    role_Id      number NOT NULL,
+    manager_Id number
 );
 
 INSERT INTO users(name, email, password, enabled, role_Id)
@@ -94,6 +96,8 @@ INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
         VALUES ('userUser9', 'userUser@gmail.com', 'password123', 1, 2, 15);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
         VALUES ('userUser10', 'userUser@gmail.com', 'password123', 1, 2, 17);
+
+
 
 CREATE TABLE roles
 (
@@ -335,7 +339,6 @@ CREATE TABLE Attendance
     schedule_id NUMBER
 );
 
-
 CREATE TABLE Attendance_Type
 (
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
@@ -489,8 +492,32 @@ INSERT INTO Course_Status (name_status) values ('Stoped');
 
 
 
-COMMIT;
 
+CREATE TABLE main_cards
+(
+    main_card_id      NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    files_name        VARCHAR2(100 CHAR),
+    files_type        VARCHAR2(10 CHAR),
+    files_data        BLOB,
+    card_title        VARCHAR2(50 CHAR),
+    card_text         VARCHAR2(1000 CHAR),
+    button_name       VARCHAR2(50 CHAR),
+    card_url          VARCHAR2(100 CHAR)
+);
+
+
+
+CREATE TABLE main_slider
+(
+    main_slider_id    NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    files_name        VARCHAR2(100 CHAR),
+    files_type        VARCHAR2(10 CHAR),
+    files_data        BLOB,
+    button_name       VARCHAR2(50 CHAR),
+    button_url        VARCHAR2(100 CHAR)
+);
+
+COMMIT;
 
 --delete dependencies
 alter table users drop constraint user_fr_manager;
@@ -554,7 +581,6 @@ alter table Attendance add constraint atten_fk_type FOREIGN KEY (type_id) refere
 alter table Schedule add constraint schedule_fk_group FOREIGN KEY (group_id) references Groups (id);
 alter table Schedule
     add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lesson_id);
-
 -- alter table Homework add constraint lesson_fk_homework FOREIGN KEY (lesson_id) references Lesson (lesson_id);
 alter table Lesson
     add constraint lesson_fk_course FOREIGN KEY (course_id) references Course (course_id);
