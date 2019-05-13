@@ -16,7 +16,6 @@ import java.util.List;
 @Transactional
 public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
-
     @Autowired
     public CourseDAOImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
@@ -80,6 +79,23 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
         String sql = CourseStatusMapper.SELECT_SQL + " WHERE id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new CourseStatusMapper());
+    }
+
+    @Override
+    public int countAllByUserId(Long userId) {
+
+        String sql = "SELECT COUNT(course_id) FROM Course WHERE trainer_id = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{userId}, Integer.class);
+    }
+
+    @Override
+    public List<Course> getAllAsPageById(Long id, int page, int total) {
+
+        String sql = CourseMapper.SELECT_SQL + " WHERE trainer_id = ? " +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        return this.getJdbcTemplate().query(sql, new Object[]{id}, new CourseMapper());
     }
 
     @Override

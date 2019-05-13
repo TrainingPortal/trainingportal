@@ -67,4 +67,23 @@
         </ul>
     </div>
 </div>
+
+<div th:fragment="pagination_with_slashed_id" class="d-flex justify-content-center">
+    <div th:if="${pages} > 1 and ${page} <= ${pages}">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${page==1} ? 'active'">
+                <a class="page-link" th:href="@{/{link}/{page}/{id}(page=1, link=${currentUrl}, id=${id})}">First</a>
+            </li>
+            <th:block th:each="i: ${#numbers.sequence(page < 5 ? 1 : page - 4, pages > 4 + page ? page + 4 : pages)}">
+                <li class="page-item" th:classappend="${i==page} ? 'active'">
+                    <a class="page-link" th:href="@{/{link}/{page}/{id}(page=${i}, link=${currentUrl}, id=${id})}"
+                       th:text="${i}">></a>
+                </li>
+            </th:block>
+            <li class="page-item" th:classappend="${page==pages} ? 'active'">
+                <a class="page-link" th:href="@{/{link}/{page}/{id}(page=${pages}, link=${currentUrl}, id=${id})}">Last</a>
+            </li>
+        </ul>
+    </div>
+</div>
 </html>
