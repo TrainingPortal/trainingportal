@@ -62,35 +62,39 @@
 
 </div>
 
-<!--<div class="container-fluid">
-    <h3>List of slider datas</h3>
+<div class="container-fluid">
+    <h3>List of card data</h3>
 
     <table class="table table-striped">
         <thead>
         <tr>
-            &lt;!&ndash;            <th scope="row">Image</th>&ndash;&gt;
-            <th scope="row">Image Name</th>
+<!--            <th scope="row">Image</th>-->
+            <th scope="row">Photo Name</th>
+            <th scope="row">Card Title</th>
+            <th scope="row">Card Description</th>
             <th scope="row">Button Name</th>
-            <th scope="row">Button URL</th>
+            <th scope="row">Card URL</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="data : ${dataList}">
-            &lt;!&ndash;            <td th:text="tempNoImage"></td>&ndash;&gt;
+<!--            <td th:text="tempNoImage"></td>-->
             <td th:text="${data.filesName}"></td>
+            <td th:text="${data.cardTitle}"></td>
+            <td th:text="${data.cardText}"></td>
             <td th:text="${data.buttonName}"></td>
-            <td th:text="${data.buttonUrl}"></td>
+            <td th:text="${data.cardUrl}"></td>
             <td>
                 <div class="btn-group">
-                    &lt;!&ndash;                    Delete button use @PathVariable to understand what id it need&ndash;&gt;
-                    &lt;!&ndash;<button type="button" class="btn btn-outline-warning" disabled>Edit</button>&ndash;&gt;
-                    <a class="btn btn-outline-danger" th:href="@{/data-delete-by-{id} (id = ${data.mainSliderId}) }">Delete</a>
+                    <!--Delete button use @PathVariable to understand what id it need-->
+<!--                    <button type="button" class="btn btn-outline-warning" disabled>Edit</button>-->
+                    <a class="btn btn-outline-danger" th:href="@{/card-delete-by-{id} (id = ${data.mainCardId}) }">Delete</a>
                 </div>
             </td>
         </tr>
         </tbody>
     </table>
-</div>-->
+</div>
 
 
 </body>

@@ -40,7 +40,7 @@ public class MainCardModel {
         this.cardUrl = cardUrl;
     }
 
-    public Long getMainSliderId() {
+    public Long getMainCardId() {
         return mainCardId;
     }
 
