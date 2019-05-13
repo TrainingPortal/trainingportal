@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Manage Main Slider</title>
+    <title>Manage Main Cards</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
@@ -13,33 +13,47 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="container-fluid">
-    <h3>Add Slider</h3>
+    <h3>Add Card</h3>
 
-    <form class="fv-form-horizontal" method="post" enctype="multipart/form-data" action="/data-save">
+    <form method="post" enctype="multipart/form-data" action="/data-save">
 
-        <div class="form-group">
-            <label class="control label col-sm-2" for="file">Upload Image:</label>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="file">Upload Photo:</label>
             <div class="col-sm-10">
                 <input class="form-control" type="file" id="file" name="file"/>
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control label col-sm-2" for="name">Button name:</label>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="title">Card title:</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="title" placeholder="Teacher's name" name="title"/>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="descr">Card text:</label>
+            <div class="col-sm-10">
+                <input class="form-control" type="text" id="descr" placeholder="About teacher" name="description"/>
+            </div>
+        </div>
+
+        <div class="form-group roq">
+            <label class="col-sm-2 col-form-label" for="name">Button name:</label>
             <div class="col-sm-10">
                 <input class="form-control" type="text" id="name" placeholder="Button's name" name="name"/>
             </div>
         </div>
 
-        <div class="form-group">
-            <label class="control label col-sm-2" for="url">Page:</label>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="url">Page:</label>
             <div class="col-sm-10">
                 <input class="form-control" type="url" id="url" placeholder="Input URL for button" name="url"/>
             </div>
         </div>
 
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
+        <div class="form-group row">
+            <div class="col-sm-10">
                 <button type="submit" class="btn btn-success">Save data</button>
             </div>
         </div>
@@ -48,13 +62,13 @@
 
 </div>
 
-<div class="container-fluid">
+<!--<div class="container-fluid">
     <h3>List of slider datas</h3>
 
     <table class="table table-striped">
         <thead>
         <tr>
-<!--            <th scope="row">Image</th>-->
+            &lt;!&ndash;            <th scope="row">Image</th>&ndash;&gt;
             <th scope="row">Image Name</th>
             <th scope="row">Button Name</th>
             <th scope="row">Button URL</th>
@@ -62,21 +76,21 @@
         </thead>
         <tbody>
         <tr th:each="data : ${dataList}">
-<!--            <td th:text="tempNoImage"></td>-->
+            &lt;!&ndash;            <td th:text="tempNoImage"></td>&ndash;&gt;
             <td th:text="${data.filesName}"></td>
             <td th:text="${data.buttonName}"></td>
             <td th:text="${data.buttonUrl}"></td>
             <td>
                 <div class="btn-group">
-                    <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <!--<button type="button" class="btn btn-outline-warning" disabled>Edit</button>-->
+                    &lt;!&ndash;                    Delete button use @PathVariable to understand what id it need&ndash;&gt;
+                    &lt;!&ndash;<button type="button" class="btn btn-outline-warning" disabled>Edit</button>&ndash;&gt;
                     <a class="btn btn-outline-danger" th:href="@{/data-delete-by-{id} (id = ${data.mainSliderId}) }">Delete</a>
                 </div>
             </td>
         </tr>
         </tbody>
     </table>
-</div>
+</div>-->
 
 
 </body>

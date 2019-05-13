@@ -1,7 +1,5 @@
 package trainingportal.service;
 
-
-import org.springframework.web.servlet.ModelAndView;
 import trainingportal.model.MainSliderModel;
 import trainingportal.repository.MainSliderModelRepository;
 
