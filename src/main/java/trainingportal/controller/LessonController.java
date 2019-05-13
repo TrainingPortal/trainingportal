@@ -6,6 +6,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import trainingportal.model.Course;
 import trainingportal.model.Lesson;
@@ -23,36 +24,43 @@ public class LessonController {
     @Autowired
     CourseService courseService;
 
-    @RequestMapping("/course_lessons")
-    public ModelAndView showLessonListOfCourse(Long id, ModelAndView modelAndView) {
+    @RequestMapping("/course_lessons/{id}")
+    public ModelAndView showLessonListOfCourse(@PathVariable Long id, ModelAndView modelAndView) {
 
         List<Lesson> lessonsOfCourse = lessonService.getLessonCourseId(id);
 
         Course course = courseService.findById(id);
         modelAndView.addObject("courseLesson", course);
-        modelAndView.addObject("id", id);
+//        modelAndView.addObject("id", id);
         modelAndView.addObject("lessonsOfCourse", lessonsOfCourse);
         modelAndView.setViewName("lessonCreator/course_lessons");
 
         return modelAndView;
     }
 
-    @RequestMapping(value = "/lesson-add", method = RequestMethod.GET)
-    public ModelAndView addLesson(ModelAndView modelAndView) {
+    @RequestMapping(value = "/lesson-add-{courseId}", method = RequestMethod.GET)
+    public ModelAndView addLesson(@PathVariable Long courseId, ModelAndView modelAndView) {
 
-        modelAndView.addObject("lesson", new Lesson());
+        Lesson lesson = new Lesson();
+        lesson.setCourseId(courseId);
+
+
+        modelAndView.addObject("lesson", lesson);
+
         modelAndView.setViewName("lessonCreator/lesson_add");
 
         return modelAndView;
     }
 
-    @RequestMapping(value = "lesson-save-{lesId}-{courId}", method = RequestMethod.POST)
-    public ModelAndView saveLesson(@PathVariable("lesId") Long lessonId,
-                                   @PathVariable("courId") Long courseId, Lesson lesson, ModelAndView modelAndView) {
+    @RequestMapping(value = "lesson-save", method = RequestMethod.POST)
+    public ModelAndView saveLesson(/*@PathVariable("lessonId") Long lessonId,*/
+            @RequestParam("courseId") Long courseId, Lesson lesson, ModelAndView modelAndView) {
+
         lessonService.save(lesson);
-        modelAndView.addObject("lesId", lessonId);
-        modelAndView.addObject("courId", courseId);
-        modelAndView.setViewName("redirect:/course_lessons");
+//        modelAndView.addObject("courseId",courseId);
+//        modelAndView.addObject("courseId", lesson.getCourseId());
+//        modelAndView.addObject("lessonId", lessonId);
+        modelAndView.setViewName("redirect:/course_lessons/" + courseId);
         return modelAndView;
     }
 
@@ -74,17 +82,18 @@ public class LessonController {
         } else {
             lessonService.update(lesson);
             modelAndView.addObject("id", id);
-            modelAndView.setViewName("redirect:/course_lessons");
+            modelAndView.setViewName("redirect:/course_lessons/{id}");
             return modelAndView;
         }
     }
 
     @RequestMapping(value = "/lesson-delete-by-{lessonId}-{id}", method = RequestMethod.GET)
-    public ModelAndView deleteLessonById(@PathVariable("lessonId") Long lessonId, @PathVariable("id") Long id, ModelAndView model) {
+    public ModelAndView deleteLessonById(@PathVariable("lessonId") Long lessonId,
+                                         @PathVariable("id") Long id, ModelAndView model) {
         lessonService.deleteById(lessonId);
 //        redirect.addFlashAttribute("successMessage", "lesson deleted successfully");
         model.addObject("id", id);
-        model.setViewName("redirect:/course_lessons");
+        model.setViewName("redirect:/course_lessons/{id}");
         return model;
     }
 

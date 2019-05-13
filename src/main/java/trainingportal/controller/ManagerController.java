@@ -10,12 +10,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.UserService;
+
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 public class ManagerController {
+
     @Autowired
     private UserService managerService;
 

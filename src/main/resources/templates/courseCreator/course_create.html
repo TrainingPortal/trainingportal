@@ -16,9 +16,17 @@
 
 <div class="container-fluid">
     <h2 class="text-center">Courses List</h2>
-    <h2>
-        <a class="btn btn-success" th:href="@{/course-add }">CREATE NEW COURSE</a>
-    </h2>
+
+    <div class="btn">
+            <a class="btn btn-success btn-lg" th:href="@{/course-add }">CREATE NEW COURSE</a>
+    </div>
+
+    <div  class="btn">
+            <a class="btn btn btn-info btn-lg" th:href="@{/admin }">Back to admin</a>
+    </div>
+
+
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -43,8 +51,9 @@
             <td th:text="${course.description}"></td>
             <td th:text="${course.trainer.userName}"></td>
             <td>
-                <div class="btn-group">
-                    <a class="btn btn-outline-primary" th:href="@{/course_lessons (id = ${course.courseId})}">Lessons</a>
+                <div class="btn">
+                    <a class="btn btn-outline-primary" th:href="@{/course_lessons/{id} (id = ${course.courseId})}">Lessons</a>
+<!--                    <a class="btn btn-outline-primary" th:href="@{/course_lessons-{id} (id = ${course.courseId})}">Lessons</a>-->
                 </div>
             </td>
             <td>
