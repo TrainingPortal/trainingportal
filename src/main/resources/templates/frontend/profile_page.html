@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
+    <script src="/../js/bootstrap.js"></script>
+    <style>
+        html, body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Roboto", sans-serif
+        }
+    </style>
+<body class="w3-light-grey">
+
+<div th:insert="frontend/navbar :: nav"></div>
+
+<!-- Page Container -->
+<div class="w3-content w3-margin-top" style="max-width:1400px;">
+
+    <!-- The Grid -->
+    <div class="w3-row-padding">
+
+        <!-- Left Column -->
+        <div class="w3-third">
+
+            <div class="w3-white w3-text-grey w3-card-4">
+                <div class="w3-display-container">
+                    <img src="#" th:src="@{/img/vynnyk.jpg}" style="width:100%" alt="Card image">
+                    <div class="w3-display-bottomleft w3-container w3-text-black">
+                        <h2 th:text="${user.userName}"></h2>
+                    </div>
+                </div>
+                <div class="w3-container">
+                    <p><i class="fa fa-briefcase fa-fw w3-margin-right w3-margin-top w3-large w3-text-teal"></i><span
+                            th:text="${role}"></span></p>
+                    <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><span
+                            th:text="${user.email}"></span></p>
+                    <div th:unless="${manager.userName == null}">
+                        <p><i class="fa fa-user fa-fw w3-margin-right w3-large w3-text-teal"></i><span
+                                th:text="'Manager: ' + ${manager.userName}"></span></p>
+                    </div>
+                </div>
+            </div>
+            <br>
+
+            <!-- End Left Column -->
+        </div>
+
+        <!-- Right Column -->
+        <div class="w3-twothird">
+
+            <div class="w3-container w3-card w3-white w3-margin-bottom">
+                <h2 class="w3-text-grey w3-padding-16"><i
+                        class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Courses</h2>
+
+                <div th:if="${courseList.size() == 0}">
+                    <h5 class="w3-opacity"><b>This user isn't registered for any course.</b></h5>
+                </div>
+                <div th:unless="${courseList.size() == 0}">
+
+                    <div th:each="course, iter : ${courseList}">
+                        <div class="w3-container">
+                            <h5 class="w3-opacity"><b th:text="${course.courseName}"></b></h5>
+                            <h6 class="w3-text-teal"><i class="fa fa-circle fa-fw w3-margin-right"></i><span
+                                    th:text="'Level: ' + ${course.courseLevel}"></span></h6>
+                            <a th:href="@{/profile_page/{userId}(userId=${course.trainerId})}"><p
+                                    th:text="'Trainer: ' + ${course.trainer.userName}"></p></a>
+
+                            <p th:text="${course.description}"></p><br>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+            </div>
+
+            <!-- End Right Column -->
+        </div>
+
+        <!-- End Grid -->
+    </div>
+
+    <!-- End Page Container -->
+</div>
+
+<div th:insert="frontend/footer :: foot"></div>
+
+</body>
+</html>
