@@ -5,31 +5,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.MaterialDaoImpl;
 import trainingportal.model.Material;
+import trainingportal.service.generic.GenericServiceImpl;
 
 import java.util.List;
 
 
 @Service("materialService")
 @Transactional
-public class MaterialServiceImpl implements MaterialService {
+public class MaterialServiceImpl extends GenericServiceImpl<Material> implements MaterialService {
 
     @Autowired
     private MaterialDaoImpl materialDao;
-
-    @Override
-    public int getNumberOfPages(List<Material> users, double total) {
-        return 0;
-    }
-
-    @Override
-    public Material findById(Long MaterialId) {
-        return materialDao.findById(MaterialId);
-    }
-
-    @Override
-    public void save(Material material) {
-        materialDao.save(material);
-    }
 
     @Override
     public void update(Material material) {
@@ -40,22 +26,6 @@ public class MaterialServiceImpl implements MaterialService {
 
         }
         materialDao.update(materialEdit);
-    }
-
-
-    @Override
-    public void deleteById(Long materialId) {
-        materialDao.deleteById(materialId);
-    }
-
-    @Override
-    public List<Material> findAll() {
-        return materialDao.findAll();
-    }
-
-    @Override
-    public List<Material> getAllAsPage(int page, int total) {
-        return null;
     }
 
     @Override

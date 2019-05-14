@@ -76,6 +76,20 @@ public abstract class GenericDaoImpl<T> extends JdbcDaoSupport implements Generi
         return null;
     }
 
+    @Override
+    public int countAll() {
+
+        String sql = "SELECT COUNT('"+ getPrimaryKey() + "') FROM" + getTable();
+
+        return this.getJdbcTemplate().queryForObject(sql, Integer.class);
+    }
+
+    @Override
+    public List<T> getAllAsPage(int page, int total) {
+        String sql = "SELECT " + getInsertColumnsNamesAsString() + " FROM " + getTable() + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+        return this.getJdbcTemplate().query(sql, new Object[]{}, getObjectMapper());
+    }
+
     protected abstract BaseObjectMapper<T> getObjectMapper();
 
     private String getTable() {

@@ -12,6 +12,8 @@ public interface UserDao extends GenericDao<User> {
 
     List<User> findAllByRole(Long roleId);
 
+    List<User> findAllByGroup(Long id);
+
     List<User> findAllEnabledByRole(Long roleId);
 
     void deleteAllByRole(Long roleId);

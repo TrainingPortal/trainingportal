@@ -56,14 +56,14 @@ public class GroupController {
 
     @PostMapping("/group-save")
     public ModelAndView saveGroup(Group group, ModelAndView modelAndView) {
-        groupService.saveGroup(group);
+        groupService.save(group);
         modelAndView.setViewName("redirect:/group_create/1");
         return modelAndView;
     }
 
     @GetMapping({"/edit-group-{id}"})
     public ModelAndView editGroupBase(@PathVariable("id") Long groupId, ModelAndView modelAndView) {
-        Group group = groupService.findGroupById(groupId);
+        Group group = groupService.findById(groupId);
 
         List<Course> courses = courseService.findAll();
         List<GroupStatus> statuses = groupService.getStatusList();
@@ -83,7 +83,7 @@ public class GroupController {
             modelAndView.setViewName("groupCreator/edit_group_by_id");
             return modelAndView;
         } else {
-            groupService.editGroup(group);
+            groupService.update(group);
             modelAndView.setViewName("redirect:/group_create/1");
             return modelAndView;
         }
@@ -91,7 +91,7 @@ public class GroupController {
 
     @GetMapping("/group-delete-by-{id}")
     public ModelAndView deleteGroupById(@PathVariable("id") Long groupId, ModelAndView model, RedirectAttributes redirect) {
-        groupService.deleteGroupById(groupId);
+        groupService.deleteById(groupId);
 
         redirect.addFlashAttribute("successMessage", "Group deleted successfully");
 

@@ -109,6 +109,16 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     }
 
     @Override
+    public List<User> findAllByGroup(Long id) {
+        String sql = "SELECT * FROM USERS u INNER JOIN USER_GROUP ug ON u.USER_ID = ug.USER_ID " +
+                "WHERE ug.group_id = ?";
+
+        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{id},new UserMapper());
+
+        return users;
+    }
+
+    @Override
     public List<User> findAllEnabledByRole(Long roleId) {
         String sql = UserMapper.BASE_SQL + "WHERE role_id = ?  AND enabled = 1";
 

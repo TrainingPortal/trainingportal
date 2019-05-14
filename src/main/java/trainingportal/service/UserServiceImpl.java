@@ -8,6 +8,7 @@ import trainingportal.dao.SubordinateDAOImpl;
 import trainingportal.dao.UserDAOImpl;
 import trainingportal.model.Role;
 import trainingportal.model.User;
+import trainingportal.service.generic.GenericServiceImpl;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import java.util.Map;
 
 @Service("userService")
 @Transactional
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
 
     @Autowired
     private UserDAOImpl userRepository;
@@ -28,18 +29,8 @@ public class UserServiceImpl implements UserService {
     private RoleDAOImpl roleRepository;
 
     @Override
-    public User findById(Long id) {
-        return userRepository.findById(id);
-    }
-
-    @Override
     public User findByEmail(String email) {
         return userRepository.findByEmail(email);
-    }
-
-    @Override
-    public void save(User user) {
-        userRepository.save(user);
     }
 
     @Override
@@ -81,6 +72,10 @@ public class UserServiceImpl implements UserService {
         return userRepository.findAllByRole(roleId);
     }
 
+    public List<User> findAllByGroup(Long id) {
+        return userRepository.findAllByGroup(id);
+    }
+
     @Override
     public List<User> findAllEnabledByRole(Long roleId) {
         return userRepository.findAllEnabledByRole(roleId);
@@ -101,16 +96,6 @@ public class UserServiceImpl implements UserService {
             updatedUser.setRoleId(user.getRoleId());
         }
         userRepository.update(updatedUser);
-    }
-
-    @Override
-    public void deleteById(Long userId) {
-        userRepository.deleteById(userId);
-    }
-
-    @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
     }
 
     @Override
@@ -191,17 +176,6 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Role> getRoles() {
         return roleRepository.getRoles();
-    }
-
-    @Override
-    public int getNumberOfPages(List<User> users, double total) {
-
-        return (int) Math.ceil(users.size() / total);
-    }
-
-    @Override
-    public List<User> getAllAsPage(int page, int total) {
-        return null;
     }
 
     @Override

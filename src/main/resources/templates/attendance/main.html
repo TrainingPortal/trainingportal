@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+<div th:if="${courses.size() == 0}">
+    <h1>There are no courses.</h1>
+</div>
+<div th:unless="${courses.size() == 0}">
+    <ul class="list-group list-group-horizontal" th:each="course:${courses}">
+        <li>
+            <a th:href="@{/groups/{courseId}(courseId=${course.getCourseId()})}" class="list-group-item"
+                th:text="${course.getCourseName()} + '-' + ${course.getCourseLevel()}">
+            </a>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

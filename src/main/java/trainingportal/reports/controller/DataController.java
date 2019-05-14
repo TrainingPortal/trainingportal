@@ -7,12 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import trainingportal.model.Attendance;
-import trainingportal.model.Course;
-import trainingportal.model.Role;
-import trainingportal.model.User;
+import trainingportal.model.*;
 import trainingportal.reports.reportslist.Reports;
-import trainingportal.service.AttendanceType;
+import trainingportal.service.AttendanceTypeService;
 import trainingportal.service.CourseService;
 import trainingportal.service.UserService;
 import trainingportal.reports.download.Download;
@@ -34,7 +31,7 @@ public class DataController {
     private CourseService courseService;
 
     @Autowired
-    private AttendanceType attendanceType;
+    private AttendanceTypeService attendanceTypeService;
 
     @Autowired
     private Reports report;
@@ -89,7 +86,7 @@ public class DataController {
     @RequestMapping(value = "data/downloadAttendance", method = RequestMethod.GET)
     public ModelAndView downloadAttendance(@NotNull ModelAndView model){
 
-        List<Attendance> allTypes = attendanceType.getAllAttendanceList();
+        List<AttendanceType> allTypes = attendanceTypeService.getAllAttendanceList();
 
         model.addObject("allTypes",allTypes);
         return model;

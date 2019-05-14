@@ -6,7 +6,6 @@ import trainingportal.model.AttendanceType;
 
 import java.util.List;
 
-public interface AttendanceTypeDao extends GenericDao<AttendanceType> {
-
-    List<AttendanceType> findAllAttendanceList();
+public interface AttendanceDao extends GenericDao<Attendance> {
+    List<Attendance> getAllAsPage(int page, int total);
 }

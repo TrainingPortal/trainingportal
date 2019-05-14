@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule</title>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<div th:if="${users.size() == 0}">
+    <p>There are no free users</p>
+</div>
+
+<div th:unless="${users.size() == 0}">
+    <form action="#" th:object="${attendances}" th:action="@{/submit-attendance}" method="post">
+        <table class="table pt-0 mt-0 table-fit table-sm table-hover">
+            <thead class="">
+            <tr>
+                <th style="width: 40%">User</th>
+                <th style="width: 50%">Presence</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr th:each="attendance, itemStat : ${attendances.attendances}">
+                    <td th:text="${attendance.user.userName}">
+                        <input type="hidden" th:field="*{attendances[__${itemStat.index}__].userId}" />
+                    <td>
+                        <select id="formSelect" class="form-control"
+                                th:field="*{attendances[__${itemStat.index}__].attendanceTypeId}">
+                            <option th:each="attendanceType : ${attendanceTypes}"
+                                    th:value="${attendanceType.getAttendanceTypeId()}"
+                                    th:text="${attendanceType.getType()}">
+                            </option>
+                        </select>
+                    </td>
+                    <input type="hidden" th:field="*{attendances[__${itemStat.index}__].scheduleId}" />
+                </tr>
+        </table>
+        <input type="submit" class="btn btn-success" value="Submit attendance"/>
+    </form>
+</div>
+<br>
+<!--<div th:replace="frontend/pagination :: pagination_with_id"></div>-->
+</body>
+</html>

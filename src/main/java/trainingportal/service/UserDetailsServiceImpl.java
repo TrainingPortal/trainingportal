@@ -3,13 +3,13 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import trainingportal.dao.RoleDAOImpl;
 import trainingportal.dao.UserDAOImpl;
+import trainingportal.model.LoggedInUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +51,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
         }
  
-        UserDetails userDetails = (UserDetails) new User(user.getUserName(),
-                user.getPassword(), grantList);
+        UserDetails userDetails = (UserDetails) new LoggedInUser(user.getUserName(),
+                user.getPassword(), grantList, user.getUserId());
  
         return userDetails;
     }
