@@ -84,9 +84,9 @@ public class ScheduleController {
         return modelAndView;
     }
 
-    @RequestMapping(value = {"/schedule-edit-{scheduleId}-{id}"}, method = RequestMethod.GET)
+    @RequestMapping(value = {"/schedule-edit-{scheduleId}-{groupId}"}, method = RequestMethod.GET)
     public ModelAndView editScheduleBase(@PathVariable("scheduleId") Long scheduleId,
-                                       @PathVariable("id") Long id, ModelAndView modelAndView) {
+                                       @PathVariable("groupId") Long id, ModelAndView modelAndView) {
 
         Schedule schedule = scheduleService.findById(scheduleId);
         modelAndView.addObject("schedule", schedule);
