@@ -34,8 +34,8 @@
             <th scope="row">course name</th>
             <th scope="row">course level</th>
             <th scope="row">course status</th>
-            <th scope="row">min number of Students</th>
-            <th scope="row">max number of Students</th>
+            <th scope="row">min number <br>of Students</th>
+            <th scope="row">max number <br>of Students</th>
             <th scope="row">description</th>
             <th scope="row">Trainer</th>
         </tr>
@@ -56,6 +56,14 @@
                        th:href="@{/course_lessons/{page}/{courseId}(courseId = ${course.courseId}, page=1)}">Lessons</a>
                 </div>
             </td>
+
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary"
+                       th:href="@{/group_create/{page}/{courseId}(courseId = ${course.courseId}, page=1)}">Groups</a>
+                </div>
+            </td>
+
             <td>
                 <div class="btn-group">
                     <a class="btn btn-info" th:href="@{/edit-course-{id} (id = ${course.courseId}) }">Edit</a>

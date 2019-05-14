@@ -17,7 +17,8 @@
 <div class="container-fluid">
     <h2>Groups List</h2>
     <div  class="btn">
-        <a class="btn btn-success btn-lg" th:href="@{/group-add}">CREATE NEW GROUP</a>
+        <a class="btn btn-success btn-lg" th:href="@{/group-add-{courseId}
+        (courseId = ${courseGroup.courseId})}">CREATE NEW GROUP</a>
     </div>
 
     <div  class="btn">
@@ -47,9 +48,18 @@
             <td th:text="${group.status.statusName}"></td>
             <td>
                 <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/schedule_create/{page}/{groupId}
+                    (groupId = ${group.groupId}, page = 1)}"> Schedule</a>
+                </div>
+            </td>
+
+            <td>
+                <div class="btn-group">
                     <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <a class="btn btn-info" th:href="@{/edit-group-{id} (id = ${group.groupId}) }">Edit</a>
-                    <a class="btn btn-dark" th:href="@{/group-delete-by-{id} (id = ${group.groupId}) }">Delete</a>
+                    <a class="btn btn-info" th:href="@{/edit-group-{groupId}-{id}
+                       (groupId = ${group.groupId},id = ${group.courseId}) }">Edit</a>
+                    <a class="btn btn-dark" th:href="@{/group-delete-by/{groupId}/{id}
+                    (groupId = ${group.courseId},id = ${group.courseId})}">Delete</a>
                 </div>
             </td>
         </tr>

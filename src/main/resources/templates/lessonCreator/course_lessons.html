@@ -25,7 +25,8 @@
     <h2>Lessons List</h2>
 
     <div class="btn">
-        <a class="btn btn-success btn-lg" th:href="@{/lesson-add-{courseId} (courseId= ${courseLesson.courseId})}">CREATE NEW LESSON</a>
+        <a class="btn btn-success btn-lg" th:href="@{/lesson-add-{courseId}
+        (courseId = ${courseLesson.courseId})}">CREATE NEW LESSON</a>
     </div>
 
     <div  class="btn">
@@ -50,11 +51,7 @@
         </tr>
         </thead>
         <tbody>
-<!--                        <tr th:each="lesson, iter : ${lessonsOfCourse}">-->
-<!--                        <td>-->
-<!--                        <a class="btn btn-success" th:href="@{/lesson-add-{id} (id = ${lesson.courseId})}">CREATE NEW LESSON</a>-->
-<!--                        </td>-->
-<!--                        </tr>-->
+
 
         <tr th:each="lesson, iter : ${lessonsOfCourse}">
             <td th:text="${lesson.lessonId}"></td>
@@ -85,7 +82,7 @@
                     <a class="btn btn-info" th:href="@{/edit-lesson-{lessonId}-{id}
                        (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Edit</a>
 
-                    <a class="btn btn-dark" th:href="@{/lesson-delete-by-{lessonId}-{id}
+                    <a class="btn btn-dark" th:href="@{/lesson-delete-by/{lessonId}/{id}
                     (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Delete</a>
                 </div>
             </td>

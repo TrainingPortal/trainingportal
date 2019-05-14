@@ -1,10 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <title>schedule add</title>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
 </head>
 <body>
+<div th:insert="frontend/navbar :: nav"></div>
 
+<h1>Save Schedule</h1>
+<div class="row justify-content-center">
+    <div class="col-md-4 col-md-offset-4">
+        <form action="#" method="post" th:action="@{schedule-save}" th:object="${schedule}">
+
+            <input class="form-control" placeholder="Id" th:field="*{scheduleId}" type="hidden"/>
+
+            <input class="form-control" placeholder="course Id" th:field="*{scheduleGroupId}" type="hidden"/>
+
+            <label>Schedule Date</label>
+            <input class="form-control" placeholder="Schedule Date" th:field="*{scheduleDate}" type="date"/>
+            <p class="alert alert-danger" th:errors="*{scheduleDate}" th:if="${#fields.hasErrors('scheduleDate')}">
+                Error, check name field</p>
+
+            <div class="form-group">
+                <label for="formSelectCourse">Course</label>
+                <select class="form-control" id="formSelectCourse" th:field="*{scheduleLessonId}">
+                    <option th:each=" lesson : ${lessons}"
+                            th:text="${lesson.lessonName}"
+                            th:value="${lesson.lessonId}">
+                    </option>
+                </select>
+            </div>
+
+            <input class="btn btn-success" type="submit" value="Save"/>
+        </form>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

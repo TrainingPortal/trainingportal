@@ -4,12 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.mapper.CourseMapper;
-import trainingportal.mapper.CourseStatusMapper;
 import trainingportal.mapper.GroupMapper;
 import trainingportal.mapper.GroupStatusMapper;
-import trainingportal.model.Course;
-import trainingportal.model.CourseStatus;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
 
@@ -20,17 +16,25 @@ import java.util.List;
 @Transactional
 public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
 
-    //don't forget if it needed, when DAOImpl extends JdbcDaoSupport
     @Autowired
     public GroupDAOImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
     }
 
-    //old realisation, work but need to rework(need to understand how to put in service)
     @Override
     public List<Group> GroupsList() {
         String sql = GroupMapper.SELECT_SQL;
         return this.getJdbcTemplate().query(sql, new Object[]{}, new GroupMapper());
+    }
+
+    @Override
+    public List<Group> getAllAsPageByCourseId(Long courseId, int page, int total) {
+//            String sql = GroupMapper.SELECT_SQL + " WHERE  COURSE_ID = ? ";
+
+        String sql = GroupMapper.SELECT_SQL + " WHERE course_id = ? " +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        return this.getJdbcTemplate().query(sql, new Object[]{courseId}, new GroupMapper());
     }
 
     @Override

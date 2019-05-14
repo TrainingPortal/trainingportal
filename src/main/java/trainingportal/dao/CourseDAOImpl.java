@@ -21,13 +21,14 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
         this.setDataSource(dataSource);
     }
 
-    //old realisation, work but need to rework(need to understand how to put in service)
+// cant delete because of GenericDao<Course>
     @Override
     public List<Course> findAll() {
         String sql = CourseMapper.SELECT_SQL;
         return this.getJdbcTemplate().query(sql, new Object[]{}, new CourseMapper());
     }
 
+    // cant delete because of GenericDao<Course>
     @Override
     public Course findById(Long courseId) {
         String sql = CourseMapper.SELECT_SQL + " WHERE course_id = ?";
@@ -39,7 +40,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
     //insert into database new Course
     @Override
     public void save(Course course) {
-        String sql = "INSERT INTO Course (name, course_level, course_status_id, min_number, max_number, description, trainer_id) VALUES (?,?,?,?,?,?,?)";
+        String sql = CourseMapper.INSERT_SQL;
         this.getJdbcTemplate().update(sql, new Object[]{course.getCourseName(), course.getCourseLevel(),
                 course.getCourseStatus(), course.getMinNumber(), course.getMaxNumber(), course.getDescription(),
                 course.getTrainerId(),});
@@ -56,7 +57,7 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
     @Override
     public void deleteById(Long courseId) {
-        String sql = "DELETE FROM COURSE WHERE course_id = ?";
+        String sql = CourseMapper.DELETE + " WHERE course_id = ?";
 
         this.getJdbcTemplate().update(sql, courseId);
     }

@@ -18,12 +18,9 @@
     <div class="row no-gutters ">
         <div class="col">
             <form action="#" method="post"  th:action="@{/lesson-save}" th:object="${lesson}">
-                <input class="form-control" placeholder="Id" th:field="*{lessonId}" type="hidden"/>
 
-                <label>course Id</label>
-                <input class="form-control" placeholder="course Id" th:field="*{courseId}" type="number"/>
-                <p class="alert alert-danger" th:errors="*{courseId}" th:if="${#fields.hasErrors('courseId')}">
-                    Error, homework Id field</p>
+                <input class="form-control" placeholder="Id" th:field="*{lessonId}" type="hidden"/>
+                <input class="form-control" placeholder="course Id" th:field="*{courseId}" type="hidden"/>
 
                 <label>lesson Name</label>
                 <input class="form-control" placeholder="lesson Name" th:field="*{lessonName}" type="text"/>
