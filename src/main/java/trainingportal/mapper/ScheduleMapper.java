@@ -17,10 +17,10 @@ public class ScheduleMapper implements BaseObjectMapper<Schedule> {
     public Map<String, Object> mapObject(Schedule obj) {
         Map<String, Object> res = new HashMap<>();
 
-        res.put("id", obj.getScheduleId());
-        res.put("group_id", obj.getGroupId());
-        res.put("date_lesson", obj.getDate());
-        res.put("lesson_id", obj.getLessonId());
+        res.put("id", obj.getSheduleId());
+        res.put("group_id", obj.getSheduleGroupId());
+        res.put("date_lesson", obj.getSheduleDate());
+        res.put("lesson_id", obj.getSheduleLessonId());
 
         return res;
     }

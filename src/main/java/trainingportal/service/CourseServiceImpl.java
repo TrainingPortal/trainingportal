@@ -35,6 +35,7 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
     @Override
     public List<Course> findByTrainerId(Long id) {
         return courseDAO.findByTrainerId(id);
+    }
 
     public int getPagesByUserId(Long userId, double total) {
 

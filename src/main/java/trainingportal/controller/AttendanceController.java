@@ -75,11 +75,12 @@ public class AttendanceController {
         List<User> users = userService.findAllByGroup(groupId);
         List<AttendanceType> attendanceTypes = attendanceTypeService.getAllAttendanceList();
         List<Attendance> attendances = new ArrayList<Attendance>();
-        Lesson lesson = lessonService.
+        Lesson lesson = lessonService.getLessonByScheduleId(schedule.getSheduleId());
+
 
         for (int i = 0; i < users.size(); i++) {
             Attendance attendance = new Attendance();
-            attendance.setScheduleId(schedule.getScheduleId());
+            attendance.setScheduleId(schedule.getSheduleId());
             attendance.setUser(users.get(i));
             attendance.setUserId(users.get(i).getUserId());
             attendances.add(attendance);
@@ -91,7 +92,9 @@ public class AttendanceController {
         modelAndView.addObject("attendanceTypes",attendanceTypes);
         modelAndView.addObject("attendances", attendanceForm);
         modelAndView.addObject("lesson", lesson);
-        modelAndView.setViewName("attendance/schedule");
+        modelAndView.addObject("users", users);
+        modelAndView.addObject("schedule", schedule);
+        modelAndView.setViewName("attendance/presense");
 
         return modelAndView;
     }

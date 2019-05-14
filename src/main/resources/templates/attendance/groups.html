@@ -18,7 +18,7 @@
 <div th:unless="${groups.size() == 0}">
     <ul class="list-group list-group-horizontal" th:each="group:${groups}">
         <li>
-            <a th:href="@{/schedule/{groupId}(groupId=${group.getGroupId()})}" class="list-group-item"
+            <a th:href="@{/presense/{groupId}(groupId=${group.getGroupId()})}" class="list-group-item"
                th:text="${group.getGroupName()} + '-' + ${group.getStatus()}">
             </a>
         </li>

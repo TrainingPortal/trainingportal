@@ -9,8 +9,6 @@ import trainingportal.service.generic.GenericServiceImpl;
 
 import java.util.List;
 
-=======
-
 @Service("lessonService")
 @Transactional
 public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements LessonService {
@@ -61,5 +59,10 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
         } else  {
             return false;
         }
+    }
+
+    @Override
+    public Lesson getLessonByScheduleId(Long id) {
+        return lessonDao.getLessonByScheduleId(id);
     }
 }

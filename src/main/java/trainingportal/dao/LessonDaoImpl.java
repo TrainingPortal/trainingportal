@@ -28,7 +28,7 @@ public class LessonDaoImpl extends GenericDaoImpl<Lesson> implements LessonDao {
 
     @Override
     protected BaseObjectMapper<Lesson> getObjectMapper() {
-        return null;
+        return new LessonMapper();
     }
 
     @Override
@@ -95,25 +95,19 @@ public class LessonDaoImpl extends GenericDaoImpl<Lesson> implements LessonDao {
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{courseId}, Integer.class);
     }
 
-    /*@Override
-    public boolean isConnectedWithTrainer(Long id) {
-        String sql = "SELECT COUNT(lesson_id) FROM Lesson a " +
-                "INNER JOIN Course b " +
-                "ON b.trainer_id = ? AND a.course_id = b.course_id";
-        Long lessons = this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Long.class);
-
-        if(lessons>0)
-            return true;
-        else
-            return false;
-    }*/
-
     @Override
     public Long getTrainerIdByCourseId(Long id) {
 
         String sql = "SELECT trainer_id from Course WHERE course_id = ?";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Long.class);
+    }
+
+    @Override
+    public Lesson getLessonByScheduleId(Long id) {
+        String sql = "SELECT * FROM LESSON l INNER JOIN SCHEDULE s ON l.lesson_id = s.lesson_id  WHERE s.id = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, getObjectMapper());
     }
 }
 
