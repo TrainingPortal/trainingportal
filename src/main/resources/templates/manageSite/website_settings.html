@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Website Settings</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-outline-light text-dark btn-block" th:href="@{/manage_main_slider}">Manage main slider</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-outline-light text-dark btn-block" th:href="@{/manage_main_card}">Manage main card</a>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

@@ -3,65 +3,50 @@ package trainingportal.model;
 import java.sql.Date;
 
 public class Schedule {
-    private Long scheduleId;
-    private Group group;
-    private Long groupId;
-    private Date date;
-    private Lesson lesson;
-    private Long lessonId;
+    private Long sheduleId;
+    private Long sheduleGroupId;
+    private Date sheduleDate;
+    private Long sheduleLessonId;
 
-    public Schedule(Long scheduleId, Long groupId, Date date, Long lessonId) {
-        this.scheduleId = scheduleId;
-        this.groupId = groupId;
-        this.date = date;
-        this.lessonId = lessonId;
+    public Schedule() {
     }
 
-    public Long getScheduleId() {
-        return scheduleId;
+    public Schedule(Long sheduleId, Long sheduleGroupId, Date sheduleDate, Long sheduleLessonId) {
+        this.sheduleId = sheduleId;
+        this.sheduleGroupId = sheduleGroupId;
+        this.sheduleDate = sheduleDate;
+        this.sheduleLessonId = sheduleLessonId;
     }
 
-    public void setScheduleId(Long scheduleId) {
-        this.scheduleId = scheduleId;
+    public Long getSheduleId() {
+        return sheduleId;
     }
 
-    public Group getGroup() {
-        return group;
+    public void setSheduleId(Long sheduleId) {
+        this.sheduleId = sheduleId;
     }
 
-    public void setGroup(Group group) {
-        this.group = group;
+    public Long getSheduleGroupId() {
+        return sheduleGroupId;
     }
 
-    public Long getGroupId() {
-        return groupId;
+    public void setSheduleGroupId(Long sheduleGroupId) {
+        this.sheduleGroupId = sheduleGroupId;
     }
 
-    public void setGroupId(Long groupId) {
-        this.groupId = groupId;
+    public Date getSheduleDate() {
+        return sheduleDate;
     }
 
-    public Date getDate() {
-        return date;
+    public void setSheduleDate(Date sheduleDate) {
+        this.sheduleDate = sheduleDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public Long getSheduleLessonId() {
+        return sheduleLessonId;
     }
 
-    public Lesson getLesson() {
-        return lesson;
-    }
-
-    public void setLesson(Lesson lesson) {
-        this.lesson = lesson;
-    }
-
-    public Long getLessonId() {
-        return lessonId;
-    }
-
-    public void setLessonId(Long lessonId) {
-        this.lessonId = lessonId;
+    public void setSheduleLessonId(Long sheduleLessonId) {
+        this.sheduleLessonId = sheduleLessonId;
     }
 }

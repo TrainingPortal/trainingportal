@@ -44,7 +44,8 @@
             <td th:text="${course.trainer.userName}"></td>
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-outline-primary" th:href="@{/course_lessons(id = ${course.courseId})}">Lessons</a>
+                    <a class="btn btn-outline-primary"
+                       th:href="@{/course_lessons/{page}/{courseId}(courseId = ${course.courseId}, page=1)}">Lessons</a>
                 </div>
             </td>
             <td>

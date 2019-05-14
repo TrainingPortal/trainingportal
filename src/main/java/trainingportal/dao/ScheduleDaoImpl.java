@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 @Repository
 public class ScheduleDaoImpl extends GenericDaoImpl<Schedule> implements ScheduleDao {
     //Define table and id column
-    private static final String TABLE_NAME = "schedule";
+    private static final String TABLE_NAME = "Schedule";
     private static final String ID_COLUMN = "id";
 
     @Autowired

@@ -1,7 +1,6 @@
 package trainingportal.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
-import trainingportal.model.CourseStatus;
 import trainingportal.model.GroupStatus;
 
 import java.sql.ResultSet;

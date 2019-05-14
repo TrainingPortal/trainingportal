@@ -47,6 +47,24 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
     public List<Course> findByTrainerId(Long id){
         String sql = CourseMapper.SELECT_SQL + " WHERE trainer_id = ?";
 
+    public int countAllByUserId(Long userId) {
+
+        String sql = "SELECT COUNT(course_id) FROM Course WHERE trainer_id = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{userId}, Integer.class);
+    }
+
+    @Override
+    public List<Course> getAllAsPageById(Long id, int page, int total) {
+
+        String sql = CourseMapper.SELECT_SQL + " WHERE trainer_id = ? " +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        return this.getJdbcTemplate().query(sql, new Object[]{id}, new CourseMapper());
+    }
+
+    @Override
+    public int countAll() {
         return this.getJdbcTemplate().query(sql, new Object[]{id}, new CourseMapper());
     }
 

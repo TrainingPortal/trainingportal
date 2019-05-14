@@ -1,7 +1,6 @@
 package trainingportal.mapper;
 
 import trainingportal.mapper.generic.BaseObjectMapper;
-import trainingportal.model.Attendance;
 import trainingportal.model.Schedule;
 
 import java.sql.Date;
@@ -12,7 +11,7 @@ import java.util.Map;
 
 public class ScheduleMapper implements BaseObjectMapper<Schedule> {
     public static final String BASE_SQL =
-            "SELECT * FROM schedule ";
+            "SELECT * FROM Schedule ";
 
     @Override
     public Map<String, Object> mapObject(Schedule obj) {
