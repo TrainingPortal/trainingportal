@@ -106,4 +106,34 @@ public class CourseDAOImpl extends JdbcDaoSupport implements CourseDao {
 
         return this.getJdbcTemplate().queryForObject(sql, Integer.class);
     }
+
+    @Override
+    public List<Course> findCoursesByUserId(Long id) {
+
+        /*String sql = "select a.course_id FROM groups a " +
+                "INNER JOIN user_group b " +
+                "ON a.id = b.group_id " +
+                "WHERE b.user_id = ?";*/
+
+        String sql = "SELECT a.course_id, a.name, a.course_level, a.course_status_id, a.min_number, " +
+                "a.max_number, a.description, a.trainer_id FROM ((Course a " +
+                "INNER JOIN groups b ON a.course_id = b.course_id) " +
+                "INNER JOIN user_group c ON b.id = c.group_id) " +
+                "WHERE c.user_id = ?";
+
+        return this.getJdbcTemplate().query(sql, new Object[]{id}, new CourseMapper());
+    }
+
+    @Override
+    public List<Course> getAllAsPageByEmployeeId(Long userId, int page, int total) {
+
+        String sql = "SELECT a.course_id, a.name, a.course_level, a.course_status_id, a.min_number, " +
+                "a.max_number, a.description, a.trainer_id FROM ((Course a " +
+                "INNER JOIN groups b ON a.course_id = b.course_id) " +
+                "INNER JOIN user_group c ON b.id = c.group_id) " +
+                "WHERE c.user_id = ? " +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        return this.getJdbcTemplate().query(sql, new Object[]{userId}, new CourseMapper());
+    }
 }

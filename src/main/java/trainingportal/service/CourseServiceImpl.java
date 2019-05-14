@@ -109,16 +109,25 @@ public class CourseServiceImpl implements CourseService {
         List<Course> courseList;
 
         Collection<GrantedAuthority> authority = ((LoggedInUser) auth.getPrincipal()).getAuthorities();
+        String role = authority.iterator().next().toString();
 
-        if(authority.iterator().next().toString().equals("ROLE_ADMIN")){
+        if(role.equals("ROLE_ADMIN")){
             courseList = courseDAO.getAllAsPage(page, total);
-        } else {
+        } else if(role.equals("ROLE_TRAINER")){
             courseList = courseDAO.getAllAsPageById(userId, page, total);
+        } else {
+            courseList = courseDAO.getAllAsPageByEmployeeId(userId, page, total);
         }
         for(Course course : courseList){
             course.setTrainer(userDAO.findById(course.getTrainerId()));
             course.setStatus(courseDAO.findStatusById(course.getCourseStatus()));
         }
         return courseList;
+    }
+
+    @Override
+    public List<Course> findCoursesByUserId(Long id) {
+
+        return courseDAO.findCoursesByUserId(id);
     }
 }
