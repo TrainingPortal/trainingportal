@@ -454,14 +454,14 @@ INSERT INTO Notification_Status (name) values('Closed');
 
 CREATE TABLE Desired_Period
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    desired_period_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     user_id NUMBER,
     course_id NUMBER
 );
 
 CREATE TABLE Weekday
 (
-    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    weekday_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     day_name VARCHAR2(20),
     time_start VARCHAR2(20),
     time_end VARCHAR2(20),
@@ -591,7 +591,7 @@ alter table Task
 alter table Desired_Period add constraint dperiod_fk_user FOREIGN KEY (user_id) references users (user_Id);
 alter table Desired_Period
     add constraint dperiod_fk_cource FOREIGN KEY (course_id) references Course (course_id);
-alter table Weekday add constraint weekday_fk_dperiod FOREIGN KEY (period_id) references Desired_Period (id);
+alter table Weekday add constraint weekday_fk_dperiod FOREIGN KEY (period_id) references Desired_Period (desired_period_id);
 alter table Course add constraint cource_fk_status FOREIGN KEY (course_status_id) references Course_Status(id);
 alter table Course add constraint cource_fk_trainer FOREIGN KEY (trainer_id) references users (user_Id);
 alter table Message add constraint message_fk_user FOREIGN KEY (sender_id) references users (user_Id);

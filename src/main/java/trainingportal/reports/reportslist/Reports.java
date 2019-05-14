@@ -58,10 +58,10 @@ public class Reports {
         list.add("Status");
 
         //Choose by attendance for only active or stopped course where attendance type = to ......
-        String sql = "SELECT users.name as \"User Name\", schedule.date_lesson as \"Lesson Date\", lesson.lesson_name as \"Lesson Name\", type, groups.name as \"Group Name\", course.name as \"Course Name\", course_status.name_status as \"Status\"  \n" +
-                "FROM attendance INNER JOIN users ON attendance.user_id = users.user_id INNER JOIN schedule ON attendance.schedule_id = schedule.id \n" +
+        String sql = "SELECT users.name as \"User Name\", Schedule.date_lesson as \"Lesson Date\", lesson.lesson_name as \"Lesson Name\", type, groups.name as \"Group Name\", course.name as \"Course Name\", course_status.name_status as \"Status\"  \n" +
+                "FROM attendance INNER JOIN users ON attendance.user_id = users.user_id INNER JOIN Schedule ON attendance.schedule_id = Schedule.id \n" +
                 "LEFT OUTER JOIN attendance_type ON attendance.type_id = attendance_type.id \n" +
-                "INNER JOIN lesson ON schedule.lesson_id = lesson.lesson_id LEFT OUTER JOIN groups ON schedule.group_id = groups.id\n" +
+                "INNER JOIN lesson ON Schedule.lesson_id = lesson.lesson_id LEFT OUTER JOIN groups ON Schedule.group_id = groups.id\n" +
                 "LEFT OUTER JOIN course ON groups.course_id = course.course_id INNER JOIN course_status ON course.course_status_id = course_status.id\n" +
                 "WHERE ( course_status.id = 1 OR course_status.id = 3 ) AND attendance_type.id = " + attendanceId;
 

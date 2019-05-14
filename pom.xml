@@ -13,7 +13,7 @@
 
     <groupId>com.trainingportalgroupone</groupId>
     <artifactId>trainingportal</artifactId>
-    <version>0.2.2-SNAPSHOT</version>
+    <version>0.2.4-SNAPSHOT</version>
     <packaging>jar</packaging>
     <name>trainingportal</name>
     <description>one module for Spring Boot</description>
@@ -117,6 +117,11 @@
             <version>2.5</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.oracle.jdbc</groupId>
+            <artifactId>ojdbc8</artifactId>
+            <version>18.3.0.0</version>
+        </dependency>
 
     </dependencies>
 

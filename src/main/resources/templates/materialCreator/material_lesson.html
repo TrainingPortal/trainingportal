@@ -23,9 +23,19 @@
 
 <div class="container-fluid">
     <h2>Material List</h2>
-    <h2>
-        <a class="btn btn-success" th:href="@{/material-add}">CREATE NEW MATERIAL</a>
-    </h2>
+
+    <div class="btn">
+        <a class="btn btn-success btn-lg" th:href="@{/material-add}">CREATE NEW MATERIAL</a>
+    </div>
+
+    <div  class="btn">
+        <a class="btn btn btn-info btn-lg" th:href="@{/course_lessons}">Back to Lessons</a>
+    </div>
+
+    <div  class="btn">
+        <a class="btn btn btn-info btn-lg" th:href="@{/course_create/1}">Back to Course</a>
+    </div>
+
     <table class="table table-striped">
         <thead>
         <tr>

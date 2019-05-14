@@ -18,7 +18,9 @@
     <div class="row no-gutters ">
         <div class="col">
             <form action="#" method="post" th:action="@{group-save}" th:object="${group}">
+
                 <input class="form-control" placeholder="Id" th:field="*{groupId}" type="hidden"/>
+                <input class="form-control" placeholder="Id" th:field="*{courseId}" type="hidden"/>
 
                 <div class="form-group">
                     <label>Name</label>
@@ -35,15 +37,15 @@
                         Error, check capacity field</p>
                 </div>
 
-                <div class="form-group">
-                    <label for="formSelectCourse">Course</label>
-                    <select id="formSelectCourse" class="form-control" th:field="*{courseId}">
-                        <option th:each="course : ${courses}"
-                                th:value="${course.courseId}"
-                                th:text="${course.courseName}">
-                        </option>
-                    </select>
-                </div>
+<!--                <div class="form-group">-->
+<!--                    <label for="formSelectCourse">Course</label>-->
+<!--                    <select id="formSelectCourse" class="form-control" th:field="*{courseId}">-->
+<!--                        <option th:each="course : ${courses}"-->
+<!--                                th:value="${course.courseId}"-->
+<!--                                th:text="${course.courseName}">-->
+<!--                        </option>-->
+<!--                    </select>-->
+<!--                </div>-->
 
                 <div class="form-group">
                     <label for="formSelectStatus">Group status</label>

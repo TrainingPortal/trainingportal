@@ -9,6 +9,8 @@ public interface GroupDao {
 
     List<Group> GroupsList();
 
+    List<Group> getAllAsPageByCourseId(Long courseId, int page, int total);
+
     Group findGroupById(Long groupId);
 
     void saveGroup(Group group);

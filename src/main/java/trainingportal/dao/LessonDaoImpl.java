@@ -5,7 +5,6 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.mapper.LessonMapper;
-import trainingportal.model.Course;
 import trainingportal.model.Lesson;
 
 import javax.sql.DataSource;
@@ -24,6 +23,15 @@ public class LessonDaoImpl extends JdbcDaoSupport implements LessonDao {
     public List<Lesson> findAll() {
         String sql = LessonMapper.SELECT_SQL;
         return this.getJdbcTemplate().query(sql, new Object[]{}, new LessonMapper());
+    }
+
+    @Override
+    public List<Lesson> getAllAsPageByCourseId(Long courseId, int page, int total) {
+
+        String sql = LessonMapper.SELECT_SQL + " WHERE course_id = ? " +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        return this.getJdbcTemplate().query(sql, new Object[]{courseId}, new LessonMapper());
     }
 
     @Override
@@ -62,15 +70,6 @@ public class LessonDaoImpl extends JdbcDaoSupport implements LessonDao {
         String sql = "DELETE FROM LESSON WHERE lesson_id = ?";
 
         this.getJdbcTemplate().update(sql, lessonId);
-    }
-
-    @Override
-    public List<Lesson> getAllAsPageByCourseId(Long courseId, int page, int total) {
-
-        String sql = LessonMapper.SELECT_SQL + " WHERE course_id = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
-
-        return this.getJdbcTemplate().query(sql, new Object[]{courseId}, new LessonMapper());
     }
 
     @Override

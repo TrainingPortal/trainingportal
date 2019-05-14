@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <title>schedule</title>
+    <title>Schedule</title>
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
     <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
@@ -12,27 +12,16 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="container-fluid">
-    <h2>Schedule List</h2>
-
-    <div class="btn">
-        <a class="btn btn-success btn-lg" th:href="@{/schedule-add-{groupId}
-         (groupId = ${groupSchedule.groupId})}">CREATE NEW Schedule</a>
-    </div>
-
-    <div  class="btn">
-        <a class="btn btn btn-info btn-lg" th:href="@{/course_create/1}">Back to Course</a>
-    </div>
-
+    <h2>Schedule</h2>
+<!--    rebuild for back to user profile-->
 <!--    <div  class="btn">-->
-<!--        <a class="btn btn btn-info btn-lg"-->
-<!--           th:href="@{/group_create/1/{courseId} (courseId =${forBack.courseId})}">Back to Group</a>-->
+<!--        <a class="btn btn btn-info btn-lg" th:href="@{/group_create/1}">Back to Group</a>-->
 <!--    </div>-->
+
 
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="row">schedule Id</th>
-            <th scope="row">group Id</th>
             <th scope="row">date</th>
             <th scope="row">lesson Id</th>
         </tr>
@@ -40,20 +29,9 @@
         <tbody>
 
 
-        <tr th:each="schedule, iter : ${scheduleOfGroup}">
-            <td th:text="${schedule.scheduleId}"></td>
-            <td th:text="${schedule.scheduleGroupId}"></td>
+        <tr th:each="schedule, iter : ${scheduleForUser}">
             <td th:text="${schedule.scheduleDate}"></td>
             <td th:text="${schedule.scheduleLessonId}"></td>
-            <td>
-                <div class="btn-group">
-                    <a class="btn btn-info" th:href="@{/schedule-edit-{scheduleId}-{id}
-                       (scheduleId = ${schedule.scheduleId},id = ${schedule.scheduleGroupId})}">Edit</a>
-
-                    <a class="btn btn-dark" th:href="@{/schedule-delete/{scheduleId}/{id}
-                    (scheduleId = ${schedule.scheduleId},id = ${schedule.scheduleGroupId})}">Delete</a>
-                </div>
-            </td>
 
         </tr>
         </tbody>
