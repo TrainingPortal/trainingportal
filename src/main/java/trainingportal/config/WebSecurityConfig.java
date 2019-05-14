@@ -60,14 +60,25 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_MANAGER') and " +
                         "@userSecurity.hasUserId(authentication,#id))");
 
-        // For Trainers
+        // Courses page
         http.authorizeRequests()
                 .antMatchers("/course_create/*")
-                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER'))");
+                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER')) or (hasRole('ROLE_EMPLOYEE'))");
+
+        //Lessons pages
         http.authorizeRequests()
                 .antMatchers("/course_lessons/*/{id}", "/edit-lesson-*-{id}", "/lesson-delete-by-*-{id}")
                 .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') and " +
                         "@userSecurity.isConnectedWithTrainer(authentication,#id))");
+
+        // Profile page settings
+        http.authorizeRequests()
+                .antMatchers("/profile_page/{id}")
+                .access("hasRole('ROLE_ADMIN') " +
+                        "or (hasRole('ROLE_EMPLOYEE') and @userSecurity.hasUserId(authentication,#id)) " +
+                        "or (hasRole('ROLE_TRAINER') and @userSecurity.hasUserId(authentication,#id)) " +
+                        "or (hasRole('ROLE_MANAGER') and (@userSecurity.isSubordinate(authentication,#id) " +
+                        "or @userSecurity.hasUserId(authentication,#id)))");
 
         // When the user has logged in as XX.
         // But access a page that requires role YY,

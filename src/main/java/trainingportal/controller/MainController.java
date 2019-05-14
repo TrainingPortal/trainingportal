@@ -5,6 +5,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import trainingportal.model.LoggedInUser;
 import trainingportal.utils.WebUtils;
 
 import java.security.Principal;
@@ -32,11 +33,6 @@ public class MainController {
 
     @GetMapping("/profilepage")
     String profilePage(Model model, Principal principal){
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String userInfo = WebUtils.toString(loginedUser);
-
-        System.out.println(userInfo);
 
         return "frontend/profilepage";
     }
