@@ -30,7 +30,7 @@ public class HomeworkDaoImpl extends GenericDaoImpl<Homework> implements Homewor
     }
     @Override
     protected BaseObjectMapper<Homework> getObjectMapper() {
-        return null;
+        return new HomeworkMapper();
     }
 
     @Override

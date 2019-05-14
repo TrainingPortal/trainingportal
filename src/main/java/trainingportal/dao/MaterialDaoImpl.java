@@ -28,7 +28,7 @@ public class MaterialDaoImpl extends GenericDaoImpl<Material> implements Materia
 
     @Override
     protected BaseObjectMapper<Material> getObjectMapper() {
-        return null;
+        return new MaterialMapper();
     }
 
     @Override

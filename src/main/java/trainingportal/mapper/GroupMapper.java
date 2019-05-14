@@ -6,6 +6,7 @@ import trainingportal.model.Group;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 
 public class GroupMapper implements BaseObjectMapper<Group> {
@@ -36,6 +37,18 @@ public class GroupMapper implements BaseObjectMapper<Group> {
 
     @Override
     public Map<String, Object> mapObject(Group obj) {
-        return null;
+        Map<String, Object> res = new HashMap<>();
+
+        res.put("id", obj.getGroupId());
+
+        res.put("name",obj.getGroupName());
+
+        res.put("capacity", obj.getGroupCapacity());
+
+        res.put("course_id", obj.getCourseId());
+
+        res.put("status_id", obj.getStatusId());
+
+        return res;
     }
 }

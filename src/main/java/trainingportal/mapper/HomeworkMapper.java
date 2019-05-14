@@ -1,13 +1,16 @@
 package trainingportal.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
+import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.Homework;
 
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
-public class HomeworkMapper implements RowMapper<Homework> {
+public class HomeworkMapper implements BaseObjectMapper<Homework> {
 
 
     public static final String SELECT_SQL
@@ -30,5 +33,20 @@ public class HomeworkMapper implements RowMapper<Homework> {
 
 
         return new Homework(homeworkId, lessonId, homeworkName, homeworkDeadlineDate);
+    }
+
+    @Override
+    public Map<String, Object> mapObject(Homework obj) {
+        Map<String, Object> res = new HashMap<>();
+
+        res.put("homework_id", obj.getHomeworkId());
+
+        res.put("lesson_id",obj.getLessonId());
+
+        res.put("homework_name", obj.getHomeworkName());
+
+        res.put("homework_deadline_date", obj.getHomeworkDeadlineDate());
+
+        return res;
     }
 }

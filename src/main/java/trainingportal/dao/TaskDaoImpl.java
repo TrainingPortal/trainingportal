@@ -28,7 +28,7 @@ public class TaskDaoImpl extends GenericDaoImpl<Task> implements TaskDao {
 
     @Override
     protected BaseObjectMapper<Task> getObjectMapper() {
-        return null;
+        return new TaskMapper();
     }
 
     @Override

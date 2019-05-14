@@ -67,6 +67,6 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
 
     @Override
     protected BaseObjectMapper<Course> getObjectMapper() {
-        return null;
+        return  new CourseMapper();
     }
 }
