@@ -1,11 +1,5 @@
 package trainingportal.reports.download;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-
-import javax.servlet.ServletContext;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -13,11 +7,16 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+import javax.servlet.ServletContext;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
 
 @Controller
 public class Download {
 
-    private static final String DIRECTORY = "/Users/mrlova/IdeaProjects/trainingportal";
+    private static final String DIRECTORY = "/trainingportal";
     //private static final String DEFAULT_FILE_NAME = "";
 
     @Autowired

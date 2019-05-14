@@ -77,7 +77,7 @@ public class ScheduleController {
     }
 
     @RequestMapping(value = "schedule-save", method = RequestMethod.POST)
-    public ModelAndView saveSchedule(@RequestParam("groupId") Long groupId, Schedule schedule, ModelAndView modelAndView) {
+    public ModelAndView saveSchedule(@PathVariable("groupId") Long groupId, Schedule schedule, ModelAndView modelAndView) {
         scheduleService.save(schedule);
 
         modelAndView.setViewName("redirect:/schedule_create/1/" + groupId);
