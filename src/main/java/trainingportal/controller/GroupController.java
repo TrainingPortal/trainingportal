@@ -9,8 +9,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Course;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
-import trainingportal.service.CourseServiceImpl;
-import trainingportal.service.GroupServiceImpl;
+import trainingportal.service.CourseService;
+import trainingportal.service.GroupService;
 
 import java.util.List;
 
@@ -18,10 +18,10 @@ import java.util.List;
 public class GroupController {
 
     @Autowired
-    GroupServiceImpl groupService;
+    GroupService groupService;
 
     @Autowired
-    CourseServiceImpl courseService;
+    CourseService courseService;
 
     private static final int ROWS_LIMIT = 10;
 //old method

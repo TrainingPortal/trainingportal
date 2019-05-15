@@ -3,7 +3,7 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.HomeworkDaoImpl;
+import trainingportal.dao.HomeworkDao;
 import trainingportal.model.Homework;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
 @Transactional
 public class HomeworkServiceImpl implements HomeworkService {
     @Autowired
-    private HomeworkDaoImpl homeworkDao;
+    private HomeworkDao homeworkDao;
 
     @Override
     public List<Homework> findAll() {
