@@ -1,18 +1,14 @@
 package trainingportal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import trainingportal.model.LoggedInUser;
 import org.springframework.web.servlet.ModelAndView;
 import trainingportal.model.MainCardModel;
 import trainingportal.model.MainSliderModel;
 import trainingportal.service.MainCardService;
 import trainingportal.service.MainSliderService;
-import trainingportal.utils.WebUtils;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -22,10 +18,10 @@ import java.util.List;
 public class MainController {
 
     @Autowired
-    MainSliderService mainSliderService;
+    private MainSliderService mainSliderService;
 
     @Autowired
-    MainCardService mainCardService;
+    private MainCardService mainCardService;
 
     @GetMapping({"/", "/index"})
     public ModelAndView welcomePage(ModelAndView modelAndView) {

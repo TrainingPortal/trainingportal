@@ -18,10 +18,10 @@ import java.util.List;
 public class GroupController {
 
     @Autowired
-    GroupService groupService;
+    private GroupService groupService;
 
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
 
     private static final int ROWS_LIMIT = 10;
 //old method

@@ -11,21 +11,18 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.*;
 import trainingportal.service.CourseService;
-import trainingportal.service.LessonService;
 import trainingportal.service.UserService;
+
 import java.util.List;
 
 @Controller
 public class CourseController {
 
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
 
     @Autowired
-    UserService userService;
-
-    @Autowired
-    LessonService lessonService;
+    private UserService userService;
 
     private static final int ROWS_LIMIT = 10;
 

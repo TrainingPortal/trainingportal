@@ -19,10 +19,10 @@ public class TaskController {
 
 
     @Autowired
-    TaskService taskService;
+    private TaskService taskService;
 
     @Autowired
-    HomeworkService homeworkService;
+    private HomeworkService homeworkService;
 
     @RequestMapping(value = "/homework_task")
     public ModelAndView showTaskListOfHomework(Long id, ModelAndView modelAndView) {

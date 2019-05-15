@@ -19,9 +19,11 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    SubordinateDAO subordinateRepository;
+    private SubordinateDAO subordinateRepository;
+
     @Autowired
     private UserDao userRepository;
+
     @Autowired
     private RoleDao roleRepository;
 

@@ -18,10 +18,10 @@ import java.util.List;
 public class MaterialController {
 
     @Autowired
-    MaterialService materialService;
+    private MaterialService materialService;
 
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
 
     @RequestMapping("/material_lesson")
     public ModelAndView showMaterialListOfLessons(Long id, ModelAndView modelAndView) {

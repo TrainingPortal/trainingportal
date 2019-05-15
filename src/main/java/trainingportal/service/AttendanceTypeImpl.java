@@ -11,7 +11,7 @@ import java.util.List;
 public class AttendanceTypeImpl implements trainingportal.service.AttendanceType {
 
     @Autowired
-    AttendanceTypeDao attendanceTypeDao;
+    private AttendanceTypeDao attendanceTypeDao;
 
     @Override
     public List<Attendance> getAllAttendanceList() {
