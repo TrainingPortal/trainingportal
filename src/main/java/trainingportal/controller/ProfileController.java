@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import trainingportal.model.Course;
-import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.CourseService;
 import trainingportal.service.ProfileService;
@@ -18,10 +17,10 @@ import java.util.List;
 public class ProfileController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
 
     @Autowired
     ProfileService profileService;

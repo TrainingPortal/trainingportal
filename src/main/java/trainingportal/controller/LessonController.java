@@ -19,10 +19,10 @@ import java.util.List;
 public class LessonController {
 
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
 
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
 
     private static final int ROWS_LIMIT = 10;
 

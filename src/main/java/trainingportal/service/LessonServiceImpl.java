@@ -1,14 +1,10 @@
 package trainingportal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.LessonDaoImpl;
-import trainingportal.model.Course;
+import trainingportal.dao.LessonDao;
 import trainingportal.model.Lesson;
-import trainingportal.model.LoggedInUser;
-import trainingportal.model.Role;
 
 import java.util.List;
 
@@ -17,7 +13,7 @@ import java.util.List;
 public class LessonServiceImpl implements LessonService {
 
     @Autowired
-    private LessonDaoImpl lessonDao;
+    private LessonDao lessonDao;
 
     @Override
     public List<Lesson> findAll() {

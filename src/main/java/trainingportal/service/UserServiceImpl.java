@@ -3,9 +3,9 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.RoleDAOImpl;
-import trainingportal.dao.SubordinateDAOImpl;
-import trainingportal.dao.UserDAOImpl;
+import trainingportal.dao.RoleDao;
+import trainingportal.dao.SubordinateDAO;
+import trainingportal.dao.UserDao;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 
@@ -19,13 +19,13 @@ import java.util.Map;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserDAOImpl userRepository;
+    private SubordinateDAO subordinateRepository;
 
     @Autowired
-    SubordinateDAOImpl subordinateRepository;
+    private UserDao userRepository;
 
     @Autowired
-    private RoleDAOImpl roleRepository;
+    private RoleDao roleRepository;
 
     @Override
     public User findById(Long id) {

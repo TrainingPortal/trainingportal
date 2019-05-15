@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.CourseDAOImpl;
+import trainingportal.dao.CourseDao;
 import trainingportal.dao.UserDao;
 import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
@@ -20,7 +20,7 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
 
     @Autowired
-    private CourseDAOImpl courseDAO;
+    private CourseDao courseDAO;
 
     @Autowired
     private UserDao userDAO;

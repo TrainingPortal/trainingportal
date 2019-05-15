@@ -3,13 +3,12 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import trainingportal.dao.RoleDAOImpl;
-import trainingportal.dao.UserDAOImpl;
+import trainingportal.dao.RoleDao;
+import trainingportal.dao.UserDao;
 import trainingportal.model.LoggedInUser;
 
 import java.util.ArrayList;
@@ -19,10 +18,10 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserDAOImpl userRepository;
+    private UserDao userRepository;
 
     @Autowired
-    private RoleDAOImpl roleRepository;
+    private RoleDao roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

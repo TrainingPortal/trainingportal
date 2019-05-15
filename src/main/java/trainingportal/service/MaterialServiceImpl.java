@@ -3,7 +3,7 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.MaterialDaoImpl;
+import trainingportal.dao.MaterialDao;
 import trainingportal.model.Material;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class MaterialServiceImpl implements MaterialService {
 
     @Autowired
-    private MaterialDaoImpl materialDao;
+    private MaterialDao materialDao;
 
     @Override
     public int getNumberOfPages(List<Material> users, double total) {

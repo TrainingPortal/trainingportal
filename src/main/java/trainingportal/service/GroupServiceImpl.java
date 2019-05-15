@@ -3,7 +3,7 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.GroupDAOImpl;
+import trainingportal.dao.GroupDao;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
 
@@ -14,7 +14,7 @@ import java.util.List;
 public class GroupServiceImpl implements GroupService {
 
     @Autowired
-    private GroupDAOImpl groupDAO;
+    private GroupDao groupDAO;
 
     @Override
     public List<Group> getAllAsPageByCourseId(Long courseId, int page, int total) {

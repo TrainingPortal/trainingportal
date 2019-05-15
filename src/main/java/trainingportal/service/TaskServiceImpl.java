@@ -3,7 +3,7 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.TaskDaoImpl;
+import trainingportal.dao.TaskDao;
 import trainingportal.model.Task;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public class TaskServiceImpl implements TaskService {
 
 
     @Autowired
-    private TaskDaoImpl taskDao;
+    private TaskDao taskDao;
 
     @Override
     public List<Task> findAll() {
