@@ -50,16 +50,4 @@ public class MainSliderServiceImpl implements MainSliderService {
         return mainSliderDao.countAll();
     }
 
-    // Needed for carousel indicators
-    @Override
-    public ArrayList<Integer> getSlideIndicators(){
-        int number;
-        number = countAll();
-        ArrayList<Integer> indicatorList = new ArrayList<Integer>();
-        for (int i = 0; i <= number; i++){
-            indicatorList.add(i);
-        }
-        return indicatorList;
-    }
-
 }

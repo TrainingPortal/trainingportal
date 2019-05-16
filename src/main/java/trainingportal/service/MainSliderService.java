@@ -17,6 +17,4 @@ public interface MainSliderService {
 
     int countAll();
 
-    // For carousel indicators
-    ArrayList<Integer> getSlideIndicators();
 }

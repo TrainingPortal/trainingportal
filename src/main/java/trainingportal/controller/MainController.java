@@ -30,12 +30,10 @@ public class MainController {
     public ModelAndView welcomePage(ModelAndView modelAndView) {
 
         List<MainSliderModel> sliderList = mainSliderService.getAll();
-        ArrayList<Integer> indicatorList = mainSliderService.getSlideIndicators();
         List<MainCardModel> cardList = mainCardService.getAll();
 
 
         modelAndView.addObject("sliderList", sliderList);
-        modelAndView.addObject("indicatorList", indicatorList);
         modelAndView.addObject("cardList", cardList);
         modelAndView.setViewName("frontend/index");
         return modelAndView;
@@ -85,7 +83,7 @@ public class MainController {
     @GetMapping("/website_settings")
     public ModelAndView settingsPage(ModelAndView modelAndView){
 
-        modelAndView.setViewName("/manageSite/website_settings");
+        modelAndView.setViewName("manageSite/website_settings");
         return modelAndView;
     }
 
