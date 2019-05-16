@@ -22,7 +22,7 @@ public class UserController {
     private Sender mailSender;
 
     public static final String SERVER_NAME = "http://localhost:8080";
-//    public static final String SERVER_NAME = "http://Trainingportal-env.mqetbmxd4x.eu-west-2.elasticbeanstalk.com";
+//    private static final String SERVER_NAME = "http://Trainingportal-env.mqetbmxd4x.eu-west-2.elasticbeanstalk.com";
 
     @Autowired
     private UserService userService;
@@ -109,7 +109,7 @@ public class UserController {
     }
 
     @PostMapping("/forgotpassword")
-    public ModelAndView processForgotPassword(ModelAndView modelAndView, @Valid User user, BindingResult bindingResult) {
+    public ModelAndView processForgotPassword(ModelAndView modelAndView, @Valid User user) {
 
         User userExists = userService.findByEmail(user.getEmail());
 
