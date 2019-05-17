@@ -1,6 +1,7 @@
 package trainingportal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -18,8 +19,10 @@ import java.util.UUID;
 @Controller
 public class UserController {
 
+
+    @Qualifier("getJavaMailSender")
     @Autowired
-    private Sender mailSender;
+    public Sender mailSender;
 
     public static final String SERVER_NAME = "http://localhost:8080";
 //    private static final String SERVER_NAME = "http://onetrainingportal-env.w6ev2hpcfm.eu-west-2.elasticbeanstalk.com";
