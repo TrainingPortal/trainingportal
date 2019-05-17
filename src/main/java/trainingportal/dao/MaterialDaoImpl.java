@@ -34,6 +34,21 @@ public class MaterialDaoImpl extends JdbcDaoSupport implements MaterialDao {
     }
 
     @Override
+    public List<Material> getAllAsPageByLessonId(Long lessonId, int page, int total) {
+        String sql = MaterialMapper.SELECT_SQL + " WHERE lesson_id = ? " +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        return this.getJdbcTemplate().query(sql, new Object[]{lessonId}, new MaterialMapper());
+    }
+
+    @Override
+    public int countAllByLessonId(Long lessonId) {
+        String sql = "SELECT COUNT(lesson_id) FROM Lesson WHERE LESSON_ID = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{lessonId}, Integer.class);
+    }
+
+    @Override
     public Material findById(Long materialId) {
         String sql = MaterialMapper.SELECT_SQL + " WHERE id = ?";
 

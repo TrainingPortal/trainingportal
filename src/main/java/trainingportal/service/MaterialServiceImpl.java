@@ -63,5 +63,21 @@ public class MaterialServiceImpl implements MaterialService {
         return materialDao.getMaterialLessonId(lessonId);
     }
 
+    @Override
+    public List<Material> getAllAsPageByLessonId(Long lessonId, int page, int total) {
+
+        if(page == 1){
+            //do nothing
+        } else {
+            page = (page - 1) * total + 1;
+        }
+        return materialDao.getAllAsPageByLessonId(lessonId, page, total);
+    }
+
+    @Override
+    public int getPages(Long lessonId, double total) {
+        return (int) Math.ceil(materialDao.countAllByLessonId(lessonId) / total);
+    }
+
 }
 
