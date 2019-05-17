@@ -64,7 +64,8 @@
 
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-outline-primary" th:href="@{/material_lesson (id = ${lesson.lessonId})}">
+                    <a class="btn btn-outline-primary" th:href="@{/material_lesson/{page}/{lessonId}
+                    (lessonId = ${lesson.lessonId}, page = 1)}">
                      Materials</a>
                 </div>
             </td>
