@@ -1,6 +1,6 @@
-package export;
+package trainingportal.export;
 
-import export.exception.ExportToExcelException;
+import trainingportal.export.exception.ExportToExcelException;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

@@ -5,7 +5,7 @@ import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletContext;
 import java.io.File;
@@ -13,16 +13,15 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 
-@Controller
-public class Download {
+@Service
+public class Loader {
 
-    private static final String DIRECTORY = "/trainingportal";
-    //private static final String DEFAULT_FILE_NAME = "";
+    private static final String DIRECTORY = "/Users/mrlova/IdeaProjects/trainingportal";
 
     @Autowired
     private ServletContext servletContext;
 
-    public ResponseEntity<InputStreamResource> downloadFile(/*@RequestParam(defaultValue = DEFAULT_FILE_NAME)*/ String fileName) {
+    public ResponseEntity<InputStreamResource> downloadFile(String fileName) {
 
         MediaType mediaType = MediaTypeUtils.getMediaTypeForFileName(this.servletContext, fileName);
         System.out.println("fileName: " + fileName);
