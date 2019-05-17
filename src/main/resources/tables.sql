@@ -118,7 +118,7 @@ CREATE TABLE Course
     course_status_id NUMBER,
     min_number       NUMBER,
     max_number       NUMBER,
-    description      VARCHAR2(1000),
+    description      VARCHAR2(3000),
     trainer_id       NUMBER
 );
 
@@ -168,7 +168,7 @@ CREATE TABLE Lesson
 (
     lesson_id          NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     lesson_name        VARCHAR2(20),
-    lesson_description VARCHAR2(100),
+    lesson_description VARCHAR2(3000),
     lesson_duration    NUMBER,
     course_id          NUMBER,
     lesson_number      NUMBER
@@ -392,6 +392,7 @@ INSERT INTO Info_Desk (emp_id, description, status_id) values(21, 'Dear Admin, w
 INSERT INTO Info_Desk (emp_id, description, status_id) values(21, 'Dear Admin, why is my Manager so angry?',3);
 INSERT INTO Info_Desk (emp_id, description, status_id) values(21, 'Where am i?',4);
 INSERT INTO Info_Desk (emp_id, description, status_id) values(21, 'Where is my money, Jhonny???',5);
+INSERT INTO Info_Desk (emp_id, description, status_id) values(21, 'where is money Lebowski???',6);
 
 CREATE TABLE Question_Status
 (
@@ -565,13 +566,11 @@ alter table chat add constraint chat_fk_group FOREIGN KEY (group_id) references 
 alter table Info_Desk add constraint idesk_emp_fk_user FOREIGN KEY (emp_id) references users (user_Id);
 alter table Info_Desk add constraint idesk_fk_qstatus FOREIGN KEY (status_id) references Question_Status (id);
 alter table Feedback add constraint fdbk_tr_fk_user FOREIGN KEY (trainer_id) references users (user_Id);
-alter table Feedback
-    add constraint fdbk_fk_cource FOREIGN KEY (course_id) references course (course_id);
+alter table Feedback add constraint fdbk_fk_cource FOREIGN KEY (course_id) references course (course_id);
 alter table Feedback add constraint fdbk_emp_fk_user FOREIGN KEY (employee_id) references users (user_Id);
 alter table User_Group add constraint ugroup_fk_user FOREIGN KEY (user_id) references users (user_Id);
 alter table User_Group add constraint ugroup_fk_group FOREIGN KEY (group_id) references Groups (id);
-alter table Groups
-    add constraint group_fk_course FOREIGN KEY (course_id) references Course (course_id);
+alter table Groups add constraint group_fk_course FOREIGN KEY (course_id) references Course (course_id);
 alter table Groups add constraint group_fr_status FOREIGN KEY (status_id) references Group_Status (id);
 alter table User_Chat add constraint uchat_fk_user FOREIGN KEY (user_id) references users (user_Id);
 alter table User_Chat add constraint uchat_fk_chat FOREIGN KEY (chat_id) references Chat (id);
@@ -579,18 +578,13 @@ alter table Attendance add constraint atten_fk_user FOREIGN KEY (user_id) refere
 alter table Attendance add constraint atten_fk_schedule FOREIGN KEY (schedule_id) references Schedule (id);
 alter table Attendance add constraint atten_fk_type FOREIGN KEY (type_id) references Attendance_Type(id);
 alter table Schedule add constraint schedule_fk_group FOREIGN KEY (group_id) references Groups (id);
-alter table Schedule
-    add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lesson_id);
+alter table Schedule add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lesson_id);
 -- alter table Homework add constraint lesson_fk_homework FOREIGN KEY (lesson_id) references Lesson (lesson_id);
-alter table Lesson
-    add constraint lesson_fk_course FOREIGN KEY (course_id) references Course (course_id);
-alter table Material
-    add constraint material_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lesson_id);
-alter table Task
-    add constraint task_fk_homework FOREIGN KEY (homework_id) references Homework (homework_id);
+alter table Lesson add constraint lesson_fk_course FOREIGN KEY (course_id) references Course (course_id);
+alter table Material add constraint material_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lesson_id);
+alter table Task add constraint task_fk_homework FOREIGN KEY (homework_id) references Homework (homework_id);
 alter table Desired_Period add constraint dperiod_fk_user FOREIGN KEY (user_id) references users (user_Id);
-alter table Desired_Period
-    add constraint dperiod_fk_cource FOREIGN KEY (course_id) references Course (course_id);
+alter table Desired_Period add constraint dperiod_fk_cource FOREIGN KEY (course_id) references Course (course_id);
 alter table Weekday add constraint weekday_fk_dperiod FOREIGN KEY (period_id) references Desired_Period (desired_period_id);
 alter table Course add constraint cource_fk_status FOREIGN KEY (course_status_id) references Course_Status(id);
 alter table Course add constraint cource_fk_trainer FOREIGN KEY (trainer_id) references users (user_Id);
