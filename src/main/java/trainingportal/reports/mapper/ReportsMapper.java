@@ -7,26 +7,22 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DataMapper implements RowMapper<List> {
+public class ReportsMapper implements RowMapper<List<Object>> {
 
     private List<String> fields;
     private int getFieldNumber;
 
     @Override
-    public List mapRow(ResultSet resultSet, int i){
+    public List<Object> mapRow(ResultSet resultSet, int i){
 
-        List localList = new ArrayList();
+        List<Object> localList = new ArrayList();
 
         try {
-
             if (resultSet.getObject(fields.get(getFieldNumber)) != null){
-
                 Object cName = resultSet.getObject(fields.get(getFieldNumber));
                 localList.add(cName.toString());
-
-            }else {
+            }else
                 localList.add("null");
-            }
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -34,7 +30,7 @@ public class DataMapper implements RowMapper<List> {
         return localList;
     }
 
-    public DataMapper(List<String> fields, int getFieldNumber){
+    public ReportsMapper(List<String> fields, int getFieldNumber){
         this.fields = fields;
         this.getFieldNumber = getFieldNumber;
     }
