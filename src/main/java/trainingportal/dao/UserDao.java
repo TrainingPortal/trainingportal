@@ -38,5 +38,5 @@ public interface UserDao extends GenericDao<User> {
 
     int countSearchPagesByRole(Long id, String request);
 
-     User findUserAccount(String email);
+    User findUserAccount(String email);
 }

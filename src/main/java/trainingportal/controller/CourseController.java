@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.*;
+import trainingportal.security.UserSecurity;
 import trainingportal.service.CourseService;
 import trainingportal.service.UserService;
 
@@ -24,17 +25,20 @@ public class CourseController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private UserSecurity userSecurity;
+
     private static final int ROWS_LIMIT = 10;
 
     @RequestMapping(value = "/course_create/{page}")
-    public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId,
-                                        ModelAndView modelAndView, Authentication auth) {
+    public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId, ModelAndView modelAndView) {
 
-        List<Course> courseList = courseService.getCoursesPage(page, ROWS_LIMIT, auth);
+        List<Course> courseList = courseService.getCoursesPage(page, ROWS_LIMIT,
+                userSecurity.getLoggedInUserId(), userSecurity.getLoggedInUserRole());
 
         modelAndView.addObject("courseList", courseList);
         modelAndView.addObject("pages",
-                courseService.getPagesByUserId(((LoggedInUser)auth.getPrincipal()).getId() ,ROWS_LIMIT));
+                courseService.getPagesByUserId(userSecurity.getLoggedInUserId() ,ROWS_LIMIT));
         modelAndView.setViewName("courseCreator/course_create");
         modelAndView.addObject("currentUrl", "course_create");
 
