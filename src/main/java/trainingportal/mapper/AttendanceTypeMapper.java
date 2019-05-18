@@ -12,7 +12,7 @@ import trainingportal.model.AttendanceType;;
 
 public class AttendanceTypeMapper implements BaseObjectMapper<AttendanceType> {
 
-    public static final String BASE_SQL =
+    public static final String SELECT_SQL =
             "SELECT * FROM attendance_type";
 
     @Override
@@ -31,5 +31,10 @@ public class AttendanceTypeMapper implements BaseObjectMapper<AttendanceType> {
         res.put("type", obj.getType());
 
         return res;
+    }
+
+    @Override
+    public String getSelectSql() {
+        return SELECT_SQL;
     }
 }

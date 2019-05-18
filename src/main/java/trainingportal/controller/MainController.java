@@ -17,11 +17,15 @@ import java.util.List;
 @Controller
 public class MainController {
 
-    @Autowired
-    private MainSliderService mainSliderService;
+    private final MainSliderService mainSliderService;
+
+    private final MainCardService mainCardService;
 
     @Autowired
-    private MainCardService mainCardService;
+    public MainController(MainSliderService mainSliderService, MainCardService mainCardService) {
+        this.mainSliderService = mainSliderService;
+        this.mainCardService = mainCardService;
+    }
 
     @GetMapping({"/", "/index"})
     public ModelAndView welcomePage(ModelAndView modelAndView) {

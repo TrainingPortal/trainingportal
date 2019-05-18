@@ -3,44 +3,48 @@ package trainingportal.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 import trainingportal.model.*;
 import trainingportal.service.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class AttendanceController {
 
-    @Autowired
-    private AttendanceService attendanceService;
+    private final AttendanceService attendanceService;
+
+    private final AttendanceTypeService attendanceTypeService;
+
+    private final GroupService groupService;
+
+    private final LessonService lessonService;
+
+    private final ScheduleService scheduleService;
+
+    private final CourseService courseService;
+
+    private final UserService userService;
 
     @Autowired
-    private AttendanceTypeService attendanceTypeService;
+    public AttendanceController(AttendanceService attendanceService, AttendanceTypeService attendanceTypeService, GroupService groupService, LessonService lessonService, ScheduleService scheduleService, CourseService courseService, UserService userService) {
+        this.attendanceService = attendanceService;
+        this.attendanceTypeService = attendanceTypeService;
+        this.groupService = groupService;
+        this.lessonService = lessonService;
+        this.scheduleService = scheduleService;
+        this.courseService = courseService;
+        this.userService = userService;
+    }
 
-    @Autowired
-    private GroupService groupService;
+    @GetMapping(value = "/myCourses")
+    public ModelAndView get(ModelAndView modelAndView, Authentication authentication){
 
-    @Autowired
-    private LessonService lessonService;
-
-    @Autowired
-    private ScheduleService scheduleService;
-
-    @Autowired
-    private CourseService courseService;
-
-    @Autowired
-    private UserService userService;
-
-    @GetMapping(value = "/attendance")
-    public ModelAndView get(ModelAndView modelAndView,
-                             Authentication authentication){
-
-        Long trainerId = ((LoggedInUser) authentication.getPrincipal()).getId();
-
+        Long trainerId = userService.getUserId(authentication);
         User trainer = userService.findById(trainerId);
         List<Course> courses = courseService.findByTrainerId(trainerId);
 
@@ -52,7 +56,7 @@ public class AttendanceController {
         return modelAndView;
     }
 
-    @GetMapping(value = "groups/{courseId}")
+    @GetMapping(value = "myGroups/{courseId}")
     public ModelAndView getGroups(
             ModelAndView modelAndView,
             @PathVariable("courseId") Long courseId
@@ -65,8 +69,8 @@ public class AttendanceController {
         return modelAndView;
     }
 
-    @GetMapping(value = "/presense/{groupId}")
-    public ModelAndView getPresense(
+    @GetMapping(value = "/presence/{groupId}")
+    public ModelAndView getPresence(
             ModelAndView modelAndView,
             @PathVariable("groupId") Long groupId
     ){
@@ -74,27 +78,16 @@ public class AttendanceController {
         Schedule schedule = scheduleService.findByGroupId(groupId);
         List<User> users = userService.findAllByGroup(groupId);
         List<AttendanceType> attendanceTypes = attendanceTypeService.getAllAttendanceList();
-        List<Attendance> attendances = new ArrayList<Attendance>();
-        Lesson lesson = lessonService.getLessonByScheduleId(schedule.getSheduleId());
-
-
-        for (int i = 0; i < users.size(); i++) {
-            Attendance attendance = new Attendance();
-            attendance.setScheduleId(schedule.getSheduleId());
-            attendance.setUser(users.get(i));
-            attendance.setUserId(users.get(i).getUserId());
-            attendances.add(attendance);
-        }
-
-        AttendanceForm attendanceForm = new AttendanceForm();
-        attendanceForm.setAttendances(attendances);
+        Lesson lesson = lessonService.getLessonByScheduleId(schedule.getScheduleId());
+        AttendanceForm attendanceForm = attendanceService.getAttendanceListWithStudents(schedule,users);
 
         modelAndView.addObject("attendanceTypes",attendanceTypes);
         modelAndView.addObject("attendances", attendanceForm);
         modelAndView.addObject("lesson", lesson);
         modelAndView.addObject("users", users);
         modelAndView.addObject("schedule", schedule);
-        modelAndView.setViewName("attendance/presense");
+
+        modelAndView.setViewName("attendance/presence");
 
         return modelAndView;
     }
@@ -105,11 +98,23 @@ public class AttendanceController {
             @ModelAttribute AttendanceForm attendances
             ){
 
-        for (Attendance attendance:attendances.getAttendances()) {
-            attendanceService.save(attendance);
-        }
+       attendanceService.saveAll(attendances);
 
-        model.setViewName("redirect:/attendance");
+        model.setViewName("redirect:/myCourses");
         return model;
+    }
+
+    @GetMapping(value = "mySubordinates")
+    public ModelAndView getSubordinatesAttendance(
+            ModelAndView modelAndView,Authentication authentication
+    ){
+        Long managerId = userService.getUserId(authentication);
+        // Find all subordinates of the manager by manager's id
+        List<Attendance> attendances = attendanceService.getSubordinatesAttendanceByManager(managerId);
+
+        modelAndView.addObject("attendances", attendances);
+        modelAndView.setViewName("attendance/subordinates-attendance");
+
+        return modelAndView;
     }
 }

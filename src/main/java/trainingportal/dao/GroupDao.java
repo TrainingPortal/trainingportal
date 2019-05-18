@@ -25,10 +25,6 @@ public interface GroupDao extends GenericDao<Group> {
 
     List<Group> findAllByCourseId(Long id);
 
-    int countAll();
-
-    List<Group> getAllAsPage(int page, int total);
-
     Long getTrainerIdByGroupId(Long groupId);
 
     List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int total);

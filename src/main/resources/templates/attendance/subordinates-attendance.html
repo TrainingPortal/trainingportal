@@ -12,18 +12,27 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-<div th:if="${groups.size() == 0}">
-    <h1>There are no courses.</h1>
+<div th:if="${attendances.size() == 0}">
+    <h1>There are no attendances.</h1>
 </div>
-<div th:unless="${groups.size() == 0}">
-    <ul class="list-group list-group-horizontal" th:each="group:${groups}">
-        <li>
-            <a th:href="@{/presense/{groupId}(groupId=${group.getGroupId()})}" class="list-group-item"
-               th:text="${group.getGroupName()} + '-' + ${group.getStatus()}">
-            </a>
-        </li>
-    </ul>
+<div th:unless="${attendances.size() == 0}">
+    <table class="table pt-0 mt-0 table-fit table-sm table-hover">
+        <thead class="">
+        <tr>
+            <th style="width: 40%">User</th>
+            <th style="width: 50%">Presence</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="attendance, itemStat : ${attendances}">
+            <td th:text="${attendance.user.userName}">
+            <td th:text="${attendance.attendanceType.type}"></td>
+            <td th:text="${attendance.schedule.scheduleDate}"></td>
+            <input type="hidden"
+                   th:field="*{attendances[__${itemStat.index}__].userId}"] />
+            <input type="hidden" th:field="*{attendances[__${itemStat.index}__].scheduleId}" />
+        </tr>
+    </table>
 </div>
 </body>
 </html>

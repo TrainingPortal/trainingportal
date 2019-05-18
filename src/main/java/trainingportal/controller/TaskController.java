@@ -18,11 +18,12 @@ import java.util.List;
 public class TaskController {
 
 
-    @Autowired
-    private TaskService taskService;
+    private final TaskService taskService;
 
     @Autowired
-    private HomeworkService homeworkService;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @RequestMapping(value = "/homework_task")
     public ModelAndView showTaskListOfHomework(Long id, ModelAndView modelAndView) {

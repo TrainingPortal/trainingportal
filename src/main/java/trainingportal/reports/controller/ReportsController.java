@@ -7,22 +7,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-<<<<<<< HEAD:src/main/java/trainingportal/reports/controller/DataController.java
-import trainingportal.model.*;
-import trainingportal.reports.reportslist.Reports;
-import trainingportal.service.AttendanceTypeService;
-=======
-import trainingportal.model.Attendance;
+import trainingportal.model.AttendanceType;
 import trainingportal.model.Course;
 import trainingportal.model.Role;
 import trainingportal.model.User;
+import trainingportal.reports.download.Loader;
 import trainingportal.reports.service.Filter;
 import trainingportal.reports.service.ReportsSQLQuery;
-import trainingportal.service.AttendanceType;
->>>>>>> 3cccdae2520769102e55cfee0b93a3f1ace01dd3:src/main/java/trainingportal/reports/controller/ReportsController.java
+import trainingportal.service.AttendanceTypeService;
 import trainingportal.service.CourseService;
 import trainingportal.service.UserService;
-import trainingportal.reports.download.Loader;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;

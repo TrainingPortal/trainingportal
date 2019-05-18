@@ -21,7 +21,7 @@
 <div th:unless="${courses.size() == 0}">
     <ul class="list-group list-group-horizontal" th:each="course:${courses}">
         <li>
-            <a th:href="@{/groups/{courseId}(courseId=${course.getCourseId()})}" class="list-group-item"
+            <a th:href="@{/myGroups/{courseId}(courseId=${course.getCourseId()})}" class="list-group-item"
                 th:text="${course.getCourseName()} + '-' + ${course.getCourseLevel()}">
             </a>
         </li>

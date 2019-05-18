@@ -2,7 +2,7 @@ package trainingportal.reports.reportslist;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import trainingportal.reports.service.DataService;
+import trainingportal.reports.service.ReportsService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
 public class Reports {
 
     @Autowired
-    DataService dataService;
+    ReportsService reportsService;
 
     public boolean createNewTrainerReport(Long trainerId){
 
@@ -25,7 +25,7 @@ public class Reports {
         String sql = "SELECT DISTINCT users.name as \"Trainer Name\", course.name as \"Course Name\", course.course_level as \"Course Level\", course_status.name_status as \"Course Status\" \n" +
                 "FROM course INNER JOIN course_status ON course.course_status_id = course_status.id INNER JOIN users ON course.trainer_id = users.role_id WHERE users.user_id =  " + trainerId;
 
-        dataService.getMultiFieldsFromTables(list, sql,"Trainer","table");
+        reportsService.getMultiFieldsFromTables(list, sql,"Trainer","table");
         return true;
     }
 
@@ -43,7 +43,7 @@ public class Reports {
                 "FROM users INNER JOIN desired_period ON users.user_id = desired_period.user_id INNER JOIN course ON desired_period.course_id = course.course_id\n" +
                 "WHERE ( users.role_id = 2 OR users.role_id = 4 ) AND course.course_level = " + "\'" + levelName + "\'";
 
-        dataService.getMultiFieldsFromTables(list, sql,"Level","table");
+        reportsService.getMultiFieldsFromTables(list, sql,"Level","table");
         return true;
     }
 
@@ -65,7 +65,7 @@ public class Reports {
                 "LEFT OUTER JOIN course ON groups.course_id = course.course_id INNER JOIN course_status ON course.course_status_id = course_status.id\n" +
                 "WHERE ( course_status.id = 1 OR course_status.id = 3 ) AND attendance_type.id = " + attendanceId;
 
-        dataService.getMultiFieldsFromTables(list, sql,"Attendance","table");
+        reportsService.getMultiFieldsFromTables(list, sql,"Attendance","table");
         return true;
     }
 }

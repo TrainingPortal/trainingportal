@@ -27,6 +27,11 @@ public class UserGroupMapper implements BaseObjectMapper<UserGroup> {
     }
 
     @Override
+    public String getSelectSql() {
+        return SELECT_USERS_SQL;
+    }
+
+    @Override
     public UserGroup mapRow(ResultSet rtS, int rowNum) throws SQLException {
         Long id = rtS.getLong("id");
         Long groupId = rtS.getLong("group_id");

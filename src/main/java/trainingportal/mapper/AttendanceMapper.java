@@ -11,9 +11,8 @@ import java.util.Map;
 
 public class AttendanceMapper implements BaseObjectMapper<Attendance> {
 
-    public static final String BASE_SQL =
+    public static final String SELECT_SQL =
             "SELECT * FROM attendance";
-
 
     @Override
     public Map<String, Object> mapObject(Attendance obj) {
@@ -25,6 +24,11 @@ public class AttendanceMapper implements BaseObjectMapper<Attendance> {
         res.put("schedule_id", obj.getScheduleId());
 
         return res;
+    }
+
+    @Override
+    public String getSelectSql() {
+        return SELECT_SQL;
     }
 
     @Override

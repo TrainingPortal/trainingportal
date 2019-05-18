@@ -1,11 +1,13 @@
 package trainingportal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.RoleDao;
 import trainingportal.dao.SubordinateDAO;
 import trainingportal.dao.UserDao;
+import trainingportal.model.LoggedInUser;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.generic.GenericServiceImpl;
@@ -93,6 +95,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
             updatedUser.setEmail(user.getEmail());
             updatedUser.setPassword(user.getPassword());
             updatedUser.setEnabled(user.getEnabled());
+            updatedUser.setManagerId(user.getManagerId());
             updatedUser.setRoleId(user.getRoleId());
         }
         userRepository.update(updatedUser);
@@ -133,33 +136,27 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
     @Override
     public List<User> getAllByRoleAsPage(int page, int total, Long roleId) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
         return userRepository.getAllByRoleAsPage(page, total, roleId);
     }
 
     @Override
     public List<User> getSubordinatesByIdAsPage(int page, int total, Long id) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
         return subordinateRepository.getSubordinatesByIdAsPage(page, total, id);
     }
 
     @Override
     public List<User> getFreeUsersAsPage(int page, int total) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
         return subordinateRepository.getFreeUsersAsPage(page, total);
     }
 
@@ -200,16 +197,19 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
             return Collections.emptyList();
         }
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
         return userRepository.searchByRole(id, request, page, total);
     }
 
     @Override
     public int getSearchPagesByRole(Long id, double total, String request) {
         return (int) Math.ceil(userRepository.countSearchPagesByRole(id, request) / total);
+    }
+
+    @Override
+    public Long getUserId(Authentication authentication) {
+        return ((LoggedInUser) authentication.getPrincipal()).getId();
     }
 }

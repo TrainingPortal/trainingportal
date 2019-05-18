@@ -51,4 +51,9 @@ public class GroupMapper implements BaseObjectMapper<Group> {
 
         return res;
     }
+
+    @Override
+    public String getSelectSql() {
+        return SELECT_SQL;
+    }
 }

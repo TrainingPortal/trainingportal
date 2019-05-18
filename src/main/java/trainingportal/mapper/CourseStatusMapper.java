@@ -32,4 +32,9 @@ public class CourseStatusMapper implements BaseObjectMapper<CourseStatus> {
 
         return res;
     }
+
+    @Override
+    public String getSelectSql() {
+        return SELECT_SQL;
+    }
 }

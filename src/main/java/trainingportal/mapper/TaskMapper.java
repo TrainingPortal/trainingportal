@@ -37,4 +37,9 @@ public class TaskMapper implements BaseObjectMapper<Task> {
 
         return res;
     }
+
+    @Override
+    public String getSelectSql() {
+        return SELECT_SQL;
+    }
 }

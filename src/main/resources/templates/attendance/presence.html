@@ -17,7 +17,7 @@
 <h2 th:text="'Attendance for lesson - ' + ${lesson.getLessonName()} + ' ' + 'on '+ ${schedule.getSheduleDate()}"> </h2>
 
 <div th:if="${users.size() == 0}">
-    <p>There are no free users</p>
+    <p>There are no users</p>
 </div>
 
 <div th:unless="${users.size() == 0}">

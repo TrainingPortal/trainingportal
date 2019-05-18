@@ -18,13 +18,17 @@ import java.util.List;
 @Controller
 public class MaterialController {
 
-    @Autowired
-    private MaterialService materialService;
+    private final MaterialService materialService;
 
-    @Autowired
-    private LessonService lessonService;
+    private final LessonService lessonService;
 
     private static final int ROWS_LIMIT = 10;
+
+    @Autowired
+    public MaterialController(MaterialService materialService, LessonService lessonService) {
+        this.materialService = materialService;
+        this.lessonService = lessonService;
+    }
 //    @RequestMapping("/material_lesson")
 //    public ModelAndView showMaterialListOfLessons(Long id, ModelAndView modelAndView) {
 //

@@ -1,7 +1,6 @@
 package trainingportal.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.generic.GenericDaoImpl;
@@ -12,6 +11,7 @@ import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
 
 import javax.sql.DataSource;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -20,7 +20,13 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
 
     //Define table and id column
     private static final String TABLE_NAME = "course";
-    private static final String ID_COLUMN = "id";
+    private static final String ID_COLUMN = "course_id";
+    
+    @Autowired
+    private BaseObjectMapper<Course> courseBaseObjectMapper;
+
+    @Autowired
+    private BaseObjectMapper<CourseStatus> courseStatusBaseObjectMapper;
 
     @Autowired
     public CourseDAOImpl(DataSource dataSource) {
@@ -32,7 +38,12 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
     @Override
     public List<CourseStatus> getStatusList() {
 
-        return this.getJdbcTemplate().query(CourseStatusMapper.SELECT_SQL, new CourseStatusMapper());
+        List<CourseStatus> courses;
+        if (this.getJdbcTemplate() != null) {
+            courses = this.getJdbcTemplate().query(CourseStatusMapper.SELECT_SQL, courseStatusBaseObjectMapper);
+            return courses;
+        } else
+            return Collections.emptyList();
     }
 
     @Override
@@ -40,20 +51,30 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
 
         String sql = CourseStatusMapper.SELECT_SQL + " WHERE id = ?";
 
-        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new CourseStatusMapper());
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, courseStatusBaseObjectMapper);
     }
 
     @Override
     public List<Course> findByTrainerId(Long id){
         String sql = CourseMapper.SELECT_SQL + " WHERE trainer_id = ?";
-        return this.getJdbcTemplate().query(sql, new Object[]{id}, new CourseMapper());
+        return getCourses(id, sql);
+    }
+
+    protected List<Course> getCourses(Long id, String sql) {
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().query(sql, new Object[]{id}, courseBaseObjectMapper);
+        } else
+            return Collections.emptyList();
     }
 
     public int countAllByUserId(Long userId) {
 
         String sql = "SELECT COUNT(course_id) FROM Course WHERE trainer_id = ?";
 
-        return this.getJdbcTemplate().queryForObject(sql, new Object[]{userId}, Integer.class);
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{userId}, Integer.class);
+        } else
+            return 0;
     }
 
     @Override
@@ -62,29 +83,23 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
         String sql = CourseMapper.SELECT_SQL + " WHERE trainer_id = ? " +
                 "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
-        return this.getJdbcTemplate().query(sql, new Object[]{id}, new CourseMapper());
+        return getCourses(id, sql);
     }
 
     @Override
     protected BaseObjectMapper<Course> getObjectMapper() {
-        return  new CourseMapper();
+        return  courseBaseObjectMapper;
     }
 
     @Override
     public List<Course> findCoursesByUserId(Long id) {
-
-        /*String sql = "select a.course_id FROM groups a " +
-                "INNER JOIN user_group b " +
-                "ON a.id = b.group_id " +
-                "WHERE b.user_id = ?";*/
-
         String sql = "SELECT a.course_id, a.name, a.course_level, a.course_status_id, a.min_number, " +
                 "a.max_number, a.description, a.trainer_id FROM ((Course a " +
                 "INNER JOIN groups b ON a.course_id = b.course_id) " +
                 "INNER JOIN user_group c ON b.id = c.group_id) " +
                 "WHERE c.user_id = ?";
 
-        return this.getJdbcTemplate().query(sql, new Object[]{id}, new CourseMapper());
+        return getCourses(id, sql);
     }
 
     @Override
@@ -97,6 +112,6 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
                 "WHERE c.user_id = ? " +
                 "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
-        return this.getJdbcTemplate().query(sql, new Object[]{userId}, new CourseMapper());
+        return getCourses(userId, sql);
     }
 }

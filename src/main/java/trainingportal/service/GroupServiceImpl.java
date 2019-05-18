@@ -26,22 +26,18 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     @Override
     public List<Group> getAllAsPageByCourseId(Long courseId, int page, int total) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
         return groupDAO.getAllAsPageByCourseId(courseId, page, total);
     }
 
     @Override
     public List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int total) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
         return groupDAO.getUserGroupsAsPageByCourseIdAndUserId(courseId, userId, page, total);
     }
 
@@ -88,11 +84,9 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     @Override
     public List<Group> getGroupsPage(Long courseId, int page, int total, Long userId, String role) {
 
-        if(page == 1){
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
 
-        } else {
-            page = (page - 1) * total + 1;
-        }
         List<Group> groupList;
 
         if(role.equals("ROLE_EMPLOYEE") || role.equals("ROLE_MANAGER")) {

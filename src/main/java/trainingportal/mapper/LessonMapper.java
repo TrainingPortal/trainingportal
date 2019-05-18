@@ -43,4 +43,9 @@ public class LessonMapper implements BaseObjectMapper<Lesson> {
 
         return res;
     }
+
+    @Override
+    public String getSelectSql() {
+        return SELECT_SQL;
+    }
 }

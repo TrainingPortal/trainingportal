@@ -16,13 +16,17 @@ import java.util.Map;
 
 @Controller
 public class TrainerController {
-    @Autowired
-    private UserService trainerService;
+    private final UserService trainerService;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private static final int ROWS_LIMIT = 10;
+
+    @Autowired
+    public TrainerController(UserService trainerService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.trainerService = trainerService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
     /* Show all trainers*/
     @RequestMapping("/trainers/{page}")

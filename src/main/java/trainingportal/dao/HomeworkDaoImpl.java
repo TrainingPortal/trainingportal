@@ -7,9 +7,11 @@ import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.generic.GenericDaoImpl;
 import trainingportal.mapper.HomeworkMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
+import trainingportal.model.Course;
 import trainingportal.model.Homework;
 
 import javax.sql.DataSource;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -17,6 +19,8 @@ import java.util.List;
 @Transactional
 public class HomeworkDaoImpl extends GenericDaoImpl<Homework> implements HomeworkDao {
 
+    @Autowired
+    private BaseObjectMapper<Homework> homeworkBaseObjectMapper;
 
     //Define table and id column
     private static final String TABLE_NAME = "homework";
@@ -30,15 +34,17 @@ public class HomeworkDaoImpl extends GenericDaoImpl<Homework> implements Homewor
     }
     @Override
     protected BaseObjectMapper<Homework> getObjectMapper() {
-        return new HomeworkMapper();
+        return homeworkBaseObjectMapper;
     }
 
     @Override
     public List<Homework> getHomeworkLessonId(Long homeworkId) {
         String sql = HomeworkMapper.SELECT_SQL + " WHERE lesson_id = ?";
 
-        List<Homework> homeworkList = this.getJdbcTemplate().query(sql, new Object[]{homeworkId}, new HomeworkMapper());
-        return homeworkList;
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().query(sql, new Object[]{homeworkId}, homeworkBaseObjectMapper);
+        } else
+            return Collections.emptyList();
     }
 }
 

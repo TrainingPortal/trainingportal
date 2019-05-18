@@ -1,6 +1,7 @@
 package trainingportal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,11 +18,15 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    @Autowired
-    private UserDao userRepository;
+    private final UserDao userRepository;
+
+    private final RoleDao roleRepository;
 
     @Autowired
-    private RoleDao roleRepository;
+    public UserDetailsServiceImpl(UserDao userRepository, RoleDao roleRepository) {
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -47,9 +52,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             }
         }
 
-        UserDetails userDetails = (UserDetails) new LoggedInUser(user.getUserName(),
+        return (UserDetails) new LoggedInUser(user.getUserName(),
                 user.getPassword(), grantList, user.getUserId());
-
-        return userDetails;
     }
 }

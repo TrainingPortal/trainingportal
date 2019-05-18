@@ -3,50 +3,50 @@ package trainingportal.model;
 import java.sql.Date;
 
 public class Schedule {
-    private Long sheduleId;
-    private Long sheduleGroupId;
-    private Date sheduleDate;
-    private Long sheduleLessonId;
+    private Long scheduleId;
+    private Long scheduleGroupId;
+    private Date scheduleDate;
+    private Long scheduleLessonId;
 
     public Schedule() {
     }
 
-    public Schedule(Long sheduleId, Long sheduleGroupId, Date sheduleDate, Long sheduleLessonId) {
-        this.sheduleId = sheduleId;
-        this.sheduleGroupId = sheduleGroupId;
-        this.sheduleDate = sheduleDate;
-        this.sheduleLessonId = sheduleLessonId;
+    public Schedule(Long scheduleId, Long scheduleGroupId, Date scheduleDate, Long scheduleLessonId) {
+        this.scheduleId = scheduleId;
+        this.scheduleGroupId = scheduleGroupId;
+        this.scheduleDate = scheduleDate;
+        this.scheduleLessonId = scheduleLessonId;
     }
 
-    public Long getSheduleId() {
-        return sheduleId;
+    public Long getScheduleId() {
+        return scheduleId;
     }
 
-    public void setSheduleId(Long sheduleId) {
-        this.sheduleId = sheduleId;
+    public void setScheduleId(Long scheduleId) {
+        this.scheduleId = scheduleId;
     }
 
-    public Long getSheduleGroupId() {
-        return sheduleGroupId;
+    public Long getScheduleGroupId() {
+        return scheduleGroupId;
     }
 
-    public void setSheduleGroupId(Long sheduleGroupId) {
-        this.sheduleGroupId = sheduleGroupId;
+    public void setScheduleGroupId(Long scheduleGroupId) {
+        this.scheduleGroupId = scheduleGroupId;
     }
 
-    public Date getSheduleDate() {
-        return sheduleDate;
+    public Date getScheduleDate() {
+        return scheduleDate;
     }
 
-    public void setSheduleDate(Date sheduleDate) {
-        this.sheduleDate = sheduleDate;
+    public void setScheduleDate(Date scheduleDate) {
+        this.scheduleDate = scheduleDate;
     }
 
-    public Long getSheduleLessonId() {
-        return sheduleLessonId;
+    public Long getScheduleLessonId() {
+        return scheduleLessonId;
     }
 
-    public void setSheduleLessonId(Long sheduleLessonId) {
-        this.sheduleLessonId = sheduleLessonId;
+    public void setScheduleLessonId(Long scheduleLessonId) {
+        this.scheduleLessonId = scheduleLessonId;
     }
 }

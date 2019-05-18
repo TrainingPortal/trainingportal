@@ -36,11 +36,9 @@ public class MaterialServiceImpl extends GenericServiceImpl<Material> implements
     @Override
     public List<Material> getAllAsPageByLessonId(Long lessonId, int page, int total) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
         return materialDao.getAllAsPageByLessonId(lessonId, page, total);
     }
 

@@ -2,7 +2,6 @@ package trainingportal.mapper;
 
 import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.Course;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
@@ -64,5 +63,10 @@ public class CourseMapper implements BaseObjectMapper<Course> {
         res.put("trainer_id", obj.getTrainerId());
 
         return res;
+    }
+
+    @Override
+    public String getSelectSql() {
+        return SELECT_SQL;
     }
 }

@@ -41,4 +41,9 @@ public class MaterialMapper implements BaseObjectMapper<Material> {
 
         return res;
     }
+
+    @Override
+    public String getSelectSql() {
+        return SELECT_SQL;
+    }
 }

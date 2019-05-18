@@ -9,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 import trainingportal.mapper.generic.BaseObjectMapper;
 
 import javax.sql.DataSource;
+import java.lang.reflect.Field;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -43,8 +45,13 @@ public abstract class GenericDaoImpl<T> extends JdbcDaoSupport implements Generi
         getParamsMap().remove(getPrimaryKey());
 
         String sql = "INSERT INTO " + getTable() +" "
-                + getInsertColumnsNamesAsString()
+                + getColumnsNamesAsString()
                 +" VALUES " + getInsertValues();
+
+        updateDatabase(sql);
+    }
+
+    private void updateDatabase(String sql){
         NamedParameterJdbcTemplate jdbcUpdate = new NamedParameterJdbcTemplate(this.getDataSource());
         jdbcUpdate.update(sql,getSqlParams());
     }
@@ -55,39 +62,47 @@ public abstract class GenericDaoImpl<T> extends JdbcDaoSupport implements Generi
         Long id = (Long) getParamsMap().remove(getPrimaryKey());
 
         String sql = "UPDATE " + getTable()
-                +" SET " + getColumnsNamesAsString()
+                +" SET " + getResultColumnsNamesAsString()
                 + " WHERE " + getPrimaryKey() +" = "+ id;
-        NamedParameterJdbcTemplate jdbcUpdate = new NamedParameterJdbcTemplate(this.getDataSource());
-        jdbcUpdate.update(sql,getSqlParams());
+
+        updateDatabase(sql);
     }
 
     @Override
     public void deleteById(Long id) {
         String sql = "DELETE FROM " + getTable() + " WHERE " + getPrimaryKey() + " = ?";
-        this.getJdbcTemplate().update(sql, id);
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, id);
+        }
     }
 
     @Override
     public List<T> findAll() {
-        String sql = "SELECT *" + " FROM " + getTable();
+        String sql = getObjectMapper().getSelectSql() + getTable();
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().query(sql, getObjectMapper());
-        }
-        return null;
+        } else
+            return Collections.emptyList();
     }
 
     @Override
     public int countAll() {
 
-        String sql = "SELECT COUNT('"+ getPrimaryKey() + "') FROM" + getTable();
+        String sql = "SELECT COUNT('"+ getPrimaryKey() + "') FROM " + getTable();
 
-        return this.getJdbcTemplate().queryForObject(sql, Integer.class);
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, Integer.class);
+        } else
+            return 0;
     }
 
     @Override
     public List<T> getAllAsPage(int page, int total) {
-        String sql = "SELECT " + getInsertColumnsNamesAsString() + " FROM " + getTable() + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
-        return this.getJdbcTemplate().query(sql, new Object[]{}, getObjectMapper());
+        String sql = getObjectMapper().getSelectSql() + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().query(sql, new Object[]{}, getObjectMapper());
+        } else
+            return Collections.emptyList();
     }
 
     protected abstract BaseObjectMapper<T> getObjectMapper();
@@ -113,8 +128,7 @@ public abstract class GenericDaoImpl<T> extends JdbcDaoSupport implements Generi
     }
 
     private void setParamsMap(T obj) {
-        Map<String,Object> res = getObjectMapper().mapObject(obj);
-        this.paramsMap  = res;
+        this.paramsMap  = getObjectMapper().mapObject(obj);
     }
 
     private MapSqlParameterSource getSqlParams(){
@@ -128,24 +142,24 @@ public abstract class GenericDaoImpl<T> extends JdbcDaoSupport implements Generi
     }
 
     private String[] getColumnsNames(){
-        return getParamsMap().keySet().toArray(new String[getParamsMap().keySet().size()]);
+        return getParamsMap().keySet().toArray(new String[0]);
     }
 
-    private String getColumnsNamesAsString(){
+    private String getResultColumnsNamesAsString(){
         StringBuilder res = new StringBuilder();
         for(String column: getColumnsNames()){
-            res.append(" " + column + " = :" + column + ",");
+            res.append(" ").append(column).append(" = :").append(column).append(",");
         }
         res.deleteCharAt(res.length()-1);
 
         return res.toString();
     }
 
-    private String getInsertColumnsNamesAsString(){
+    private String getColumnsNamesAsString(){
         StringBuilder res = new StringBuilder();
         res.append("(");
         for(String column: getColumnsNames()){
-            res.append(column + ",");
+            res.append(column).append(",");
         }
         res.deleteCharAt(res.length()-1);
         res.append(")");
@@ -157,7 +171,7 @@ public abstract class GenericDaoImpl<T> extends JdbcDaoSupport implements Generi
         StringBuilder res = new StringBuilder();
         res.append("(");
         for(String column: getColumnsNames()){
-            res.append(":"+column + " ,");
+            res.append(":").append(column).append(" ,");
         }
         res.deleteCharAt(res.length()-1);
         res.append(")");

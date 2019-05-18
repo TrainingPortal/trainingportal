@@ -41,7 +41,7 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
 
     public int getPagesByUserId(Long userId, double total) {
 
-        if(userId == Role.ADMIN){
+        if(userId.equals(Role.ADMIN)){
             return (int) Math.ceil(courseDAO.countAll() / total);
         }
 
@@ -61,11 +61,8 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
     @Override
     public List<Course> getCoursesPage(int page, int total, Long userId, String role) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number  GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
 
         List<Course> courseList;
 

@@ -17,8 +17,12 @@ import java.util.List;
 public class MainSliderController {
 
 
+    private final MainSliderService mainSliderService;
+
     @Autowired
-    private MainSliderService mainSliderService;
+    public MainSliderController(MainSliderService mainSliderService) {
+        this.mainSliderService = mainSliderService;
+    }
 
 
     @GetMapping("/manage_main_slider")

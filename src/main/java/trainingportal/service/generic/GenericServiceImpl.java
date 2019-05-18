@@ -5,7 +5,7 @@ import trainingportal.dao.generic.GenericDao;
 
 import java.util.List;
 
-public class GenericServiceImpl<T> implements GenericService<T> {
+public abstract class GenericServiceImpl<T> implements GenericService<T> {
 
     @Autowired
     private GenericDao<T> genericDao;
@@ -37,13 +37,20 @@ public class GenericServiceImpl<T> implements GenericService<T> {
 
     @Override
     public List<T> getAllAsPage(int page, int total) {
-        if(page == 1){
-            //do nothing
-        } else {
+        if(page != 1){
             page = (page - 1) * total + 1;
         }
 
         return genericDao.getAllAsPage(page, total);
+    }
+
+    protected int getPageNumber(int page, int total){
+        if(page != 1){
+            page = (page - 1) * total + 1;
+        }
+
+        return page;
+
     }
 
 }

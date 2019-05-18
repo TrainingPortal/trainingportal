@@ -1,12 +1,7 @@
 package trainingportal.mapper;
 
-<<<<<<< HEAD
 import trainingportal.mapper.generic.BaseObjectMapper;
-=======
-import org.springframework.jdbc.core.RowMapper;
->>>>>>> 3cccdae2520769102e55cfee0b93a3f1ace01dd3
 import trainingportal.model.Schedule;
-
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,16 +20,31 @@ public class ScheduleMapper implements BaseObjectMapper<Schedule> {
 
     public static final String DELETE
             ="DELETE FROM Schedule";
+    @Override
+    public Map<String, Object> mapObject(Schedule obj) {
+        Map<String, Object> res = new HashMap<>();
+
+        res.put("id", obj.getScheduleId());
+        res.put("group_id", obj.getScheduleGroupId());
+        res.put("date_lesson", obj.getScheduleDate());
+        res.put("lesson_id", obj.getScheduleLessonId());
+
+        return res;
+    }
 
     @Override
-    public Schedule mapRow(ResultSet rs, int rowNum) throws SQLException {
+    public String getSelectSql() {
+        return SELECT_SQL;
+    }
 
-        Long scheduleId = rs.getLong("id");
-        Long scheduleGroupId = rs.getLong("group_id");
-        Date scheduleDate = rs.getDate("date_lesson");
-        Long scheduleLessonId = rs.getLong("lesson_id");
+    @Override
+    public Schedule mapRow(ResultSet resultSet, int i) throws SQLException {
+        Long id = resultSet.getLong("id");
+        Long groupId = resultSet.getLong("group_id");
+        Date date = resultSet.getDate("date_lesson");
+        Long lessonId = resultSet.getLong("lesson_id");
 
-        return new Schedule(scheduleId,scheduleGroupId,scheduleDate,scheduleLessonId);
+        return new Schedule(id, groupId,date,lessonId);
     }
 }
 

@@ -49,4 +49,9 @@ public class HomeworkMapper implements BaseObjectMapper<Homework> {
 
         return res;
     }
+
+    @Override
+    public String getSelectSql() {
+        return SELECT_SQL;
+    }
 }

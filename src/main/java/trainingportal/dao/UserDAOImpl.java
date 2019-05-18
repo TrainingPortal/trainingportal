@@ -1,7 +1,6 @@
 package trainingportal.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,6 +10,7 @@ import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.User;
 
 import javax.sql.DataSource;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
@@ -24,6 +24,9 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     private static final String ID_COLUMN = "user_id";
 
     @Autowired
+    private BaseObjectMapper<User> userBaseObjectMapper;
+
+    @Autowired
     public UserDAOImpl(DataSource dataSource) {
         super(dataSource);
         setTable(TABLE_NAME);
@@ -31,41 +34,45 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     }
 
     public User findUserAccount(String email) {
+        String sql = UserMapper.SELECT_SQL + " where u.email = ? ";
 
-        String sql = UserMapper.BASE_SQL + " where u.email = ? ";
- 
-        Object[] params = new Object[] { email };
-        UserMapper mapper = new UserMapper();
-        try {
-            User userInfo = this.getJdbcTemplate().queryForObject(sql, params, mapper);
-            return userInfo;
-        } catch (EmptyResultDataAccessException e) {
+        Object[] params = new Object[]{email};
+
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, params, userBaseObjectMapper);
+        } else
             return null;
-        }
     }
 
     @Override
     public boolean isUserExists(User user) {
-        return findByEmail(user.getEmail())==null ? false : true;
+        return findByEmail(user.getEmail()) != null;
     }
 
     public User findByEmail(String email) {
 
-        String sql = UserMapper.BASE_SQL + "WHERE email = ?";
+        String sql = UserMapper.SELECT_SQL + "WHERE email = ?";
 
-        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{email},new UserMapper());
+        List<User> users = null;
+        if (this.getJdbcTemplate() != null) {
+            users = this.getJdbcTemplate().query(sql,new Object[]{email},userBaseObjectMapper);
+        }
 
-        return users.size() > 0 ? users.get(0) : null;
+        if (users != null && users.size() > 0) {
+            return users.get(0);
+        } else
+            return null;
     }
 
     @Override
     public User findByToken(String token) {
 
-        String sql = UserMapper.BASE_SQL + "WHERE token = ?";
+        String sql = UserMapper.SELECT_SQL + "WHERE token = ?";
 
-        User user = this.getJdbcTemplate().queryForObject(sql,new Object[]{token},new UserMapper());
-
-        return user;
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql,new Object[]{token},userBaseObjectMapper);
+        } else
+            return null;
     }
 
     @Override
@@ -73,7 +80,9 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
 
         String sql ="UPDATE users SET token = ? WHERE user_id = ?";
 
-        this.getJdbcTemplate().update(sql, token, user.getUserId());
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, token, user.getUserId());
+        }
     }
 
     @Override
@@ -81,7 +90,9 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
 
         String sql ="UPDATE users SET token = ? WHERE token = ?";
 
-        this.getJdbcTemplate().update(sql, null, user.getToken());
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, null, user.getToken());
+        }
     }
 
     @Override
@@ -89,7 +100,9 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
 
         String sql = "UPDATE users SET enabled = ? WHERE user_id = ?";
 
-        this.getJdbcTemplate().update(sql, user.getEnabled(), user.getUserId());
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, user.getEnabled(), user.getUserId());
+        }
     }
 
     @Override
@@ -97,17 +110,20 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
 
         String sql = "UPDATE users SET password = ? WHERE token = ?";
 
-        this.getJdbcTemplate().update(sql, password, token);
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, password, token);
+        }
     }
 
     @Override
     public List<User> findAllByRole(Long roleId) {
 
-        String sql = UserMapper.BASE_SQL + "WHERE role_id = ?";
+        String sql = UserMapper.SELECT_SQL + "WHERE role_id = ?";
 
-        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{roleId},new UserMapper());
-
-        return users;
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().query(sql,new Object[]{roleId},userBaseObjectMapper);
+        } else
+            return Collections.emptyList();
     }
 
     @Override
@@ -115,18 +131,14 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
         String sql = "SELECT * FROM USERS u INNER JOIN USER_GROUP ug ON u.USER_ID = ug.USER_ID " +
                 "WHERE ug.group_id = ?";
 
-        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{id},new UserMapper());
-
-        return users;
+        return getUsers(id, sql);
     }
 
     @Override
     public List<User> findAllEnabledByRole(Long roleId) {
-        String sql = UserMapper.BASE_SQL + "WHERE role_id = ?  AND enabled = 1";
+        String sql = UserMapper.SELECT_SQL + "WHERE role_id = ?  AND enabled = 1";
 
-        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{roleId},new UserMapper());
-
-        return users;
+        return getUsers(roleId, sql);
     }
 
     @Override
@@ -134,30 +146,32 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
 
         String sql = "UPDATE users SET manager_id = ? WHERE manager_id = ?";
 
-        this.getJdbcTemplate().update(sql, null, managerId);
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, null, managerId);
+        }
     }
 
     @Override
     protected BaseObjectMapper<User> getObjectMapper() {
-        return new UserMapper();
+        return userBaseObjectMapper;
     }
 
     @Override
     public void deleteAllByRole(Long roleId) {
         String sql = "DELETE FROM users WHERE role_id = ?";
 
-        this.getJdbcTemplate().update(sql, roleId);
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, roleId);
+        }
     }
 
     @Override
     public List<User> getAllByRoleAsPage(int page, int total, Long roleId) {
 
-        String sql = UserMapper.BASE_SQL +
+        String sql = UserMapper.SELECT_SQL +
                 " WHERE role_id = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
-        List<User> users = this.getJdbcTemplate().query(sql, new Object[]{roleId}, new UserMapper());
-
-        return users;
+        return getUsers(roleId, sql);
     }
 
     @Override
@@ -165,18 +179,26 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
 
         String sql = "SELECT COUNT(user_id) FROM users WHERE role_id = ?";
 
-        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
+        } else
+            return 0;
     }
 
     @Override
     public List<User> searchByRole(Long id, String request, int page, int total) {
 
-        String sql = UserMapper.BASE_SQL + "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND role_id = ? " +
+        String sql = UserMapper.SELECT_SQL + "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND role_id = ? " +
                 "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
-        List<User> users = this.getJdbcTemplate().query(sql,new Object[]{id},new UserMapper());
+        return getUsers(id, sql);
+    }
 
-        return users;
+    private List<User> getUsers(Long id, String sql) {
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().query(sql,new Object[]{id},userBaseObjectMapper);
+        } else
+            return Collections.emptyList();
     }
 
     @Override
@@ -185,6 +207,9 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
         String sql = "SELECT COUNT(user_id) FROM users " +
                 "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND role_id = ? ";
 
-        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
+        } else
+            return 0;
     }
 }

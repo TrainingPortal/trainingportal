@@ -43,11 +43,9 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
     @Override
     public List<Lesson> getLessonsPageByCourseId(int page, int total, Long courseId) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
         return lessonDao.getAllAsPageByCourseId(courseId, page, total);
     }
 
