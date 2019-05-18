@@ -16,13 +16,14 @@
 
 <div class="container-fluid">
     <h2>Groups List</h2>
-    <div  class="btn">
+    <div  class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">
         <a class="btn btn-success btn-lg" th:href="@{/group-add-{courseId}
         (courseId = ${courseGroup.courseId})}">CREATE NEW GROUP</a>
     </div>
 
     <div  class="btn">
-        <a class="btn btn btn-info btn-lg" th:href="@{/admin }">Back to admin</a>
+        <a class="btn btn btn-info btn-lg"
+           th:href="@{/admin }" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">Back to admin</a>
     </div>
 
     <div  class="btn">
@@ -54,7 +55,8 @@
             </td>
 
             <td>
-                <div class="btn-group">
+                <div class="btn-group" th:if="${#request.isUserInRole('ROLE_ADMIN') == true
+                or #request.isUserInRole('ROLE_TRAINER')}">
                     <!--                    Delete button use @PathVariable to understand what id it need-->
                     <a class="btn btn-info" th:href="@{/edit-group-{groupId}-{id}
                        (groupId = ${group.groupId},id = ${group.courseId}) }">Edit</a>
