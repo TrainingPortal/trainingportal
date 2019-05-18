@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.LessonDao;
+import trainingportal.dao.UserGroupDao;
 import trainingportal.model.Lesson;
+import trainingportal.model.User;
+import trainingportal.model.UserGroup;
 
 import java.util.List;
 
@@ -14,6 +17,9 @@ public class LessonServiceImpl implements LessonService {
 
     @Autowired
     private LessonDao lessonDao;
+
+    @Autowired
+    private UserGroupDao userGroupDao;
 
     @Override
     public List<Lesson> findAll() {
@@ -85,10 +91,19 @@ public class LessonServiceImpl implements LessonService {
     public boolean isConnectedWithTrainer(Long userId, Long courseId) {
         Long trainerId =  lessonDao.getTrainerIdByCourseId(courseId);
 
-        if(userId == trainerId){
-            return true;
-        } else  {
-            return false;
+        return userId == trainerId;
+    }
+
+    @Override
+    public boolean isConnectedWithLessonByCourseId(Long userId, Long courseId) {
+
+        List<UserGroup> users =  userGroupDao.getUserIdByCourseId(courseId);
+
+        for(UserGroup user : users){
+            if(user.getUserId() == userId) {
+                return true;
+            }
         }
+        return false;
     }
 }

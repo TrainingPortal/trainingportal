@@ -17,14 +17,13 @@
 <div class="container-fluid">
     <h2 class="text-center">Courses List</h2>
 
-    <div class="btn">
-            <a class="btn btn-success btn-lg" th:href="@{/course-add }">CREATE NEW COURSE</a>
+    <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">
+        <a class="btn btn-success btn-lg" th:href="@{/course-add }">CREATE NEW COURSE</a>
     </div>
 
-    <div  class="btn">
-            <a class="btn btn btn-info btn-lg" th:href="@{/admin }">Back to admin</a>
+    <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">
+        <a class="btn btn btn-info btn-lg" th:href="@{/admin }">Back to admin</a>
     </div>
-
 
 
     <table class="table table-striped">
@@ -65,7 +64,8 @@
             </td>
 
             <td>
-                <div class="btn-group">
+                <div class="btn-group" th:if="${#request.isUserInRole('ROLE_ADMIN') == true
+                or #request.isUserInRole('ROLE_TRAINER')}">
                     <a class="btn btn-info" th:href="@{/edit-course-{id} (id = ${course.courseId}) }">Edit</a>
                     <a class="btn btn-dark" th:href="@{/course-delete-by-{id} (id = ${course.courseId}) }">Delete</a>
                 </div>
