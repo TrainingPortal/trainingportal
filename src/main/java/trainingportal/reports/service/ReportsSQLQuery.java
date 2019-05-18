@@ -16,9 +16,11 @@ public class ReportsSQLQuery {
     private static List<String> listWithReports = new ArrayList();
     private static List<String> listWithLevels = new ArrayList();
 
-    //Select
-    private static final String sqlForTrainers = "SELECT DISTINCT users.name as \"Trainer Name\", course.name as \"Course Name\", course.course_level as \"Course Level\", course_status.name_status as \"Course Status\" \n" +
-                                                 "FROM course INNER JOIN course_status ON course.course_status_id = course_status.id INNER JOIN users ON course.trainer_id = users.role_id WHERE users.user_id =  ";
+    //Select all trainer to monitor active course in trainer by user_id
+    private static final String sqlForTrainers = "SELECT users.name as \"Trainer Name\", users.email as \"Email\", roles.name as \"Role\", course.name as \"Course Name\", course.course_level as \"Course Level\", course_status.name_status as \"Course Status\"  \n" +
+                                                 "FROM users LEFT OUTER JOIN roles ON users.role_id = roles.role_id LEFT OUTER JOIN course ON users.role_id = course.trainer_id LEFT OUTER JOIN course_status ON course.course_status_id = course_status.id \n" +
+                                                 "WHERE users.role_id = 3 AND users.user_id = ";
+
 
     //Choose by users who is managers or employee that have availability enter to course and course level = to ......
     private static final String sqlForReports = "SELECT DISTINCT users.name as \"User Name\", email as \"Email\", course.name as \"Course Name\", course.course_level as \"Course Level\" \n" +
@@ -37,6 +39,8 @@ public class ReportsSQLQuery {
 
         listWithTrainers.clear();
         listWithTrainers.add("Trainer Name");
+        listWithTrainers.add("Email");
+        listWithTrainers.add("Role");
         listWithTrainers.add("Course Name");
         listWithTrainers.add("Course Level");
         listWithTrainers.add("Course Status");
