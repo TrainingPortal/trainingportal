@@ -5,13 +5,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.CourseDAOImpl;
+import trainingportal.dao.CourseDao;
 import trainingportal.dao.UserDao;
 import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
 import trainingportal.service.generic.GenericServiceImpl;
 import trainingportal.model.LoggedInUser;
 import trainingportal.model.Role;
+import trainingportal.security.UserSecurity;
+import trainingportal.security.UserSecurityImpl;
 
 
 import java.util.Collection;
@@ -22,7 +24,7 @@ import java.util.List;
 public class CourseServiceImpl extends GenericServiceImpl<Course> implements CourseService {
 
     @Autowired
-    private CourseDAOImpl courseDAO;
+    private CourseDao courseDAO;
 
     @Autowired
     private UserDao userDAO;
@@ -57,7 +59,7 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
     }
 
     @Override
-    public List<Course> getCoursesPage(int page, int total, Authentication auth) {
+    public List<Course> getCoursesPage(int page, int total, Long userId, String role) {
 
         if(page == 1){
             //do nothing
@@ -65,20 +67,25 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
             page = (page - 1) * total + 1;
         }
 
-        Long userId = ((LoggedInUser)auth.getPrincipal()).getId();
         List<Course> courseList;
 
-        Collection<GrantedAuthority> authority = ((LoggedInUser) auth.getPrincipal()).getAuthorities();
-
-        if(authority.iterator().next().toString().equals("ROLE_ADMIN")){
+        if(role.equals("ROLE_ADMIN")){
             courseList = courseDAO.getAllAsPage(page, total);
-        } else {
+        } else if(role.equals("ROLE_TRAINER")){
             courseList = courseDAO.getAllAsPageById(userId, page, total);
+        } else {
+            courseList = courseDAO.getAllAsPageByEmployeeId(userId, page, total);
         }
         for(Course course : courseList){
             course.setTrainer(userDAO.findById(course.getTrainerId()));
             course.setStatus(courseDAO.findStatusById(course.getCourseStatus()));
         }
         return courseList;
+    }
+
+    @Override
+    public List<Course> findCoursesByUserId(Long id) {
+
+        return courseDAO.findCoursesByUserId(id);
     }
 }

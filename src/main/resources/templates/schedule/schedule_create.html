@@ -1,10 +1,68 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <title>schedule</title>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
 </head>
 <body>
+<div th:insert="frontend/navbar :: nav"></div>
 
+<div class="container-fluid">
+    <h2>Schedule List</h2>
+
+    <div class="btn">
+        <a class="btn btn-success btn-lg" th:href="@{/schedule-add-{groupId}
+         (groupId = ${groupSchedule.groupId})}">CREATE NEW Schedule</a>
+    </div>
+
+    <div  class="btn">
+        <a class="btn btn btn-info btn-lg" th:href="@{/course_create/1}">Back to Course</a>
+    </div>
+
+<!--    <div  class="btn">-->
+<!--        <a class="btn btn btn-info btn-lg"-->
+<!--           th:href="@{/group_create/1/{courseId} (courseId =${forBack.courseId})}">Back to Group</a>-->
+<!--    </div>-->
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="row">schedule Id</th>
+            <th scope="row">group Id</th>
+            <th scope="row">date</th>
+            <th scope="row">lesson Id</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+        <tr th:each="schedule, iter : ${scheduleOfGroup}">
+            <td th:text="${schedule.scheduleId}"></td>
+            <td th:text="${schedule.scheduleGroupId}"></td>
+            <td th:text="${schedule.scheduleDate}"></td>
+            <td th:text="${schedule.scheduleLessonId}"></td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-info" th:href="@{/schedule-edit-{scheduleId}-{id}
+                       (scheduleId = ${schedule.scheduleId},id = ${schedule.scheduleGroupId})}">Edit</a>
+
+                    <a class="btn btn-dark" th:href="@{/schedule-delete/{scheduleId}/{id}
+                    (scheduleId = ${schedule.scheduleId},id = ${schedule.scheduleGroupId})}">Delete</a>
+                </div>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="frontend/pagination :: pagination_with_slashed_id"></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>

@@ -5,17 +5,14 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.mapper.RoleMapper;
-import trainingportal.mapper.UserMapper;
 import trainingportal.model.Role;
 
 import javax.sql.DataSource;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Repository
 @Transactional
-public class RoleDAOImpl extends JdbcDaoSupport {
+public class RoleDAOImpl extends JdbcDaoSupport implements RoleDao {
  
     @Autowired
     public RoleDAOImpl(DataSource dataSource) {

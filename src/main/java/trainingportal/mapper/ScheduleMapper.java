@@ -1,6 +1,10 @@
 package trainingportal.mapper;
 
+<<<<<<< HEAD
 import trainingportal.mapper.generic.BaseObjectMapper;
+=======
+import org.springframework.jdbc.core.RowMapper;
+>>>>>>> 3cccdae2520769102e55cfee0b93a3f1ace01dd3
 import trainingportal.model.Schedule;
 
 import java.sql.Date;
@@ -10,29 +14,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ScheduleMapper implements BaseObjectMapper<Schedule> {
-    public static final String BASE_SQL =
-            "SELECT * FROM Schedule ";
+    public static final String SELECT_SQL
+            = "SELECT id, group_id, date_lesson, lesson_id  FROM Schedule";
+
+    public static final String EDIT_SQL
+            = "UPDATE Schedule SET  group_id = ?, date_lesson = ?, lesson_id =?  ";
+
+    public static final String INSERT_SQL
+            = "INSERT INTO Schedule ( group_id, date_lesson, lesson_id) VALUES (?,?,?)";
+
+    public static final String DELETE
+            ="DELETE FROM Schedule";
 
     @Override
-    public Map<String, Object> mapObject(Schedule obj) {
-        Map<String, Object> res = new HashMap<>();
+    public Schedule mapRow(ResultSet rs, int rowNum) throws SQLException {
 
-        res.put("id", obj.getSheduleId());
-        res.put("group_id", obj.getSheduleGroupId());
-        res.put("date_lesson", obj.getSheduleDate());
-        res.put("lesson_id", obj.getSheduleLessonId());
+        Long scheduleId = rs.getLong("id");
+        Long scheduleGroupId = rs.getLong("group_id");
+        Date scheduleDate = rs.getDate("date_lesson");
+        Long scheduleLessonId = rs.getLong("lesson_id");
 
-        return res;
-    }
-
-    @Override
-    public Schedule mapRow(ResultSet resultSet, int i) throws SQLException {
-        Long id = resultSet.getLong("id");
-        Long groupId = resultSet.getLong("group_id");
-        Date date = resultSet.getDate("date_lesson");
-        Long lessonId = resultSet.getLong("lesson_id");
-
-        return new Schedule(id, groupId,date,lessonId);
+        return new Schedule(scheduleId,scheduleGroupId,scheduleDate,scheduleLessonId);
     }
 }
 

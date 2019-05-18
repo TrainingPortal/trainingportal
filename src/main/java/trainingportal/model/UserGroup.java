@@ -1,48 +1,24 @@
 package trainingportal.model;
 
 public class UserGroup {
-    private Long userGroupId;
-    private User user;
-    private Group group;
-    private Long userId;
+    private Long id;
+
     private Long groupId;
 
-    public UserGroup(Long userGroupId, Long userId, Long groupId) {
-        this.userGroupId = userGroupId;
-        this.userId = userId;
+    private Long userId;
+
+    public UserGroup(Long id, Long groupId, Long userId) {
+        this.id = id;
         this.groupId = groupId;
-    }
-
-    public Long getUserGroupId() {
-        return userGroupId;
-    }
-
-    public void setUserGroupId(Long userGroupId) {
-        this.userGroupId = userGroupId;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Long getGroupId() {
@@ -51,5 +27,13 @@ public class UserGroup {
 
     public void setGroupId(Long groupId) {
         this.groupId = groupId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 }

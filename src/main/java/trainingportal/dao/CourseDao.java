@@ -18,4 +18,7 @@ public interface CourseDao extends GenericDao<Course> {
 
     List<Course> getAllAsPageById(Long id, int page, int total);
 
+    List<Course> findCoursesByUserId(Long id);
+
+    List<Course> getAllAsPageByEmployeeId(Long userId, int page, int total);
 }

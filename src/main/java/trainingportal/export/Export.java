@@ -1,6 +1,7 @@
-package export;
+package trainingportal.export;
 
-import export.exception.ExportToExcelException;
+import org.springframework.stereotype.Service;
+import trainingportal.export.exception.ExportToExcelException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -10,6 +11,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
+@Service
 public class Export {
 
     public void exportDataToExcel(String fileName, String labelName, Object[][] data) {

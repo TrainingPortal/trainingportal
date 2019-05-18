@@ -18,6 +18,7 @@ import java.util.Map;
 
 @Controller
 public class ManagerController {
+
     @Autowired
     private UserService managerService;
 

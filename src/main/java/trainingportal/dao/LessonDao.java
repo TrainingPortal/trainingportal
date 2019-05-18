@@ -1,7 +1,6 @@
 package trainingportal.dao;
 
 import trainingportal.dao.generic.GenericDao;
-import trainingportal.model.Course;
 import trainingportal.model.Lesson;
 
 import java.util.List;

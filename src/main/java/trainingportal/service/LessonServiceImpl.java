@@ -3,9 +3,12 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.LessonDaoImpl;
+import trainingportal.dao.LessonDao;
+import trainingportal.dao.UserGroupDao;
 import trainingportal.model.Lesson;
+import trainingportal.model.UserGroup;
 import trainingportal.service.generic.GenericServiceImpl;
+
 
 import java.util.List;
 
@@ -14,7 +17,10 @@ import java.util.List;
 public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements LessonService {
 
     @Autowired
-    private LessonDaoImpl lessonDao;
+    private LessonDao lessonDao;
+
+    @Autowired
+    private UserGroupDao userGroupDao;
 
     @Override
     public void update(Lesson lesson) {
@@ -54,11 +60,20 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
     public boolean isConnectedWithTrainer(Long userId, Long courseId) {
         Long trainerId =  lessonDao.getTrainerIdByCourseId(courseId);
 
-        if(userId == trainerId){
-            return true;
-        } else  {
-            return false;
+        return userId == trainerId;
+    }
+
+    @Override
+    public boolean isConnectedWithLessonByCourseId(Long userId, Long courseId) {
+
+        List<UserGroup> users =  userGroupDao.getUserIdByCourseId(courseId);
+
+        for(UserGroup user : users){
+            if(user.getUserId() == userId) {
+                return true;
+            }
         }
+        return false;
     }
 
     @Override

@@ -23,9 +23,20 @@
 
 <div class="container-fluid">
     <h2>Material List</h2>
-    <h2>
-        <a class="btn btn-success" th:href="@{/material-add}">CREATE NEW MATERIAL</a>
-    </h2>
+
+    <div class="btn">
+        <a class="btn btn-success btn-lg" th:href="@{/material-add-{lessonId}
+              (lessonId =${materialOfLesson.lessonId})}">CREATE NEW MATERIAL</a>
+    </div>
+
+    <div  class="btn">
+        <a class="btn btn btn-info btn-lg" th:href="@{/course_lessons/1}">Back to Lessons</a>
+    </div>
+
+    <div  class="btn">
+        <a class="btn btn btn-info btn-lg" th:href="@{/course_create/1}">Back to Course</a>
+    </div>
+
     <table class="table table-striped">
         <thead>
         <tr>
@@ -37,7 +48,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="material, iter : ${MaterialOfLesson}">
+        <tr th:each="material, iter : ${materialListOfLesson}">
             <td th:text="${material.materialId}"></td>
             <td th:text="${material.lessonId}"></td>
             <td th:text="${material.materialDescription}"></td>
@@ -46,7 +57,7 @@
                     <a class="btn btn-info" th:href="@{/edit-material-{materialId}-{id}
                     (materialId = ${material.materialId}, id = ${material.lessonId}) }">Edit</a>
 
-                    <a class="btn btn-dark" th:href="@{/material-delete-by-{materialId}-{id}
+                    <a class="btn btn-dark" th:href="@{/material-delete-by/{materialId}/{id}
                      (materialId = ${material.materialId}, id = ${material.lessonId}) }">Delete</a>
                 </div>
             </td>

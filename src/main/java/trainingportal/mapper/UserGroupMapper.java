@@ -9,15 +9,17 @@ import java.util.Map;
 
 public class UserGroupMapper implements BaseObjectMapper<UserGroup> {
 
-    public static final String BASE_SQL =
-            "SELECT * FROM user_group";
+    public static String SELECT_USERS_SQL
+            = "SELECT a.id, a.group_id, a.user_id FROM User_Group a INNER JOIN Groups b ON a.group_id = b.id " +
+            "INNER JOIN Course c ON b.course_id = c.course_id " +
+            "WHERE c.course_id = ?";
 
 
     @Override
     public Map<String, Object> mapObject(UserGroup obj) {
         Map<String, Object> res = new HashMap<>();
 
-        res.put("id", obj.getUserGroupId());
+        res.put("id", obj.getId());
         res.put("user_id", obj.getUserId());
         res.put("group_id", obj.getGroupId());
 
@@ -25,11 +27,11 @@ public class UserGroupMapper implements BaseObjectMapper<UserGroup> {
     }
 
     @Override
-    public UserGroup mapRow(ResultSet resultSet, int i) throws SQLException {
-        Long id = resultSet.getLong("id");
-        Long userId = resultSet.getLong("user_id");
-        Long groupId = resultSet.getLong("group_id");
+    public UserGroup mapRow(ResultSet rtS, int rowNum) throws SQLException {
+        Long id = rtS.getLong("id");
+        Long groupId = rtS.getLong("group_id");
+        Long userId = rtS.getLong("user_id");
 
-        return new UserGroup(id, userId,groupId);
+        return new UserGroup(id, groupId, userId);
     }
 }

@@ -2,27 +2,43 @@ package trainingportal.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
-import trainingportal.model.LoggedInUser;
+import org.springframework.stereotype.Service;
+import trainingportal.model.User;
+import trainingportal.service.GroupService;
 import trainingportal.service.LessonService;
+import trainingportal.service.UserService;
 
+@Service
 public class UserSecurityImpl implements UserSecurity {
 
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
 
-    public boolean hasUserId(Authentication authentication, Long userId) {
+    @Autowired
+    private UserService userService;
 
-        if(((LoggedInUser)authentication.getPrincipal()).getId() == userId) {
-            return true;
-        }
-        return false;
+    public boolean hasUserId(Long userId) {
+
+        return getLoggedInUserId() == userId;
     }
 
     @Override
-    public boolean isConnectedWithTrainer(Authentication authentication, Long courseId) {
+    public boolean isConnectedWithTrainer(Long courseId) {
 
-        Long userId = ((LoggedInUser)authentication.getPrincipal()).getId();
+        return lessonService.isConnectedWithTrainer(getLoggedInUserId(), courseId);
+    }
 
-        return lessonService.isConnectedWithTrainer(userId, courseId);
+    @Override
+    public boolean isSubordinate(Long userId) {
+
+        User user = userService.findById(userId);
+
+        return getLoggedInUserId() == user.getManagerId();
+    }
+
+    @Override
+    public boolean isConnectedWithLessonByCourseId(Long courseId) {
+
+        return lessonService.isConnectedWithLessonByCourseId(getLoggedInUserId(), courseId);
     }
 }
