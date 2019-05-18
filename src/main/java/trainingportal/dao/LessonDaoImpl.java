@@ -5,7 +5,10 @@ import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.mapper.LessonMapper;
+import trainingportal.mapper.UserGroupMapper;
+import trainingportal.mapper.UserMapper;
 import trainingportal.model.Lesson;
+import trainingportal.model.UserGroup;
 
 import javax.sql.DataSource;
 import java.util.List;

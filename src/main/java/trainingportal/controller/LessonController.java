@@ -19,10 +19,10 @@ import java.util.List;
 public class LessonController {
 
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
 
     @Autowired
-    CourseService courseService;
+    private CourseService courseService;
 
     private static final int ROWS_LIMIT = 10;
 
@@ -59,7 +59,9 @@ public class LessonController {
     }
 
     @RequestMapping(value = "lesson-save", method = RequestMethod.POST)
-    public ModelAndView saveLesson(@RequestParam("courseId") Long courseId, Lesson lesson, ModelAndView modelAndView) {
+    public ModelAndView saveLesson(@RequestParam("courseId") Long courseId,
+                                   Lesson lesson, ModelAndView modelAndView) {
+
         lessonService.save(lesson);
         modelAndView.setViewName("redirect:/course_lessons/1/" + courseId);
         return modelAndView;

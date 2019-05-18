@@ -1,14 +1,13 @@
 package trainingportal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.LessonDaoImpl;
-import trainingportal.model.Course;
+import trainingportal.dao.LessonDao;
+import trainingportal.dao.UserGroupDao;
 import trainingportal.model.Lesson;
-import trainingportal.model.LoggedInUser;
-import trainingportal.model.Role;
+import trainingportal.model.User;
+import trainingportal.model.UserGroup;
 
 import java.util.List;
 
@@ -17,7 +16,10 @@ import java.util.List;
 public class LessonServiceImpl implements LessonService {
 
     @Autowired
-    private LessonDaoImpl lessonDao;
+    private LessonDao lessonDao;
+
+    @Autowired
+    private UserGroupDao userGroupDao;
 
     @Override
     public List<Lesson> findAll() {
@@ -89,10 +91,19 @@ public class LessonServiceImpl implements LessonService {
     public boolean isConnectedWithTrainer(Long userId, Long courseId) {
         Long trainerId =  lessonDao.getTrainerIdByCourseId(courseId);
 
-        if(userId == trainerId){
-            return true;
-        } else  {
-            return false;
+        return userId == trainerId;
+    }
+
+    @Override
+    public boolean isConnectedWithLessonByCourseId(Long userId, Long courseId) {
+
+        List<UserGroup> users =  userGroupDao.getUserIdByCourseId(courseId);
+
+        for(UserGroup user : users){
+            if(user.getUserId() == userId) {
+                return true;
+            }
         }
+        return false;
     }
 }

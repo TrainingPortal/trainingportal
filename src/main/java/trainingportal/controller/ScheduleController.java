@@ -6,7 +6,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import trainingportal.model.Group;
 import trainingportal.model.Lesson;
@@ -22,11 +21,11 @@ public class ScheduleController {
 
     private static final int ROWS_LIMIT = 10;
     @Autowired
-    ScheduleService scheduleService;
+    private ScheduleService scheduleService;
     @Autowired
-    GroupService groupService;
+    private GroupService groupService;
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
 
     @RequestMapping("/schedule_create/{page}/{groupId}")
     public ModelAndView showScheduleListOfGroup(@PathVariable("page") int page,
@@ -77,7 +76,7 @@ public class ScheduleController {
     }
 
     @RequestMapping(value = "schedule-save", method = RequestMethod.POST)
-    public ModelAndView saveSchedule(@RequestParam("groupId") Long groupId, Schedule schedule, ModelAndView modelAndView) {
+    public ModelAndView saveSchedule(@PathVariable("groupId") Long groupId, Schedule schedule, ModelAndView modelAndView) {
         scheduleService.save(schedule);
 
         modelAndView.setViewName("redirect:/schedule_create/1/" + groupId);

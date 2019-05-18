@@ -26,4 +26,8 @@ public interface GroupDao {
     int countAll();
 
     List<Group> getAllAsPage(int page, int total);
+
+    Long getTrainerIdByGroupId(Long groupId);
+
+    List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int total);
 }

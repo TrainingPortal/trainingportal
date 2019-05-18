@@ -1,6 +1,7 @@
 package trainingportal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -9,8 +10,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Course;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
-import trainingportal.service.CourseServiceImpl;
-import trainingportal.service.GroupServiceImpl;
+import trainingportal.security.UserSecurity;
+import trainingportal.service.CourseService;
+import trainingportal.service.GroupService;
 
 import java.util.List;
 
@@ -18,10 +20,13 @@ import java.util.List;
 public class GroupController {
 
     @Autowired
-    GroupServiceImpl groupService;
+    private GroupService groupService;
 
     @Autowired
-    CourseServiceImpl courseService;
+    private CourseService courseService;
+
+    @Autowired
+    private UserSecurity userSecurity;
 
     private static final int ROWS_LIMIT = 10;
 //old method
@@ -46,12 +51,8 @@ public class GroupController {
                                                @PathVariable("courseId") Long id,
                                                ModelAndView modelAndView) {
 
-        List<Group> groupList = groupService.getAllAsPageByCourseId(id ,page, ROWS_LIMIT);
-
-        for(Group group : groupList){
-            group.setCourse(courseService.findById(group.getCourseId()));
-            group.setStatus(groupService.findStatusById(group.getStatusId()));
-        }
+        List<Group> groupList = groupService.getGroupsPage(id, page, ROWS_LIMIT,
+                userSecurity.getLoggedInUserId(), userSecurity.getLoggedInUserRole());
 
         Course course = courseService.findById(id);
         modelAndView.addObject("courseGroup", course);

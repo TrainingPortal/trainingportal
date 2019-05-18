@@ -5,12 +5,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.CourseDAOImpl;
+import trainingportal.dao.CourseDao;
 import trainingportal.dao.UserDao;
 import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
 import trainingportal.model.LoggedInUser;
 import trainingportal.model.Role;
+import trainingportal.security.UserSecurity;
+import trainingportal.security.UserSecurityImpl;
 
 import java.util.Collection;
 import java.util.List;
@@ -20,7 +22,7 @@ import java.util.List;
 public class CourseServiceImpl implements CourseService {
 
     @Autowired
-    private CourseDAOImpl courseDAO;
+    private CourseDao courseDAO;
 
     @Autowired
     private UserDao userDAO;
@@ -97,7 +99,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCoursesPage(int page, int total, Authentication auth) {
+    public List<Course> getCoursesPage(int page, int total, Long userId, String role) {
 
         if(page == 1){
             //do nothing
@@ -105,11 +107,7 @@ public class CourseServiceImpl implements CourseService {
             page = (page - 1) * total + 1;
         }
 
-        Long userId = ((LoggedInUser)auth.getPrincipal()).getId();
         List<Course> courseList;
-
-        Collection<GrantedAuthority> authority = ((LoggedInUser) auth.getPrincipal()).getAuthorities();
-        String role = authority.iterator().next().toString();
 
         if(role.equals("ROLE_ADMIN")){
             courseList = courseDAO.getAllAsPage(page, total);

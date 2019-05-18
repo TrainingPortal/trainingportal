@@ -24,7 +24,7 @@
 <div class="container-fluid">
     <h2>Lessons List</h2>
 
-    <div class="btn">
+    <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">
         <a class="btn btn-success btn-lg" th:href="@{/lesson-add-{courseId}
         (courseId = ${courseLesson.courseId})}">CREATE NEW LESSON</a>
     </div>
@@ -64,7 +64,8 @@
 
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-outline-primary" th:href="@{/material_lesson (id = ${lesson.lessonId})}">
+                    <a class="btn btn-outline-primary" th:href="@{/material_lesson/{page}/{lessonId}
+                    (lessonId = ${lesson.lessonId}, page = 1)}">
                      Materials</a>
                 </div>
             </td>
@@ -78,7 +79,8 @@
             <!--            </td>-->
 
             <td>
-                <div class="btn-group">
+                <div class="btn-group" th:if="${#request.isUserInRole('ROLE_ADMIN') == true
+                or #request.isUserInRole('ROLE_TRAINER')}">
                     <a class="btn btn-info" th:href="@{/edit-lesson-{lessonId}-{id}
                        (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Edit</a>
 

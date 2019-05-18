@@ -3,7 +3,7 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.MaterialDaoImpl;
+import trainingportal.dao.MaterialDao;
 import trainingportal.model.Material;
 
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 public class MaterialServiceImpl implements MaterialService {
 
     @Autowired
-    private MaterialDaoImpl materialDao;
+    private MaterialDao materialDao;
 
     @Override
     public int getNumberOfPages(List<Material> users, double total) {
@@ -61,6 +61,22 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public List<Material> getMaterialLessonId(Long lessonId) {
         return materialDao.getMaterialLessonId(lessonId);
+    }
+
+    @Override
+    public List<Material> getAllAsPageByLessonId(Long lessonId, int page, int total) {
+
+        if(page == 1){
+            //do nothing
+        } else {
+            page = (page - 1) * total + 1;
+        }
+        return materialDao.getAllAsPageByLessonId(lessonId, page, total);
+    }
+
+    @Override
+    public int getPages(Long lessonId, double total) {
+        return (int) Math.ceil(materialDao.countAllByLessonId(lessonId) / total);
     }
 
 }
