@@ -20,14 +20,12 @@
     <h1>There are no courses.</h1>
 </div>
 <div th:unless="${schedules.size() == 0}">
-    <ol class="list-group" th:each="schedule : ${schedules}">
-        <li>
-            <a th:href="@{/presence/{groupId}/{scheduleId}(groupId=${schedule.scheduleGroup.getGroupId()},
-            scheduleId =${schedule.getScheduleId()} )}" class="list-group-item"
-               th:text="${schedule.scheduleLesson.getLessonName()} + ' ' + ${schedule.scheduleDate}">
-            </a>
-        </li>
-    </ol>
+    <div class="list-group" th:each="schedule : ${schedules}">
+        <a th:href="@{/presence/{groupId}/{scheduleId}(groupId=${schedule.scheduleGroup.getGroupId()},
+        scheduleId =${schedule.getScheduleId()} )}" class="list-group-item"
+           th:text="${schedule.scheduleLesson.getLessonName()} + ' ' + ${schedule.scheduleDate}">
+        </a>
+    </div>
 </div>
 </body>
 </html>

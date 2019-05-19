@@ -22,13 +22,11 @@
     <h1>There are no courses.</h1>
 </div>
 <div th:unless="${courses.size() == 0}">
-    <ul class="list-group list-group-horizontal" th:each="course:${courses}">
-        <li>
-            <a th:href="@{/myGroups/{courseId}(courseId=${course.getCourseId()})}" class="list-group-item"
-                th:text="${course.getCourseName()} + '-' + ${course.getCourseLevel()}">
-            </a>
-        </li>
-    </ul>
+    <div class="list-group" th:each="course:${courses}">
+        <a th:href="@{/myGroups/{courseId}(courseId=${course.getCourseId()})}" class="list-group-item"
+            th:text="${course.getCourseName()} + '-' + ${course.getCourseLevel()}">
+        </a>
+    </div>
 </div>
 </body>
 </html>

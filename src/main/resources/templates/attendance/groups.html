@@ -12,18 +12,18 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+<div th:insert="frontend/navbar :: nav"></div>
 
+<h3>Your groups</h3>
 <div th:if="${groups.size() == 0}">
-    <h1>There are no courses.</h1>
+    <h1>There are no groups.</h1>
 </div>
 <div th:unless="${groups.size() == 0}">
-    <ol class="list-group " th:each="group:${groups}">
-        <li>
-            <a th:href="@{/myScheduleForGroup/{groupId}(groupId=${group.getGroupId()})}" class="list-group-item"
+    <div class="list-group " th:each="group:${groups}">
+        <a th:href="@{/myScheduleForGroup/{groupId}(groupId=${group.getGroupId()})}" class="list-group-item"
                th:text="${group.getGroupName()} + '-' + ${group.getStatus()}">
-            </a>
-        </li>
-    </ol>
+        </a>
+    </div>
 </div>
 </body>
 </html>
