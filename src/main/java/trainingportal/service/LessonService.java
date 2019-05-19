@@ -17,4 +17,8 @@ public interface LessonService extends GenericService<Lesson> {
     boolean isConnectedWithTrainer(Long userId, Long courseId);
 
     boolean isConnectedWithLessonByCourseId(Long userId, Long courseId);
+
+    boolean isConnectedWithTrainerByLessonId(Long userId, Long lessonId);
+
+    boolean isConnectedWithLessonByLessonId(Long userId, Long lessonId);
 }

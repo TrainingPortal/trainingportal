@@ -112,5 +112,15 @@ public class LessonDaoImpl extends JdbcDaoSupport implements LessonDao {
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Long.class);
     }
+
+    @Override
+    public Long getTrainerIdByLessonId(Long lessonId) {
+
+        String sql = "SELECT a.trainer_id from Course a " +
+                "INNER JOIN Lesson b ON a.course_id = b.course_id " +
+                "WHERE b.lesson_id = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{lessonId}, Long.class);
+    }
 }
 

@@ -106,4 +106,25 @@ public class LessonServiceImpl implements LessonService {
         }
         return false;
     }
+
+    @Override
+    public boolean isConnectedWithTrainerByLessonId(Long userId, Long lessonId) {
+
+        Long trainerId =  lessonDao.getTrainerIdByLessonId(lessonId);
+
+        return trainerId == userId;
+    }
+
+    @Override
+    public boolean isConnectedWithLessonByLessonId(Long userId, Long lessonId) {
+
+        List<UserGroup> users =  userGroupDao.getUserIdByLessonId(lessonId);
+
+        for(UserGroup user : users){
+            if(user.getUserId() == userId) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
