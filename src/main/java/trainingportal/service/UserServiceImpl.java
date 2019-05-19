@@ -21,14 +21,18 @@ import java.util.Map;
 @Transactional
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
 
-    @Autowired
-    private SubordinateDAO subordinateRepository;
+    private final SubordinateDAO subordinateRepository;
+
+    private final UserDao userRepository;
+
+    private final RoleDao roleRepository;
 
     @Autowired
-    private UserDao userRepository;
-
-    @Autowired
-    private RoleDao roleRepository;
+    public UserServiceImpl(SubordinateDAO subordinateRepository, UserDao userRepository, RoleDao roleRepository) {
+        this.subordinateRepository = subordinateRepository;
+        this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
+    }
 
     @Override
     public User findByEmail(String email) {

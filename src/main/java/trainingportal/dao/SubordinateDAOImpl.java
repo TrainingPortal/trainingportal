@@ -16,14 +16,12 @@ import java.util.List;
 @Repository
 @Transactional
 public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO {
-
-
-    @Autowired
-    private BaseObjectMapper<User> userBaseObjectMapper;
+    private final BaseObjectMapper<User> userBaseObjectMapper;
 
     @Autowired
-    public SubordinateDAOImpl(DataSource dataSource) {
+    public SubordinateDAOImpl(DataSource dataSource, BaseObjectMapper<User> userBaseObjectMapper) {
         this.setDataSource(dataSource);
+        this.userBaseObjectMapper = userBaseObjectMapper;
     }
 
     @Override

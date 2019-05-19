@@ -18,18 +18,18 @@ import java.util.List;
 @Transactional
 public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
 
-    @Autowired
-    private BaseObjectMapper<Group> groupBaseObjectMapper;
+    private final BaseObjectMapper<Group> groupBaseObjectMapper;
     
     //Define table and id column
     private static final String TABLE_NAME = "groups";
     private static final String ID_COLUMN = "id";
 
     @Autowired
-    public GroupDAOImpl(DataSource dataSource) {
+    public GroupDAOImpl(DataSource dataSource, BaseObjectMapper<Group> groupBaseObjectMapper) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
+        this.groupBaseObjectMapper = groupBaseObjectMapper;
     }
 
     @Override

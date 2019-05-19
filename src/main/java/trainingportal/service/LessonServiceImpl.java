@@ -16,11 +16,15 @@ import java.util.List;
 @Transactional
 public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements LessonService {
 
-    @Autowired
-    private LessonDao lessonDao;
+    private final LessonDao lessonDao;
+
+    private final UserGroupDao userGroupDao;
 
     @Autowired
-    private UserGroupDao userGroupDao;
+    public LessonServiceImpl(LessonDao lessonDao, UserGroupDao userGroupDao) {
+        this.lessonDao = lessonDao;
+        this.userGroupDao = userGroupDao;
+    }
 
     @Override
     public void update(Lesson lesson) {

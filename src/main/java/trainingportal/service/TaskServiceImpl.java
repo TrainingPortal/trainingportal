@@ -13,8 +13,12 @@ import java.util.List;
 @Service("taskService")
 @Transactional
 public class TaskServiceImpl extends GenericServiceImpl<Task> implements TaskService {
+    private final TaskDao taskDao;
+
     @Autowired
-    private TaskDao taskDao;
+    public TaskServiceImpl(TaskDao taskDao) {
+        this.taskDao = taskDao;
+    }
 
     @Override
     public void update(Task task) {

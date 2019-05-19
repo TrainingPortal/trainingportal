@@ -14,8 +14,12 @@ import java.util.List;
 @Transactional
 public class MaterialServiceImpl extends GenericServiceImpl<Material> implements MaterialService {
 
+    private final MaterialDao materialDao;
+
     @Autowired
-    private MaterialDao materialDao;
+    public MaterialServiceImpl(MaterialDao materialDao) {
+        this.materialDao = materialDao;
+    }
 
     @Override
     public void update(Material material) {

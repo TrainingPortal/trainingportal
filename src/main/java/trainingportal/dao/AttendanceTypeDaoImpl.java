@@ -19,8 +19,7 @@ public class AttendanceTypeDaoImpl extends GenericDaoImpl<AttendanceType> implem
     private static final String TABLE_NAME = "attendance_type";
     private static final String ID_COLUMN = "id";
 
-    @Autowired
-    private BaseObjectMapper<AttendanceType> attendanceTypeBaseObjectMapper;
+    private final BaseObjectMapper<AttendanceType> attendanceTypeBaseObjectMapper;
     
     @Override
     protected BaseObjectMapper<AttendanceType> getObjectMapper() {
@@ -28,10 +27,11 @@ public class AttendanceTypeDaoImpl extends GenericDaoImpl<AttendanceType> implem
     }
 
     @Autowired
-    public AttendanceTypeDaoImpl(DataSource dataSource) {
+    public AttendanceTypeDaoImpl(DataSource dataSource, BaseObjectMapper<AttendanceType> attendanceTypeBaseObjectMapper) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
+        this.attendanceTypeBaseObjectMapper = attendanceTypeBaseObjectMapper;
     }
 
     @Override

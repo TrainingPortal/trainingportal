@@ -20,14 +20,14 @@ public class LessonDaoImpl extends GenericDaoImpl<Lesson> implements LessonDao {
     private static final String TABLE_NAME = "lesson";
     private static final String ID_COLUMN = "lesson_id";
 
-    @Autowired
-    private BaseObjectMapper<Lesson> lessonBaseObjectMapper;
+    private final BaseObjectMapper<Lesson> lessonBaseObjectMapper;
 
     @Autowired
-    public LessonDaoImpl(DataSource dataSource) {
+    public LessonDaoImpl(DataSource dataSource, BaseObjectMapper<Lesson> lessonBaseObjectMapper) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
+        this.lessonBaseObjectMapper = lessonBaseObjectMapper;
     }
 
     @Override

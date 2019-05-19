@@ -1,10 +1,12 @@
 package trainingportal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Repository;
 import trainingportal.dao.AttendanceDao;
-import trainingportal.model.*;
+import trainingportal.model.Attendance;
+import trainingportal.model.AttendanceForm;
+import trainingportal.model.Schedule;
+import trainingportal.model.User;
 import trainingportal.service.generic.GenericServiceImpl;
 
 import java.util.Collections;

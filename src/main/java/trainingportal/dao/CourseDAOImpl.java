@@ -22,17 +22,17 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
     private static final String TABLE_NAME = "course";
     private static final String ID_COLUMN = "course_id";
     
-    @Autowired
-    private BaseObjectMapper<Course> courseBaseObjectMapper;
+    private final BaseObjectMapper<Course> courseBaseObjectMapper;
+
+    private final BaseObjectMapper<CourseStatus> courseStatusBaseObjectMapper;
 
     @Autowired
-    private BaseObjectMapper<CourseStatus> courseStatusBaseObjectMapper;
-
-    @Autowired
-    public CourseDAOImpl(DataSource dataSource) {
+    public CourseDAOImpl(DataSource dataSource, BaseObjectMapper<Course> courseBaseObjectMapper, BaseObjectMapper<CourseStatus> courseStatusBaseObjectMapper) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
+        this.courseBaseObjectMapper = courseBaseObjectMapper;
+        this.courseStatusBaseObjectMapper = courseStatusBaseObjectMapper;
     }
 
     @Override

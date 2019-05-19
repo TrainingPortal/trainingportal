@@ -19,15 +19,14 @@ public class ScheduleDaoImpl extends GenericDaoImpl<Schedule> implements Schedul
     private static final String TABLE_NAME = "Schedule";
     private static final String ID_COLUMN = "id";
 
+    private final BaseObjectMapper<Schedule> scheduleBaseObjectMapper;
 
     @Autowired
-    private BaseObjectMapper<Schedule> scheduleBaseObjectMapper;
-
-    @Autowired
-    public ScheduleDaoImpl(DataSource dataSource) {
+    public ScheduleDaoImpl(DataSource dataSource, BaseObjectMapper<Schedule> scheduleBaseObjectMapper) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
+        this.scheduleBaseObjectMapper = scheduleBaseObjectMapper;
     }
 
     @Override

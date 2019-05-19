@@ -21,15 +21,14 @@ public class TaskDaoImpl extends GenericDaoImpl<Task> implements TaskDao {
     private static final String TABLE_NAME = "task";
     private static final String ID_COLUMN = "id";
 
+    private final BaseObjectMapper<Task> taskBaseObjectMapper;
 
     @Autowired
-    private BaseObjectMapper<Task> taskBaseObjectMapper;
-
-    @Autowired
-    public TaskDaoImpl(DataSource dataSource) {
+    public TaskDaoImpl(DataSource dataSource, BaseObjectMapper<Task> taskBaseObjectMapper) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
+        this.taskBaseObjectMapper = taskBaseObjectMapper;
     }
 
     @Override

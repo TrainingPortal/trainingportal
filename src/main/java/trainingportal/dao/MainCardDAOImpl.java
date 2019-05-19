@@ -21,14 +21,14 @@ public class MainCardDAOImpl extends GenericDaoImpl<MainCardModel> implements Ma
     private static final String TABLE_NAME = "main_card";
     private static final String ID_COLUMN = "main_card_id";
 
-    @Autowired
-    private BaseObjectMapper<MainCardModel> mainCardModelBaseObjectMapper;
+    private final BaseObjectMapper<MainCardModel> mainCardModelBaseObjectMapper;
     
     @Autowired
-    public MainCardDAOImpl(DataSource dataSource) {
+    public MainCardDAOImpl(DataSource dataSource, BaseObjectMapper<MainCardModel> mainCardModelBaseObjectMapper) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
+        this.mainCardModelBaseObjectMapper = mainCardModelBaseObjectMapper;
     }
 
     @Override

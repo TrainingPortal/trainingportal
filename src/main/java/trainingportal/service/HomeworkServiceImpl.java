@@ -12,8 +12,12 @@ import java.util.List;
 @Service("HomeworkService")
 @Transactional
 public class HomeworkServiceImpl extends GenericServiceImpl<Homework> implements HomeworkService {
+    private final HomeworkDao homeworkDao;
+
     @Autowired
-    private HomeworkDao homeworkDao;
+    public HomeworkServiceImpl(HomeworkDao homeworkDao) {
+        this.homeworkDao = homeworkDao;
+    }
 
     @Override
     public void update(Homework homework) {

@@ -19,18 +19,18 @@ import java.util.List;
 @Transactional
 public class HomeworkDaoImpl extends GenericDaoImpl<Homework> implements HomeworkDao {
 
-    @Autowired
-    private BaseObjectMapper<Homework> homeworkBaseObjectMapper;
+    private final BaseObjectMapper<Homework> homeworkBaseObjectMapper;
 
     //Define table and id column
     private static final String TABLE_NAME = "homework";
     private static final String ID_COLUMN = "id";
 
     @Autowired
-    public HomeworkDaoImpl(DataSource dataSource) {
+    public HomeworkDaoImpl(DataSource dataSource, BaseObjectMapper<Homework> homeworkBaseObjectMapper) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
+        this.homeworkBaseObjectMapper = homeworkBaseObjectMapper;
     }
     @Override
     protected BaseObjectMapper<Homework> getObjectMapper() {
