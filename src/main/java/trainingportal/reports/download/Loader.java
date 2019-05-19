@@ -17,6 +17,7 @@ import java.io.FileNotFoundException;
 public class Loader {
 
     private static final String DIRECTORY = "/Users/mrlova/IdeaProjects/trainingportal";
+//    private static final String DIRECTORY = "http://onetrainingportal-env.w6ev2hpcfm.eu-west-2.elasticbeanstalk.com";
 
     @Autowired
     private ServletContext servletContext;

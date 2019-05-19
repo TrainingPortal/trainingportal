@@ -36,13 +36,13 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="row">lesson Id</th>
-            <th scope="row">course Id</th>
+            <th scope="row">lesson number</th>
+<!--            <th scope="row">lesson Id</th>-->
+<!--            <th scope="row">course Id</th>-->
             <th scope="row">lesson name</th>
             <th scope="row">lesson description</th>
             <th scope="row">lesson duration</th>
             <!--            <th scope="row">homework Id</th>-->
-            <th scope="row">lesson number</th>
             <th scope="row">Materials</th>
 
             <!--            for better times-->
@@ -54,13 +54,13 @@
 
 
         <tr th:each="lesson, iter : ${lessonsOfCourse}">
-            <td th:text="${lesson.lessonId}"></td>
-            <td th:text="${lesson.courseId}"></td>
+            <td th:text="${lesson.lessonNumber}"></td>
+            <!--            <td th:text="${lesson.lessonId}"></td>-->
+<!--            <td th:text="${lesson.courseId}"></td>-->
             <td th:text="${lesson.lessonName}"></td>
             <td th:text="${lesson.lessonDescription}"></td>
             <td th:text="${lesson.lessonDuration}"></td>
             <!--            <td th:text="${lesson.homeworkId}"></td>-->
-            <td th:text="${lesson.lessonNumber}"></td>
 
             <td>
                 <div class="btn-group">

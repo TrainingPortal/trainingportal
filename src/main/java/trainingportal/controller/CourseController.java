@@ -1,7 +1,6 @@
 package trainingportal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,7 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import trainingportal.model.*;
+import trainingportal.model.Course;
+import trainingportal.model.CourseStatus;
+import trainingportal.model.Role;
+import trainingportal.model.User;
 import trainingportal.security.UserSecurity;
 import trainingportal.service.CourseService;
 import trainingportal.service.UserService;
@@ -43,9 +45,8 @@ public class CourseController {
         modelAndView.addObject("courseList", courseList);
         modelAndView.addObject("pages",
                 courseService.getPagesByUserId(userSecurity.getLoggedInUserId() ,ROWS_LIMIT));
-        modelAndView.setViewName("courseCreator/course_create");
         modelAndView.addObject("currentUrl", "course_create");
-
+        modelAndView.setViewName("courseCreator/course_create");
         return modelAndView;
     }
     @RequestMapping(value = "/course-add", method = RequestMethod.GET)
