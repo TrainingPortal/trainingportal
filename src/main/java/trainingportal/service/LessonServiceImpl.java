@@ -81,5 +81,24 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
     @Override
     public Lesson getLessonByScheduleId(Long id) {
         return lessonDao.getLessonByScheduleId(id);
+
+    public boolean isConnectedWithTrainerByLessonId(Long userId, Long lessonId) {
+
+        Long trainerId =  lessonDao.getTrainerIdByLessonId(lessonId);
+
+        return trainerId == userId;
+    }
+
+    @Override
+    public boolean isConnectedWithLessonByLessonId(Long userId, Long lessonId) {
+
+        List<UserGroup> users =  userGroupDao.getUserIdByLessonId(lessonId);
+
+        for(UserGroup user : users){
+            if(user.getUserId() == userId) {
+                return true;
+            }
+        }
+        return false;
     }
 }

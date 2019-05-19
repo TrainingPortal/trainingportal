@@ -10,11 +10,15 @@ import java.util.Collection;
 public interface UserSecurity {
     boolean hasUserId(Long userId);
 
-    boolean isConnectedWithTrainer(Long courseId);
+    boolean isConnectedWithTrainerByCourseId(Long courseId);
+
+    boolean isConnectedWithTrainerByLessonId(Long lessonId);
 
     boolean isSubordinate(Long userId);
 
     boolean isConnectedWithLessonByCourseId(Long courseId);
+
+    boolean isConnectedWithLessonByLessonId(Long lessonId);
 
     default Long getLoggedInUserId(){
 

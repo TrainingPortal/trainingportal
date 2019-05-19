@@ -72,32 +72,60 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "or (hasRole('ROLE_EMPLOYEE')) or (hasRole('ROLE_MANAGER'))");
 
         http.authorizeRequests()
-                .antMatchers("/course*", "/edit-course*")
+                .antMatchers("/course-add")
                 .access("hasAnyRole('ROLE_ADMIN', 'ROLE_TRAINER')");
+
+        http.authorizeRequests()
+                .antMatchers("/edit-course-{id}", "/course-delete-by-{id}")
+                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') " +
+                        "and @userSecurity.isConnectedWithTrainerByCourseId(#id))");
 
         //Groups page
         http.authorizeRequests()
                 .antMatchers("/group_create/*/{id}")
                 .access("hasAnyRole('ROLE_ADMIN', 'ROLE_EMPLOYEE', 'ROLE_MANAGER') " +
                         "or (hasRole('ROLE_TRAINER') and " +
-                        "@userSecurity.isConnectedWithTrainer(#id))");
+                        "@userSecurity.isConnectedWithTrainerByCourseId(#id))");
 
         http.authorizeRequests()
-                .antMatchers("/group*", "/edit-group*")
-                .access("hasAnyRole('ROLE_ADMIN', 'ROLE_TRAINER')");
+                .antMatchers("/group-add-{id}","/group-delete-by/*/{id}", "/edit-group-*-{id}")
+                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') " +
+                        "and @userSecurity.isConnectedWithTrainerByCourseId(#id))");
 
         //Lessons pages
         http.authorizeRequests()
-                .antMatchers("/lesson-add-*")
-                .access("hasAnyRole('ROLE_ADMIN', 'ROLE_TRAINER')");
-        http.authorizeRequests()
-                .antMatchers("/edit-lesson-*-{id}", "/lesson-delete-by-*-{id}")
+                .antMatchers("/lesson-add-{id}","/edit-lesson-*-{id}", "/lesson-delete-by/*/{id}")
                 .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') and " +
-                        "@userSecurity.isConnectedWithTrainer(#id))");
+                        "@userSecurity.isConnectedWithTrainerByCourseId(#id))");
         http.authorizeRequests()
                 .antMatchers("/course_lessons/*/{id}")
                 .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') and " +
-                        "@userSecurity.isConnectedWithTrainer(#id))" +
+                        "@userSecurity.isConnectedWithTrainerByCourseId(#id))" +
+                        "or (hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER') " +
+                        "and @userSecurity.isConnectedWithLessonByCourseId(#id))");
+
+        // Materials page
+        http.authorizeRequests()
+                .antMatchers("/material_lesson/*/{id}")
+                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') and " +
+                        "@userSecurity.isConnectedWithTrainerByLessonId(#id))" +
+                        "or (hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER') " +
+                        "and @userSecurity.isConnectedWithLessonByLessonId(#id))");
+        http.authorizeRequests()
+                .antMatchers("/material-add-{*}", "/edit-material-*-{id}", "/material-delete-by/*/{id}")
+                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') " +
+                        "and @userSecurity.isConnectedWithTrainerByLessonId(#id))");
+
+        // Schedule pages
+        http.authorizeRequests()
+                .antMatchers("/schedule-edit-*-{id}", "/schedule-delete/*/{id}", "/schedule-add-{id}")
+                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') and " +
+                        "@userSecurity.isConnectedWithTrainerByCourseId(#id))");
+        http.authorizeRequests()
+                .antMatchers("/schedule_create/*/{id}")
+                .access("hasRole('ROLE_ADMIN') " +
+                        "or (hasRole('ROLE_TRAINER') and " +
+                        "@userSecurity.isConnectedWithTrainerByCourseId(#id))" +
                         "or (hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER') " +
                         "and @userSecurity.isConnectedWithLessonByCourseId(#id))");
 

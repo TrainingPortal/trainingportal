@@ -32,11 +32,19 @@ public class UserGroupDaoImpl extends GenericDaoImpl<UserGroup> implements UserG
     @Override
     public List<UserGroup> getUserIdByCourseId(Long courseId) {
 
-        String sql = UserGroupMapper.SELECT_USERS_SQL;
+        String sql = UserGroupMapper.SELECT_USERS_BY_COURSE_ID_SQL;
 
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().query(sql, new Object[]{courseId}, userGroupBaseObjectMapper);
         } else
             return null;
+    }
+
+    @Override
+    public List<UserGroup> getUserIdByLessonId(Long lessonId) {
+
+        String sql = UserGroupMapper.SELECT_USERS_BY_LESSON_ID_SQL;
+
+        return this.getJdbcTemplate().query(sql, new Object[]{lessonId}, new UserGroupMapper());
     }
 }
