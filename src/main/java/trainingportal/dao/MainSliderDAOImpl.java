@@ -21,14 +21,14 @@ public class MainSliderDAOImpl extends GenericDaoImpl<MainSliderModel> implement
     private static final String TABLE_NAME = "main_slider";
     private static final String ID_COLUMN = "main_slider_id";
 
-    private final BaseObjectMapper<MainSliderModel> mainSliderModelBaseObjectMapper ;
+    @Autowired
+    private BaseObjectMapper<MainSliderModel> mainSliderModelBaseObjectMapper ;
 
     @Autowired
-    public MainSliderDAOImpl(DataSource dataSource, BaseObjectMapper<MainSliderModel> mainSliderModelBaseObjectMapper) {
+    public MainSliderDAOImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
-        this.mainSliderModelBaseObjectMapper = mainSliderModelBaseObjectMapper;
     }
 
     @Override

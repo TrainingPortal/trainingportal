@@ -16,21 +16,20 @@ import java.util.List;
 @Repository
 @Transactional
 public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
-
-    final PasswordEncoder passwordEncoder;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     //Define table and id column
     private static final String TABLE_NAME = "users";
     private static final String ID_COLUMN = "user_id";
 
-    private final BaseObjectMapper<User> userBaseObjectMapper;
+    @Autowired
+    private BaseObjectMapper<User> userBaseObjectMapper;
 
     @Autowired
-    public UserDAOImpl(DataSource dataSource, PasswordEncoder passwordEncoder, BaseObjectMapper<User> userBaseObjectMapper) {
+    public UserDAOImpl(DataSource dataSource) {
         super(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
-        this.passwordEncoder = passwordEncoder;
-        this.userBaseObjectMapper = userBaseObjectMapper;
     }
 
     public User findUserAccount(String email) {

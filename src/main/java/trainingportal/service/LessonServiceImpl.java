@@ -81,6 +81,7 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
     @Override
     public Lesson getLessonByScheduleId(Long id) {
         return lessonDao.getLessonByScheduleId(id);
+    }
 
     public boolean isConnectedWithTrainerByLessonId(Long userId, Long lessonId) {
 

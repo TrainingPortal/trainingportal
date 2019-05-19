@@ -16,19 +16,17 @@ import java.util.List;
 
 @Repository
 public class AttendanceDaoImpl extends GenericDaoImpl<Attendance> implements AttendanceDao {
-
-    private final BaseObjectMapper<Attendance> attendanceBaseObjectMapper;
+    @Autowired
+    private BaseObjectMapper<Attendance> attendanceBaseObjectMapper;
 
     //Define table and id column
     private static final String TABLE_NAME = "attendance";
     private static final String ID_COLUMN = "id";
 
-    @Autowired
-    public AttendanceDaoImpl(DataSource dataSource, BaseObjectMapper<Attendance> attendanceBaseObjectMapper) {
+    public AttendanceDaoImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
-        this.attendanceBaseObjectMapper = attendanceBaseObjectMapper;
     }
 
     @Override

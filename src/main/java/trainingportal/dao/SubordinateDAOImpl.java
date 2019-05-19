@@ -16,12 +16,12 @@ import java.util.List;
 @Repository
 @Transactional
 public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO {
-    private final BaseObjectMapper<User> userBaseObjectMapper;
+    @Autowired
+    private BaseObjectMapper<User> userBaseObjectMapper;
 
     @Autowired
-    public SubordinateDAOImpl(DataSource dataSource, BaseObjectMapper<User> userBaseObjectMapper) {
+    public SubordinateDAOImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
-        this.userBaseObjectMapper = userBaseObjectMapper;
     }
 
     @Override
@@ -29,9 +29,8 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
 
         String sql = UserMapper.SELECT_SQL + "WHERE u.manager_id = ?";
 
-        List<User> users;
         if (this.getJdbcTemplate() != null) {
-            users = this.getJdbcTemplate().query(sql,new Object[]{id}, userBaseObjectMapper);
+            List<User> users = this.getJdbcTemplate().query(sql,new Object[]{id}, userBaseObjectMapper);
             return users;
         } else
             return Collections.emptyList();

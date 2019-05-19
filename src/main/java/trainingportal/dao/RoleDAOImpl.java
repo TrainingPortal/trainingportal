@@ -17,13 +17,12 @@ import java.util.List;
 @Repository
 @Transactional
 public class RoleDAOImpl extends GenericDaoImpl<Role> implements RoleDao {
-
-    private final BaseObjectMapper<Role> roleBaseObjectMapper;
+    @Autowired
+    private BaseObjectMapper<Role> roleBaseObjectMapper;
 
     @Autowired
-    public RoleDAOImpl(DataSource dataSource, BaseObjectMapper<Role> roleBaseObjectMapper) {
+    public RoleDAOImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
-        this.roleBaseObjectMapper = roleBaseObjectMapper;
     }
 
     @Override

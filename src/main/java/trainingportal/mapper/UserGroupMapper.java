@@ -9,6 +9,9 @@ import java.util.Map;
 
 public class UserGroupMapper implements BaseObjectMapper<UserGroup> {
 
+    public static String SELECT_USERS_SQL
+            = "SELECT a.id, a.group_id, a.user_id FROM User_Group";
+
     public static String SELECT_USERS_BY_COURSE_ID_SQL
             = "SELECT a.id, a.group_id, a.user_id FROM User_Group a INNER JOIN Groups b ON a.group_id = b.id " +
             "INNER JOIN Course c ON b.course_id = c.course_id " +

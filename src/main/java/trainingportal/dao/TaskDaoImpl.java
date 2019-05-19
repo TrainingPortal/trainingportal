@@ -1,13 +1,11 @@
 package trainingportal.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.generic.GenericDaoImpl;
 import trainingportal.mapper.TaskMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
-import trainingportal.model.Role;
 import trainingportal.model.Task;
 
 import javax.sql.DataSource;
@@ -21,14 +19,14 @@ public class TaskDaoImpl extends GenericDaoImpl<Task> implements TaskDao {
     private static final String TABLE_NAME = "task";
     private static final String ID_COLUMN = "id";
 
-    private final BaseObjectMapper<Task> taskBaseObjectMapper;
+    @Autowired
+    private BaseObjectMapper<Task> taskBaseObjectMapper;
 
     @Autowired
-    public TaskDaoImpl(DataSource dataSource, BaseObjectMapper<Task> taskBaseObjectMapper) {
+    public TaskDaoImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
-        this.taskBaseObjectMapper = taskBaseObjectMapper;
     }
 
     @Override

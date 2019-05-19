@@ -15,13 +15,12 @@ import java.util.List;
 @Repository
 @Transactional
 public class UserGroupDaoImpl extends GenericDaoImpl<UserGroup> implements UserGroupDao {
-
-    final BaseObjectMapper<UserGroup> userGroupBaseObjectMapper;
+    @Autowired
+    private BaseObjectMapper<UserGroup> userGroupBaseObjectMapper;
 
     @Autowired
-    public UserGroupDaoImpl(DataSource dataSource, BaseObjectMapper<UserGroup> userGroupBaseObjectMapper) {
+    public UserGroupDaoImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
-        this.userGroupBaseObjectMapper = userGroupBaseObjectMapper;
     }
 
     @Override

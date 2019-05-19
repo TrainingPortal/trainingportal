@@ -17,19 +17,18 @@ import java.util.List;
 @Repository
 @Transactional
 public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
-
-    private final BaseObjectMapper<Group> groupBaseObjectMapper;
+    @Autowired
+    private BaseObjectMapper<Group> groupBaseObjectMapper;
     
     //Define table and id column
     private static final String TABLE_NAME = "groups";
     private static final String ID_COLUMN = "id";
 
     @Autowired
-    public GroupDAOImpl(DataSource dataSource, BaseObjectMapper<Group> groupBaseObjectMapper) {
+    public GroupDAOImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
-        this.groupBaseObjectMapper = groupBaseObjectMapper;
     }
 
     @Override
@@ -55,8 +54,6 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, groupBaseObjectMapper);
     }
 
-
-    //insert into database new Course
     @Override
     public void saveGroup(Group group) {
         String sql = "INSERT INTO groups (name, capacity, course_id, status_id) VALUES (?,?,?,?)";

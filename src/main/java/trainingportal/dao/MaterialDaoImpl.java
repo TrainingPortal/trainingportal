@@ -18,15 +18,15 @@ public class MaterialDaoImpl extends GenericDaoImpl<Material> implements Materia
     //Define table and id column
     private static final String TABLE_NAME = "material";
     private static final String ID_COLUMN = "id";
-    
-    private final BaseObjectMapper<Material> materialBaseObjectMapper;
 
     @Autowired
-    public MaterialDaoImpl(DataSource dataSource, BaseObjectMapper<Material> materialBaseObjectMapper) {
+    private BaseObjectMapper<Material> materialBaseObjectMapper;
+
+    @Autowired
+    public MaterialDaoImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
         setTable(TABLE_NAME);
         setPrimaryKey(ID_COLUMN);
-        this.materialBaseObjectMapper = materialBaseObjectMapper;
     }
 
     @Override
