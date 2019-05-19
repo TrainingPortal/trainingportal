@@ -106,14 +106,15 @@ public class AttendanceController {
 
     @GetMapping(value = "mySubordinates")
     public ModelAndView getSubordinatesAttendance(
-            ModelAndView modelAndView,Authentication authentication
+            ModelAndView modelAndView,
+            Authentication authentication
     ){
         Long managerId = userService.getUserId(authentication);
         // Find all subordinates of the manager by manager's id
         List<Attendance> attendances = attendanceService.getSubordinatesAttendanceByManager(managerId);
 
         modelAndView.addObject("attendances", attendances);
-        modelAndView.setViewName("attendance/subordinates-attendance");
+        modelAndView.setViewName("subordinatesAttendance");
 
         return modelAndView;
     }
