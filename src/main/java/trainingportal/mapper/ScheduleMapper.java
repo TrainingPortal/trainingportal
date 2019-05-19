@@ -28,7 +28,7 @@ public class ScheduleMapper implements RowMapper<Schedule> {
         Long scheduleGroupId = rs.getLong("group_id");
         Date scheduleDate = rs.getDate("date_lesson");
         Long scheduleLessonId = rs.getLong("lesson_id");
-
+        System.out.println(scheduleGroupId);
         return new Schedule(scheduleId,scheduleGroupId,scheduleDate,scheduleLessonId);
     }
 }

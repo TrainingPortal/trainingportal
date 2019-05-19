@@ -12,9 +12,9 @@ public class ReportsSQLQuery {
     @Autowired
     private ReportsService reportsService;
 
-    private static List<String> listWithTrainers = new ArrayList();
-    private static List<String> listWithReports = new ArrayList();
-    private static List<String> listWithLevels = new ArrayList();
+    private static List<String> listWithTrainers = new ArrayList<>();
+    private static List<String> listWithReports = new ArrayList<>();
+    private static List<String> listWithLevels = new ArrayList<>();
 
     //Select all trainer to monitor active course in trainer by user_id
     private static final String sqlForTrainers = "SELECT users.name as \"Trainer Name\", users.email as \"Email\", roles.name as \"Role\", course.name as \"Course Name\", course.course_level as \"Course Level\", course_status.name_status as \"Course Status\"  \n" +
