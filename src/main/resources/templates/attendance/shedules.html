@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Groups</title>
+    <title>Schedules</title>
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
     <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
@@ -12,25 +12,24 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-<div th:if="${attendances.size() == 0}">
-    <h1>There are no attendances.</h1>
+
+<div th:if="${schedules.size() == 0}">
+    <h1>There are no courses.</h1>
 </div>
-<div th:unless="${attendances.size() == 0}">
+<div th:unless="${schedules.size() == 0}">
     <table class="table pt-0 mt-0 table-fit table-sm table-hover">
         <thead class="">
         <tr>
-            <th style="width: 40%">User</th>
+            <th style="width: 40%">Subordinates</th>
             <th style="width: 50%">Presence</th>
+            <th style="width: 50%">Date</th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="attendance, itemStat : ${attendances}">
-            <td th:text="${attendance.user.userName}">
+        <tr th:each="schedule : ${schedules}">
+            <td th:text="${schedule.group.userName}">
             <td th:text="${attendance.attendanceType.type}"></td>
             <td th:text="${attendance.schedule.scheduleDate}"></td>
-            <input type="hidden"
-                   th:field="*{attendances[__${itemStat.index}__].userId}"] />
-            <input type="hidden" th:field="*{attendances[__${itemStat.index}__].scheduleId}" />
         </tr>
     </table>
 </div>

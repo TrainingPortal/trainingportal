@@ -9,6 +9,7 @@ import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.Role;
 import trainingportal.model.Schedule;
 import javax.sql.DataSource;
+import java.text.CollationElementIterator;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,13 +36,13 @@ public class ScheduleDaoImpl extends GenericDaoImpl<Schedule> implements Schedul
     }
 
     @Override
-    public Schedule findByGroupId(Long id) {
+    public List<Schedule> findAllByGroupId(Long id) {
         String sql = ScheduleMapper.SELECT_SQL + " WHERE group_id = " + id;
 
         if (this.getJdbcTemplate() != null) {
-            return this.getJdbcTemplate().queryForObject(sql,getObjectMapper());
+            return this.getJdbcTemplate().query(sql,getObjectMapper());
         } else
-            return null;
+            return Collections.emptyList();
     }
 
     @Override

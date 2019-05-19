@@ -5,6 +5,7 @@ import java.sql.Date;
 public class Schedule {
     private Long scheduleId;
     private Long scheduleGroupId;
+    private Group scheduleGroup;
     private Date scheduleDate;
     private Long scheduleLessonId;
 
@@ -16,6 +17,14 @@ public class Schedule {
         this.scheduleGroupId = scheduleGroupId;
         this.scheduleDate = scheduleDate;
         this.scheduleLessonId = scheduleLessonId;
+    }
+
+    public Group getScheduleGroup() {
+        return scheduleGroup;
+    }
+
+    public void setScheduleGroup(Group scheduleGroup) {
+        this.scheduleGroup = scheduleGroup;
     }
 
     public Long getScheduleId() {

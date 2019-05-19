@@ -10,12 +10,18 @@ import java.util.List;
 
 @Service
 public class ScheduleServiceImpl extends GenericServiceImpl<Schedule> implements ScheduleService {
+    private final ScheduleDao scheduleDao;
+    private final GroupService groupService;
+
     @Autowired
-    ScheduleDao scheduleDao;
+    public ScheduleServiceImpl(ScheduleDao scheduleDao, GroupService groupService) {
+        this.scheduleDao = scheduleDao;
+        this.groupService = groupService;
+    }
 
     @Override
-    public Schedule findByGroupId(Long id) {
-        return scheduleDao.findByGroupId(id);
+    public List<Schedule> findAllByGroupId(Long id) {
+        return scheduleDao.findAllByGroupId(id);
     }
 
     @Override
@@ -46,5 +52,14 @@ public class ScheduleServiceImpl extends GenericServiceImpl<Schedule> implements
     @Override
     public int getPages(Long scheduleId, double total) {
         return (int) Math.ceil(scheduleDao.countAllByGroupId(scheduleId)/total);
+    }
+
+    @Override
+    public List<Schedule> getSchedules(Long id) {
+        List<Schedule> schedules = findAllByGroupId(id);
+        for(Schedule schedule:schedules){
+            schedule.setScheduleGroup(groupService.findById(schedule.getScheduleGroupId()));
+        }
+        return schedules;
     }
 }

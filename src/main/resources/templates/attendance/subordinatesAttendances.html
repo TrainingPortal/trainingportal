@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Groups</title>
+    <title>Subordinates Attendance</title>
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
     <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
@@ -13,17 +13,27 @@
 </head>
 <body>
 
-<div th:if="${groups.size() == 0}">
-    <h1>There are no courses.</h1>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<div th:if="${attendances.size() == 0}">
+    <h1>There are no attendances.</h1>
 </div>
-<div th:unless="${groups.size() == 0}">
-    <ul class="list-group list-group-horizontal" th:each="group:${groups}">
-        <li>
-            <a th:href="@{/presence/{groupId}(groupId=${group.getGroupId()})}" class="list-group-item"
-               th:text="${group.getGroupName()} + '-' + ${group.getStatus()}">
-            </a>
-        </li>
-    </ul>
+<div th:unless="${attendances.size() == 0}">
+    <table class="table pt-0 mt-0 table-fit table-sm table-hover">
+        <thead class="">
+        <tr>
+            <th style="width: 40%">Subordinates</th>
+            <th style="width: 50%">Presence</th>
+            <th style="width: 50%">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="attendance, itemStat : ${attendances}">
+            <td th:text="${attendance.user.userName}">
+            <td th:text="${attendance.attendanceType.type}"></td>
+            <td th:text="${attendance.schedule.scheduleDate}"></td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
