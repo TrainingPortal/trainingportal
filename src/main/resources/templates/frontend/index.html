@@ -38,7 +38,7 @@
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item" th:each="slider : ${sliderList}" th:classappend="*{sliderStat.first} ? 'active' : ' '">
-                <img class="d-block mx-auto" th:src="@{'data:image/jpeg;base64,'+${slider.filesDataString}}" th:alt="${slider.buttonName}">
+                <img class="d-block mx-auto" th:src="@{'data:image/jpeg;base64,'+${slider.filesDataString}}" th:alt="${slider.filesName}">
                 <div class="carousel-caption">
                     <a th:href="@{${slider.buttonUrl}}" class="btn btn-info" role="button" th:text="${slider.buttonName}"></a>
                 </div>
@@ -62,7 +62,7 @@
 <div class="container">
     <div class="card-columns">
         <div class="card" th:each="card : ${cardList}">
-            <img class="card-img-top" th:src="@{'data:image/jpeg;base64,'+${card.filesDataString}}" th:alt="${card.cardTitle}">
+            <img class="card-img-top" th:src="@{'data:image/jpeg;base64,'+${card.filesDataString}}" th:alt="${card.filesName}">
             <div class="card-header">
                 <h4 class="card-title" th:text="${card.cardTitle}"></h4>
             </div>

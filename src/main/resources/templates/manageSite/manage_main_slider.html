@@ -48,13 +48,15 @@
 
 </div>
 
+<hr>
+
 <div class="container">
     <h3>List of slider data</h3>
 
     <table class="table table-striped">
         <thead>
         <tr>
-<!--            <th scope="row">Image</th>-->
+            <th scope="row">Slider Image</th>
             <th scope="row">Image Name</th>
             <th scope="row">Button Name</th>
             <th scope="row">Button URL</th>
@@ -62,7 +64,7 @@
         </thead>
         <tbody>
         <tr th:each="data : ${dataList}">
-<!--            <td th:text="tempNoImage"></td>-->
+            <td><img th:src="@{'data:image/jpeg;base64,'+${data.filesDataString}}" th:alt="${data.filesName}" class="img-fluid"></td>
             <td th:text="${data.filesName}"></td>
             <td th:text="${data.buttonName}"></td>
             <td th:text="${data.buttonUrl}"></td>
