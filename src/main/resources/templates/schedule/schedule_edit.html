@@ -22,7 +22,7 @@
             <input class="form-control" placeholder="course Id" th:field="*{scheduleGroupId}" type="hidden"/>
             <input class="form-control" placeholder="Schedule Less Id" th:field="*{scheduleLessonId}" type="hidden"/>
 
-            <label>Schedule Date</label>
+            <label>Lesson date</label>
             <input class="form-control" placeholder="Schedule Date" th:field="*{scheduleDate}" type="date"/>
             <p class="alert alert-danger" th:errors="*{scheduleDate}" th:if="${#fields.hasErrors('scheduleDate')}">
                 Error, check name field</p>

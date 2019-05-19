@@ -57,7 +57,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // Forum page
         http.authorizeRequests()
                 .antMatchers("/chat")
-                .access("hasAnyRole('ROLE ADMIN', 'ROLE_TRAINER', 'ROLE_EMPLOYEE', 'ROLE_MANAGER')");
+                .access("hasAnyRole('ROLE_ADMIN', 'ROLE_TRAINER', 'ROLE_EMPLOYEE', 'ROLE_MANAGER')");
 
         // For Managers and Admin
         http.authorizeRequests()

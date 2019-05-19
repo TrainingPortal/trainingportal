@@ -563,8 +563,10 @@ alter table users ADD constraint users_fk_roles FOREIGN KEY(role_Id) references 
 alter table Notification ADD constraint ntfk_fk_user FOREIGN KEY (user_id) references users (user_Id);
 alter table Notification add constraint ntfk_fk_status FOREIGN KEY (status_id) references Notification_Status (id);
 alter table chat add constraint chat_fk_group FOREIGN KEY (group_id) references groups (id);
+
 alter table Info_Desk add constraint idesk_emp_fk_user FOREIGN KEY (emp_id) references users (user_Id);
 alter table Info_Desk add constraint idesk_fk_qstatus FOREIGN KEY (status_id) references Question_Status (id);
+
 alter table Feedback add constraint fdbk_tr_fk_user FOREIGN KEY (trainer_id) references users (user_Id);
 alter table Feedback add constraint fdbk_fk_cource FOREIGN KEY (course_id) references course (course_id);
 alter table Feedback add constraint fdbk_emp_fk_user FOREIGN KEY (employee_id) references users (user_Id);
