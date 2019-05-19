@@ -17,5 +17,7 @@ public interface LessonDao extends GenericDao<Lesson> {
 
     Long getTrainerIdByCourseId(Long id);
 
+    Lesson getLessonByScheduleId(Long id);
+
     Long getTrainerIdByLessonId(Long lessonId);
 }

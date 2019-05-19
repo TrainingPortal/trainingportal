@@ -24,9 +24,9 @@ public class ScheduleController {
     @Autowired
     private ScheduleService scheduleService;
     @Autowired
-    private GroupService groupService;
-    @Autowired
     private LessonService lessonService;
+    @Autowired
+    private GroupService groupService;
 
     @RequestMapping("/schedule_create/{page}/{groupId}")
     public ModelAndView showScheduleListOfGroup(@PathVariable("page") int page,
@@ -34,7 +34,7 @@ public class ScheduleController {
                                                ModelAndView modelAndView) {
         List<Schedule> scheduleOfGroup = scheduleService.getAllAsPageByGroupId(id, page , ROWS_LIMIT);
 
-        Group group = groupService.findGroupById(id);
+        Group group = groupService.findById(id);
         modelAndView.addObject("groupSchedule",group);
 
         modelAndView.addObject("pages", scheduleService.getPages(id,ROWS_LIMIT));

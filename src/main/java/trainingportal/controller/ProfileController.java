@@ -15,15 +15,13 @@ import java.util.List;
 
 @Controller
 public class ProfileController {
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private CourseService courseService;
 
     @Autowired
-    ProfileService profileService;
+    private ProfileService profileService;
 
     @RequestMapping("/profile_page/{userId}")
     ModelAndView profilePage(@PathVariable("userId") Long id, ModelAndView model){

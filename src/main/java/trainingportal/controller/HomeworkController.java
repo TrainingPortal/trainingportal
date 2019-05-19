@@ -15,8 +15,6 @@ import java.util.List;
 
 @Controller
 public class HomeworkController {
-
-
     @Autowired
     private HomeworkService homeworkService;
 
