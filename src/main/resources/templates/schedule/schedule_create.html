@@ -14,7 +14,7 @@
 <div class="container-fluid">
     <h2>Schedule List</h2>
 
-    <div class="btn">
+    <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">
         <a class="btn btn-success btn-lg" th:href="@{/schedule-add-{groupId}
          (groupId = ${groupSchedule.groupId})}">CREATE NEW Schedule</a>
     </div>
@@ -46,7 +46,8 @@
             <td th:text="${schedule.scheduleDate}"></td>
             <td th:text="${schedule.scheduleLessonId}"></td>
             <td>
-                <div class="btn-group">
+                <div class="btn-group" th:if="${#request.isUserInRole('ROLE_ADMIN') == true
+                or #request.isUserInRole('ROLE_TRAINER')}">
                     <a class="btn btn-info" th:href="@{/schedule-edit-{scheduleId}-{id}
                        (scheduleId = ${schedule.scheduleId},id = ${schedule.scheduleGroupId})}">Edit</a>
 
