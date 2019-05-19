@@ -78,8 +78,11 @@ public class AttendanceController {
             @PathVariable("groupId") Long groupId
     ){
         List<Schedule> schedules = scheduleService.getSchedules(groupId);
+        Group group = groupService.findById(groupId);
 
         modelAndView.addObject("schedules", schedules);
+        modelAndView.addObject("group", group);
+
         modelAndView.setViewName("attendance/schedules");
 
         return modelAndView;

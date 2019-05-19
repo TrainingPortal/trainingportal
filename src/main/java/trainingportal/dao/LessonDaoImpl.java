@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.generic.GenericDaoImpl;
 import trainingportal.mapper.LessonMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
-import trainingportal.model.Course;
 import trainingportal.model.Lesson;
 
 import javax.sql.DataSource;
@@ -19,7 +18,7 @@ public class LessonDaoImpl extends GenericDaoImpl<Lesson> implements LessonDao {
 
     //Define table and id column
     private static final String TABLE_NAME = "lesson";
-    private static final String ID_COLUMN = "id";
+    private static final String ID_COLUMN = "lesson_id";
 
     @Autowired
     private BaseObjectMapper<Lesson> lessonBaseObjectMapper;

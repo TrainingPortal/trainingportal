@@ -15,6 +15,9 @@
 
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
+
+<h3>Your courses</h3>
+
 <div th:if="${courses.size() == 0}">
     <h1>There are no courses.</h1>
 </div>

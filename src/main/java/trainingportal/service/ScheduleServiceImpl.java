@@ -12,11 +12,13 @@ import java.util.List;
 public class ScheduleServiceImpl extends GenericServiceImpl<Schedule> implements ScheduleService {
     private final ScheduleDao scheduleDao;
     private final GroupService groupService;
+    private final LessonService lessonService;
 
     @Autowired
-    public ScheduleServiceImpl(ScheduleDao scheduleDao, GroupService groupService) {
+    public ScheduleServiceImpl(ScheduleDao scheduleDao, GroupService groupService, LessonService lessonService) {
         this.scheduleDao = scheduleDao;
         this.groupService = groupService;
+        this.lessonService = lessonService;
     }
 
     @Override
@@ -59,6 +61,7 @@ public class ScheduleServiceImpl extends GenericServiceImpl<Schedule> implements
         List<Schedule> schedules = findAllByGroupId(id);
         for(Schedule schedule:schedules){
             schedule.setScheduleGroup(groupService.findById(schedule.getScheduleGroupId()));
+            schedule.setScheduleLesson(lessonService.findById(schedule.getScheduleLessonId()));
         }
         return schedules;
     }
