@@ -14,16 +14,12 @@ import java.util.List;
 @Service("groupService")
 @Transactional
 public class GroupServiceImpl extends GenericServiceImpl<Group> implements GroupService {
-    private final GroupDao groupDAO;
-    private final CourseDao courseDao;
-    private final GroupDao groupDao;
-
     @Autowired
-    public GroupServiceImpl(GroupDao groupDAO, CourseDao courseDao, GroupDao groupDao) {
-        this.groupDAO = groupDAO;
-        this.courseDao = courseDao;
-        this.groupDao = groupDao;
-    }
+    private GroupDao groupDAO;
+    @Autowired
+    private CourseDao courseDao;
+    @Autowired
+    private GroupDao groupDao;
 
     @Override
     public List<Group> getAllAsPageByCourseId(Long courseId, int page, int total) {

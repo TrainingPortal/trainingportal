@@ -17,19 +17,14 @@ import java.util.List;
 
 @Repository
 public class AttendanceServiceImpl extends GenericServiceImpl<Attendance> implements AttendanceService {
-
-    private final AttendanceDao attendanceDao;
-    private final UserDao userDao;
-    private final AttendanceTypeDao attendanceTypeDao;
-    private final ScheduleDao scheduleDao;
-
     @Autowired
-    public AttendanceServiceImpl(AttendanceDao attendanceDao, UserDao userService, AttendanceTypeDao attendanceTypeDao, ScheduleDao scheduleDao) {
-        this.attendanceDao = attendanceDao;
-        this.userDao = userService;
-        this.attendanceTypeDao = attendanceTypeDao;
-        this.scheduleDao = scheduleDao;
-    }
+    private AttendanceDao attendanceDao;
+    @Autowired
+    private UserDao userDao;
+    @Autowired
+    private AttendanceTypeDao attendanceTypeDao;
+    @Autowired
+    private ScheduleDao scheduleDao;
 
     @Override
     public void saveAll(AttendanceForm attendances) {

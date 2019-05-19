@@ -10,16 +10,12 @@ import java.util.List;
 
 @Service
 public class ScheduleServiceImpl extends GenericServiceImpl<Schedule> implements ScheduleService {
-    private final ScheduleDao scheduleDao;
-    private final GroupService groupService;
-    private final LessonService lessonService;
-
     @Autowired
-    public ScheduleServiceImpl(ScheduleDao scheduleDao, GroupService groupService, LessonService lessonService) {
-        this.scheduleDao = scheduleDao;
-        this.groupService = groupService;
-        this.lessonService = lessonService;
-    }
+    private ScheduleDao scheduleDao;
+    @Autowired
+    private GroupService groupService;
+    @Autowired
+    private LessonService lessonService;
 
     @Override
     public List<Schedule> findAllByGroupId(Long id) {

@@ -15,12 +15,8 @@ import java.util.List;
 @Service
 public class MainCardServiceImpl implements MainCardService {
 
-    private final MainCardDao mainCardDao;
-
     @Autowired
-    public MainCardServiceImpl(MainCardDao mainCardDao) {
-        this.mainCardDao = mainCardDao;
-    }
+    private MainCardDao mainCardDao;
 
     @Override
     public void storeData(MultipartFile file,  String cardTitle, String cardText, String buttonName, String cardUrl) throws IOException {

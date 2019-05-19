@@ -22,14 +22,10 @@ import java.util.List;
 @Service("courseService")
 @Transactional
 public class CourseServiceImpl extends GenericServiceImpl<Course> implements CourseService {
-    private final CourseDao courseDAO;
-    private final UserDao userDAO;
-
     @Autowired
-    public CourseServiceImpl(CourseDao courseDAO, UserDao userDAO) {
-        this.courseDAO = courseDAO;
-        this.userDAO = userDAO;
-    }
+    private CourseDao courseDAO;
+    @Autowired
+    private UserDao userDAO;
 
     @Override
     public int getPages(double total) {

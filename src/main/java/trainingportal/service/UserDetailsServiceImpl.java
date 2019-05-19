@@ -18,15 +18,10 @@ import java.util.List;
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 
-    private final UserDao userRepository;
-
-    private final RoleDao roleRepository;
-
     @Autowired
-    public UserDetailsServiceImpl(UserDao userRepository, RoleDao roleRepository) {
-        this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
-    }
+    private UserDao userRepository;
+    @Autowired
+    private RoleDao roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

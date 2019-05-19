@@ -8,12 +8,8 @@ import trainingportal.model.User;
 @Service
 public class ProfileServiceImpl implements ProfileService {
 
-    private final UserService userService;
-
     @Autowired
-    public ProfileServiceImpl(UserService userService) {
-        this.userService = userService;
-    }
+    private UserService userService;
 
     @Override
     public User initManager(User user) {

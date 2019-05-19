@@ -16,12 +16,8 @@ import java.util.List;
 @Service
 public class MainSliderServiceImpl implements MainSliderService {
 
-    private final MainSliderDao mainSliderDao;
-
     @Autowired
-    public MainSliderServiceImpl(MainSliderDao mainSliderDao) {
-        this.mainSliderDao = mainSliderDao;
-    }
+    private MainSliderDao mainSliderDao;
 
     @Override
     public void storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException {

@@ -11,13 +11,8 @@ import java.util.List;
 
 @Service
 public class AttendanceTypeServiceImpl extends GenericServiceImpl<AttendanceType> implements AttendanceTypeService {
-
-    private final AttendanceTypeDao attendanceTypeDao;
-
     @Autowired
-    public AttendanceTypeServiceImpl(AttendanceTypeDao attendanceTypeDao) {
-        this.attendanceTypeDao = attendanceTypeDao;
-    }
+    private AttendanceTypeDao attendanceTypeDao;
 
     @Override
     public List<AttendanceType> getAllAttendanceList() {
