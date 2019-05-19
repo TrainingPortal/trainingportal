@@ -16,8 +16,6 @@ import java.util.List;
 @Repository
 @Transactional
 public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
-    @Autowired
-    private PasswordEncoder passwordEncoder;
     //Define table and id column
     private static final String TABLE_NAME = "users";
     private static final String ID_COLUMN = "user_id";

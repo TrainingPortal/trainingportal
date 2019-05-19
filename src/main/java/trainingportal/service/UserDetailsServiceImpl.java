@@ -1,7 +1,6 @@
 package trainingportal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,13 +18,13 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private UserDao userRepository;
+    private UserDao userDao;
     @Autowired
-    private RoleDao roleRepository;
+    private RoleDao roleDao;
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        trainingportal.model.User user = this.userRepository.findUserAccount(email);
+        trainingportal.model.User user = this.userDao.findUserAccount(email);
 
         if (user == null) {
             throw new UsernameNotFoundException(email + " was not found in the database");
@@ -36,7 +35,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
 
         // [ROLE_USER, ROLE_ADMIN,..]
-        List<String> roleNames = this.roleRepository.getRoleNames(user.getUserId());
+        List<String> roleNames = this.roleDao.getRoleNames(user.getUserId());
 
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
         if (roleNames != null) {
