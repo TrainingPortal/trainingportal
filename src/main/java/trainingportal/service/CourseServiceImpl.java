@@ -22,9 +22,7 @@ import java.util.List;
 @Service("courseService")
 @Transactional
 public class CourseServiceImpl extends GenericServiceImpl<Course> implements CourseService {
-
     private final CourseDao courseDAO;
-
     private final UserDao userDAO;
 
     @Autowired

@@ -3,6 +3,7 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import trainingportal.dao.CourseDao;
 import trainingportal.dao.GroupDao;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
@@ -13,18 +14,15 @@ import java.util.List;
 @Service("groupService")
 @Transactional
 public class GroupServiceImpl extends GenericServiceImpl<Group> implements GroupService {
-
     private final GroupDao groupDAO;
-
-    private final CourseService courseService;
-
-    private final GroupService groupService;
+    private final CourseDao courseDao;
+    private final GroupDao groupDao;
 
     @Autowired
-    public GroupServiceImpl(GroupDao groupDAO, CourseService courseService, GroupService groupService) {
+    public GroupServiceImpl(GroupDao groupDAO, CourseDao courseDao, GroupDao groupDao) {
         this.groupDAO = groupDAO;
-        this.courseService = courseService;
-        this.groupService = groupService;
+        this.courseDao = courseDao;
+        this.groupDao = groupDao;
     }
 
     @Override
@@ -100,8 +98,8 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
         }
 
         for(Group group : groupList){
-            group.setCourse(courseService.findById(group.getCourseId()));
-            group.setStatus(groupService.findStatusById(group.getStatusId()));
+            group.setCourse(courseDao.findById(group.getCourseId()));
+            group.setStatus(groupDao.findStatusById(group.getStatusId()));
         }
 
         return groupList;

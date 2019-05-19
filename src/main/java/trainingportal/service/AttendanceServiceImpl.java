@@ -3,6 +3,9 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import trainingportal.dao.AttendanceDao;
+import trainingportal.dao.AttendanceTypeDao;
+import trainingportal.dao.ScheduleDao;
+import trainingportal.dao.UserDao;
 import trainingportal.model.Attendance;
 import trainingportal.model.AttendanceForm;
 import trainingportal.model.Schedule;
@@ -16,16 +19,16 @@ import java.util.List;
 public class AttendanceServiceImpl extends GenericServiceImpl<Attendance> implements AttendanceService {
 
     private final AttendanceDao attendanceDao;
-    private final UserService userService;
-    private final AttendanceTypeService attendanceTypeService;
-    private final ScheduleService scheduleService;
+    private final UserDao userDao;
+    private final AttendanceTypeDao attendanceTypeDao;
+    private final ScheduleDao scheduleDao;
 
     @Autowired
-    public AttendanceServiceImpl(AttendanceDao attendanceDao, UserService userService, AttendanceTypeService attendanceTypeService, ScheduleService scheduleService) {
+    public AttendanceServiceImpl(AttendanceDao attendanceDao, UserDao userService, AttendanceTypeDao attendanceTypeDao, ScheduleDao scheduleDao) {
         this.attendanceDao = attendanceDao;
-        this.userService = userService;
-        this.attendanceTypeService = attendanceTypeService;
-        this.scheduleService = scheduleService;
+        this.userDao = userService;
+        this.attendanceTypeDao = attendanceTypeDao;
+        this.scheduleDao = scheduleDao;
     }
 
     @Override
@@ -40,9 +43,9 @@ public class AttendanceServiceImpl extends GenericServiceImpl<Attendance> implem
         List<Attendance> attendances = attendanceDao.getSubordinatesAttendancesByManager(managerId);
         for (Attendance attendance:
                 attendances) {
-            attendance.setUser(userService.findById(attendance.getUserId()));
-            attendance.setAttendanceType(attendanceTypeService.findById(attendance.getAttendanceTypeId()));
-            attendance.setSchedule(scheduleService.findById(attendance.getScheduleId()));
+            attendance.setUser(userDao.findById(attendance.getUserId()));
+            attendance.setAttendanceType(attendanceTypeDao.findById(attendance.getAttendanceTypeId()));
+            attendance.setSchedule(scheduleDao.findById(attendance.getScheduleId()));
         }
 
         return attendances;

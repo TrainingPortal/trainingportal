@@ -12,6 +12,7 @@ import java.util.List;
 @Service("HomeworkService")
 @Transactional
 public class HomeworkServiceImpl extends GenericServiceImpl<Homework> implements HomeworkService {
+
     private final HomeworkDao homeworkDao;
 
     @Autowired
