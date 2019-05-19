@@ -16,16 +16,10 @@ import java.util.List;
 
 @Controller
 public class MainController {
-
-    private final MainSliderService mainSliderService;
-
-    private final MainCardService mainCardService;
-
     @Autowired
-    public MainController(MainSliderService mainSliderService, MainCardService mainCardService) {
-        this.mainSliderService = mainSliderService;
-        this.mainCardService = mainCardService;
-    }
+    private MainSliderService mainSliderService;
+    @Autowired
+    private MainCardService mainCardService;
 
     @GetMapping({"/", "/index"})
     public ModelAndView welcomePage(ModelAndView modelAndView) {

@@ -16,33 +16,23 @@ import java.util.List;
 @Controller
 public class AttendanceController {
 
-    private final UserSecurity userSecurity;
-
-    private final AttendanceService attendanceService;
-
-    private final AttendanceTypeService attendanceTypeService;
-
-    private final GroupService groupService;
-
-    private final LessonService lessonService;
-
-    private final ScheduleService scheduleService;
-
-    private final CourseService courseService;
-
-    private final UserService userService;
-
     @Autowired
-    public AttendanceController(UserSecurity userSecurity, AttendanceService attendanceService, AttendanceTypeService attendanceTypeService, GroupService groupService, LessonService lessonService, ScheduleService scheduleService, CourseService courseService, UserService userService) {
-        this.userSecurity = userSecurity;
-        this.attendanceService = attendanceService;
-        this.attendanceTypeService = attendanceTypeService;
-        this.groupService = groupService;
-        this.lessonService = lessonService;
-        this.scheduleService = scheduleService;
-        this.courseService = courseService;
-        this.userService = userService;
-    }
+    private UserSecurity userSecurity;
+    @Autowired
+    private AttendanceService attendanceService;
+    @Autowired
+    private AttendanceTypeService attendanceTypeService;
+    @Autowired
+    private GroupService groupService;
+    @Autowired
+    private LessonService lessonService;
+    @Autowired
+    private ScheduleService scheduleService;
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private UserService userService;
+
 
     @GetMapping(value = "/myCourses")
     public ModelAndView get(ModelAndView modelAndView){

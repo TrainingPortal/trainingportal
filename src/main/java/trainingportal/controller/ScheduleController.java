@@ -21,16 +21,12 @@ import java.util.List;
 public class ScheduleController {
 
     private static final int ROWS_LIMIT = 10;
-    private final ScheduleService scheduleService;
-    private final GroupService groupService;
-    private final LessonService lessonService;
-
     @Autowired
-    public ScheduleController(ScheduleService scheduleService, GroupService groupService, LessonService lessonService) {
-        this.scheduleService = scheduleService;
-        this.groupService = groupService;
-        this.lessonService = lessonService;
-    }
+    private ScheduleService scheduleService;
+    @Autowired
+    private LessonService lessonService;
+    @Autowired
+    private GroupService groupService;
 
     @RequestMapping("/schedule_create/{page}/{groupId}")
     public ModelAndView showScheduleListOfGroup(@PathVariable("page") int page,

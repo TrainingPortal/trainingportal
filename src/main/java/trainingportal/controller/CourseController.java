@@ -20,21 +20,14 @@ import java.util.List;
 
 @Controller
 public class CourseController {
-
-    private final CourseService courseService;
-
-    private final UserService userService;
-
-    private final UserSecurity userSecurity;
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private UserService userService;
+    @Autowired
+    private UserSecurity userSecurity;
 
     private static final int ROWS_LIMIT = 10;
-
-    @Autowired
-    public CourseController(CourseService courseService, UserService userService, UserSecurity userSecurity) {
-        this.courseService = courseService;
-        this.userService = userService;
-        this.userSecurity = userSecurity;
-    }
 
     @RequestMapping(value = "/course_create/{page}")
     public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId, ModelAndView modelAndView) {

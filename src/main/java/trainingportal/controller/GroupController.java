@@ -18,21 +18,14 @@ import java.util.List;
 
 @Controller
 public class GroupController {
-
-    private final GroupService groupService;
-
-    private final CourseService courseService;
-
-    private final UserSecurity userSecurity;
+    @Autowired
+    private GroupService groupService;
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private UserSecurity userSecurity;
 
     private static final int ROWS_LIMIT = 10;
-
-    @Autowired
-    public GroupController(GroupService groupService, CourseService courseService, UserSecurity userSecurity) {
-        this.groupService = groupService;
-        this.courseService = courseService;
-        this.userSecurity = userSecurity;
-    }
 
     @RequestMapping("/group_create/{page}/{courseId}")
     public ModelAndView showLessonListOfCourse(@PathVariable("page") int page,

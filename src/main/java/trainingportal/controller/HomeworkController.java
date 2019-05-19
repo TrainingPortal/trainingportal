@@ -15,14 +15,8 @@ import java.util.List;
 
 @Controller
 public class HomeworkController {
-
-
-    private final HomeworkService homeworkService;
-
     @Autowired
-    public HomeworkController(HomeworkService homeworkService) {
-        this.homeworkService = homeworkService;
-    }
+    private HomeworkService homeworkService;
 
     @RequestMapping(value = "/lesson_homework")
     public ModelAndView showHomeworkListOfLesson(Long id, ModelAndView modelAndView) {

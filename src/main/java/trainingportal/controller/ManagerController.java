@@ -18,18 +18,12 @@ import java.util.Map;
 
 @Controller
 public class ManagerController {
-
-    private final UserService managerService;
-
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    @Autowired
+    private UserService managerService;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     private static final int ROWS_LIMIT = 10;
-
-    @Autowired
-    public ManagerController(UserService managerService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.managerService = managerService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
 
     /* Show all managers*/
     @RequestMapping("/managers/{page}")

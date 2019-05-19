@@ -19,22 +19,16 @@ import java.util.UUID;
 @Controller
 public class UserController {
 
-
-    public final Sender mailSender;
+    @Autowired
+    @Qualifier("getJavaMailSender")
+    public Sender mailSender;
 
 //      private static final String SERVER_NAME = "http://localhost:8080";
     private static final String SERVER_NAME = "http://onetrainingportal-env.w6ev2hpcfm.eu-west-2.elasticbeanstalk.com";
-
-    private final UserService userService;
-
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
     @Autowired
-    public UserController(@Qualifier("getJavaMailSender") Sender mailSender, UserService userService, BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.mailSender = mailSender;
-        this.userService = userService;
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+    private UserService userService;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     // Return registration form template
     @GetMapping("/registration")

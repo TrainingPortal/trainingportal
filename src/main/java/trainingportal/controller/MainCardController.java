@@ -15,14 +15,8 @@ import java.util.List;
 
 @RestController
 public class MainCardController {
-
-    private final MainCardService mainCardService;
-
     @Autowired
-    public MainCardController(MainCardService mainCardService) {
-        this.mainCardService = mainCardService;
-    }
-
+    private MainCardService mainCardService;
 
     @GetMapping("/manage_main_card")
     public ModelAndView manageMainCard(ModelAndView modelAndView){
