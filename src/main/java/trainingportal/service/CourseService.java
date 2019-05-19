@@ -14,6 +14,10 @@ public interface CourseService extends GenericService<Course> {
 
     CourseStatus findStatusById(Long id);
 
+    int getPages(double total);
+
+    List<Course> findByTrainerId(Long id);
+
     int getPagesByUserId(Long userId, double total);
 
     List<Course> getCoursesPage(int page, int total, Long userId, String role);

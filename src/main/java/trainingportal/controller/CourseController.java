@@ -20,13 +20,10 @@ import java.util.List;
 
 @Controller
 public class CourseController {
-
     @Autowired
     private CourseService courseService;
-
     @Autowired
     private UserService userService;
-
     @Autowired
     private UserSecurity userSecurity;
 

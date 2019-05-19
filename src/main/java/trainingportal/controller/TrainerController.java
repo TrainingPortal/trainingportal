@@ -23,7 +23,6 @@ public class TrainerController {
 
     @Autowired
     private UserService trainerService;
-
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 

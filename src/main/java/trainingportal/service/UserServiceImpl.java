@@ -1,13 +1,16 @@
 package trainingportal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.RoleDao;
 import trainingportal.dao.SubordinateDAO;
 import trainingportal.dao.UserDao;
+import trainingportal.model.LoggedInUser;
 import trainingportal.model.Role;
 import trainingportal.model.User;
+import trainingportal.service.generic.GenericServiceImpl;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -16,121 +19,103 @@ import java.util.Map;
 
 @Service("userService")
 @Transactional
-public class UserServiceImpl implements UserService {
-
+public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
     @Autowired
-    private SubordinateDAO subordinateRepository;
-
+    private SubordinateDAO subordinateDAO;
     @Autowired
-    private UserDao userRepository;
-
+    private UserDao userDao;
     @Autowired
-    private RoleDao roleRepository;
-
-    @Override
-    public User findById(Long id) {
-        return userRepository.findById(id);
-    }
+    private RoleDao roleDao;
 
     @Override
     public User findByEmail(String email) {
-        return userRepository.findByEmail(email);
-    }
-
-    @Override
-    public void save(User user) {
-        userRepository.save(user);
+        return userDao.findByEmail(email);
     }
 
     @Override
     public User findByToken(String token) {
-        return userRepository.findByToken(token);
+        return userDao.findByToken(token);
     }
 
     @Override
     public void confirmRegister(User user) {
-        userRepository.confirmRegister(user);
+        userDao.confirmRegister(user);
     }
 
     @Override
     public void setNewPassword(String password, String token) {
-        userRepository.setNewPassword(password, token);
+        userDao.setNewPassword(password, token);
     }
 
     @Override
     public List<User> findSubordinatesById(Long id) {
-        return subordinateRepository.findSubordinatesById(id);
+        return subordinateDAO.findSubordinatesById(id);
     }
 
     @Override
     public void updateToken(User user, String token) {
-        userRepository.updateToken(user, token);
+        userDao.updateToken(user, token);
     }
 
     @Override
     public void resetToken(User user) {
-        userRepository.resetToken(user);
+        userDao.resetToken(user);
     }
 
     public boolean isUserExists(User user) {
-        return userRepository.isUserExists(user);
+        return userDao.isUserExists(user);
     }
 
     @Override
     public List<User> findAllByRole(Long roleId) {
-        return userRepository.findAllByRole(roleId);
+        return userDao.findAllByRole(roleId);
+    }
+
+    public List<User> findAllByGroup(Long id) {
+        return userDao.findAllByGroup(id);
     }
 
     @Override
     public List<User> findAllEnabledByRole(Long roleId) {
-        return userRepository.findAllEnabledByRole(roleId);
+        return userDao.findAllEnabledByRole(roleId);
     }
 
     @Override
     public void update(User user) {
-        User updatedUser = userRepository.findById(user.getUserId());
+        User updatedUser = userDao.findById(user.getUserId());
         if(updatedUser!=null){
             if(updatedUser.getRoleId() == Role.MANAGER && user.getRoleId() != Role.MANAGER || user.getEnabled() == 0){
-                userRepository.resetManagerId(updatedUser.getUserId());
+                userDao.resetManagerId(updatedUser.getUserId());
             }
             updatedUser.setUserId(user.getUserId());
             updatedUser.setUserName(user.getUserName());
             updatedUser.setEmail(user.getEmail());
             updatedUser.setPassword(user.getPassword());
             updatedUser.setEnabled(user.getEnabled());
+            updatedUser.setManagerId(user.getManagerId());
             updatedUser.setRoleId(user.getRoleId());
         }
-        userRepository.update(updatedUser);
-    }
-
-    @Override
-    public void deleteById(Long userId) {
-        userRepository.deleteById(userId);
-    }
-
-    @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
+        userDao.update(updatedUser);
     }
 
     @Override
     public void deleteAllByRole(Long roleId) {
-        userRepository.deleteAllByRole(roleId);
+        userDao.deleteAllByRole(roleId);
     }
 
     @Override
     public User findManagerBySubordinateId(Long id) {
-        return subordinateRepository.findManagerBySubordinateId(id);
+        return subordinateDAO.findManagerBySubordinateId(id);
     }
 
     @Override
     public List<User> findFreeUsers() {
-        return subordinateRepository.findFreeUsers();
+        return subordinateDAO.findFreeUsers();
     }
 
     @Override
     public void setManagerId(Long managerId, Long userId) {
-        subordinateRepository.setManagerId(managerId, userId);
+        subordinateDAO.setManagerId(managerId, userId);
     }
 
     @Override
@@ -140,7 +125,7 @@ public class UserServiceImpl implements UserService {
             return "You chose nobody to add, no one is added";
         }
         for(Long userId : userIds){
-            subordinateRepository.setManagerId(managerId, userId);
+            subordinateDAO.setManagerId(managerId, userId);
         }
         return "Subordinates were added: " + userIds.length + "." ;
     }
@@ -148,34 +133,28 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllByRoleAsPage(int page, int total, Long roleId) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
-        return userRepository.getAllByRoleAsPage(page, total, roleId);
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
+        return userDao.getAllByRoleAsPage(page, total, roleId);
     }
 
     @Override
     public List<User> getSubordinatesByIdAsPage(int page, int total, Long id) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
-        return subordinateRepository.getSubordinatesByIdAsPage(page, total, id);
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
+        return subordinateDAO.getSubordinatesByIdAsPage(page, total, id);
     }
 
     @Override
     public List<User> getFreeUsersAsPage(int page, int total) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
-        return subordinateRepository.getFreeUsersAsPage(page, total);
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
+        return subordinateDAO.getFreeUsersAsPage(page, total);
     }
 
     @Override
@@ -190,33 +169,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<Role> getRoles() {
-        return roleRepository.getRoles();
-    }
-
-    @Override
-    public int getNumberOfPages(List<User> users, double total) {
-
-        return (int) Math.ceil(users.size() / total);
-    }
-
-    @Override
-    public List<User> getAllAsPage(int page, int total) {
-        return null;
+        return roleDao.getRoles();
     }
 
     @Override
     public int getPagesByRole(Long id, double total) {
-        return (int) Math.ceil(userRepository.countAllByRole(id) / total);
+        return (int) Math.ceil(userDao.countAllByRole(id) / total);
     }
 
     @Override
     public int getPagesByManager(Long id, double total) {
-        return (int) Math.ceil(subordinateRepository.countAllByManager(id) / total);
+        return (int) Math.ceil(subordinateDAO.countAllByManager(id) / total);
     }
 
     @Override
     public int getFreeUsersPages(double total) {
-        return (int) Math.ceil(subordinateRepository.countFreeUsers() / total);
+        return (int) Math.ceil(subordinateDAO.countFreeUsers() / total);
     }
 
     @Override
@@ -226,16 +194,19 @@ public class UserServiceImpl implements UserService {
             return Collections.emptyList();
         }
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
-        return userRepository.searchByRole(id, request, page, total);
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
+        return userDao.searchByRole(id, request, page, total);
     }
 
     @Override
     public int getSearchPagesByRole(Long id, double total, String request) {
-        return (int) Math.ceil(userRepository.countSearchPagesByRole(id, request) / total);
+        return (int) Math.ceil(userDao.countSearchPagesByRole(id, request) / total);
+    }
+
+    @Override
+    public Long getUserId(Authentication authentication) {
+        return ((LoggedInUser) authentication.getPrincipal()).getId();
     }
 }

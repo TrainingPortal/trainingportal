@@ -15,11 +15,8 @@ import java.util.List;
 
 @RestController
 public class MainSliderController {
-
-
     @Autowired
     private MainSliderService mainSliderService;
-
 
     @GetMapping("/manage_main_slider")
     public ModelAndView manageMainSlider(ModelAndView modelAndView){

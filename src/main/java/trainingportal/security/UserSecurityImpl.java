@@ -1,10 +1,8 @@
 package trainingportal.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Service;
 import trainingportal.model.User;
-import trainingportal.service.GroupService;
 import trainingportal.service.LessonService;
 import trainingportal.service.UserService;
 
@@ -23,7 +21,7 @@ public class UserSecurityImpl implements UserSecurity {
     }
 
     @Override
-    public boolean isConnectedWithTrainer(Long courseId) {
+    public boolean isConnectedWithTrainerByCourseId(Long courseId) {
 
         return lessonService.isConnectedWithTrainer(getLoggedInUserId(), courseId);
     }
@@ -40,5 +38,17 @@ public class UserSecurityImpl implements UserSecurity {
     public boolean isConnectedWithLessonByCourseId(Long courseId) {
 
         return lessonService.isConnectedWithLessonByCourseId(getLoggedInUserId(), courseId);
+    }
+
+    @Override
+    public boolean isConnectedWithTrainerByLessonId(Long lessonId) {
+
+        return lessonService.isConnectedWithTrainerByLessonId(getLoggedInUserId(), lessonId);
+    }
+
+    @Override
+    public boolean isConnectedWithLessonByLessonId(Long lessonId) {
+
+        return lessonService.isConnectedWithLessonByLessonId(getLoggedInUserId(), lessonId);
     }
 }

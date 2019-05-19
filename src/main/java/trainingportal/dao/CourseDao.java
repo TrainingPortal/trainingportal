@@ -8,15 +8,13 @@ import java.util.List;
 
 public interface CourseDao extends GenericDao<Course> {
 
-    List<Course> getAllAsPage(int page, int total);
-
     List<CourseStatus> getStatusList();
 
     CourseStatus findStatusById(Long id);
 
-    int countAllByUserId(Long userId);
+    List<Course> findByTrainerId(Long id);
 
-    int countAll();
+    int countAllByUserId(Long userId);
 
     List<Course> getAllAsPageById(Long id, int page, int total);
 
