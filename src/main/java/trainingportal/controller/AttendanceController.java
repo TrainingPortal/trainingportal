@@ -80,7 +80,7 @@ public class AttendanceController {
         List<Schedule> schedules = scheduleService.getSchedules(groupId);
 
         modelAndView.addObject("schedules", schedules);
-        modelAndView.setViewName("attendance/groups");
+        modelAndView.setViewName("attendance/schedules");
 
         return modelAndView;
     }

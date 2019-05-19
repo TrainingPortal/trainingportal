@@ -39,7 +39,7 @@ public class AttendanceServiceImpl extends GenericServiceImpl<Attendance> implem
         for (Attendance attendance:
                 attendances) {
             attendance.setUser(userService.findById(attendance.getUserId()));
-            attendance.setAttendanceType(attendanceTypeService.findById(attendance.getAttendanceId()));
+            attendance.setAttendanceType(attendanceTypeService.findById(attendance.getAttendanceTypeId()));
             attendance.setSchedule(scheduleService.findById(attendance.getScheduleId()));
         }
 
@@ -48,12 +48,12 @@ public class AttendanceServiceImpl extends GenericServiceImpl<Attendance> implem
 
     @Override
     public AttendanceForm getAttendanceListWithStudents(Schedule schedule, List<User> users) {
-        List<Attendance> attendances = Collections.emptyList();
-        for (int i = 0; i < users.size(); i++) {
+        List<Attendance> attendances = new java.util.ArrayList<>(Collections.emptyList());
+        for (User user : users) {
             Attendance attendance = new Attendance();
             attendance.setScheduleId(schedule.getScheduleId());
-            attendance.setUser(users.get(i));
-            attendance.setUserId(users.get(i).getUserId());
+            attendance.setUser(user);
+            attendance.setUserId(user.getUserId());
             attendances.add(attendance);
         }
 

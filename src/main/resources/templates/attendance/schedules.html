@@ -17,21 +17,14 @@
     <h1>There are no courses.</h1>
 </div>
 <div th:unless="${schedules.size() == 0}">
-    <table class="table pt-0 mt-0 table-fit table-sm table-hover">
-        <thead class="">
-        <tr>
-            <th style="width: 40%">Subordinates</th>
-            <th style="width: 50%">Presence</th>
-            <th style="width: 50%">Date</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="schedule : ${schedules}">
-            <td th:text="${schedule.group.userName}">
-            <td th:text="${attendance.attendanceType.type}"></td>
-            <td th:text="${attendance.schedule.scheduleDate}"></td>
-        </tr>
-    </table>
+    <ol class="list-group" th:each="schedule : ${schedules}">
+        <li class="list-group-item">
+            <a th:href="@{/presence/{groupId}/{scheduleId}(groupId=${schedule.scheduleGroup.getGroupId()},
+            scheduleId =${schedule.getScheduleId()} )}" class="list-group-item"
+               th:text="${schedule.scheduleGroup.groupName} + ' '${schedule.scheduleDate}">
+            </a>
+        </li>
+    </ol>
 </div>
 </body>
 </html>

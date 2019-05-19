@@ -48,7 +48,7 @@ public class AttendanceDaoImpl extends GenericDaoImpl<Attendance> implements Att
 
     @Override
     public List<Attendance> getSubordinatesAttendancesByManager(Long managerId) {
-        String sql = AttendanceMapper.SELECT_SQL + " at INNER JOIN USERS us ON at.USER_ID = us.USER_ID " +
+        String sql = AttendanceMapper.SELECT_SQL + " at INNER JOIN USERS us ON us.USER_ID = at.USER_ID " +
                 "WHERE us.MANAGER_ID = ?";
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().query(sql,new Object[]{managerId},attendanceBaseObjectMapper);

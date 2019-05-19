@@ -22,7 +22,7 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
     private BaseObjectMapper<Group> groupBaseObjectMapper;
     
     //Define table and id column
-    private static final String TABLE_NAME = "group";
+    private static final String TABLE_NAME = "groups";
     private static final String ID_COLUMN = "id";
 
     @Autowired

@@ -17,13 +17,13 @@
     <h1>There are no courses.</h1>
 </div>
 <div th:unless="${groups.size() == 0}">
-    <ul class="list-group list-group-horizontal" th:each="group:${groups}">
+    <ol class="list-group " th:each="group:${groups}">
         <li>
-            <a th:href="@{/presence/{groupId}(groupId=${group.getGroupId()})}" class="list-group-item"
+            <a th:href="@{/myScheduleForGroup/{groupId}(groupId=${group.getGroupId()})}" class="list-group-item"
                th:text="${group.getGroupName()} + '-' + ${group.getStatus()}">
             </a>
         </li>
-    </ul>
+    </ol>
 </div>
 </body>
 </html>
