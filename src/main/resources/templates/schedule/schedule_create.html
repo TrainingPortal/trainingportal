@@ -31,9 +31,9 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="row">schedule Id</th>
-            <th scope="row">group Id</th>
-            <th scope="row">date</th>
+<!--            <th scope="row">schedule Id</th>-->
+<!--            <th scope="row">group Id</th>-->
+            <th scope="row">Lesson date</th>
             <th scope="row">lesson Id</th>
         </tr>
         </thead>
@@ -41,8 +41,8 @@
 
 
         <tr th:each="schedule, iter : ${scheduleOfGroup}">
-            <td th:text="${schedule.scheduleId}"></td>
-            <td th:text="${schedule.scheduleGroupId}"></td>
+<!--            <td th:text="${schedule.scheduleId}"></td>-->
+<!--            <td th:text="${schedule.scheduleGroupId}"></td>-->
             <td th:text="${schedule.scheduleDate}"></td>
             <td th:text="${schedule.scheduleLessonId}"></td>
             <td>
