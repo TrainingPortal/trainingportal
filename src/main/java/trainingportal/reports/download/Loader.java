@@ -16,8 +16,7 @@ import java.io.FileNotFoundException;
 @Service
 public class Loader {
 
-    private static final String DIRECTORY = "/Users/mrlova/IdeaProjects/trainingportal";
-//    private static final String DIRECTORY = "http://onetrainingportal-env.w6ev2hpcfm.eu-west-2.elasticbeanstalk.com";
+    private String DIRECTORY;
 
     @Autowired
     private ServletContext servletContext;
@@ -28,6 +27,7 @@ public class Loader {
         System.out.println("fileName: " + fileName);
         System.out.println("mediaType: " + mediaType);
 
+        DIRECTORY = new File("").getAbsolutePath();
         File file = new File(DIRECTORY + "/" + fileName);
         InputStreamResource resource = null;
 
