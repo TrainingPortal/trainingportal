@@ -62,27 +62,27 @@ public class ScheduleController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/schedule-add-{groupId}", method = RequestMethod.GET)
-    public ModelAndView addSchedule(@PathVariable Long groupId, ModelAndView modelAndView) {
+    @RequestMapping(value = "/schedule-add-{scheduleGroupId}", method = RequestMethod.GET)
+    public ModelAndView addSchedule(@PathVariable Long scheduleGroupId, ModelAndView modelAndView) {
 
         Schedule schedule = new Schedule();
-        schedule.setScheduleGroupId(groupId);
+        schedule.setScheduleGroupId(scheduleGroupId);
 
         List<Lesson> lessons = lessonService.findAll();
 
-        modelAndView.addObject("lessons", lessons);
         modelAndView.addObject("schedule", schedule);
+        modelAndView.addObject("lessons", lessons);
         modelAndView.setViewName("schedule/schedule_add");
         return modelAndView;
     }
 
     @RequestMapping(value = "schedule-save", method = RequestMethod.POST)
-    public ModelAndView saveSchedule(@RequestParam("groupId") Long groupId,
+    public ModelAndView saveSchedule(@RequestParam("scheduleGroupId") Long scheduleGroupId,
                                      Schedule schedule, ModelAndView modelAndView) {
 
         scheduleService.save(schedule);
-        modelAndView.addObject("groupId", groupId);
-        modelAndView.setViewName("redirect:/schedule_create/1/" + groupId);
+        modelAndView.addObject("groupId", scheduleGroupId);
+        modelAndView.setViewName("redirect:/schedule_create/1/" + scheduleGroupId);
         return modelAndView;
     }
 

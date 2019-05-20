@@ -24,28 +24,11 @@ public class MaterialController {
 
     private static final int ROWS_LIMIT = 10;
 
-//    @RequestMapping("/material_lesson")
-//    public ModelAndView showMaterialListOfLessons(Long id, ModelAndView modelAndView) {
-//
-//        List<Material> MaterialOfLesson = materialService.getMaterialLessonId(id);
-//
-////        Lesson lesson =  lessonService.findById(id);
-////        modelAndView.addObject("MaterialOfLesson", lesson);
-////        modelAndView.addObject("id", id);
-//
-//        modelAndView.addObject("MaterialOfLesson", MaterialOfLesson);
-//        modelAndView.setViewName("materialCreator/material_lesson");
-//
-//        return modelAndView;
-//    }
-
-
     @RequestMapping("/material_lesson/{page}/{lessonId}")
     public ModelAndView showMaterialListOfLessons(@PathVariable("page") int page,
                                                   @PathVariable("lessonId") Long id,
              ModelAndView modelAndView) {
 
-//        List<Material> MaterialOfLesson = materialService.getMaterialLessonId(id);
         List<Material> materialListOfLesson = materialService.getAllAsPageByLessonId(id, page, ROWS_LIMIT);
 
         Lesson lesson =  lessonService.findById(id);

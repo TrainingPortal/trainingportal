@@ -15,8 +15,8 @@
     <h2>Schedule List</h2>
 
     <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">
-        <a class="btn btn-success btn-lg" th:href="@{/schedule-add-{groupId}
-         (groupId = ${groupSchedule.groupId})}">CREATE NEW Schedule</a>
+        <a class="btn btn-success btn-lg" th:href="@{/schedule-add-{scheduleGroupId}
+         (scheduleGroupId = ${groupSchedule.groupId})}">CREATE NEW Schedule</a>
     </div>
 
     <div  class="btn">
