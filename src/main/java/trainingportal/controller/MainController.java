@@ -53,6 +53,34 @@ public class MainController {
 
         return "frontend/profilepage";
     }
+    ////////////////////////
+    @GetMapping("/englishDescriptionPage")
+    String englishDescriptionPage(Model model){
+
+        return "frontend/englishDescriptionPage";
+    }
+    @GetMapping("/germanDescriptionPage")
+    String germanDescriptionPage(Model model){
+
+        return "frontend/germanDescriptionPage";
+    }
+
+    @GetMapping("/polishDescriptionPage")
+    String polishDescriptionPage(Model model){
+
+        return "frontend/polishDescriptionPage";
+    }
+    @GetMapping("/franceDescriptionPage")
+    String franceDescriptionPage(Model model){
+
+        return "frontend/franceDescriptionPage";
+    }
+    @GetMapping("/businessDescriptionPage")
+    String businessDescriptionPage(Model model){
+
+        return "frontend/businessDescriptionPage";
+    }
+/////////////
 
     @GetMapping("/coursepage")
     String coursePage(Model model){

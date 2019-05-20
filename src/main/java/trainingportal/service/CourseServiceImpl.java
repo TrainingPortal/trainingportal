@@ -77,4 +77,6 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
 
         return courseDao.findCoursesByUserId(id);
     }
+
+
 }

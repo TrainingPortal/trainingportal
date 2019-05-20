@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add Lesson</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<h1>New Lesson</h1>
+<div class="container-fluid">
+
+    <div class="row no-gutters ">
+        <div class="col">
+            <form action="#" method="post"  th:action="@{/weekday-save}" th:object="${weekday}">
+
+                <input class="form-control" placeholder="Id" th:field="*{weekdayId}" type="hidden"/>
+                <input class="form-control" placeholder="course Id" th:field="*{desiredPeriodId}" type="hidden"/>
+
+                <label>day Name</label>
+                <input class="form-control" placeholder="dayName" th:field="*{dayName}" type="text"/>
+                <p class="alert alert-danger" th:errors="*{dayName}" th:if="${#fields.hasErrors('dayName')}"></p>
+                <label>timeStart</label>
+                <input class="form-control" placeholder="timeStart" th:field="*{timeStart}"
+                       type="text"/>
+                <p class="alert alert-danger" th:errors="*{timeStart}"
+                   th:if="${#fields.hasErrors('timeStart')}">
+                   </p>
+
+                <label>timeEnd</label>
+                <input class="form-control" placeholder="timeEnd" th:field="*{timeEnd}" type="text"/>
+                <p class="alert alert-danger" th:errors="*{timeEnd}"
+                   th:if="${#fields.hasErrors('timeEnd')}">
+                    </p>
+
+
+
+                <input class="btn btn-success" type="submit" value="Save"/>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

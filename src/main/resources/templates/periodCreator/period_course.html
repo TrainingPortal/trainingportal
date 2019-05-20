@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport">
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
+    <title> list</title>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+<div class="container-fluid">
+    <h2>Period List</h2>
+
+    <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">
+        <a class="btn btn-success btn-lg" th:href="@{/period-add-{courseId}
+        (courseId = ${coursePeriod.courseId})}">CREATE NEW Period</a>
+    </div>
+
+<!--    <div  class="btn">-->
+<!--        <a class="btn btn btn-info btn-lg" th:href="@{/course_create/1}">Back to Course</a>-->
+<!--    </div>-->
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="row">desiredPeriodId</th>
+            <th scope="row">userId</th>
+            <th scope="row">courseId</th>
+
+        </tr>
+        </thead>
+        <tbody>
+
+
+        <tr th:each="desiredPeriod, iter : ${periodsOfCourse}">
+            <td th:text="${desiredPeriod.desiredPeriodId}"></td>
+            <td th:text="${desiredPeriod.userId}"></td>
+            <td th:text="${desiredPeriod.courseId}"></td>
+            <td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/weekday_period/{page}/{desiredPeriodId}
+                    (desiredPeriodId = ${desiredPeriod.desiredPeriodId}, page = 1)}">
+                        Weekdays</a>
+                </div>
+            </td>
+
+<!--                <div class="btn-group" th:if="${#request.isUserInRole('ROLE_ADMIN') == true-->
+<!--                or #request.isUserInRole('ROLE_TRAINER')}">-->
+<!--                    <a class="btn btn-info" th:href="@{/edit-lesson-{lessonId}-{id}-->
+<!--                       (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Edit</a>-->
+
+<!--                    <a class="btn btn-dark" th:href="@{/lesson-delete-by/{lessonId}/{id}-->
+<!--                    (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Delete</a>-->
+<!--                </div>-->
+<!--            </td>-->
+
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="frontend/pagination :: pagination_with_slashed_id"></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
