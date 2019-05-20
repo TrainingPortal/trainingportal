@@ -20,14 +20,23 @@ public class MainSliderServiceImpl implements MainSliderService {
     private MainSliderDao mainSliderDao;
 
     @Override
-    public void storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException {
+    public String storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Long mainSliderId = 0L;
+        String fileType = file.getContentType();
+        String message;
 
-        MainSliderModel data = new MainSliderModel(mainSliderId, fileName, file.getContentType(), file.getBytes(), buttonName, buttonUrl);
+        MainSliderModel data = new MainSliderModel(mainSliderId, fileName, fileType, file.getBytes(), buttonName, buttonUrl);
 
-        mainSliderDao.storeData(data);
+
+        if(fileType.equals("image/jpeg") || fileType.equals("image/png") || fileType.equals("image/tiff")){
+            mainSliderDao.storeData(data);
+            return message = "Successfully stored!";
+        } else {
+            mainSliderDao.updateAll(data);
+            return message = "File must be an image! Data was not stored!";
+        }
 
     }
 

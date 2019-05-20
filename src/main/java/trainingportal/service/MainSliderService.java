@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface MainSliderService {
 
-    void storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException;
+    String storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException;
 
     List<MainSliderModel> getAll();
 

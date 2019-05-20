@@ -1,6 +1,7 @@
 package trainingportal.controller;
 
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.MainSliderModel;
 import trainingportal.service.MainSliderService;
 
@@ -32,10 +33,11 @@ public class MainSliderController {
     }
 
     @PostMapping("/slider-save")
-    public ModelAndView uploadData(@RequestParam MultipartFile file, @RequestParam String name, @RequestParam String url, ModelAndView modelAndView) throws IOException {
-        mainSliderService.storeData(file, name, url);
+    public ModelAndView uploadData(@RequestParam MultipartFile file, @RequestParam String name, @RequestParam String url, ModelAndView modelAndView,  RedirectAttributes redirect) throws IOException {
+        String message = mainSliderService.storeData(file, name, url);
 
 
+        redirect.addFlashAttribute("message", message);
         modelAndView.setViewName("redirect:/manage_main_slider");
         return modelAndView;
     }
