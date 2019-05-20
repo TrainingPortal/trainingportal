@@ -7,6 +7,7 @@ import trainingportal.dao.CourseDao;
 import trainingportal.dao.UserDao;
 import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
+import trainingportal.model.User;
 import trainingportal.service.generic.GenericServiceImpl;
 import trainingportal.model.Role;
 
@@ -73,8 +74,19 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
     }
 
     @Override
-    public List<Course> findCoursesByUserId(Long id) {
+    public List<Course> findCoursesByUser(User user) {
 
-        return courseDao.findCoursesByUserId(id);
+        List<Course> courseList;
+
+        if(user.getRoleId().equals(Role.TRAINER)) {
+            courseList =  courseDao.findByTrainerId(user.getUserId());
+        } else {
+            courseList = courseDao.findCoursesByUserId(user.getUserId());
+
+            for(Course course : courseList){
+                course.setTrainer(userDao.findById(course.getTrainerId()));
+            }
+        }
+        return courseList;
     }
 }

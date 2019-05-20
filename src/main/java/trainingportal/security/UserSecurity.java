@@ -14,7 +14,13 @@ public interface UserSecurity {
 
     boolean isConnectedWithTrainerByLessonId(Long lessonId);
 
+    boolean isConnectedWithTrainerByGroupId(Long groupId);
+
+    boolean isConnectedWithUserByGroupId(Long groupId);
+
     boolean isSubordinate(Long userId);
+
+    boolean isTrainer(Long userId);
 
     boolean isConnectedWithLessonByCourseId(Long courseId);
 

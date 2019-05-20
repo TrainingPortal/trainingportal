@@ -42,9 +42,15 @@
                             th:text="${role}"></span></p>
                     <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><span
                             th:text="${user.email}"></span></p>
-                    <div th:unless="${manager.userName == null}">
-                        <p><i class="fa fa-user fa-fw w3-margin-right w3-large w3-text-teal"></i><span
-                                th:text="'Manager: ' + ${manager.userName}"></span></p>
+
+                    <p th:unless="${manager.userName == null}"><i
+                            class="fa fa-user fa-fw w3-margin-right w3-large w3-text-teal"></i><span
+                            th:text="'Manager: ' + ${manager.userName}"></span></p>
+
+                    <div th:if="${@userSecurity.hasUserId(user.userId)}">
+                        <hr>
+                        <p class="w3-large" ><b>Settings</b></p>
+                        <a th:href="@{/forgotpassword}"><p>Change password</p></a>
                     </div>
                 </div>
             </div>
@@ -60,8 +66,11 @@
                 <h2 class="w3-text-grey w3-padding-16"><i
                         class="fa fa-suitcase fa-fw w3-margin-right w3-xxlarge w3-text-teal"></i>Courses</h2>
 
-                <div th:if="${courseList.size() == 0}">
+                <div th:if="${courseList.size() == 0 and user.roleId != 3}">
                     <h5 class="w3-opacity"><b>This user isn't registered for any course.</b></h5>
+                </div>
+                <div th:if="${courseList.size() == 0 and user.roleId == 3}">
+                    <h5 class="w3-opacity"><b>This trainer doesn't lead any course.</b></h5>
                 </div>
                 <div th:unless="${courseList.size() == 0}">
 
@@ -70,9 +79,9 @@
                             <h5 class="w3-opacity"><b th:text="${course.courseName}"></b></h5>
                             <h6 class="w3-text-teal"><i class="fa fa-circle fa-fw w3-margin-right"></i><span
                                     th:text="'Level: ' + ${course.courseLevel}"></span></h6>
-                            <a th:href="@{/profile_page/{userId}(userId=${course.trainerId})}"><p
+                            <a th:unless="${user.roleId == 3}"
+                               th:href="@{/profile_page/{userId}(userId=${course.trainerId})}"><p
                                     th:text="'Trainer: ' + ${course.trainer.userName}"></p></a>
-
                             <p th:text="${course.description}"></p><br>
                         </div>
                         <hr>

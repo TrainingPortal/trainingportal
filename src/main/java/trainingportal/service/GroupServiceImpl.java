@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.CourseDao;
 import trainingportal.dao.GroupDao;
+import trainingportal.dao.UserGroupDao;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
+import trainingportal.model.UserGroup;
 import trainingportal.service.generic.GenericServiceImpl;
 
 import java.util.List;
@@ -19,7 +21,7 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     @Autowired
     private CourseDao courseDao;
     @Autowired
-    private GroupDao groupDao;
+    private UserGroupDao userGroupDao;
 
     @Override
     public List<Group> getAllAsPageByCourseId(Long courseId, int page, int total) {
@@ -95,9 +97,35 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
 
         for(Group group : groupList){
             group.setCourse(courseDao.findById(group.getCourseId()));
-            group.setStatus(groupDao.findStatusById(group.getStatusId()));
+            group.setStatus(groupDAO.findStatusById(group.getStatusId()));
         }
 
         return groupList;
+    }
+
+    @Override
+    public boolean isConnectedWithTrainerByGroupId(Long trainerId, Long groupId) {
+
+        Long userId =  groupDAO.getTrainerIdByGroupId(groupId);
+
+        return userId.equals(trainerId);
+    }
+
+    @Override
+    public boolean isConnectedWithUserByGroupId(Long userId, Long groupId) {
+
+        List<UserGroup> users =  userGroupDao.getUserGroupListByGroupId(groupId);
+
+        for(UserGroup user : users){
+            if(user.getUserId() == userId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void deleteFromUserGroupByUserIdAndGroupId(Long userId, Long groupId) {
+        userGroupDao.deleteFromUserGroupByUserIdAndGroupId(userId, groupId);
     }
 }

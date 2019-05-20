@@ -2,7 +2,9 @@ package trainingportal.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import trainingportal.model.Role;
 import trainingportal.model.User;
+import trainingportal.service.GroupService;
 import trainingportal.service.LessonService;
 import trainingportal.service.UserService;
 
@@ -15,15 +17,18 @@ public class UserSecurityImpl implements UserSecurity {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private GroupService groupService;
+
     public boolean hasUserId(Long userId) {
 
-        return getLoggedInUserId() == userId;
+        return getLoggedInUserId().equals(userId);
     }
 
     @Override
     public boolean isConnectedWithTrainerByCourseId(Long courseId) {
 
-        return lessonService.isConnectedWithTrainer(getLoggedInUserId(), courseId);
+        return lessonService.isConnectedWithTrainerByCourseId(getLoggedInUserId(), courseId);
     }
 
     @Override
@@ -31,7 +36,15 @@ public class UserSecurityImpl implements UserSecurity {
 
         User user = userService.findById(userId);
 
-        return getLoggedInUserId() == user.getManagerId();
+        return getLoggedInUserId().equals(user.getManagerId());
+    }
+
+    @Override
+    public boolean isTrainer(Long userId) {
+
+        User user = userService.findById(userId);
+
+        return user.getRoleId().equals(Role.TRAINER);
     }
 
     @Override
@@ -44,6 +57,18 @@ public class UserSecurityImpl implements UserSecurity {
     public boolean isConnectedWithTrainerByLessonId(Long lessonId) {
 
         return lessonService.isConnectedWithTrainerByLessonId(getLoggedInUserId(), lessonId);
+    }
+
+    @Override
+    public boolean isConnectedWithTrainerByGroupId(Long groupId) {
+
+        return groupService.isConnectedWithTrainerByGroupId(getLoggedInUserId(), groupId);
+    }
+
+    @Override
+    public boolean isConnectedWithUserByGroupId(Long groupId) {
+
+        return groupService.isConnectedWithUserByGroupId(getLoggedInUserId(), groupId);
     }
 
     @Override
