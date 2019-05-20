@@ -78,7 +78,7 @@ public abstract class GenericDaoImpl<T> extends JdbcDaoSupport implements Generi
 
     @Override
     public List<T> findAll() {
-        String sql = getObjectMapper().getSelectSql() + getTable();
+        String sql = getObjectMapper().getSelectSql();
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().query(sql, getObjectMapper());
         } else
