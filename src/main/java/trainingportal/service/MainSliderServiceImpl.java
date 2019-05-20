@@ -50,4 +50,20 @@ public class MainSliderServiceImpl implements MainSliderService {
         return mainSliderDao.countAll();
     }
 
+    @Override
+    public void editById(Long mainSliderId, MultipartFile file, String buttonName, String buttonUrl) throws IOException {
+
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+        MainSliderModel data = new MainSliderModel(mainSliderId, fileName, file.getContentType(), file.getBytes(), buttonName, buttonUrl);
+
+        if(file.getContentType().equals("application/octet-stream")){
+            mainSliderDao.updateWithoutFile(data);
+        } else {
+            mainSliderDao.updateAll(data);
+        }
+
+
+    }
+
 }

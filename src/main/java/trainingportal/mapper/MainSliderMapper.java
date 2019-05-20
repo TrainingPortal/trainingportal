@@ -14,14 +14,18 @@ public class MainSliderMapper implements RowMapper<MainSliderModel> {
     public static final String INSERT_SQL
             = "INSERT INTO main_slider(files_name, files_type, files_data, button_name, button_url) VALUES (?, ?, ?, ?, ?)";
 
-    public static final String EDIT_SQL
-            = "UPDATE main_slider SET  files_name = ?, files_type = ?, files_data = ?, button_name = ?, button_url =?";
+    public static final String EDIT_ALL_SQL
+            = "UPDATE main_slider SET  files_name = ?, files_type = ?, files_data = ?, button_name = ?, button_url = ?";
+
+    public static final String EDIT_WITHOUT_FILE_SQL
+            = "UPDATE main_slider SET button_name = ?, button_url = ?";
 
     public static final String COUNT_ALL_SQL
             = "SELECT COUNT (*) FROM main_slider";
 
     public static final String DELETE_SQL
             = "DELETE FROM main_slider";
+
 
 
     @Override

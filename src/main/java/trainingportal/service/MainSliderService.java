@@ -17,4 +17,6 @@ public interface MainSliderService {
 
     int countAll();
 
+    void editById(Long mainSliderId, MultipartFile file, String buttonName, String buttonUrl) throws IOException;
+
 }

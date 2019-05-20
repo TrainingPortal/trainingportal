@@ -40,15 +40,8 @@ public class MainSliderController {
         return modelAndView;
     }
 
-    /*@GetMapping("/edit-data-{id}")
-    public ModelAndView editMainSlider(@PathVariable("id") int dataId, ModelAndView modelAndView){
-
-
-
-    }*/
-
     @GetMapping("/slider-delete-by-{id}")
-    public ModelAndView editMainSlider(@PathVariable("id") Long dataId, ModelAndView modelAndView){
+    public ModelAndView deleteMainSlider(@PathVariable("id") Long dataId, ModelAndView modelAndView){
 
         mainSliderService.deleteById(dataId);
 
@@ -56,6 +49,23 @@ public class MainSliderController {
         return modelAndView;
     }
 
+    @GetMapping("/slider-edit-by-{id}")
+    public ModelAndView editMainSlider(@PathVariable("id") Long dataId, @RequestParam MultipartFile file, @RequestParam String name, @RequestParam String url,ModelAndView modelAndView) throws IOException {
+
+        mainSliderService.editById(dataId, file, name, url);
+
+        modelAndView.setViewName("redirect:/manage_main_slider");
+        return modelAndView;
+    }
+
+    @PostMapping("/slider-edit")
+    public ModelAndView editData(@RequestParam Long sliderId, @RequestParam MultipartFile editFile, @RequestParam String editName, @RequestParam String editUrl, ModelAndView modelAndView) throws IOException {
+        mainSliderService.editById(sliderId, editFile, editName, editUrl);
+
+
+        modelAndView.setViewName("redirect:/manage_main_slider");
+        return modelAndView;
+    }
 
 
 

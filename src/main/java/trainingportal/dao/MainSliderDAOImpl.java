@@ -42,11 +42,18 @@ public class MainSliderDAOImpl extends JdbcDaoSupport implements MainSliderDao {
     }
 
     @Override
-    public void update(MainSliderModel slide) {
-        String sql = MainSliderMapper.EDIT_SQL + " WHERE main_slider_id = ?";
+    public void updateAll(MainSliderModel slide) {
+        String sql = MainSliderMapper.EDIT_ALL_SQL + " WHERE main_slider_id = ?";
 
         this.getJdbcTemplate().update(sql, slide.getFilesName(), slide.getFilesType(), slide.getFilesData(),
-                slide.getFilesData(), slide.getButtonName(), slide.getButtonUrl());
+                slide.getButtonName(), slide.getButtonUrl(), slide.getMainSliderId());
+    }
+
+    @Override
+    public void updateWithoutFile(MainSliderModel slide) {
+        String sql = MainSliderMapper.EDIT_WITHOUT_FILE_SQL + " WHERE main_slider_id = ?";
+
+        this.getJdbcTemplate().update(sql, slide.getButtonName(), slide.getButtonUrl(), slide.getMainSliderId());
     }
 
     @Override

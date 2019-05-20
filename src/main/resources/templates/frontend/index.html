@@ -39,7 +39,7 @@
         <div class="carousel-inner">
             <div class="carousel-item" th:each="slider : ${sliderList}" th:classappend="*{sliderStat.first} ? 'active' : ' '">
                 <img class="d-block mx-auto" th:src="@{'data:image/jpeg;base64,'+${slider.filesDataString}}" th:alt="${slider.filesName}">
-                <div class="carousel-caption">
+                <div class="carousel-caption" th:if="${slider.buttonName != null}">
                     <a th:href="@{${slider.buttonUrl}}" class="btn btn-info" role="button" th:text="${slider.buttonName}"></a>
                 </div>
             </div>
