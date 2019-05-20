@@ -33,7 +33,9 @@ public class ScheduleController {
                                                @PathVariable("groupId") Long id,
                                                ModelAndView modelAndView) {
         List<Schedule> scheduleOfGroup = scheduleService.getAllAsPageByGroupId(id, page , ROWS_LIMIT);
-
+        for(Schedule schedule : scheduleOfGroup){
+            schedule.setScheduleLesson(lessonService.findById(schedule.getScheduleLessonId()));
+        }
         Group group = groupService.findById(id);
         modelAndView.addObject("groupSchedule",group);
 
