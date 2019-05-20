@@ -58,7 +58,7 @@ public class WeekdayDaoImpl extends JdbcDaoSupport implements WeekdayDao {
 
         @Override
         public void save(Weekday weekday) {
-            String sql = "INSERT INTO Weekday (day_name, time_start, time_end) VALUES (?,?,?)";
+            String sql = "INSERT INTO Weekday (day_name, time_start, time_end, period_id) VALUES (?,?,?,?)";
             this.getJdbcTemplate().update(sql, weekday.getWeekdayId(), weekday.getDayName(),weekday.getTimeStart(), weekday.getTimeEnd(), weekday.getPeriodId());
             }
 

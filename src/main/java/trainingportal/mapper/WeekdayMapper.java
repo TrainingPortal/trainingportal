@@ -20,8 +20,8 @@ public class WeekdayMapper implements RowMapper<Weekday>{
     public Weekday mapRow(ResultSet rtS, int rowNum) throws SQLException {
         Long weekdayId = rtS.getLong("weekday_id");
         String dayName = rtS.getString("day_name");
-        Date timeStart = rtS.getDate("time_start");
-        Date timeEnd = rtS.getDate("time_end");
+        String timeStart = rtS.getString("time_start");
+        String timeEnd = rtS.getString("time_end");
         Long desiredPeriodId = rtS.getLong("period_id");
 
         return new Weekday( weekdayId, dayName, timeStart,timeEnd, desiredPeriodId);
