@@ -58,4 +58,6 @@ public interface UserService extends GenericService<User> {
     List<User> searchByRole(Long id, String request, int page, int total);
 
     int getSearchPagesByRole(Long id, double total, String request);
+
+    List<User> findAllManagersForTrainer(Long trainerId);
 }

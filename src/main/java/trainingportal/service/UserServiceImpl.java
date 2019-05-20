@@ -238,4 +238,9 @@ public class UserServiceImpl implements UserService {
     public int getSearchPagesByRole(Long id, double total, String request) {
         return (int) Math.ceil(userRepository.countSearchPagesByRole(id, request) / total);
     }
+
+    @Override
+    public List<User> findAllManagersForTrainer(Long trainerId) {
+        return userRepository.findAllManagersForTrainer(trainerId);
+    }
 }

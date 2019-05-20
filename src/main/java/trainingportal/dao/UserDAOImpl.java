@@ -6,11 +6,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.generic.GenericDaoImpl;
+import trainingportal.mapper.ManagersForTrainerMapper;
 import trainingportal.mapper.UserMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.User;
 
 import javax.sql.DataSource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -173,8 +175,35 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     public int countSearchPagesByRole(Long id, String request) {
 
         String sql = "SELECT COUNT(user_id) FROM users " +
-                "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND role_id = ? ";
+                     "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND role_id = ? ";
 
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);
+    }
+
+    @Override
+    public List<User> findAllManagersForTrainer(Long trainerId) {
+
+        List<User> allManagersList = new ArrayList<>();
+        List<User> finalAllManagersList = new ArrayList<>();
+
+        String sqlAllCourse = UserMapper.allCourseForTrainer + trainerId;
+        String sqlAllUsers = UserMapper.allUsersOnThisCourse;
+        String sqlAllManager = UserMapper.allManagerForWithTrainer;
+
+        List<Long> courseIDList = this.getJdbcTemplate().query(sqlAllCourse, new ManagersForTrainerMapper());
+
+        if (!courseIDList.isEmpty()){
+            for (int i = 0; i < courseIDList.size(); i++) {
+                allManagersList = this.getJdbcTemplate().query(new String(sqlAllUsers + courseIDList.get(i)),new UserMapper());
+            }
+        }
+
+        if (!allManagersList.isEmpty()){
+            for (int i = 0; i < allManagersList.size(); i++) {
+                finalAllManagersList = this.getJdbcTemplate().query(new String(sqlAllManager + allManagersList.get(i).getManagerId()),new UserMapper());
+            }
+        }
+
+        return finalAllManagersList;
     }
 }

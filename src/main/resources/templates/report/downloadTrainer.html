@@ -24,7 +24,7 @@
         <tr th:each="trainer,iter:${trainers}">
             <td th:text="${trainer.userName}"></td>
             <td>
-                <a th:href="@{downloadTrainer/{trainerId} (trainerId = ${trainer.userId})}" class="btn btn-dark">Download file</a>
+                <a th:href="@{downloadTrainer/{trainerId} (trainerId = ${trainer.userId})}" class="btn btn-outline-dark">Download file</a>
             </td>
         </tr>
     </table>

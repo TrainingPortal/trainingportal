@@ -33,7 +33,7 @@ public class MainCardDAOImpl extends JdbcDaoSupport implements MainCardDao {
     }
 
 
-    //insert into database new Card data
+    //insert into database new Card report
     @Override
     public void storeData(MainCardModel card) {
         String sql = MainCardMapper.INSERT_SQL;

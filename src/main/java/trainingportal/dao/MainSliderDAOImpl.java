@@ -33,7 +33,7 @@ public class MainSliderDAOImpl extends JdbcDaoSupport implements MainSliderDao {
     }
 
 
-    //insert into database new Slide data
+    //insert into database new Slide report
     @Override
     public void storeData(MainSliderModel slide) {
         String sql = MainSliderMapper.INSERT_SQL;

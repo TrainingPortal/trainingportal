@@ -26,7 +26,7 @@
                     <a class="nav-link " href="/admin" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">ADMIN</a>
                 </li>
                 <li class="nav-item active">
-                    <a class="nav-link " href="/data/download" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">REPORTS</a>
+                    <a class="nav-link " href="/report/download" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">REPORTS</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
@@ -37,8 +37,12 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/coursepage">COURSES</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item active">
                     <a class="nav-link " href="/instructorpage">TEACHERS</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="/managerListForTrainer/managers"
+                       th:if="${#request.isUserInRole('ROLE_TRAINER') == true}">MANAGERS</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="/chat" th:if="${#request.userPrincipal != null}">FORUM</a>
@@ -89,7 +93,7 @@
                            th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">ADMIN</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="/data/download"
+                        <a class="nav-link " href="/report/download"
                            th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">REPORTS</a>
                     </li>
                     <li class="nav-item active">
@@ -103,6 +107,10 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link " href="/instructorpage">TEACHERS</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link " href="/instructorpage"
+                           th:if="${#request.isUserInRole('ROLE_TRAINER') == true}">MANAGERS</a>
                     </li>
 
                     <li class="nav-item">

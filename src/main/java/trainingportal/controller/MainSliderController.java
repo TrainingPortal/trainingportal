@@ -40,7 +40,7 @@ public class MainSliderController {
         return modelAndView;
     }
 
-    /*@GetMapping("/edit-data-{id}")
+    /*@GetMapping("/edit-report-{id}")
     public ModelAndView editMainSlider(@PathVariable("id") int dataId, ModelAndView modelAndView){
 
 

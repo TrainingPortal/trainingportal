@@ -24,7 +24,7 @@
         <tr th:each="allCourse,iter:${allCourses}">
             <td th:text="${allCourse}"></td>
             <td>
-                <a th:href="@{downloadLevel/{levelName} (levelName = ${allCourse})}" class="btn btn-dark">Download file</a>
+                <a th:href="@{downloadLevel/{levelName} (levelName = ${allCourse})}" class="btn btn-outline-dark">Download file</a>
             </td>
         </tr>
     </table>
