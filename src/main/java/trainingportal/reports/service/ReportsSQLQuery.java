@@ -37,6 +37,7 @@ public class ReportsSQLQuery {
 
     public ReportsSQLQuery() {
 
+        //According the sql query for Trainers
         listWithTrainers.clear();
         listWithTrainers.add("Trainer Name");
         listWithTrainers.add("Email");
@@ -45,6 +46,7 @@ public class ReportsSQLQuery {
         listWithTrainers.add("Course Level");
         listWithTrainers.add("Course Status");
 
+        //According the sql query for Reports
         listWithReports.clear();
         listWithReports.add("User Name");
         listWithReports.add("Role");
@@ -52,6 +54,7 @@ public class ReportsSQLQuery {
         listWithReports.add("Course Name");
         listWithReports.add("Group Name");
 
+        //According the sql query for Levels
         listWithLevels.clear();
         listWithLevels.add("User Name");
         listWithLevels.add("Lesson Date");
