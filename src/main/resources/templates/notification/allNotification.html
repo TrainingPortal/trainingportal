@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>DownloadError</title>
+    <title>Notification</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <meta content="width=device-width" name="viewport">
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
@@ -13,11 +13,13 @@
 
 <div th:insert="frontend/navbar :: nav"></div>
 
-<div class="alert alert-danger" role="alert">
-    <h4 class="alert-heading">Error!</h4>
-    <p>There is no data for selection. Try to add data and come back!</p>
-    <hr>
-    <p class="mb-0">xlsx Export</p>
+<div class="card text-white bg-dark mb-3" style="max-width: 18rem; text-align: center;">
+    <div class="card-header">Notification To <br> {UserName} </div>
+    <div class="card-body">
+        <h5 class="card-title">Notification title</h5>
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    </div>
+    <div class="card-footer bg-transparent border-success">From <br> {FromName}</div>
 </div>
 
 </body>

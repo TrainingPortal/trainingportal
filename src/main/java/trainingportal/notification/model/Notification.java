@@ -10,6 +10,9 @@ public class Notification {
     private Long notificationUserID;
     private Long notificationStatusID;
 
+    public Notification() {
+    }
+
     public Long getNotificationID() {
         return notificationID;
     }

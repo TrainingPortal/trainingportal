@@ -39,6 +39,11 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public List<Notification> findNotificationsByStatus(Long statusID) {
+        return notificationDao.findNotificationsByStatus(statusID);
+    }
+
+    @Override
     public Boolean isNotificationExist(Notification notificationID) {
         return notificationDao.isNotificationExist(notificationID);
     }

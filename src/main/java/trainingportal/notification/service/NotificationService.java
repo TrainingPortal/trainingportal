@@ -16,6 +16,8 @@ public interface NotificationService {
 
     Notification findNotificationByID(Long notificationID);
 
+    List<Notification> findNotificationsByStatus(Long statusID);
+
     Boolean isNotificationExist(Notification notificationID);
 
     void setNotificationMessage(Notification notificationID, String notificationMessage);
