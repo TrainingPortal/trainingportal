@@ -77,7 +77,8 @@ public class WeekdayServiceImpl implements WeekdayService{
         } else {
             page = (page - 1) * total + 1;
         }
-        return WeekdayDao.getAllAsPageByPeriodId(desiredPeriodId, page, total);
+        List<Weekday> allAsPageByPeriodId = WeekdayDao.getAllAsPageByPeriodId(desiredPeriodId, page, total);
+        return allAsPageByPeriodId;
     }
 
     @Override

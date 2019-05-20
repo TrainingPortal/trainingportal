@@ -1,3 +1,5 @@
+
+<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
@@ -7,23 +9,21 @@
     <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
     <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
     <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
-    <title>Period users list</title>
+    <title>Lesson material list</title>
 </head>
 
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
 
+
+
 <div class="container-fluid">
-    <h2>Desired Weekday List</h2>
+    <h2>Weekday List</h2>
 
-<!--        <a class="btn btn-success" th:href="@{/weekday_add}">CREATE NEW WEEKDAY</a>&ndash;&gt;-->
-<!--        <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">-->
-<!--            <a class="btn btn-success btn-lg" th:href="@{/weekday-add-{desiredPeriodId}-->
-<!--        (desiredPeriodId = ${weekdayListOfPeriod.desiredPeriodId})}">CREATE NEW WEEKDAY</a>-->
-<!--        </div>-->
-
-<!--        <a class="btn btn-success btn-lg" th:href="@{/weekday-add-{desiredPeriodId}-->
-<!--              (desiredPeriodId = ${weekday.desiredPeriodId})}">CREATE NEW WEEKDAY</a>-->
+    <div class="btn">
+        <a class="btn btn-success btn-lg" th:href="@{/weekday-add-{desiredPeriodId}
+              (desiredPeriodId =${weekdayOfPeriod.desiredPeriodId})}">CREATE NEW WEEKDAY</a>
+    </div>
 
 
     <table class="table table-striped">
@@ -34,6 +34,8 @@
             <th scope="row">timeStart</th>
             <th scope="row">timeEnd</th>
             <th scope="row">desiredPeriodId</th>
+
+
         </tr>
         </thead>
         <tbody>
@@ -45,11 +47,11 @@
             <td th:text="${weekday.desiredPeriodId}"></td>
             <td>
                 <div class="btn-group">
-                    <!--                    <a class="btn btn-info" th:href="@{/edit-period-{desiredPeriodId}-{id}-->
-                    <!--                    (desiredPeriodId = ${desiredPeriod.desiredPeriodId}, id = ${desiredPeriod.userId}) }">Edit</a>-->
+                    <a class="btn btn-info" th:href="@{/edit-weekday-{desiredPeriodId}-{id}
+                    (desiredPeriodId = ${weekday.weekdayId}, id = ${weekday.desiredPeriodId}) }">Edit</a>
 
-                    <a class="btn btn-dark" th:href="@{/weekday-delete-by-{weekdayId}-{id}
-                     (weekdayId = ${weekday.weekdayId}, id = ${weekday.desiredPeriodId}) }">Delete</a>
+                    <a class="btn btn-dark" th:href="@{/weekday-delete-by/{materialId}/{id}
+                     (materialId = ${weekday.weekdayId}, id = ${weekday.desiredPeriodId}) }">Delete</a>
                 </div>
             </td>
         </tr>

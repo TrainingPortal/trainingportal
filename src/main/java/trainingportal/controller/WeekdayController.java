@@ -123,7 +123,7 @@ public class WeekdayController {
         List<Weekday> weekdayListOfPeriod = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_LIMIT);
 
         DesiredPeriod desiredPeriod =  desiredPeriodService.findById(id);
-        modelAndView.addObject("weekdayListOfPeriod", desiredPeriod);
+        modelAndView.addObject("weekdayOfPeriod", desiredPeriod);
 
         modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_LIMIT));
         modelAndView.addObject("id", id);
@@ -133,7 +133,7 @@ public class WeekdayController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/weekday-add-{desiredPeriodId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/weekday-add/{desiredPeriodId}", method = RequestMethod.GET)
     public ModelAndView addWeekday(@PathVariable Long desiredPeriodId,
                                     ModelAndView modelAndView) {
 
