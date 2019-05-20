@@ -17,13 +17,11 @@ import java.util.List;
 
 @Controller
 public class LessonController {
-
     @Autowired
     private LessonService lessonService;
-
     @Autowired
     private CourseService courseService;
-
+    @Autowired
     private static final int ROWS_LIMIT = 10;
 
     @RequestMapping("/course_lessons/{page}/{courseId}")

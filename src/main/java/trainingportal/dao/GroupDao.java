@@ -1,12 +1,12 @@
 package trainingportal.dao;
 
+import trainingportal.dao.generic.GenericDao;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
 
 import java.util.List;
 
-public interface GroupDao {
-
+public interface GroupDao extends GenericDao<Group> {
     List<Group> GroupsList();
 
     List<Group> getAllAsPageByCourseId(Long courseId, int page, int total);
@@ -23,9 +23,7 @@ public interface GroupDao {
 
     GroupStatus findStatusById(Long id);
 
-    int countAll();
-
-    List<Group> getAllAsPage(int page, int total);
+    List<Group> findAllByCourseId(Long id);
 
     Long getTrainerIdByGroupId(Long groupId);
 

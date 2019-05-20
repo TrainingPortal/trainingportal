@@ -1,7 +1,6 @@
 package trainingportal.model;
 
 public class UserGroup {
-
     private Long id;
 
     private Long groupId;
