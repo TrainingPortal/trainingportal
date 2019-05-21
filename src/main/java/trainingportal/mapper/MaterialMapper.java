@@ -1,6 +1,5 @@
 package trainingportal.mapper;
 
-import org.springframework.jdbc.core.RowMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.Material;
 
@@ -37,7 +36,7 @@ public class MaterialMapper implements BaseObjectMapper<Material> {
 
         res.put("lesson_id", obj.getLessonId());
         res.put("id", obj.getMaterialId());
-        res.put("description",obj.getMaterialDescription());
+        res.put("description", obj.getMaterialDescription());
 
         return res;
     }

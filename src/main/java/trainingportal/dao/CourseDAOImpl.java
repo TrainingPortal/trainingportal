@@ -54,7 +54,7 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
     }
 
     @Override
-    public List<Course> findByTrainerId(Long id){
+    public List<Course> findByTrainerId(Long id) {
         String sql = CourseMapper.SELECT_SQL + " WHERE trainer_id = ?";
         return getCourses(id, sql);
     }
@@ -87,7 +87,7 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
 
     @Override
     protected BaseObjectMapper<Course> getObjectMapper() {
-        return  courseBaseObjectMapper;
+        return courseBaseObjectMapper;
     }
 
     @Override

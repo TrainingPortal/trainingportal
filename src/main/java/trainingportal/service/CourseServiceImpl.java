@@ -7,10 +7,9 @@ import trainingportal.dao.CourseDao;
 import trainingportal.dao.UserDao;
 import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
+import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.generic.GenericServiceImpl;
-import trainingportal.model.Role;
-
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
 
     public int getPagesByUserId(Long userId, double total) {
 
-        if(userId.equals(Role.ADMIN)){
+        if (userId.equals(Role.ADMIN)) {
             return (int) Math.ceil(courseDao.countAll() / total);
         }
 
@@ -55,18 +54,18 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
     public List<Course> getCoursesPage(int page, int total, Long userId, String role) {
 
         //get page number  GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page, total);
 
         List<Course> courseList;
 
-        if(role.equals("ROLE_ADMIN")){
+        if (role.equals("ROLE_ADMIN")) {
             courseList = courseDao.getAllAsPage(page, total);
-        } else if(role.equals("ROLE_TRAINER")){
+        } else if (role.equals("ROLE_TRAINER")) {
             courseList = courseDao.getAllAsPageById(userId, page, total);
         } else {
             courseList = courseDao.getAllAsPageByEmployeeId(userId, page, total);
         }
-        for(Course course : courseList){
+        for (Course course : courseList) {
             course.setTrainer(userDao.findById(course.getTrainerId()));
             course.setStatus(courseDao.findStatusById(course.getCourseStatus()));
         }

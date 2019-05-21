@@ -19,7 +19,7 @@ import java.util.List;
 public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
     @Autowired
     private BaseObjectMapper<Group> groupBaseObjectMapper;
-    
+
     //Define table and id column
     private static final String TABLE_NAME = "groups";
     private static final String ID_COLUMN = "id";
@@ -56,7 +56,7 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
 
     @Override
     public void saveGroup(Group group) {
-        String sql = "INSERT INTO groups (name, capacity, course_id, status_id) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO GROUPS (name, capacity, course_id, status_id) VALUES (?,?,?,?)";
         this.getJdbcTemplate().update(sql, new Object[]{group.getGroupName(), group.getGroupCapacity(),
                 group.getCourseId(), group.getStatusId()});
     }

@@ -1,8 +1,8 @@
 package trainingportal.model;
 
 public class QuestionStatus {
-   private Long questionId;
-   private String questionStatusName;
+    private Long questionId;
+    private String questionStatusName;
 
     public QuestionStatus() {
     }
@@ -27,4 +27,13 @@ public class QuestionStatus {
     public void setQuestionStatusName(String questionStatusName) {
         this.questionStatusName = questionStatusName;
     }
+
+    @Override
+    public String toString() {
+        return "QuestionStatus{" +
+                "questionId=" + questionId +
+                ", questionStatusName='" + questionStatusName + '\'' +
+                '}';
+    }
+
 }

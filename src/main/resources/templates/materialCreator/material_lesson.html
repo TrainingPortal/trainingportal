@@ -29,19 +29,19 @@
               (lessonId =${materialOfLesson.lessonId})}">CREATE NEW MATERIAL</a>
     </div>
 
-    <div  class="btn">
+    <div class="btn">
         <a class="btn btn btn-info btn-lg" th:href="@{/course_lessons/1}">Back to Lessons</a>
     </div>
 
-    <div  class="btn">
+    <div class="btn">
         <a class="btn btn btn-info btn-lg" th:href="@{/course_create/1}">Back to Course</a>
     </div>
 
     <table class="table table-striped">
         <thead>
         <tr>
-<!--            <th scope="row">material Id</th>-->
-<!--            <th scope="row">lesson Id</th>-->
+            <!--            <th scope="row">material Id</th>-->
+            <!--            <th scope="row">lesson Id</th>-->
             <th scope="row">material Description</th>
 
 
@@ -49,8 +49,8 @@
         </thead>
         <tbody>
         <tr th:each="material, iter : ${materialListOfLesson}">
-<!--            <td th:text="${material.materialId}"></td>-->
-<!--            <td th:text="${material.lessonId}"></td>-->
+            <!--            <td th:text="${material.materialId}"></td>-->
+            <!--            <td th:text="${material.lessonId}"></td>-->
             <td th:text="${material.materialDescription}"></td>
             <td>
                 <div class="btn-group">
