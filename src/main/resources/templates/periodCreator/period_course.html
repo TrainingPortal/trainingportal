@@ -21,10 +21,6 @@
         (courseId = ${coursePeriod.courseId})}">CREATE NEW Period</a>
     </div>
 
-<!--    <div  class="btn">-->
-<!--        <a class="btn btn btn-info btn-lg" th:href="@{/course_create/1}">Back to Course</a>-->
-<!--    </div>-->
-
     <table class="table table-striped">
         <thead>
         <tr>
@@ -50,15 +46,6 @@
                 </div>
             </td>
 
-<!--                <div class="btn-group" th:if="${#request.isUserInRole('ROLE_ADMIN') == true-->
-<!--                or #request.isUserInRole('ROLE_TRAINER')}">-->
-<!--                    <a class="btn btn-info" th:href="@{/edit-lesson-{lessonId}-{id}-->
-<!--                       (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Edit</a>-->
-
-<!--                    <a class="btn btn-dark" th:href="@{/lesson-delete-by/{lessonId}/{id}-->
-<!--                    (lessonId = ${lesson.lessonId},id = ${lesson.courseId})}">Delete</a>-->
-<!--                </div>-->
-<!--            </td>-->
 
         </tr>
         </tbody>
