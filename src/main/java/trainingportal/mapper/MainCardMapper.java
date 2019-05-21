@@ -25,6 +25,9 @@ public class MainCardMapper implements BaseObjectMapper<MainCardModel> {
     public static final String EDIT_WITHOUT_FILE_SQL
             = "UPDATE main_cards SET card_title = ?, card_text = ?, button_name = ?, card_url = ?";
 
+    public static final String DELETE_SQL
+            = "DELETE FROM main_cards";
+
 
     @Override
     public MainCardModel mapRow(ResultSet resultSet, int rowNum) throws SQLException {
