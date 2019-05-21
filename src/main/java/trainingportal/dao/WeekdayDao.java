@@ -4,10 +4,10 @@ import java.util.List;
 
 public interface WeekdayDao {
 
-    List<Weekday> getWeekdayPeriodId(Long desiredPeriodId);
+    List<Weekday> getWeekdayPeriodId(Long periodId);
 
-    List<Weekday> getAllAsPageByPeriodId(Long desiredPeriodId, int page, int total);
+    List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int total);
 
-    int countAllByPeriodId(Long desiredPeriodId);
+    int countAllByPeriodId(Long periodId);
 }
 

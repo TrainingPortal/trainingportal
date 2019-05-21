@@ -116,14 +116,14 @@ public class WeekdayController {
     private static final int ROWS_LIMIT = 10;
 
 
-    @RequestMapping("/weekday_period/{page}/{desiredPeriodId}")
+    @RequestMapping("/weekday_period/{page}/{periodId}")
     public ModelAndView showWeekdayListOfLessons(@PathVariable("page") int page,
-                                                 @PathVariable("desiredPeriodId") Long id,
+                                                 @PathVariable("periodId") Long id,
                                                  ModelAndView modelAndView) {
         List<Weekday> weekdayListOfPeriod = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_LIMIT);
 
-        DesiredPeriod period = desiredPeriodService.findById(id);
-        modelAndView.addObject("weekdayOfPeriod", period);
+        DesiredPeriod desiredPeriod =  desiredPeriodService.findById(id);
+        modelAndView.addObject("desiredPeriod", desiredPeriod);
 
         modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_LIMIT));
         modelAndView.addObject("id", id);
@@ -133,12 +133,12 @@ public class WeekdayController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/weekday-add-{desiredPeriodId}", method = RequestMethod.GET)
-    public ModelAndView addWeekday(@PathVariable Long desiredPeriodId,
+    @RequestMapping(value = "/weekday-add-{periodId}", method = RequestMethod.GET)
+    public ModelAndView addWeekday(@PathVariable Long periodId,
                                    ModelAndView modelAndView) {
 
         Weekday weekday = new Weekday();
-        weekday.setPeriodId(desiredPeriodId);
+        weekday.setPeriodId(periodId);
 
         modelAndView.addObject("weekday", weekday);
         modelAndView.setViewName("weekdayCreator/weekday_period");
@@ -147,12 +147,12 @@ public class WeekdayController {
     }
 
     @RequestMapping(value = "weekday-save", method = RequestMethod.POST)
-    public ModelAndView saveWeekday(@RequestParam("desiredPeriodId") Long desiredPeriodId,
+    public ModelAndView saveWeekday(@RequestParam("periodId") Long periodId,
                                     Weekday weekday, ModelAndView modelAndView) {
 
         weekdayService.save(weekday);
-        modelAndView.addObject("period_id", desiredPeriodId);
-        modelAndView.setViewName("redirect:/weekday_period/1/" + desiredPeriodId);
+        modelAndView.addObject("period_id", periodId);
+        modelAndView.setViewName("redirect:/weekday_period/1/" + periodId);
         return modelAndView;
     }
 

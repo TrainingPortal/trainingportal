@@ -24,9 +24,9 @@ public class WeekdayMapper implements BaseObjectMapper<Weekday> {
         String dayName = rtS.getString("day_name");
         String timeStart = rtS.getString("time_start");
         String timeEnd = rtS.getString("time_end");
-        Long desiredPeriodId = rtS.getLong("period_id");
+        Long periodId = rtS.getLong("period_id");
 
-        return new Weekday(weekdayId, dayName, timeStart, timeEnd, desiredPeriodId);
+        return new Weekday(weekdayId, dayName, timeStart, timeEnd, periodId);
     }
 
     @Override

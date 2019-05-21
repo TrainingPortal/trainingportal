@@ -65,25 +65,25 @@ public class WeekdayServiceImpl implements WeekdayService{
 
 
     @Override
-    public List<Weekday> getWeekdayPeriodId(Long desiredPeriodId) {
-        return WeekdayDao.getWeekdayPeriodId(desiredPeriodId);
+    public List<Weekday> getWeekdayPeriodId(Long periodId) {
+        return WeekdayDao.getWeekdayPeriodId(periodId);
     }
 
     @Override
-    public List<Weekday> getAllAsPageByPeriodId(Long desiredPeriodId, int page, int total) {
+    public List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int total) {
 
         if(page == 1){
             //do nothing
         } else {
             page = (page - 1) * total + 1;
         }
-        List<Weekday> allAsPageByPeriodId = WeekdayDao.getAllAsPageByPeriodId(desiredPeriodId, page, total);
+        List<Weekday> allAsPageByPeriodId = WeekdayDao.getAllAsPageByPeriodId(periodId, page, total);
         return allAsPageByPeriodId;
     }
 
     @Override
-    public int getPages(Long desiredPeriodId, double total) {
-        return (int) Math.ceil(WeekdayDao.countAllByPeriodId(desiredPeriodId) / total);
+    public int getPages(Long periodId, double total) {
+        return (int) Math.ceil(WeekdayDao.countAllByPeriodId(periodId) / total);
     }
 
 

@@ -20,7 +20,7 @@
             <form action="#" method="post"  th:action="@{/weekday-save}" th:object="${weekday}">
 
                 <input class="form-control" placeholder="Id" th:field="*{weekdayId}" type="hidden"/>
-                <input class="form-control" placeholder="course Id" th:field="*{desiredPeriodId}" type="hidden"/>
+                <input class="form-control" placeholder="course Id" th:field="*{periodId}" type="hidden"/>
 
                 <label>day Name</label>
                 <input class="form-control" placeholder="dayName" th:field="*{dayName}" type="text"/>

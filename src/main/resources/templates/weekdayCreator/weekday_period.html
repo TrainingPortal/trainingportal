@@ -19,8 +19,8 @@
     <h2>Weekday List</h2>
 
     <div class="btn">
-        <a class="btn btn-success btn-lg" th:href="@{/weekday-add-{desiredPeriodId}"
-           (desiredPeriodId=${weekdayOfPeriod.desiredPeriodId})}>CREATE NEW WEEKDAY</a>
+        <a class="btn btn-success btn-lg" th:href="@{/weekday-add-{periodId}
+              (periodId = ${desiredPeriod.desiredPeriodId})}">CREATE NEW WEEKDAY</a>
 
     </div>
 
@@ -31,7 +31,7 @@
             <th scope="row">dayName</th>
             <th scope="row">timeStart</th>
             <th scope="row">timeEnd</th>
-            <th scope="row">desiredPeriodId</th>
+            <th scope="row">PeriodId</th>
 
 
         </tr>
@@ -42,14 +42,14 @@
             <td th:text="${weekday.dayName}"></td>
             <td th:text="${weekday.timeStart}"></td>
             <td th:text="${weekday.timeEnd}"></td>
-            <td th:text="${weekday.desiredPeriodId}"></td>
+            <td th:text="${weekday.periodId}"></td>
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-info" th:href="@{/edit-weekday-{desiredPeriodId}-{id}
-                    (desiredPeriodId = ${weekday.weekdayId}, id = ${weekday.desiredPeriodId}) }">Edit</a>
+                    <a class="btn btn-info" th:href="@{edit-weekday-{weekdayId}-{id}
+                    (weekdayId = ${weekday.weekdayId}, id = ${weekday.PeriodId}) }">Edit</a>
 
                     <a class="btn btn-dark" th:href="@{/weekday-delete-by/{weekdayId}/{id}
-                     (weekdayId = ${weekday.weekdayId}, id = ${weekday.desiredPeriodId}) }">Delete</a>
+                     (weekdayId = ${weekday.weekdayId}, id = ${weekday.periodId}) }">Delete</a>
                 </div>
             </td>
         </tr>

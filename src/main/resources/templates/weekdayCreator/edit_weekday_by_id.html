@@ -12,14 +12,14 @@
 <th scope="row">dayName</th>
 <th scope="row">timeStart</th>
 <th scope="row">timeEnd</th>
-<th scope="row">desiredPeriodId</th>
+<th scope="row">periodId</th>
 <div th:insert="frontend/navbar :: nav"></div>
 
 <h1>Edit material</h1>
 <div class="row justify-content-center">
     <div class="col-md-4 col-md-offset-4">
         <form action="#" method="post" th:action="@{/edit-weekday-{weekdayId}-{id}
-                            (weekdayId = ${weekday.weekdayId}, id = ${weekday.desiredPeriodId})}" th:object="${weekday}">
+                            (weekdayId = ${weekday.weekdayId}, id = ${weekday.periodId})}" th:object="${weekday}">
 
             <input class="form-control" placeholder="material id" th:field="*{weekdayId}" type="hidden"/>
 
@@ -32,16 +32,16 @@
                 Error, check dayName field</p>
 
             <label>timeStart</label>
-            <input class="form-control" placeholder="timeStart" th:field="*{timeStart}" type="time"/>
+            <input class="form-control" placeholder="timeStart" th:field="*{timeStart}" type="text"/>
             <p class="alert alert-danger" th:errors="*{timeStart}" th:if="${#fields.hasErrors('timeStart')}">
                 Error, timeStart field</p>
 
             <label>timeEnd</label>
-            <input class="form-control" placeholder="timeEnd" th:field="*{timeEnd}" type="time"/>
+            <input class="form-control" placeholder="timeEnd" th:field="*{timeEnd}" type="text"/>
             <p class="alert alert-danger" th:errors="*{timeEnd}" th:if="${#fields.hasErrors('timeEnd')}">
                 Error, timeEnd field</p>
 
-            <input class="form-control" placeholder="lesson id" th:field="*{desiredPeriodId}" type="hidden"/>
+            <input class="form-control" placeholder="lesson id" th:field="*{periodId}" type="hidden"/>
 
 
             <input class="btn btn-success" type="submit" value="Save"/>

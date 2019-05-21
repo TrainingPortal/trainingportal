@@ -17,17 +17,17 @@ public class Weekday {
     private String timeEnd;
 
     @NotNull
-    private Long desiredPeriodId;
+    private Long periodId;
 
     public Weekday() {
     }
 
-    public Weekday(@NotNull Long weekdayId, @NotNull String dayName, @NotNull String timeStart, @NotNull String timeEnd, @NotNull Long desiredPeriodId) {
+    public Weekday(@NotNull Long weekdayId, @NotNull String dayName, @NotNull String timeStart, @NotNull String timeEnd, @NotNull Long periodId) {
         this.weekdayId = weekdayId;
         this.dayName = dayName;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
-        this.desiredPeriodId = desiredPeriodId;
+        this.periodId = periodId;
     }
 
     public Long getWeekdayId() {
@@ -47,7 +47,7 @@ public class Weekday {
     }
 
     public Long getPeriodId() {
-        return desiredPeriodId;
+        return periodId;
     }
 
     public void setWeekdayId(Long weekdayId) {
@@ -66,7 +66,7 @@ public class Weekday {
         this.timeEnd = timeEnd;
     }
 
-    public void setPeriodId(Long desiredPeriodId) {
-        this.desiredPeriodId = desiredPeriodId;
+    public void setPeriodId(Long periodId) {
+        this.periodId = periodId;
     }
 }

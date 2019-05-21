@@ -10,10 +10,10 @@ public interface WeekdayService extends GenericService<Weekday> {
 
     int getNumberOfPages(List<Weekday> users, double total);
 
-    List<Weekday> getWeekdayPeriodId(Long desiredPeriodId);
+    List<Weekday> getWeekdayPeriodId(Long periodId);
 
-    List<Weekday> getAllAsPageByPeriodId(Long desiredPeriodId, int page, int total);
+    List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int total);
 
-    int getPages(Long desiredPeriodId, double total);
+    int getPages(Long periodId, double total);
 }
 
