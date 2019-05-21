@@ -5,12 +5,13 @@ import org.springframework.stereotype.Service;
 import trainingportal.export.Export;
 import trainingportal.reports.dao.ReportsDao;
 import trainingportal.reports.dao.exception.DataDaoExceptions;
+import trainingportal.reports.mapper.ReportsMapper;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class ReportsServiceExcel {
+public class ReportsServiceFormExcel {
 
     @Autowired
     private ReportsDao reportsDao;
@@ -23,15 +24,15 @@ public class ReportsServiceExcel {
         //Here we use method that form sql string request query and set this string to our variable sql
         String sql = reportsDao.setSQL(fields, tableName, null);
 
-        List<List> allCol = reportsDao.getFieldsFromTable(fields, fileName, labelName, sql);
+        List<List> allColList = reportsDao.getFieldsFromTable(fields, fileName, labelName, sql);
 
         //create new List<List> with name of fields
-        List<List> allColWithName = addNameToList(allCol, fields);
+        List<List> allColWithName = addNameToList(allColList, fields);
 
         //Use Export For our List<List> formed data
         useExport(fileName, labelName, allColWithName);
 
-        return allCol;
+        return allColList;
     }
 
     public List<List> findFieldsFromTableWithCondition(List<String> fields, String tableName, String fileName, String labelName, String whereCondition) {

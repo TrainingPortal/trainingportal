@@ -13,7 +13,7 @@ import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.reports.download.Loader;
 import trainingportal.reports.service.Filter;
-import trainingportal.reports.service.ReportsSQLQuery;
+import trainingportal.reports.service.ReportsCreate;
 import trainingportal.service.AttendanceTypeService;
 import trainingportal.service.CourseService;
 import trainingportal.service.UserService;
@@ -37,7 +37,7 @@ public class ReportsController {
     private AttendanceTypeService attendanceTypeService;
 
     @Autowired
-    private ReportsSQLQuery report;
+    private ReportsCreate report;
 
     @Autowired
     private Filter filter;
