@@ -24,4 +24,10 @@ public interface GroupService extends GenericService<Group> {
     boolean isTrainerConnectedWithGroup(Long trainerId, Long groupId);
 
     List<Group> getGroupsPage(Long courseId, int page, int total, Long userId, String role);
+
+    boolean isConnectedWithTrainerByGroupId(Long trainerId, Long groupId);
+
+    boolean isConnectedWithUserByGroupId(Long userId, Long groupId);
+
+    void deleteFromUserGroupByUserIdAndGroupId(Long userId, Long groupId);
 }

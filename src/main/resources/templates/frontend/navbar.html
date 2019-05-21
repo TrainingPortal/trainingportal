@@ -37,8 +37,9 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profilepage">PROFILE</a>
+                <li class="nav-item" th:if="${#request.userPrincipal != null}">
+                    <a class="nav-link" href="#"
+                       th:href="@{/profile_page/{userId}(userId=${@userSecurity.getLoggedInUserId()})}">PROFILE</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="coursepage">COURSES</a>
@@ -107,9 +108,9 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="/">HOME<span class="sr-only">(current)</span></a>
                     </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/profilepage">PROFILE</a>
+                    <li class="nav-item" th:if="${#request.userPrincipal != null}">
+                        <a class="nav-link" href="#"
+                           th:href="@{/profile_page/{userId}(userId=${@userSecurity.getLoggedInUserId()})}">PROFILE</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#" th:href="@{/course_create/{page}(page=1)}">COURSES</a>

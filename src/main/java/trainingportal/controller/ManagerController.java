@@ -64,22 +64,6 @@ public class ManagerController {
         return model;
     }
 
-    /*@GetMapping("/addsubordinates/{page}")
-    public ModelAndView showAddSubordinates(@PathVariable("page") int page, Long id, ModelAndView model) {
-
-        List<User> users = managerService.getFreeUsersAsPage(page, ROWS_LIMIT);
-
-        model.addObject("users", users);
-        model.addObject("pages", managerService.getFreeUsersPages(ROWS_LIMIT));
-        model.addObject("manager", managerService.findById(id));
-        model.addObject("currentUrl", "addsubordinates");
-        model.addObject("id", id);
-
-        model.setViewName("manager/addsubordinates");
-
-        return model;
-    }*/
-
     @GetMapping("/addsubordinates/{id}")
     public ModelAndView showAddSubordinates(@PathVariable("id") Long id, ModelAndView model) {
 
@@ -102,7 +86,6 @@ public class ManagerController {
 
         redir.addFlashAttribute("infoMessage", message);
 
-        //model.addObject("id", managerId);
         model.setViewName("redirect:/subordinates/1/" + managerId);
 
         return model;
@@ -137,7 +120,6 @@ public class ManagerController {
 
         redir.addFlashAttribute("successMessage",
                 "User " + employee.getUserName() + " " + employee.getEmail() + " has no manager now.");
-        //model.addObject("id", manager.getUserId());
         model.setViewName("redirect:subordinates/1/" + manager.getUserId());
 
         return model;
@@ -146,7 +128,6 @@ public class ManagerController {
     @GetMapping("backtosubordinates{id}")
     public ModelAndView backToManager(@PathVariable("id") Long id, ModelAndView model) {
 
-        //model.addObject("id", id);
         model.setViewName("redirect:subordinates/1/" + id);
 
         return model;

@@ -53,7 +53,7 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
     }
 
     @Override
-    public boolean isConnectedWithTrainer(Long userId, Long courseId) {
+    public boolean isConnectedWithTrainerByCourseId(Long userId, Long courseId) {
         Long trainerId =  lessonDao.getTrainerIdByCourseId(courseId);
 
         return userId == trainerId;
