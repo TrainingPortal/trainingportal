@@ -1,6 +1,7 @@
 package trainingportal.controller;
 
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.MainCardModel;
 import trainingportal.service.MainCardService;
 
@@ -33,10 +34,10 @@ public class MainCardController {
     @PostMapping("/card-save")
     public ModelAndView uploadData(@RequestParam MultipartFile file, @RequestParam String title,
                                    @RequestParam String description, @RequestParam String name,
-                                   @RequestParam String url, ModelAndView modelAndView) throws IOException {
-        mainCardService.storeData(file, title, description, name, url);
+                                   @RequestParam String url, ModelAndView modelAndView, RedirectAttributes redirect) throws IOException {
+        String message = mainCardService.storeData(file, title, description, name, url);
 
-
+        redirect.addFlashAttribute("message", message);
         modelAndView.setViewName("redirect:/manage_main_card");
         return modelAndView;
     }
