@@ -24,6 +24,7 @@
     <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">
         <a class="btn btn btn-info btn-lg" th:href="@{/admin }">Back to admin</a>
     </div>
+    <a class="btn btn btn-info btn-lg" th:href="@{/weekday_period/1/1?id=1}">Weekdays</a>
 
 
     <table class="table table-striped">

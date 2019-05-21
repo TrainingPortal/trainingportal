@@ -45,8 +45,10 @@
             <td th:text="${weekday.periodId}"></td>
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-info" th:href="@{edit-weekday-{weekdayId}-{id}
-                    (weekdayId = ${weekday.weekdayId}, id = ${weekday.PeriodId}) }">Edit</a>
+                  
+                    <a class="btn btn-info" th:href="@{/edit-weekday-{weekdayId}-{id}
+                    (weekdayId = ${weekday.weekdayId}, id = ${weekday.periodId}) }">Edit</a>
+
 
                     <a class="btn btn-dark" th:href="@{/weekday-delete-by/{weekdayId}/{id}
                      (weekdayId = ${weekday.weekdayId}, id = ${weekday.periodId}) }">Delete</a>
