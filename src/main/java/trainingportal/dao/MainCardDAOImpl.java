@@ -40,14 +40,31 @@ public class MainCardDAOImpl extends GenericDaoImpl<MainCardModel> implements Ma
             return Collections.emptyList();
     }
 
+    @Override
+    public void updateAll(MainCardModel card) {
+        String sql = MainCardMapper.EDIT_ALL_SQL + " WHERE main_card_id = ?";
+
+        this.getJdbcTemplate().update(sql, card.getFilesName(), card.getFilesType(), card.getFilesData(),
+                card.getCardTitle(), card.getCardText(), card.getButtonName(), card.getCardUrl(), card.getMainCardId());
+    }
+
+    @Override
+    public void updateWithoutFile(MainCardModel card) {
+        String sql = MainCardMapper.EDIT_WITHOUT_FILE_SQL + " WHERE main_card_id = ?";
+
+        this.getJdbcTemplate().update(sql, card.getCardTitle(), card.getCardText(), card.getButtonName(),
+                card.getCardUrl(), card.getMainCardId());
+  
     //insert into database new Card data
     @Override
     public void storeData(MainCardModel card) {
         String sql = MainCardMapper.INSERT_SQL;
+      
         if (this.getJdbcTemplate() != null) {
             this.getJdbcTemplate().update(sql, card.getFilesName(), card.getFilesType(), card.getFilesData(),
                     card.getCardTitle(), card.getCardText(), card.getButtonName(), card.getCardUrl());
         }
+
     }
 
     @Override
