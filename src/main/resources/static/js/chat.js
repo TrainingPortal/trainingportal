@@ -10,15 +10,23 @@ var connectingElement = document.querySelector('.connecting');
 
 var stompClient = null;
 var username = null;
+var id = null;
+var chatId = null;
 
 var colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
+window.onload = function () {
+    changeHistoryMessagesColor();
+    scrollMessageAreaToBottom();
+}
+
 function connect(event) {
     username = document.querySelector('#name').textContent;
-
+    id = document.querySelector('#id').textContent;
+    chatId = document.querySelector('#chatId').textContent;
     // if(username) {
         usernamePage.classList.add('hidden');
         chatPage.classList.remove('hidden');
@@ -58,8 +66,12 @@ function sendMessage(event) {
     if(messageContent && stompClient) {
         var chatMessage = {
             sender: username,
-            content: messageInput.value,
-            type: 'CHAT'
+            message: messageInput.value,
+            type: 'CHAT',
+            senderId:id,
+            chatId:chatId,
+            messageDate:"date"
+
         };
 
         stompClient.send("/app/chat.sendMessage", {}, JSON.stringify(chatMessage));
@@ -71,16 +83,17 @@ function sendMessage(event) {
 
 function onMessageReceived(payload) {
     var message = JSON.parse(payload.body);
+    var chatId = document.getElementById('chatId').innerHTML;
 
-    var messageElement = document.createElement('li');
 
     if(message.type === 'JOIN') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' joined!';
+        // messageElement.classList.add('event-message');
+        // message.content = message.sender + ' joined!';
     } else if (message.type === 'LEAVE') {
-        messageElement.classList.add('event-message');
-        message.content = message.sender + ' left!';
-    } else {
+        // messageElement.classList.add('event-message');
+        // message.content = message.sender + ' left!';
+    } else if(chatId == message.chatId){
+        var messageElement = document.createElement('li');
         messageElement.classList.add('chat-message');
 
         var avatarElement = document.createElement('i');
@@ -92,12 +105,24 @@ function onMessageReceived(payload) {
 
         var usernameElement = document.createElement('span');
         var usernameText = document.createTextNode(message.sender);
+
+
+
+
+
+
         usernameElement.appendChild(usernameText);
         messageElement.appendChild(usernameElement);
+
     }
+    var dateElement = document.createElement('p');
+
+    var messageDate = document.createTextNode(message.messageDate);
+    dateElement.appendChild(messageDate);
+    messageElement.appendChild(dateElement);
 
     var textElement = document.createElement('p');
-    var messageText = document.createTextNode(message.content);
+    var messageText = document.createTextNode(message.message);
     textElement.appendChild(messageText);
 
     messageElement.appendChild(textElement);
@@ -115,6 +140,21 @@ function getAvatarColor(messageSender) {
 
     var index = Math.abs(hash % colors.length);
     return colors[index];
+}
+
+
+function changeHistoryMessagesColor(){
+    var messages = document.getElementsByClassName('chat-message');
+    for(var i=0; i< messages.length; i++){
+        var message = messages[i];
+        var name = message.querySelector("span").innerHTML;
+        var color = getAvatarColor(name);
+        message.querySelector("i").style['background-color'] = color;
+    }
+}
+
+function scrollMessageAreaToBottom(){
+    messageArea.scrollTop = messageArea.scrollHeight;
 }
 
 usernameForm.addEventListener('submit', connect, true)
