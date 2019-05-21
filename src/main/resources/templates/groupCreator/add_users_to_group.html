@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add Subordinates</title>
+    <title>Add users to group</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
     <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}"/>
@@ -15,24 +15,17 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="py-0 my-0 pl-3 bg-primary text-white">
-    <h1 class="my-0 py-0">Add Subordinates</h1>
+    <h1 class="my-0 py-0">Add Users to Group</h1>
 </div>
 
 <input class="form-control" id="myInput" type="text" placeholder="Search..">
 
-<div style="margin-bottom: 0;" th:if="${successMessage}"
-     class="alert alert-success" role="alert"
-     th:text="${successMessage}">
-</div>
-
-<!--<h1 th:text="'Select all individuals to be claimed as subordinates of ' + ${manager.userName}"></h1>-->
-
 <div th:if="${users.size() == 0}">
-    <p>There are no free users</p>
+    <p>There are no appropriate users</p>
 </div>
 
 <div th:unless="${users.size() == 0}">
-    <form action="#" th:object="${users}" th:action="@{/addSelectedSubordinates/{id}(id=${manager.userId})}" method="post">
+    <form action="#" th:object="${users}" th:action="@{/add_selected_users_to_group/{groupId}(groupId=${groupId})}" method="post">
         <table class="table pt-0 mt-0 table-fit table-sm table-hover">
             <thead class="">
             <tr>
@@ -52,13 +45,11 @@
             </tbody>
         </table>
 
-        <input type="hidden" name="managerId" th:value="${manager.userId}" />
+        <input type="hidden" name="managerId" th:value="${groupId}" />
         <input type="submit" class="btn btn-success" value="Add selected"/>
     </form>
 </div><br>
-<a th:href="@{/backtosubordinates{id}(id=${manager.userId})}" class="btn btn-info">Return to subordinates</a>
-<a th:href="@{/managers/{page}(page=1)}" class="btn btn-info">Return to managers</a>
-<!--<div th:replace="frontend/pagination :: pagination_with_id"></div>-->
+<a th:href="@{/group_users/1/{groupId}(groupId=${groupId})}" class="btn btn-info">Back to group</a>
 
 <script>
     $(document).ready(function(){

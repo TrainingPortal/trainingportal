@@ -41,4 +41,12 @@ public interface UserDao extends GenericDao<User> {
     int countSearchPagesByRole(Long id, String request);
 
     User findUserAccount(String email);
+
+    List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId);
+
+    int countUsersByGroupId(Long groupId);
+
+    List<User> findUsersForGroupByGroupId(Long groupId);
+
+    void deleteFromDesiredPeriodByUserId(Long userId);
 }

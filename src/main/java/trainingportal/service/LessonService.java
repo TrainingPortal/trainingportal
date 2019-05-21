@@ -12,7 +12,7 @@ public interface LessonService extends GenericService<Lesson> {
 
     int getPages(Long courseId, double total);
 
-    boolean isConnectedWithTrainer(Long userId, Long courseId);
+    boolean isConnectedWithTrainerByCourseId(Long userId, Long courseId);
 
     Lesson getLessonByScheduleId(Long id);
 
