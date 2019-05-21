@@ -37,11 +37,12 @@ public class CourseController {
 
         modelAndView.addObject("courseList", courseList);
         modelAndView.addObject("pages",
-                courseService.getPagesByUserId(userSecurity.getLoggedInUserId() ,ROWS_LIMIT));
+                courseService.getPagesByUserId(userSecurity.getLoggedInUserId(), ROWS_LIMIT));
         modelAndView.addObject("currentUrl", "course_create");
         modelAndView.setViewName("courseCreator/course_create");
         return modelAndView;
     }
+
     @RequestMapping(value = "/course-add", method = RequestMethod.GET)
     public ModelAndView addCourse(ModelAndView modelAndView) {
 

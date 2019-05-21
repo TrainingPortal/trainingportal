@@ -37,7 +37,7 @@ public class MaterialServiceImpl extends GenericServiceImpl<Material> implements
     public List<Material> getAllAsPageByLessonId(Long lessonId, int page, int total) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page, total);
 
         return materialDao.getAllAsPageByLessonId(lessonId, page, total);
     }

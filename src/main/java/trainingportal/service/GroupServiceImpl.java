@@ -27,7 +27,7 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     public List<Group> getAllAsPageByCourseId(Long courseId, int page, int total) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page, total);
 
         return groupDAO.getAllAsPageByCourseId(courseId, page, total);
     }
@@ -36,7 +36,7 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     public List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int total) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page, total);
 
         return groupDAO.getUserGroupsAsPageByCourseIdAndUserId(courseId, userId, page, total);
     }
@@ -69,14 +69,14 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     }
 
     @Override
-    public int getPages(Long courseId,double total) {
+    public int getPages(Long courseId, double total) {
         return (int) Math.ceil(groupDAO.countAll() / total);
     }
 
     @Override
     public boolean isTrainerConnectedWithGroup(Long trainerId, Long groupId) {
 
-        Long userId =  groupDAO.getTrainerIdByGroupId(groupId);
+        Long userId = groupDAO.getTrainerIdByGroupId(groupId);
 
         return userId.equals(trainerId);
     }
@@ -85,17 +85,17 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     public List<Group> getGroupsPage(Long courseId, int page, int total, Long userId, String role) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page, total);
 
         List<Group> groupList;
 
-        if(role.equals("ROLE_EMPLOYEE") || role.equals("ROLE_MANAGER")) {
+        if (role.equals("ROLE_EMPLOYEE") || role.equals("ROLE_MANAGER")) {
             groupList = groupDAO.getUserGroupsAsPageByCourseIdAndUserId(courseId, userId, page, total);
         } else {
             groupList = groupDAO.getAllAsPageByCourseId(courseId, page, total);
         }
 
-        for(Group group : groupList){
+        for (Group group : groupList) {
             group.setCourse(courseDao.findById(group.getCourseId()));
             group.setStatus(groupDAO.findStatusById(group.getStatusId()));
         }

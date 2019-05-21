@@ -5,9 +5,13 @@ public class InfoDesk {
     private Long employeeId;
     private String infoDeskDescription;
     private Long infoDeskStatusId;
+    private User senderName;
+    private String sender;
+    private QuestionStatus questionStatus;
 
     public InfoDesk() {
     }
+
 
     public InfoDesk(Long infoDeskId, Long employeeId, String infoDeskDescription, Long infoDeskStatusId) {
         this.infoDeskId = infoDeskId;
@@ -47,4 +51,42 @@ public class InfoDesk {
     public void setInfoDeskStatusId(Long infoDeskStatusId) {
         this.infoDeskStatusId = infoDeskStatusId;
     }
+
+    public User getSenderName() {
+        return senderName;
+    }
+
+    public void setSenderName(User senderName) {
+        this.senderName = senderName;
+    }
+
+    public String getSender() {
+        return sender;
+    }
+
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
+    public QuestionStatus getQuestionStatus() {
+        return questionStatus;
+    }
+
+    public void setQuestionStatus(QuestionStatus questionStatus) {
+        this.questionStatus = questionStatus;
+    }
+
+    @Override
+    public String toString() {
+        return "InfoDeskService{" +
+                "infoDeskId=" + infoDeskId +
+                ", employeeId=" + employeeId +
+                ", infoDeskDescription='" + infoDeskDescription + '\'' +
+                ", infoDeskStatusId=" + infoDeskStatusId +
+                ", senderName=" + senderName +
+                ", sender='" + sender + '\'' +
+                ", questionStatus=" + questionStatus +
+                '}';
+    }
+
 }
