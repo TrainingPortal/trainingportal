@@ -45,6 +45,10 @@ public class MapperConfig {
         return new MaterialMapper();
     }
     @Bean
+    public BaseObjectMapper<Weekday> weekdayBaseObjectMapper(){
+        return new WeekdayMapper();
+    }
+    @Bean
     public BaseObjectMapper<Role> roleBaseObjectMapper(){
         return new RoleMapper();
     }

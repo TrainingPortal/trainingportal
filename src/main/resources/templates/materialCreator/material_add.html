@@ -19,6 +19,8 @@
         <div class="col">
             <form action="#" method="post" th:action="@{material-save}"  th:object="${material}">
 
+            <form action="#" method="post" th:action="@{material-save}"  th:object="${material}">
+
                 <input class="form-control" placeholder="Id" th:field="*{materialId}" type="hidden"/>
                 <input class="form-control" placeholder="lessonId" th:field="*{lessonId}" type="hidden"/>
 
@@ -31,8 +33,10 @@
 
                 <input class="btn btn-success" type="submit" value="Save material"/>
             </form>
+            </form>
         </div>
     </div>
+
 
 </div>
 

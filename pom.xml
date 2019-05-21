@@ -141,7 +141,6 @@
             <artifactId>ojdbc8</artifactId>
             <version>18.3.0.0</version>
         </dependency>
-
     </dependencies>
 
     <repositories>
