@@ -19,9 +19,10 @@ public class Lesson {
     private Long courseId;
     @NotNull
     private int lessonNumber;
+    public Lesson() {}
 
 
-    public Lesson() {
+    public Lesson(Long lessonId, String lessonName, String lessonDescription, Double lessonDuration, Long homeworkId, Long courseId, int lessonNumber) {
     }
 
     public Lesson(@NotNull Long lessonId, @Size(min = 1, max = 40) @NotNull String lessonName, @Size(min = 1, max = 30) String lessonDescription, @Size(min = 10, max = 120) @NotNull Double lessonDuration, @NotNull Long courseId, @NotNull int lessonNumber) {
