@@ -105,10 +105,10 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
     @Override
     public Long getTrainerIdByGroupId(Long groupId) {
 
-        String sql = "SELECT MAX(a.trainer_id) FROM Course a " +
+        String sql = "SELECT a.trainer_id FROM Course a " +
                 "INNER JOIN Groups b " +
                 "ON a.course_id = b.course_id " +
-                "WHERE b.course_id = ?";
+                "WHERE b.id = ?";
 
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, Long.class);

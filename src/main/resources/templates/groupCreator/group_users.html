@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Group users</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport">
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<div style="margin-bottom: 0;" th:if="${infoMessage}"
+     class="alert alert-info" role="alert"
+     th:text="${infoMessage}">
+</div>
+
+<div class="container-fluid">
+    <h2>Groups Users</h2>
+    <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">
+        <a class="btn btn-success btn-lg" th:href="@{/add_users_to_group/{groupId}(groupId=${groupId})}">Add users</a>
+    </div>
+
+    <div class="btn">
+        <a class="btn btn btn-info btn-lg"
+           th:href="@{/admin }" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">Back to admin</a>
+    </div>
+
+    <div class="btn">
+        <a class="btn btn btn-info btn-lg" th:href="@{/group_create/1/{groupId}(groupId=${groupId})}">Back to Group</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="row">User name</th>
+            <th scope="row">User email</th>
+            <th scope="row"
+                th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">Actions
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user, iter : ${userList}">
+            <td th:text="${user.userName}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">
+                <div class="btn-group">
+                    <a th:href="@{/release_user_from_group/{userId}/{groupId}
+                    (userId=${user.userId},groupId=${groupId})}"
+                       class="btn btn-primary">Release</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="frontend/pagination :: pagination"></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

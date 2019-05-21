@@ -209,4 +209,53 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
         } else
             return 0;
     }
+
+    @Override
+    public List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId) {
+
+        String sql = "SELECT a.user_id, a.name, a.email, a.password, a.enabled, a.token, a.role_id, a.manager_id " +
+                "FROM Users a " +
+                "INNER JOIN User_Group b " +
+                "ON a.user_id = b.user_id " +
+                "WHERE b.group_id = ? " +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+
+        return getUsers(groupId, sql);
+    }
+
+    @Override
+    public int countUsersByGroupId(Long groupId) {
+
+        String sql = "SELECT COUNT(a.user_id) FROM Users a " +
+                "INNER JOIN User_Group b " +
+                "ON a.user_id = b.user_id " +
+                "WHERE b.group_id = ? ";
+
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, Integer.class);
+        } else
+            return 0;
+    }
+
+    @Override
+    public List<User> findUsersForGroupByGroupId(Long groupId) {
+
+        String sql = "SELECT a.user_id, a.name, a.email, a.password, a.enabled, a.token, a.role_id, a.manager_id " +
+                "FROM Users a " +
+                "INNER JOIN Desired_Period b ON a.user_id = b.user_id " +
+                "INNER JOIN Groups c ON b.course_id = c.course_id " +
+                "WHERE c.id = ?";
+
+        return getUsers(groupId, sql);
+    }
+
+    @Override
+    public void deleteFromDesiredPeriodByUserId(Long userId) {
+
+        String sql = "DELETE FROM Desired_Period WHERE user_id = ?";
+
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, userId);
+        }
+    }
 }
