@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <title>schedule edit</title>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
+</head>
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<h1>Edit Schedule</h1>
+<div class="row justify-content-center">
+    <div class="col-md-4 col-md-offset-4">
+        <form action="#" method="post"
+              th:action="@{/schedule-edit-{scheduleId}-{id} (scheduleId = ${schedule.scheduleId},id = ${schedule.scheduleGroupId})}"
+              th:object="${schedule}">
+
+            <input class="form-control" placeholder="Id" th:field="*{scheduleId}" type="hidden"/>
+            <input class="form-control" placeholder="course Id" th:field="*{scheduleGroupId}" type="hidden"/>
+            <input class="form-control" placeholder="Schedule Less Id" th:field="*{scheduleLessonId}" type="hidden"/>
+
+            <label>Lesson date</label>
+            <input class="form-control" placeholder="Schedule Date" th:field="*{scheduleDate}" type="date"/>
+            <p class="alert alert-danger" th:errors="*{scheduleDate}" th:if="${#fields.hasErrors('scheduleDate')}">
+                Error, check name field</p>
+
+            <input class="btn btn-success" type="submit" value="Save"/>
+        </form>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

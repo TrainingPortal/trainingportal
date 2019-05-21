@@ -12,40 +12,34 @@ import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
 import trainingportal.model.Role;
 import trainingportal.model.User;
+import trainingportal.security.UserSecurity;
 import trainingportal.service.CourseService;
-import trainingportal.service.LessonService;
 import trainingportal.service.UserService;
-import trainingportal.universalexportcreator.dao.DataDaoImpl;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class CourseController {
-
     @Autowired
-    CourseService courseService;
-
+    private CourseService courseService;
     @Autowired
-    UserService userService;
-
+    private UserService userService;
     @Autowired
-    LessonService lessonService;
+    private UserSecurity userSecurity;
 
     private static final int ROWS_LIMIT = 10;
 
     @RequestMapping(value = "/course_create/{page}")
     public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId, ModelAndView modelAndView) {
 
-        List<Course> courseList = courseService.getAllAsPage(page, ROWS_LIMIT);
-        for(Course course : courseList){
-            course.setTrainer(userService.findById(course.getTrainerId()));
-            course.setStatus(courseService.findStatusById(course.getCourseStatus()));
-        }
+        List<Course> courseList = courseService.getCoursesPage(page, ROWS_LIMIT,
+                userSecurity.getLoggedInUserId(), userSecurity.getLoggedInUserRole());
+
         modelAndView.addObject("courseList", courseList);
-        modelAndView.addObject("pages", courseService.getPages(ROWS_LIMIT));
-        modelAndView.setViewName("courseCreator/course_create");
+        modelAndView.addObject("pages",
+                courseService.getPagesByUserId(userSecurity.getLoggedInUserId() ,ROWS_LIMIT));
         modelAndView.addObject("currentUrl", "course_create");
+        modelAndView.setViewName("courseCreator/course_create");
         return modelAndView;
     }
     @RequestMapping(value = "/course-add", method = RequestMethod.GET)
@@ -104,38 +98,6 @@ public class CourseController {
         redirect.addFlashAttribute("successMessage", "course deleted successfully");
 
         model.setViewName("redirect:/course_create/1");
-        return model;
-    }
-
-    @Autowired
-    public DataDaoImpl dataDao;
-
-    @RequestMapping(value = "/course-download-all-courses", method = RequestMethod.GET)
-    public ModelAndView downloadAllTrainers(ModelAndView model, RedirectAttributes redir){
-
-        List list = new ArrayList();
-        list.add("name");
-        list.add("courseid");
-        list.add("course_level");
-        list.add("course_status_id");
-        list.add("min_number");
-        list.add("max_number");
-        list.add("description");
-        list.add("trainer_id");
-        list.add("lessons_number");
-
-
-        List<List> courses = dataDao.findFieldsFromTable(list, "course","allCourses","table");
-
-//        String fromFile = "/Users/mrlova/Downloads/log.txt";
-//        String toFile = "/Users/mrlova/Downloads/log.txt";
-//
-//        try {
-//            FileUtils.copyURLToFile(new URL(fromFile), new File(toFile), 10000, 10000);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
         return model;
     }
 }

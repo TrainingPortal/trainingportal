@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}"/>
     <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}"/>
     <link type="text/css" rel="stylesheet" href="/../css/custom.css" th:href="@{css/custom.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
@@ -14,6 +17,8 @@
 <div class="py-0 my-0 pl-3 bg-primary text-white">
     <h1 class="my-0 py-0">Add Subordinates</h1>
 </div>
+
+<input class="form-control" id="myInput" type="text" placeholder="Search..">
 
 <div style="margin-bottom: 0;" th:if="${successMessage}"
      class="alert alert-success" role="alert"
@@ -27,7 +32,7 @@
 </div>
 
 <div th:unless="${users.size() == 0}">
-    <form action="#" th:object="${users}" th:action="@{addSelectedSubordinates}" method="post">
+    <form action="#" th:object="${users}" th:action="@{/addSelectedSubordinates/{id}(id=${manager.userId})}" method="post">
         <table class="table pt-0 mt-0 table-fit table-sm table-hover">
             <thead class="">
             <tr>
@@ -36,6 +41,7 @@
                 <th style="width: 10%">Check</th>
             </tr>
             </thead>
+            <tbody id="myTable">
             <tr th:each="user, iter : ${users}">
                 <td th:text="${user.userName}"></td>
                 <td th:text="${user.email}"></td>
@@ -43,14 +49,27 @@
                     <input type="checkbox" name="userId" th:value="${user.userId}"/>
                 </td>
             </tr>
+            </tbody>
         </table>
 
         <input type="hidden" name="managerId" th:value="${manager.userId}" />
         <input type="submit" class="btn btn-success" value="Add selected"/>
     </form>
 </div><br>
-<a th:href="@{/backtosubordinates(id=${manager.userId})}" class="btn btn-info">Return to subordinates</a>
+<a th:href="@{/backtosubordinates{id}(id=${manager.userId})}" class="btn btn-info">Return to subordinates</a>
 <a th:href="@{/managers/{page}(page=1)}" class="btn btn-info">Return to managers</a>
 <!--<div th:replace="frontend/pagination :: pagination_with_id"></div>-->
+
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
 </body>
 </html>

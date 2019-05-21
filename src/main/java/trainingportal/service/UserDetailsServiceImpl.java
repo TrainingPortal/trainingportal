@@ -3,45 +3,40 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import trainingportal.dao.RoleDAOImpl;
-import trainingportal.dao.UserDAOImpl;
+import trainingportal.dao.RoleDao;
+import trainingportal.dao.UserDao;
+import trainingportal.model.LoggedInUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
- 
+
     @Autowired
-    private UserDAOImpl userRepository;
- 
+    private UserDao userDao;
     @Autowired
-    private RoleDAOImpl roleRepository;
- 
+    private RoleDao roleDao;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        trainingportal.model.User user = this.userRepository.findUserAccount(email);
- 
+        trainingportal.model.User user = this.userDao.findUserAccount(email);
+
         if (user == null) {
-            System.out.println("Email was not found! " + email);
             throw new UsernameNotFoundException(email + " was not found in the database");
         }
 
         if(user.getEnabled() == 0){
-            System.out.println(email + " is not enabled");
             throw new UsernameNotFoundException(email + " is not enabled");
         }
- 
-        System.out.println("Found User: " + user);
- 
+
         // [ROLE_USER, ROLE_ADMIN,..]
-        List<String> roleNames = this.roleRepository.getRoleNames(user.getUserId());
- 
+        List<String> roleNames = this.roleDao.getRoleNames(user.getUserId());
+
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
         if (roleNames != null) {
             for (String role : roleNames) {
@@ -50,10 +45,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 grantList.add(authority);
             }
         }
- 
-        UserDetails userDetails = (UserDetails) new User(user.getUserName(),
-                user.getPassword(), grantList);
- 
-        return userDetails;
+
+        return (UserDetails) new LoggedInUser(user.getUserName(),
+                user.getPassword(), grantList, user.getUserId());
     }
 }

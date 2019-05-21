@@ -17,12 +17,8 @@ import java.util.List;
 @Controller
 public class TaskController {
 
-
     @Autowired
-    TaskService taskService;
-
-    @Autowired
-    HomeworkService homeworkService;
+    private TaskService taskService;
 
     @RequestMapping(value = "/homework_task")
     public ModelAndView showTaskListOfHomework(Long id, ModelAndView modelAndView) {

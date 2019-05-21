@@ -1,8 +1,6 @@
 package trainingportal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +9,6 @@ import trainingportal.model.MainCardModel;
 import trainingportal.model.MainSliderModel;
 import trainingportal.service.MainCardService;
 import trainingportal.service.MainSliderService;
-import trainingportal.utils.WebUtils;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -19,12 +16,10 @@ import java.util.List;
 
 @Controller
 public class MainController {
-
     @Autowired
-    MainSliderService mainSliderService;
-
+    private MainSliderService mainSliderService;
     @Autowired
-    MainCardService mainCardService;
+    private MainCardService mainCardService;
 
     @GetMapping({"/", "/index"})
     public ModelAndView welcomePage(ModelAndView modelAndView) {
@@ -53,11 +48,6 @@ public class MainController {
 
     @GetMapping("/profilepage")
     String profilePage(Model model, Principal principal){
-
-        User loginedUser = (User) ((Authentication) principal).getPrincipal();
-        String userInfo = WebUtils.toString(loginedUser);
-
-        System.out.println(userInfo);
 
         return "frontend/profilepage";
     }

@@ -38,12 +38,6 @@
             <p class="alert alert-danger" th:errors="*{lessonDuration}" th:if="${#fields.hasErrors('lessonDuration')}">
                 Error, check lesson Duration field</p>
 
-            <label>homework Id</label>
-            <input class="form-control" placeholder="homeworkId" th:field="*{homeworkId}" type="number"/>
-            <p class="alert alert-danger" th:errors="*{homeworkId}" th:if="${#fields.hasErrors('homeworkId')}">Error,
-                homeworkId </p>
-
-
             <label>lesson number</label>
             <input class="form-control" placeholder="lesson number" th:field="*{lessonNumber}" type="number"/>
             <p class="alert alert-danger" th:errors="*{lessonNumber}" th:if="${#fields.hasErrors('lessonNumber')}">

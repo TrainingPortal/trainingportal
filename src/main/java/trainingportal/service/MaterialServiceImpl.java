@@ -3,33 +3,19 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.MaterialDaoImpl;
+import trainingportal.dao.MaterialDao;
 import trainingportal.model.Material;
+import trainingportal.service.generic.GenericServiceImpl;
 
 import java.util.List;
 
 
 @Service("materialService")
 @Transactional
-public class MaterialServiceImpl implements MaterialService {
+public class MaterialServiceImpl extends GenericServiceImpl<Material> implements MaterialService {
 
     @Autowired
-    private MaterialDaoImpl materialDao;
-
-    @Override
-    public int getNumberOfPages(List<Material> users, double total) {
-        return 0;
-    }
-
-    @Override
-    public Material findById(Long MaterialId) {
-        return materialDao.findById(MaterialId);
-    }
-
-    @Override
-    public void save(Material material) {
-        materialDao.save(material);
-    }
+    private MaterialDao materialDao;
 
     @Override
     public void update(Material material) {
@@ -42,25 +28,23 @@ public class MaterialServiceImpl implements MaterialService {
         materialDao.update(materialEdit);
     }
 
-
-    @Override
-    public void deleteById(Long materialId) {
-        materialDao.deleteById(materialId);
-    }
-
-    @Override
-    public List<Material> findAll() {
-        return materialDao.findAll();
-    }
-
-    @Override
-    public List<Material> getAllAsPage(int page, int total) {
-        return null;
-    }
-
     @Override
     public List<Material> getMaterialLessonId(Long lessonId) {
         return materialDao.getMaterialLessonId(lessonId);
+    }
+
+    @Override
+    public List<Material> getAllAsPageByLessonId(Long lessonId, int page, int total) {
+
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
+        return materialDao.getAllAsPageByLessonId(lessonId, page, total);
+    }
+
+    @Override
+    public int getPages(Long lessonId, double total) {
+        return (int) Math.ceil(materialDao.countAllByLessonId(lessonId) / total);
     }
 
 }

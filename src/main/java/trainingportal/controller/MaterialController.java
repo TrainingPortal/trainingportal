@@ -6,8 +6,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import trainingportal.model.Lesson;
 import trainingportal.model.Material;
 import trainingportal.service.LessonService;
 import trainingportal.service.MaterialService;
@@ -16,48 +17,58 @@ import java.util.List;
 
 @Controller
 public class MaterialController {
-
     @Autowired
-    MaterialService materialService;
-
+    private MaterialService materialService;
     @Autowired
-    LessonService lessonService;
+    private LessonService lessonService;
 
-    @RequestMapping("/material_lesson")
-    public ModelAndView showMaterialListOfLessons(Long id, ModelAndView modelAndView) {
+    private static final int ROWS_LIMIT = 10;
 
-        List<Material> MaterialOfLesson = materialService.getMaterialLessonId(id);
+    @RequestMapping("/material_lesson/{page}/{lessonId}")
+    public ModelAndView showMaterialListOfLessons(@PathVariable("page") int page,
+                                                  @PathVariable("lessonId") Long id,
+             ModelAndView modelAndView) {
 
-//        Lesson lesson =  lessonService.findById(id);
-//        modelAndView.addObject("MaterialOfLesson", lesson);
-//        modelAndView.addObject("id", id);
+        List<Material> materialListOfLesson = materialService.getAllAsPageByLessonId(id, page, ROWS_LIMIT);
 
-        modelAndView.addObject("MaterialOfLesson", MaterialOfLesson);
+        Lesson lesson =  lessonService.findById(id);
+        modelAndView.addObject("materialOfLesson", lesson);
+
+        modelAndView.addObject("pages", materialService.getPages(id, ROWS_LIMIT));
+        modelAndView.addObject("id", id);
+        modelAndView.addObject("materialListOfLesson", materialListOfLesson);
+        modelAndView.addObject("currentUrl", "material_lesson");
         modelAndView.setViewName("materialCreator/material_lesson");
-
         return modelAndView;
     }
 
-    @RequestMapping(value = "/material-add", method = RequestMethod.GET)
-    public ModelAndView addMaterial(ModelAndView modelAndView) {
+    @RequestMapping(value = "/material-add-{lessonId}", method = RequestMethod.GET)
+    public ModelAndView addMaterial(@PathVariable Long lessonId,
+                                    ModelAndView modelAndView) {
 
-        modelAndView.addObject("material", new Material());
+        Material material = new Material();
+        material.setLessonId(lessonId);
+
+        modelAndView.addObject("material", material);
         modelAndView.setViewName("materialCreator/material_add");
 
         return modelAndView;
     }
 
-    @RequestMapping(value = "material-save-{lesson_id}", method = RequestMethod.POST)
-    public ModelAndView saveMaterial(@PathVariable("lesson_id") Long lessonId, Material material, ModelAndView modelAndView) {
-        materialService.save(material);
+    @RequestMapping(value = "material-save", method = RequestMethod.POST)
+    public ModelAndView saveMaterial(@RequestParam("lessonId") Long lessonId,
+                                     Material material, ModelAndView modelAndView) {
 
+        materialService.save(material);
         modelAndView.addObject("lesson_id", lessonId);
-        modelAndView.setViewName("redirect:/material_lesson");
+        modelAndView.setViewName("redirect:/material_lesson/1/" + lessonId);
         return modelAndView;
     }
 
     @RequestMapping(value = {"edit-material-{materialId}-{id}"}, method = RequestMethod.GET)
-    public ModelAndView editMaterialBase(@PathVariable("materialId") Long materialId, ModelAndView modelAndView) {
+    public ModelAndView editMaterialBase(@PathVariable("materialId") Long materialId,
+                                         @PathVariable("id") Long id,ModelAndView modelAndView) {
+
         Material material = materialService.findById(materialId);
         modelAndView.addObject("material", material);
         modelAndView.addObject("edit", true);
@@ -67,27 +78,26 @@ public class MaterialController {
     }
 
     @RequestMapping(value = {"edit-material-{materialId}-{id}"}, method = RequestMethod.POST)
-    public ModelAndView editMaterialById(@PathVariable("id") Long lessonId, Material material,
-                                         BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
+    public ModelAndView editMaterialById(@PathVariable("id") Long id, @PathVariable("materialId") Long materialId,
+                                         Material material, BindingResult bindingResult, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("materialCreator/edit_material_by_id");
             return modelAndView;
         } else {
             materialService.update(material);
-            modelAndView.addObject("id", lessonId);
-            modelAndView.setViewName("redirect:/material_lesson");
+            modelAndView.addObject("id", id);
+            modelAndView.setViewName("redirect:/material_lesson/1/" + id);
             return modelAndView;
         }
     }
 
-    @RequestMapping(value = "/material-delete-by-{materialId}-{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/material-delete-by/{materialId}/{id}", method = RequestMethod.GET)
     public ModelAndView deleteMaterialById(@PathVariable("materialId") Long materialId,
-                                           @PathVariable("id") Long lessonId, ModelAndView model, RedirectAttributes redirect) {
+                                           @PathVariable("id") Long id, ModelAndView model) {
         materialService.deleteById(materialId);
 
-        redirect.addFlashAttribute("successMessage", "material deleted successfully");
-        model.addObject("id", lessonId);
-        model.setViewName("redirect:/material_lesson");
+        model.addObject("id", id);
+        model.setViewName("redirect:/material_lesson/1/" + id);
         return model;
     }
 

@@ -12,6 +12,8 @@ public interface UserDao extends GenericDao<User> {
 
     List<User> findAllByRole(Long roleId);
 
+    List<User> findAllByGroup(Long id);
+
     List<User> findAllEnabledByRole(Long roleId);
 
     void deleteAllByRole(Long roleId);
@@ -37,4 +39,14 @@ public interface UserDao extends GenericDao<User> {
     List<User> searchByRole(Long id, String request, int page, int total);
 
     int countSearchPagesByRole(Long id, String request);
+
+    User findUserAccount(String email);
+
+    List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId);
+
+    int countUsersByGroupId(Long groupId);
+
+    List<User> findUsersForGroupByGroupId(Long groupId);
+
+    void deleteFromDesiredPeriodByUserId(Long userId);
 }

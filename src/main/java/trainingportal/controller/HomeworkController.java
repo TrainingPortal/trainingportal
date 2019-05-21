@@ -10,21 +10,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Homework;
 import trainingportal.service.HomeworkService;
-import trainingportal.service.LessonService;
 
 import java.util.List;
 
 @Controller
 public class HomeworkController {
-
-
     @Autowired
-    HomeworkService homeworkService;
-
-    @Autowired
-    LessonService lessonService;
-
-
+    private HomeworkService homeworkService;
 
     @RequestMapping(value = "/lesson_homework")
     public ModelAndView showHomeworkListOfLesson(Long id, ModelAndView modelAndView) {

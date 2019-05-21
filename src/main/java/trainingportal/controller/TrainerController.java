@@ -1,31 +1,28 @@
 package trainingportal.controller;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.UserService;
-import trainingportal.universalexportcreator.dao.DataDaoImpl;
 
 import javax.validation.Valid;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 @Controller
 public class TrainerController {
+
     @Autowired
     private UserService trainerService;
-
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -149,30 +146,6 @@ public class TrainerController {
         trainerService.deleteAllByRole(Role.TRAINER);
         redir.addFlashAttribute("successMessage", "All users deleted successfully");
         model.setViewName("redirect:/trainers/1");
-
-        return model;
-    }
-
-    @Autowired
-    public DataDaoImpl dataDao;
-
-    @RequestMapping(value = "/trainer-download-all-trainers", method = RequestMethod.GET)
-    public ModelAndView downloadAllTrainers(ModelAndView model, RedirectAttributes redir){
-
-        List list = new ArrayList();
-        list.add("name");
-        list.add("email");
-
-        List<List> courses = dataDao.findFieldsFromTableWithCondition(list, "users","allTrainers","table", "roleid = 3");
-
-//        String fromFile = "/Users/mrlova/Downloads/log.txt";
-//        String toFile = "/Users/mrlova/Downloads/log.txt";
-//
-//        try {
-//            FileUtils.copyURLToFile(new URL(fromFile), new File(toFile), 10000, 10000);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         return model;
     }

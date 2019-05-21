@@ -43,14 +43,14 @@
             </div>
 
             <div class="form-group">
-                <label>min number</label>
+                <label>min number of Students</label>
                 <input class="form-control" placeholder="min number" th:field="*{minNumber}" type="number"/>
                 <p class="alert alert-danger" th:errors="*{minNumber}" th:if="${#fields.hasErrors('minNumber')}">Error,
                     min number</p>
             </div>
 
             <div class="form-group">
-                <label>max number</label>
+                <label>max number of Students</label>
                 <input class="form-control" placeholder="max number" th:field="*{maxNumber}" type="number"/>
                 <p class="alert alert-danger" th:errors="*{maxNumber}" th:if="${#fields.hasErrors('maxNumber')}">Error,
                     max number</p>

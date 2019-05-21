@@ -16,13 +16,24 @@
 
 <div class="container-fluid">
     <h2>Groups List</h2>
-    <h2>
-        <a class="btn btn-success" th:href="@{/group-add}">CREATE NEW GROUP</a>
-    </h2>
+    <div  class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">
+        <a class="btn btn-success btn-lg" th:href="@{/group-add-{courseId}
+        (courseId = ${courseGroup.courseId})}">CREATE NEW GROUP</a>
+    </div>
+
+    <div  class="btn">
+        <a class="btn btn btn-info btn-lg"
+           th:href="@{/admin }" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">Back to admin</a>
+    </div>
+
+    <div  class="btn">
+        <a class="btn btn btn-info btn-lg" th:href="@{/course_create/1}">Back to Course</a>
+    </div>
+
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="row">ID</th>
+<!--            <th scope="row">ID</th>-->
             <th scope="row">Name</th>
             <th scope="row">Capacity</th>
             <th scope="row">Course Name</th>
@@ -31,27 +42,36 @@
         </thead>
         <tbody>
         <tr th:each="group, iter : ${groupList}">
-            <td th:text="${group.groupId}"></td>
+<!--            <td th:text="${group.groupId}"></td>-->
             <td th:text="${group.groupName}"></td>
             <td th:text="${group.groupCapacity}"></td>
             <td th:text="${group.course.courseName}"></td>
             <td th:text="${group.status.statusName}"></td>
             <td>
                 <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/group_users/{page}/{groupId}
+                    (groupId = ${group.groupId}, page = 1)}">Group Users</a>
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/schedule_create/{page}/{groupId}
+                    (groupId = ${group.groupId}, page = 1)}">Schedule</a>
+                </div>
+            </td>
+
+            <td>
+                <div class="btn-group" th:if="${#request.isUserInRole('ROLE_ADMIN') == true
+                or #request.isUserInRole('ROLE_TRAINER')}">
                     <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <a class="btn btn-info" th:href="@{/edit-group-{id} (id = ${group.groupId}) }">Edit</a>
-                    <a class="btn btn-dark" th:href="@{/group-delete-by-{id} (id = ${group.groupId}) }">Delete</a>
+                    <a class="btn btn-info" th:href="@{/edit-group-{groupId}-{id}
+                       (groupId = ${group.groupId},id = ${group.courseId}) }">Edit</a>
+                    <a class="btn btn-dark" th:href="@{/group-delete-by/{groupId}/{id}
+                    (groupId = ${group.groupId},id = ${group.courseId})}">Delete</a>
                 </div>
             </td>
         </tr>
         </tbody>
     </table>
-<<<<<<< HEAD
-    <a th:href="@{/group-download-all-groups}" class="btn btn-dark">Download all groups</a>
-    <!--href="/Users/mrlova/IdeaProjects/trainingportal/" download="allGroups.xlsx"-->
-=======
     <div th:replace="frontend/pagination :: pagination"></div>
->>>>>>> 93f5a821b61d43fcd4793b153b5973a8fd0763f6
 </div>
 
 

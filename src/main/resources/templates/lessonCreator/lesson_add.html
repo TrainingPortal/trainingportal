@@ -17,31 +17,28 @@
 
     <div class="row no-gutters ">
         <div class="col">
-            <form action="#" method="post" th:action="@{/lesson-save-{lesId}-{courId}
-            (lesId =${lesson.lessonId}, courId=${lesson.courseId})}" th:object="${lesson}">
+            <form action="#" method="post"  th:action="@{/lesson-save}" th:object="${lesson}">
+
                 <input class="form-control" placeholder="Id" th:field="*{lessonId}" type="hidden"/>
+                <input class="form-control" placeholder="course Id" th:field="*{courseId}" type="hidden"/>
 
                 <label>lesson Name</label>
                 <input class="form-control" placeholder="lesson Name" th:field="*{lessonName}" type="text"/>
                 <p class="alert alert-danger" th:errors="*{lessonName}" th:if="${#fields.hasErrors('lessonName')}">
-                    Error, check lesson name field</p>
+                Error, check lesson name field</p>
                 <label>lesson Description</label>
                 <input class="form-control" placeholder="lesson Description" th:field="*{lessonDescription}"
-                       type="text"/>
+                type="text"/>
                 <p class="alert alert-danger" th:errors="*{lessonDescription}"
-                   th:if="${#fields.hasErrors('lessonDescription')}">
-                    Error, check lesson description field</p>
+                th:if="${#fields.hasErrors('lessonDescription')}">
+                Error, check lesson description field</p>
 
                 <label>lesson Duration</label>
                 <input class="form-control" placeholder="lesson Duration" th:field="*{lessonDuration}" type="number"/>
                 <p class="alert alert-danger" th:errors="*{lessonDuration}"
-                   th:if="${#fields.hasErrors('lessonDuration')}">
-                    Error, check lesson Duration field</p>
+                th:if="${#fields.hasErrors('lessonDuration')}">
+                Error, check lesson Duration field</p>
 
-                <label>course Id</label>
-                <input class="form-control" placeholder="course Id" th:field="*{courseId}" type="number"/>
-                <p class="alert alert-danger" th:errors="*{courseId}" th:if="${#fields.hasErrors('courseId')}">
-                    Error, homework Id field</p>
 
                 <label>lesson number</label>
                 <input class="form-control" placeholder="lesson number" th:field="*{lessonNumber}" type="number"/>

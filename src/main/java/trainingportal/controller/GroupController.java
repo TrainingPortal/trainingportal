@@ -1,51 +1,124 @@
 package trainingportal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import trainingportal.model.*;
-import trainingportal.service.CourseServiceImpl;
-import trainingportal.service.GroupServiceImpl;
-import trainingportal.universalexportcreator.dao.DataDaoImpl;
+import trainingportal.model.Course;
+import trainingportal.model.Group;
+import trainingportal.model.GroupStatus;
+import trainingportal.model.User;
+import trainingportal.security.UserSecurity;
+import trainingportal.service.CourseService;
+import trainingportal.service.GroupService;
+import trainingportal.service.UserService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 public class GroupController {
-
     @Autowired
-    GroupServiceImpl groupService;
-
+    private GroupService groupService;
     @Autowired
-    CourseServiceImpl courseService;
+    private CourseService courseService;
+    @Autowired
+    private UserSecurity userSecurity;
+    @Autowired
+    private UserService userService;
 
     private static final int ROWS_LIMIT = 10;
 
-    @RequestMapping(value = "/group_create/{page}")
-    public ModelAndView showGroupsList(@PathVariable("page") int page, Long groupId, ModelAndView modelAndView) {
+    @RequestMapping("/group_create/{page}/{courseId}")
+    public ModelAndView showLessonListOfCourse(@PathVariable("page") int page,
+                                               @PathVariable("courseId") Long id,
+                                               ModelAndView modelAndView) {
 
-        List<Group> groupList = groupService.getAllAsPage(page, ROWS_LIMIT);
+        List<Group> groupList = groupService.getGroupsPage(id, page, ROWS_LIMIT,
+                userSecurity.getLoggedInUserId(), userSecurity.getLoggedInUserRole());
 
-        for(Group group : groupList){
-            group.setCourse(courseService.findById(group.getCourseId()));
-            group.setStatus(groupService.findStatusById(group.getStatusId()));
-        }
+        Course course = courseService.findById(id);
+        modelAndView.addObject("courseGroup", course);
+
+        modelAndView.addObject("pages", groupService.getPages(id, ROWS_LIMIT));
+        modelAndView.addObject("id", id);
         modelAndView.addObject("groupList", groupList);
-        modelAndView.addObject("pages", groupService.getPages(ROWS_LIMIT));
-        modelAndView.setViewName("groupCreator/group_create");
         modelAndView.addObject("currentUrl", "group_create");
+        modelAndView.setViewName("groupCreator/group_create");
+
         return modelAndView;
     }
 
-    @GetMapping("/group-add")
-    public ModelAndView addGroup(ModelAndView modelAndView) {
+    @GetMapping("/group_users/{page}/{groupId}")
+    public ModelAndView showGroupUsersList(@PathVariable("page") int page,
+                                               @PathVariable("groupId") Long groupId,
+                                               ModelAndView modelAndView) {
 
-        modelAndView.addObject("group", new Group());
+        List<User> userList = userService.getUsersByGroupIdAsPage(page, ROWS_LIMIT, groupId);
+
+        //Course course = courseService.findById(groupId);
+        //modelAndView.addObject("courseGroup", course);
+
+        modelAndView.addObject("pages", userService.getPagesAmountOfUsersByGroupId(groupId, ROWS_LIMIT));
+        modelAndView.addObject("groupId", groupId);
+        modelAndView.addObject("userList", userList);
+        modelAndView.addObject("currentUrl", "group_users");
+        modelAndView.setViewName("groupCreator/group_users");
+
+        return modelAndView;
+    }
+
+    @GetMapping("/add_users_to_group/{groupId}")
+    public ModelAndView showAddSubordinates(@PathVariable("groupId") Long groupId, ModelAndView model) {
+
+        List<User> users = userService.findUsersForGroupByGroupId(groupId);
+
+        model.addObject("users", users);
+
+        model.setViewName("groupCreator/add_users_to_group");
+
+        return model;
+    }
+
+    @PostMapping("/add_selected_users_to_group/{groupId}")
+    public ModelAndView addSelectedSubordinates(@PathVariable("groupId") Long groupId,
+                                                @RequestParam(value = "userId", required = false) Long[] userIds,
+                                                ModelAndView model, RedirectAttributes redir) {
+
+        String message = userService.assignUsersToGroup(groupId, userIds);
+
+        redir.addFlashAttribute("infoMessage", message);
+
+        model.setViewName("redirect:/group_users/1/" + groupId);
+
+        return model;
+    }
+
+    @GetMapping("/release_user_from_group/{userId}/{groupId}")
+    public ModelAndView setUserFree(@PathVariable("userId") Long userId,
+                                    @PathVariable("groupId") Long groupId,
+                                    ModelAndView model, RedirectAttributes redir) {
+
+        User user = userService.findById(userId);
+
+        groupService.deleteFromUserGroupByUserIdAndGroupId(userId, groupId);
+
+        redir.addFlashAttribute("infoMessage",
+                "User " + user.getUserName() + " is not a part of this group any more.");
+        model.setViewName("redirect:/group_users/1/" + groupId);
+
+        return model;
+    }
+
+    @GetMapping("/group-add-{courseId}")
+    public ModelAndView addGroup(@PathVariable Long courseId, ModelAndView modelAndView) {
+
+        Group group = new Group();
+        group.setCourseId(courseId);
+
+        modelAndView.addObject("group", group);
 
         List<Course> courses = courseService.findAll();
         List<GroupStatus> statuses = groupService.getStatusList();
@@ -58,15 +131,16 @@ public class GroupController {
     }
 
     @PostMapping("/group-save")
-    public ModelAndView saveGroup(Group group, ModelAndView modelAndView) {
-        groupService.saveGroup(group);
-        modelAndView.setViewName("redirect:/group_create/1");
+    public ModelAndView saveGroup(@RequestParam("courseId") Long courseId, Group group, ModelAndView modelAndView) {
+        groupService.save(group);
+        modelAndView.setViewName("redirect:/group_create/1/" + courseId);
         return modelAndView;
     }
 
-    @GetMapping({"/edit-group-{id}"})
-    public ModelAndView editGroupBase(@PathVariable("id") Long groupId, ModelAndView modelAndView) {
-        Group group = groupService.findGroupById(groupId);
+    @GetMapping({"/edit-group-{groupId}-{id}"})
+    public ModelAndView editGroupBase(@PathVariable("groupId") Long groupId,
+                                      @PathVariable("id") Long id,ModelAndView modelAndView) {
+        Group group = groupService.findById(groupId);
 
         List<Course> courses = courseService.findAll();
         List<GroupStatus> statuses = groupService.getStatusList();
@@ -80,53 +154,28 @@ public class GroupController {
         return modelAndView;
     }
 
-    @PostMapping({"/edit-group-{id}"})
-    public ModelAndView editGroupById(Group group, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
+    @PostMapping({"/edit-group-{groupId}-{id}"})
+    public ModelAndView editGroupById(@PathVariable("id") Long id, @PathVariable("groupId") Long groupId,
+            Group group, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("groupCreator/edit_group_by_id");
             return modelAndView;
         } else {
-            groupService.editGroup(group);
-            modelAndView.setViewName("redirect:/group_create/1");
+            groupService.update(group);
+            modelAndView.setViewName("redirect:/group_create/1/" + id);
+
             return modelAndView;
         }
     }
 
-    @GetMapping("/group-delete-by-{id}")
-    public ModelAndView deleteGroupById(@PathVariable("id") Long groupId, ModelAndView model, RedirectAttributes redirect) {
-        groupService.deleteGroupById(groupId);
+    @GetMapping("/group-delete-by/{groupId}/{id}")
+    public ModelAndView deleteGroupById(@PathVariable("groupId") Long groupId,
+                                        @PathVariable("id") Long id,ModelAndView model, RedirectAttributes redirect) {
+        groupService.deleteById(groupId);
 
         redirect.addFlashAttribute("successMessage", "Group deleted successfully");
 
-        model.setViewName("redirect:/group_create/1");
+        model.setViewName("redirect:/group_create/1/" + id);
         return model;
     }
-
-    @Autowired
-    public DataDaoImpl dataDao;
-
-    @RequestMapping(value = "/group-download-all-groups", method = RequestMethod.GET)
-    public ModelAndView downloadAllTrainers(ModelAndView model, RedirectAttributes redir){
-
-        List list = new ArrayList();
-        list.add("name");
-        list.add("capacity");
-        list.add("course_id");
-        list.add("status_id");
-
-        List<List> courses = dataDao.findFieldsFromTable(list, "groups","allGroups","table");
-
-//        String fromFile = "/Users/mrlova/Downloads/log.txt";
-//        String toFile = "/Users/mrlova/Downloads/log.txt";
-//
-//        try {
-//            FileUtils.copyURLToFile(new URL(fromFile), new File(toFile), 10000, 10000);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-        return model;
-    }
-
-
 }

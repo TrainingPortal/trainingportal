@@ -8,10 +8,11 @@ import springemail.Sender;
 
 @Configuration
 public class EmailSenderConfig {
+
     @Bean
     public Sender getJavaMailSender() {
         //Create the application context
-        ApplicationContext context = new FileSystemXmlApplicationContext("sender.xml");
+        ApplicationContext context = new FileSystemXmlApplicationContext("classpath:sender.xml");
         //Get the mailer instance
         Sender mailSender = (Sender) context.getBean("mailService");
 

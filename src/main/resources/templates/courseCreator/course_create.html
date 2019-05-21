@@ -16,27 +16,32 @@
 
 <div class="container-fluid">
     <h2 class="text-center">Courses List</h2>
-    <h2>
-        <a class="btn btn-success" th:href="@{/course-add }">CREATE NEW COURSE</a>
-    </h2>
+
+    <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true or #request.isUserInRole('ROLE_TRAINER')}">
+        <a class="btn btn-success btn-lg" th:href="@{/course-add }">CREATE NEW COURSE</a>
+    </div>
+
+    <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">
+        <a class="btn btn btn-info btn-lg" th:href="@{/admin }">Back to admin</a>
+    </div>
+
+
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="row">Id</th>
-            <th scope="row">courseName</th>
-            <th scope="row">courseLevel</th>
-            <th scope="row">courseStatus</th>
-            <th scope="row">minNumber</th>
-            <th scope="row">maxNumber</th>
+<!--            <th scope="row">Id</th>-->
+            <th scope="row">course name</th>
+            <th scope="row">course level</th>
+            <th scope="row">course status</th>
+            <th scope="row">min number <br>of Students</th>
+            <th scope="row">max number <br>of Students</th>
             <th scope="row">description</th>
-            <th scope="row">Trainer Name</th>
-            <th scope="row">lessonNumber</th>
-            <!--            <th scope="row">lessonNumberTest</th>-->
+            <th scope="row">Trainer</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="course, iter : ${courseList}">
-            <td th:text="${course.courseId}"></td>
+<!--            <td th:text="${course.courseId}"></td>-->
             <td th:text="${course.courseName}"></td>
             <td th:text="${course.courseLevel}"></td>
             <td th:text="${course.status.statusName}"></td>
@@ -44,17 +49,23 @@
             <td th:text="${course.maxNumber}"></td>
             <td th:text="${course.description}"></td>
             <td th:text="${course.trainer.userName}"></td>
-
-            <!--            <td th:text="${courseList.size()}"></td>-->
             <td>
                 <div class="btn-group">
-                    <a class="btn btn-outline-primary" th:href="@{/course_lessons(id = ${course.courseId})}">
-                        Show/Add Lessons</a>
+                    <a class="btn btn-outline-primary"
+                       th:href="@{/course_lessons/{page}/{courseId}(courseId = ${course.courseId}, page=1)}">Lessons</a>
                 </div>
             </td>
+
             <td>
                 <div class="btn-group">
-                    <!--                    Delete button use @PathVariable to understand what id it need-->
+                    <a class="btn btn-outline-primary"
+                       th:href="@{/group_create/{page}/{courseId}(courseId = ${course.courseId}, page=1)}">Groups</a>
+                </div>
+            </td>
+
+            <td>
+                <div class="btn-group" th:if="${#request.isUserInRole('ROLE_ADMIN') == true
+                or #request.isUserInRole('ROLE_TRAINER')}">
                     <a class="btn btn-info" th:href="@{/edit-course-{id} (id = ${course.courseId}) }">Edit</a>
                     <a class="btn btn-dark" th:href="@{/course-delete-by-{id} (id = ${course.courseId}) }">Delete</a>
                 </div>
@@ -63,8 +74,6 @@
         </tbody>
     </table>
     <div th:replace="frontend/pagination :: pagination"></div>
-    <a th:href="@{/course-download-all-courses}" class="btn btn-dark">Download all courses</a>
-    <!--href="/Users/mrlova/IdeaProjects/trainingportal/" download="allCourses.xlsx"-->
 </div>
 
 

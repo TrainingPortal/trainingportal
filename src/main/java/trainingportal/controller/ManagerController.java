@@ -1,6 +1,7 @@
 package trainingportal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -10,11 +11,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.UserService;
-import trainingportal.universalexportcreator.dao.DataDaoImpl;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -22,7 +20,6 @@ import java.util.Map;
 public class ManagerController {
     @Autowired
     private UserService managerService;
-
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -67,24 +64,8 @@ public class ManagerController {
         return model;
     }
 
-    /*@GetMapping("/addsubordinates/{page}")
-    public ModelAndView showAddSubordinates(@PathVariable("page") int page, Long id, ModelAndView model) {
-
-        List<User> users = managerService.getFreeUsersAsPage(page, ROWS_LIMIT);
-
-        model.addObject("users", users);
-        model.addObject("pages", managerService.getFreeUsersPages(ROWS_LIMIT));
-        model.addObject("manager", managerService.findById(id));
-        model.addObject("currentUrl", "addsubordinates");
-        model.addObject("id", id);
-
-        model.setViewName("manager/addsubordinates");
-
-        return model;
-    }*/
-
-    @GetMapping("/addsubordinates")
-    public ModelAndView showAddSubordinates(Long id, ModelAndView model) {
+    @GetMapping("/addsubordinates/{id}")
+    public ModelAndView showAddSubordinates(@PathVariable("id") Long id, ModelAndView model) {
 
         List<User> users = managerService.findFreeUsers();
 
@@ -96,8 +77,8 @@ public class ManagerController {
         return model;
     }
 
-    @PostMapping("/addSelectedSubordinates")
-    public ModelAndView addSelectedSubordinates(Long managerId,
+    @PostMapping("/addSelectedSubordinates/{id}")
+    public ModelAndView addSelectedSubordinates(@PathVariable("id") Long managerId,
                                                 @RequestParam(value = "userId", required = false) Long[] userIds,
                                                 ModelAndView model, RedirectAttributes redir) {
 
@@ -105,14 +86,13 @@ public class ManagerController {
 
         redir.addFlashAttribute("infoMessage", message);
 
-        model.addObject("id", managerId);
-        model.setViewName("redirect:subordinates/1");
+        model.setViewName("redirect:/subordinates/1/" + managerId);
 
         return model;
     }
 
-    @GetMapping("/subordinates/{page}")
-    public ModelAndView viewSubordinates(@PathVariable("page") int page, Long id, ModelAndView model) {
+    @GetMapping("/subordinates/{page}/{userId}")
+    public ModelAndView viewSubordinates(@PathVariable("page") int page, @PathVariable("userId") Long id, ModelAndView model) {
 
         User manager = managerService.findById(id);
 
@@ -130,8 +110,8 @@ public class ManagerController {
         return model;
     }
 
-    @GetMapping("/releaseSubordinate")
-    public ModelAndView setSubordinateFree(Long id, ModelAndView model, RedirectAttributes redir) {
+    @GetMapping("/releaseSubordinate{id}")
+    public ModelAndView setSubordinateFree(@PathVariable("id") Long id, ModelAndView model, RedirectAttributes redir) {
 
         User employee = managerService.findById(id);
         User manager = managerService.findManagerBySubordinateId(id);
@@ -140,17 +120,15 @@ public class ManagerController {
 
         redir.addFlashAttribute("successMessage",
                 "User " + employee.getUserName() + " " + employee.getEmail() + " has no manager now.");
-        model.addObject("id", manager.getUserId());
-        model.setViewName("redirect:subordinates/1");
+        model.setViewName("redirect:subordinates/1/" + manager.getUserId());
 
         return model;
     }
 
-    @GetMapping("backtosubordinates")
-    public ModelAndView backToManager(Long id, ModelAndView model) {
+    @GetMapping("backtosubordinates{id}")
+    public ModelAndView backToManager(@PathVariable("id") Long id, ModelAndView model) {
 
-        model.addObject("id", id);
-        model.setViewName("redirect:subordinates/1");
+        model.setViewName("redirect:subordinates/1/" + id);
 
         return model;
     }
@@ -251,30 +229,6 @@ public class ManagerController {
         managerService.deleteAllByRole(Role.MANAGER);
         redir.addFlashAttribute("successMessage", "All users deleted successfully");
         model.setViewName("redirect:/managers/1");
-
-        return model;
-    }
-
-    @Autowired
-    public DataDaoImpl dataDao;
-
-    @RequestMapping(value = "/managers-download-all-managers", method = RequestMethod.GET)
-    public ModelAndView downloadAllManagers(ModelAndView model, RedirectAttributes redir){
-
-        List list = new ArrayList();
-        list.add("name");
-        list.add("email");
-
-        List<List> courses = dataDao.findFieldsFromTableWithCondition(list, "users","allManagers","table", "roleid = 4");
-
-//        String fromFile = "/Users/mrlova/Downloads/log.txt";
-//        String toFile = "/Users/mrlova/Downloads/log.txt";
-//
-//        try {
-//            FileUtils.copyURLToFile(new URL(fromFile), new File(toFile), 10000, 10000);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         return model;
     }

@@ -7,4 +7,18 @@ import java.util.List;
 
 public interface LessonService extends GenericService<Lesson> {
     List<Lesson> getLessonCourseId(Long lessonId);
+
+    List<Lesson> getLessonsPageByCourseId(int page, int total, Long courseId);
+
+    int getPages(Long courseId, double total);
+
+    boolean isConnectedWithTrainerByCourseId(Long userId, Long courseId);
+
+    Lesson getLessonByScheduleId(Long id);
+
+    boolean isConnectedWithLessonByCourseId(Long userId, Long courseId);
+
+    boolean isConnectedWithTrainerByLessonId(Long userId, Long lessonId);
+
+    boolean isConnectedWithLessonByLessonId(Long userId, Long lessonId);
 }

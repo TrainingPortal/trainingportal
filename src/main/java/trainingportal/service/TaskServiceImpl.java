@@ -3,34 +3,18 @@ package trainingportal.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import trainingportal.dao.TaskDaoImpl;
+import trainingportal.dao.TaskDao;
 import trainingportal.model.Task;
+import trainingportal.service.generic.GenericServiceImpl;
 
 import java.util.List;
 
 
 @Service("taskService")
 @Transactional
-public class TaskServiceImpl implements TaskService {
-
-
+public class TaskServiceImpl extends GenericServiceImpl<Task> implements TaskService {
     @Autowired
-    private TaskDaoImpl taskDao;
-
-    @Override
-    public List<Task> findAll() {
-        return taskDao.findAll();
-    }
-
-    @Override
-    public Task findById(Long taskId) {
-        return taskDao.findById(taskId);
-    }
-
-    @Override
-    public void save(Task task) {
-        taskDao.save(task);
-    }
+    private TaskDao taskDao;
 
     @Override
     public void update(Task task) {
@@ -41,21 +25,6 @@ public class TaskServiceImpl implements TaskService {
 
         }
         taskDao.update(taskEdit);
-    }
-
-    @Override
-    public void deleteById(Long taskId) {
-        taskDao.deleteById(taskId);
-    }
-
-    @Override
-    public List<Task> getAllAsPage(int page, int total) {
-        return null;
-    }
-
-    @Override
-    public int getNumberOfPages(List<Task> users, double total) {
-        return 0;
     }
 
     @Override
