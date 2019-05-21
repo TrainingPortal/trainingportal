@@ -16,7 +16,7 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
-    @RequestMapping(value = "notification/allNotification", method = RequestMethod.GET)
+    //@RequestMapping(value = "notification/allNotification", method = RequestMethod.GET)
     public void getAllNotification() {
         System.out.println("This is NotificationController");
 
