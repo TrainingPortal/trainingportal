@@ -12,7 +12,9 @@ public interface MainSliderDao {
 
     void storeData(MainSliderModel slide);
 
-    void update(MainSliderModel slide);
+    void updateAll(MainSliderModel slide);
+
+    void updateWithoutFile(MainSliderModel slide);
 
     void deleteById(Long mainSliderId);
 

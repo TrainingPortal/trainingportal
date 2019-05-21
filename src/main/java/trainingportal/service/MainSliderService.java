@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface MainSliderService {
 
-    void storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException;
+    String storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException;
 
     List<MainSliderModel> getAll();
 
@@ -17,6 +17,6 @@ public interface MainSliderService {
 
     int countAll();
 
-    // For carousel indicators
-    ArrayList<Integer> getSlideIndicators();
+    void editById(Long mainSliderId, MultipartFile file, String buttonName, String buttonUrl) throws IOException;
+
 }
