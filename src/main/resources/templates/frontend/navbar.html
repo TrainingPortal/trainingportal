@@ -47,10 +47,12 @@
                 <li class="nav-item">
                     <a class="nav-link " href="/instructorpage">TEACHERS</a>
                 </li>
+<!--                <li class="nav-item">-->
+<!--                    <a class="nav-link " href="/chat" th:if="${#request.userPrincipal != null}">FORUM</a>-->
+<!--                </li>-->
                 <li class="nav-item">
-                    <a class="nav-link " href="/chat" th:if="${#request.userPrincipal != null}">FORUM</a>
+                    <a class="nav-link " th:href="@{/show_chats/{page}(page=1)}" th:if="${#request.userPrincipal != null}">FORUMS</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="/helppage">HELP</a>
                 </li>
@@ -122,10 +124,12 @@
                         <a class="nav-link " href="/instructorpage">TEACHERS</a>
                     </li>
 
+<!--                    <li class="nav-item">-->
+<!--                        <a class="nav-link " href="/chat" th:if="${#request.userPrincipal != null}">FORUM</a>-->
+<!--                    </li>-->
                     <li class="nav-item">
-                        <a class="nav-link " href="/chat" th:if="${#request.userPrincipal != null}">FORUM</a>
+                        <a class="nav-link " th:href="@{/show_chats/{page}(page=1)}" th:if="${#request.userPrincipal != null}">FORUMS</a>
                     </li>
-
 
                     <li class="nav-item">
                         <a class="nav-link" href="/coursepage">ALL COURSES</a>
