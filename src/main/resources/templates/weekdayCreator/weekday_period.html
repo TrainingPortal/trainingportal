@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -16,15 +15,14 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 
-
 <div class="container-fluid">
     <h2>Weekday List</h2>
 
     <div class="btn">
-        <a class="btn btn-success btn-lg" th:href="@{/weekday-add-{desiredPeriodId}
-              (desiredPeriodId =${weekdayOfPeriod.desiredPeriodId})}">CREATE NEW WEEKDAY</a>
-    </div>
+        <a class="btn btn-success btn-lg" th:href="@{/weekday-add-{desiredPeriodId}"
+           (desiredPeriodId=${weekdayOfPeriod.desiredPeriodId})}>CREATE NEW WEEKDAY</a>
 
+    </div>
 
     <table class="table table-striped">
         <thead>
@@ -50,8 +48,8 @@
                     <a class="btn btn-info" th:href="@{/edit-weekday-{desiredPeriodId}-{id}
                     (desiredPeriodId = ${weekday.weekdayId}, id = ${weekday.desiredPeriodId}) }">Edit</a>
 
-                    <a class="btn btn-dark" th:href="@{/weekday-delete-by/{materialId}/{id}
-                     (materialId = ${weekday.weekdayId}, id = ${weekday.desiredPeriodId}) }">Delete</a>
+                    <a class="btn btn-dark" th:href="@{/weekday-delete-by/{weekdayId}/{id}
+                     (weekdayId = ${weekday.weekdayId}, id = ${weekday.desiredPeriodId}) }">Delete</a>
                 </div>
             </td>
         </tr>

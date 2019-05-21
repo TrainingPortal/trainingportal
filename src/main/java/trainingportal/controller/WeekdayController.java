@@ -18,97 +18,97 @@ import java.util.List;
 @Controller
 public class WeekdayController {
 
-  /*  @Autowired
-    private WeekdayService weekdayService;
+    /*  @Autowired
+      private WeekdayService weekdayService;
 
+      @Autowired
+      private DesiredPeriodService desiredPeriodService;
+
+      private static final int ROWS_LIMIT = 10;
+
+
+
+      @RequestMapping("/weekday_period/{page}/{desiredPeriodId}")
+      public ModelAndView showMWeekdayListOfPeriods(@PathVariable("page") int page,
+                                                    @PathVariable("desiredPeriodId") Long id,
+                                                    ModelAndView modelAndView) {
+          List<Weekday> periodOfWeekdays = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_LIMIT);
+          DesiredPeriod desiredPeriod =  desiredPeriodService.findById(id);
+          modelAndView.addObject("periodOfWeekdays", desiredPeriod);
+
+          modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_LIMIT));
+          modelAndView.addObject("id", id);
+          modelAndView.addObject("periodOfWeekdays", periodOfWeekdays);
+          modelAndView.addObject("currentUrl", "weekday_period");
+          modelAndView.setViewName("weekdayCreator/weekday_period");
+          return modelAndView;
+      }
+
+      @RequestMapping(value = "/weekday-add-{desiredPeriodId}", method = RequestMethod.GET)
+      public ModelAndView addWeekday(@PathVariable Long desiredPeriodId,
+                                      ModelAndView modelAndView) {
+
+          Weekday weekday = new Weekday();
+          weekday.setPeriodId(desiredPeriodId);
+
+          modelAndView.addObject("weekday", weekday);
+          modelAndView.setViewName("weekdayCreator/weekday_add");
+
+          return modelAndView;
+      }
+
+      @RequestMapping(value = "weekday-save", method = RequestMethod.POST)
+      public ModelAndView saveWeekday(@RequestParam("desiredPeriodId") Long desiredPeriodId,
+                                       Weekday weekday, ModelAndView modelAndView) {
+
+          weekdayService.save(weekday);
+          modelAndView.addObject("desired_period_id", desiredPeriodId);
+          modelAndView.setViewName("redirect:/weekday_period/1/" + desiredPeriodId);
+          return modelAndView;
+      }
+
+      @RequestMapping(value = {"edit-weekday-{desiredPeriodId}-{id}"}, method = RequestMethod.GET)
+      public ModelAndView editPeriodBase(@PathVariable("desiredPeriodId") Long weekdayId,
+                                           @PathVariable("id") Long id,ModelAndView modelAndView) {
+
+          Weekday weekday = weekdayService.findById(weekdayId);
+          modelAndView.addObject("weekday", weekday);
+          modelAndView.addObject("edit", true);
+          modelAndView.setViewName("weekdayCreator/edit_weekday_by_id");
+
+          return modelAndView;
+      }
+
+      @RequestMapping(value = {"edit-weekday-{weekdayId}-{id}"}, method = RequestMethod.POST)
+      public ModelAndView editWeekdayById(@PathVariable("id") Long id, @PathVariable("weekdayId") Long weekdayId,
+                                           Weekday weekday, BindingResult bindingResult, ModelAndView modelAndView) {
+          if (bindingResult.hasErrors()) {
+              modelAndView.setViewName("weekdayCreator/edit_weekday_by_id");
+              return modelAndView;
+          } else {
+              weekdayService.update(weekday);
+              modelAndView.addObject("id", id);
+              modelAndView.setViewName("redirect:/weekday_period/1/" + id);
+              return modelAndView;
+          }
+      }
+
+      @RequestMapping(value = "/weekday-delete-by/{weekdayId}/{id}", method = RequestMethod.GET)
+      public ModelAndView deleteWeekdayById(@PathVariable("weekdayId") Long weekdayId,
+                                             @PathVariable("id") Long id, ModelAndView model) {
+          weekdayService.deleteById(weekdayId);
+
+          model.addObject("id", id);
+          model.setViewName("redirect:/weekday_period/1/" + id);
+          return model;
+      }
+
+
+  }
+
+  */
     @Autowired
-    private DesiredPeriodService desiredPeriodService;
-
-    private static final int ROWS_LIMIT = 10;
-
-
-
-    @RequestMapping("/weekday_period/{page}/{desiredPeriodId}")
-    public ModelAndView showMWeekdayListOfPeriods(@PathVariable("page") int page,
-                                                  @PathVariable("desiredPeriodId") Long id,
-                                                  ModelAndView modelAndView) {
-        List<Weekday> periodOfWeekdays = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_LIMIT);
-        DesiredPeriod desiredPeriod =  desiredPeriodService.findById(id);
-        modelAndView.addObject("periodOfWeekdays", desiredPeriod);
-
-        modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_LIMIT));
-        modelAndView.addObject("id", id);
-        modelAndView.addObject("periodOfWeekdays", periodOfWeekdays);
-        modelAndView.addObject("currentUrl", "weekday_period");
-        modelAndView.setViewName("weekdayCreator/weekday_period");
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "/weekday-add-{desiredPeriodId}", method = RequestMethod.GET)
-    public ModelAndView addWeekday(@PathVariable Long desiredPeriodId,
-                                    ModelAndView modelAndView) {
-
-        Weekday weekday = new Weekday();
-        weekday.setPeriodId(desiredPeriodId);
-
-        modelAndView.addObject("weekday", weekday);
-        modelAndView.setViewName("weekdayCreator/weekday_add");
-
-        return modelAndView;
-    }
-
-    @RequestMapping(value = "weekday-save", method = RequestMethod.POST)
-    public ModelAndView saveWeekday(@RequestParam("desiredPeriodId") Long desiredPeriodId,
-                                     Weekday weekday, ModelAndView modelAndView) {
-
-        weekdayService.save(weekday);
-        modelAndView.addObject("desired_period_id", desiredPeriodId);
-        modelAndView.setViewName("redirect:/weekday_period/1/" + desiredPeriodId);
-        return modelAndView;
-    }
-
-    @RequestMapping(value = {"edit-weekday-{desiredPeriodId}-{id}"}, method = RequestMethod.GET)
-    public ModelAndView editPeriodBase(@PathVariable("desiredPeriodId") Long weekdayId,
-                                         @PathVariable("id") Long id,ModelAndView modelAndView) {
-
-        Weekday weekday = weekdayService.findById(weekdayId);
-        modelAndView.addObject("weekday", weekday);
-        modelAndView.addObject("edit", true);
-        modelAndView.setViewName("weekdayCreator/edit_weekday_by_id");
-
-        return modelAndView;
-    }
-
-    @RequestMapping(value = {"edit-weekday-{weekdayId}-{id}"}, method = RequestMethod.POST)
-    public ModelAndView editWeekdayById(@PathVariable("id") Long id, @PathVariable("weekdayId") Long weekdayId,
-                                         Weekday weekday, BindingResult bindingResult, ModelAndView modelAndView) {
-        if (bindingResult.hasErrors()) {
-            modelAndView.setViewName("weekdayCreator/edit_weekday_by_id");
-            return modelAndView;
-        } else {
-            weekdayService.update(weekday);
-            modelAndView.addObject("id", id);
-            modelAndView.setViewName("redirect:/weekday_period/1/" + id);
-            return modelAndView;
-        }
-    }
-
-    @RequestMapping(value = "/weekday-delete-by/{weekdayId}/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteWeekdayById(@PathVariable("weekdayId") Long weekdayId,
-                                           @PathVariable("id") Long id, ModelAndView model) {
-        weekdayService.deleteById(weekdayId);
-
-        model.addObject("id", id);
-        model.setViewName("redirect:/weekday_period/1/" + id);
-        return model;
-    }
-
-
-}
-
-*/
-  @Autowired
-  private WeekdayService weekdayService;
+    private WeekdayService weekdayService;
 
     @Autowired
     private DesiredPeriodService desiredPeriodService;
@@ -118,12 +118,12 @@ public class WeekdayController {
 
     @RequestMapping("/weekday_period/{page}/{desiredPeriodId}")
     public ModelAndView showWeekdayListOfLessons(@PathVariable("page") int page,
-                                                  @PathVariable("desiredPeriodId") Long id,
-                                                  ModelAndView modelAndView) {
+                                                 @PathVariable("desiredPeriodId") Long id,
+                                                 ModelAndView modelAndView) {
         List<Weekday> weekdayListOfPeriod = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_LIMIT);
 
-        DesiredPeriod desiredPeriod =  desiredPeriodService.findById(id);
-        modelAndView.addObject("weekdayOfPeriod", desiredPeriod);
+        DesiredPeriod period = desiredPeriodService.findById(id);
+        modelAndView.addObject("weekdayOfPeriod", period);
 
         modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_LIMIT));
         modelAndView.addObject("id", id);
@@ -133,9 +133,9 @@ public class WeekdayController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/weekday-add/{desiredPeriodId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/weekday-add-{desiredPeriodId}", method = RequestMethod.GET)
     public ModelAndView addWeekday(@PathVariable Long desiredPeriodId,
-                                    ModelAndView modelAndView) {
+                                   ModelAndView modelAndView) {
 
         Weekday weekday = new Weekday();
         weekday.setPeriodId(desiredPeriodId);
@@ -148,7 +148,7 @@ public class WeekdayController {
 
     @RequestMapping(value = "weekday-save", method = RequestMethod.POST)
     public ModelAndView saveWeekday(@RequestParam("desiredPeriodId") Long desiredPeriodId,
-                                     Weekday weekday, ModelAndView modelAndView) {
+                                    Weekday weekday, ModelAndView modelAndView) {
 
         weekdayService.save(weekday);
         modelAndView.addObject("period_id", desiredPeriodId);
@@ -158,7 +158,7 @@ public class WeekdayController {
 
     @RequestMapping(value = {"edit-weekday-{weekdayId}-{id}"}, method = RequestMethod.GET)
     public ModelAndView editWeekdayBase(@PathVariable("weekdayId") Long weekdayId,
-                                         @PathVariable("id") Long id,ModelAndView modelAndView) {
+                                        @PathVariable("id") Long id, ModelAndView modelAndView) {
 
         Weekday weekday = weekdayService.findById(weekdayId);
         modelAndView.addObject("weekday", weekday);
@@ -170,7 +170,7 @@ public class WeekdayController {
 
     @RequestMapping(value = {"edit-weekday-{weekdayId}-{id}"}, method = RequestMethod.POST)
     public ModelAndView editWeekdayById(@PathVariable("id") Long id, @PathVariable("weekdayId") Long weekdayId,
-                                         Weekday weekday, BindingResult bindingResult, ModelAndView modelAndView) {
+                                        Weekday weekday, BindingResult bindingResult, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("weekdayCreator/edit_weekday_by_id");
             return modelAndView;
@@ -184,7 +184,7 @@ public class WeekdayController {
 
     @RequestMapping(value = "/weekday-delete-by/{weekdayId}/{id}", method = RequestMethod.GET)
     public ModelAndView deleteWeekdayById(@PathVariable("weekdayId") Long weekdayId,
-                                           @PathVariable("id") Long id, ModelAndView model) {
+                                          @PathVariable("id") Long id, ModelAndView model) {
         weekdayService.deleteById(weekdayId);
 
         model.addObject("id", id);
