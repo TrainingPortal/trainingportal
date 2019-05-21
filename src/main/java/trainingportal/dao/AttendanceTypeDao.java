@@ -1,10 +1,12 @@
 package trainingportal.dao;
 
+import trainingportal.dao.generic.GenericDao;
 import trainingportal.model.Attendance;
+import trainingportal.model.AttendanceType;
 
 import java.util.List;
 
-public interface AttendanceTypeDao {
+public interface AttendanceTypeDao extends GenericDao<AttendanceType> {
 
-    List<Attendance> findAllAttendanceList();
+    List<AttendanceType> findAllAttendanceList();
 }

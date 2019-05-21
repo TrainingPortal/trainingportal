@@ -16,10 +16,8 @@ import java.util.List;
 
 @Controller
 public class MainController {
-
     @Autowired
     private MainSliderService mainSliderService;
-
     @Autowired
     private MainCardService mainCardService;
 

@@ -16,7 +16,7 @@ public class LoggedInUser extends User {
         this.id = id;
     }
 
-    public LoggedInUser(String username, String password, Collection<? extends GrantedAuthority> authorities, Long id) {
+    public LoggedInUser(String username, String password, Collection<? extends GrantedAuthority> authorities,Long id) {
         super(username, password, authorities);
         setId(id);
     }

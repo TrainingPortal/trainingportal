@@ -9,8 +9,9 @@ import java.util.Map;
 
 public class UserMapper implements BaseObjectMapper<User> {
  
-    public static final String BASE_SQL
+    public static final String SELECT_SQL
             = "SELECT u.user_id, u.name, u.email, u.password, u.enabled, u.token, u.role_id, u.manager_id FROM users u ";
+
     public static final String UPDATE_SQL
             = "UPDATE users SET name = ?, email = ?, enabled = ?, role_id = ?";
 
@@ -55,5 +56,10 @@ public class UserMapper implements BaseObjectMapper<User> {
         res.put("manager_id", obj.getManagerId());
 
         return  res;
+    }
+
+    @Override
+    public String getSelectSql() {
+        return SELECT_SQL;
     }
 }

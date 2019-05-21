@@ -142,6 +142,24 @@ CREATE TABLE User_Group
     user_id NUMBER
 );
 
+INSERT INTO User_Group (group_id, user_id)
+values (1, 11);
+INSERT INTO User_Group (group_id, user_id)
+values (2, 14);
+INSERT INTO User_Group (group_id, user_id)
+values (3, 19);
+INSERT INTO User_Group (group_id, user_id)
+values (4, 20);
+INSERT INTO User_Group (group_id, user_id)
+values (5, 26);
+INSERT INTO User_Group (group_id, user_id)
+values (1, 29);
+INSERT INTO User_Group (group_id, user_id)
+values (5, 22);
+INSERT INTO User_Group (group_id, user_id)
+values (2, 13);
+
+
 CREATE TABLE Groups
 (
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
@@ -339,6 +357,28 @@ CREATE TABLE Attendance
     schedule_id NUMBER
 );
 
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (13, 1, 1);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (20, 2, 3);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (29, 3, 5);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (10, 4, 7);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (11, 5, 9);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (21, 1, 10);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (22, 2, 12);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (23, 3, 13);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (24, 4, 16);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (25, 5, 20);
+
+
 CREATE TABLE Attendance_Type
 (
     id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
@@ -460,6 +500,23 @@ CREATE TABLE Desired_Period
     course_id NUMBER
 );
 
+INSERT INTO desired_period (user_id, course_id)
+values (12, 1);
+INSERT INTO desired_period (user_id, course_id)
+values (20, 1);
+INSERT INTO desired_period (user_id, course_id)
+values (21, 2);
+INSERT INTO desired_period (user_id, course_id)
+values (22, 3);
+INSERT INTO desired_period (user_id, course_id)
+values (23, 4);
+INSERT INTO desired_period (user_id, course_id)
+values (24, 5);
+INSERT INTO desired_period (user_id, course_id)
+values (25, 3);
+INSERT INTO desired_period (user_id, course_id)
+values (29, 5);
+
 CREATE TABLE Weekday
 (
     weekday_id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
@@ -563,8 +620,10 @@ alter table users ADD constraint users_fk_roles FOREIGN KEY(role_Id) references 
 alter table Notification ADD constraint ntfk_fk_user FOREIGN KEY (user_id) references users (user_Id);
 alter table Notification add constraint ntfk_fk_status FOREIGN KEY (status_id) references Notification_Status (id);
 alter table chat add constraint chat_fk_group FOREIGN KEY (group_id) references groups (id);
+
 alter table Info_Desk add constraint idesk_emp_fk_user FOREIGN KEY (emp_id) references users (user_Id);
 alter table Info_Desk add constraint idesk_fk_qstatus FOREIGN KEY (status_id) references Question_Status (id);
+
 alter table Feedback add constraint fdbk_tr_fk_user FOREIGN KEY (trainer_id) references users (user_Id);
 alter table Feedback add constraint fdbk_fk_cource FOREIGN KEY (course_id) references course (course_id);
 alter table Feedback add constraint fdbk_emp_fk_user FOREIGN KEY (employee_id) references users (user_Id);
@@ -590,14 +649,3 @@ alter table Course add constraint cource_fk_status FOREIGN KEY (course_status_id
 alter table Course add constraint cource_fk_trainer FOREIGN KEY (trainer_id) references users (user_Id);
 alter table Message add constraint message_fk_user FOREIGN KEY (sender_id) references users (user_Id);
 alter table Message add constraint message_fk_chat FOREIGN KEY (chat_id) references Chat(id);
-
-
-
-
-
-
-
-
-
-
-

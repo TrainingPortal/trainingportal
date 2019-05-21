@@ -7,16 +7,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
-import trainingportal.model.Attendance;
+import trainingportal.model.AttendanceType;
 import trainingportal.model.Course;
 import trainingportal.model.Role;
 import trainingportal.model.User;
+import trainingportal.reports.download.Loader;
 import trainingportal.reports.service.Filter;
 import trainingportal.reports.service.ReportsSQLQuery;
-import trainingportal.service.AttendanceType;
+import trainingportal.service.AttendanceTypeService;
 import trainingportal.service.CourseService;
 import trainingportal.service.UserService;
-import trainingportal.reports.download.Loader;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -34,7 +34,7 @@ public class ReportsController {
     private CourseService courseService;
 
     @Autowired
-    private AttendanceType attendanceType;
+    private AttendanceTypeService attendanceTypeService;
 
     @Autowired
     private ReportsSQLQuery report;
@@ -79,7 +79,7 @@ public class ReportsController {
     @RequestMapping(value = "report/downloadAttendance", method = RequestMethod.GET)
     public ModelAndView downloadAttendance(@NotNull ModelAndView model) {
 
-        List<Attendance> allTypes = attendanceType.getAllAttendanceList();
+        List<AttendanceType> allTypes = attendanceTypeService.getAllAttendanceList();
 
         if (allTypes.isEmpty()){
             model.setViewName("report/Error");

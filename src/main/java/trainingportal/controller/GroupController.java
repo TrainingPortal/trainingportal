@@ -18,33 +18,14 @@ import java.util.List;
 
 @Controller
 public class GroupController {
-
     @Autowired
     private GroupService groupService;
-
     @Autowired
     private CourseService courseService;
-
     @Autowired
     private UserSecurity userSecurity;
 
     private static final int ROWS_LIMIT = 10;
-//old method
-//    @RequestMapping(value = "/group_create/{page}")
-//    public ModelAndView showGroupsList(@PathVariable("page") int page, Long groupId, ModelAndView modelAndView) {
-//
-//        List<Group> groupList = groupService.getAllAsPage(page, ROWS_LIMIT);
-//
-//        for(Group group : groupList){
-//            group.setCourse(courseService.findById(group.getCourseId()));
-//            group.setStatus(groupService.findStatusById(group.getStatusId()));
-//        }
-//        modelAndView.addObject("groupList", groupList);
-//        modelAndView.addObject("pages", groupService.getPages(ROWS_LIMIT));
-//        modelAndView.setViewName("groupCreator/group_create");
-//        modelAndView.addObject("currentUrl", "group_create");
-//        return modelAndView;
-//    }
 
     @RequestMapping("/group_create/{page}/{courseId}")
     public ModelAndView showLessonListOfCourse(@PathVariable("page") int page,
@@ -86,7 +67,7 @@ public class GroupController {
 
     @PostMapping("/group-save")
     public ModelAndView saveGroup(@RequestParam("courseId") Long courseId, Group group, ModelAndView modelAndView) {
-        groupService.saveGroup(group);
+        groupService.save(group);
         modelAndView.setViewName("redirect:/group_create/1/" + courseId);
         return modelAndView;
     }
@@ -94,7 +75,7 @@ public class GroupController {
     @GetMapping({"/edit-group-{groupId}-{id}"})
     public ModelAndView editGroupBase(@PathVariable("groupId") Long groupId,
                                       @PathVariable("id") Long id,ModelAndView modelAndView) {
-        Group group = groupService.findGroupById(groupId);
+        Group group = groupService.findById(groupId);
 
         List<Course> courses = courseService.findAll();
         List<GroupStatus> statuses = groupService.getStatusList();
@@ -115,8 +96,9 @@ public class GroupController {
             modelAndView.setViewName("groupCreator/edit_group_by_id");
             return modelAndView;
         } else {
-            groupService.editGroup(group);
+            groupService.update(group);
             modelAndView.setViewName("redirect:/group_create/1/" + id);
+
             return modelAndView;
         }
     }
@@ -124,7 +106,7 @@ public class GroupController {
     @GetMapping("/group-delete-by/{groupId}/{id}")
     public ModelAndView deleteGroupById(@PathVariable("groupId") Long groupId,
                                         @PathVariable("id") Long id,ModelAndView model, RedirectAttributes redirect) {
-        groupService.deleteGroupById(groupId);
+        groupService.deleteById(groupId);
 
         redirect.addFlashAttribute("successMessage", "Group deleted successfully");
 

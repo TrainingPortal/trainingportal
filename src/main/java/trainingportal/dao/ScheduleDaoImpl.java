@@ -1,75 +1,67 @@
 package trainingportal.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import trainingportal.dao.generic.GenericDaoImpl;
+import trainingportal.mapper.AttendanceMapper;
 import trainingportal.mapper.ScheduleMapper;
+import trainingportal.mapper.generic.BaseObjectMapper;
+import trainingportal.model.Role;
 import trainingportal.model.Schedule;
-
 import javax.sql.DataSource;
+import java.text.CollationElementIterator;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
-@Transactional
-public class ScheduleDaoImpl extends JdbcDaoSupport implements ScheduleDao {
+public class ScheduleDaoImpl extends GenericDaoImpl<Schedule> implements ScheduleDao {
+    //Define table and id column
+    private static final String TABLE_NAME = "Schedule";
+    private static final String ID_COLUMN = "id";
+
+    @Autowired
+    private BaseObjectMapper<Schedule> scheduleBaseObjectMapper;
 
     @Autowired
     public ScheduleDaoImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
+        setTable(TABLE_NAME);
+        setPrimaryKey(ID_COLUMN);
     }
 
     @Override
-    public List<Schedule> findAll() {
-        String sql = ScheduleMapper.SELECT_SQL;
+    protected BaseObjectMapper<Schedule> getObjectMapper() {
+        return scheduleBaseObjectMapper;
+    }
 
-        return this.getJdbcTemplate().query(sql, new Object[]{}, new ScheduleMapper());
+    @Override
+    public List<Schedule> findAllByGroupId(Long id) {
+        String sql = ScheduleMapper.SELECT_SQL + " WHERE group_id = " + id;
+
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().query(sql,getObjectMapper());
+        } else
+            return Collections.emptyList();
     }
 
     @Override
     public List<Schedule> getAllAsPageByGroupId(Long scheduleGroupId, int page, int total) {
-//        String sql = ScheduleMapper.SELECT_SQL + " Where GROUP_ID = ? ";
-
         String sql = ScheduleMapper.SELECT_SQL + " WHERE GROUP_ID = ? " +
                 "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
-        return this.getJdbcTemplate().query(sql, new Object[]{scheduleGroupId}, new ScheduleMapper());
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().query(sql, new Object[]{scheduleGroupId}, scheduleBaseObjectMapper);
+        } else
+            return Collections.emptyList();
     }
 
     @Override
-    public int countAllByGroupIdId(Long scheduleGroupId) {
-
+    public int countAllByGroupId(Long scheduleGroupId) {
         String sql = "SELECT COUNT(id) FROM SCHEDULE WHERE GROUP_ID = ?";
 
-        return this.getJdbcTemplate().queryForObject(sql, new Object[]{scheduleGroupId}, Integer.class);
-    }
-
-    @Override
-    public Schedule findById(Long scheduleId) {
-        String sql = ScheduleMapper.SELECT_SQL + " WHERE ID = ?";
-
-        return this.getJdbcTemplate().queryForObject(sql, new Object[]{scheduleId}, new ScheduleMapper());
-    }
-
-    @Override
-    public void save(Schedule schedule) {
-        String sql = ScheduleMapper.INSERT_SQL;
-        this.getJdbcTemplate().update(sql, new Object[]{schedule.getScheduleGroupId(), schedule.getScheduleDate(),
-        schedule.getScheduleLessonId()});
-    }
-
-    @Override
-    public void update(Schedule schedule) {
-        String sql = ScheduleMapper.EDIT_SQL + " WHERE id = ?";
-
-        this.getJdbcTemplate().update(sql, schedule.getScheduleGroupId(), schedule.getScheduleDate(),
-                schedule.getScheduleLessonId(), schedule.getScheduleId());
-    }
-
-    @Override
-    public void deleteById(Long scheduleId) {
-        String sql = ScheduleMapper.DELETE + " WHERE id = ?";
-
-        this.getJdbcTemplate().update(sql, scheduleId);
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{scheduleGroupId}, Integer.class);
+        } else
+            return 0;
     }
 }

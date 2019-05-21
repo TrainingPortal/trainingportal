@@ -1,5 +1,6 @@
 package trainingportal.service;
 
+import org.springframework.security.core.Authentication;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.generic.GenericService;
@@ -12,6 +13,8 @@ public interface UserService extends GenericService<User> {
     boolean isUserExists(User login);
 
     List<User> findAllByRole(Long roleId);
+
+    List<User> findAllByGroup(Long id);
 
     List<User> findAllEnabledByRole(Long roleId);
 
@@ -60,4 +63,8 @@ public interface UserService extends GenericService<User> {
     int getSearchPagesByRole(Long id, double total, String request);
 
     List<User> findAllManagersForTrainer(Long trainerId);
+
+    Long getUserId(Authentication authentication);
+
+
 }
