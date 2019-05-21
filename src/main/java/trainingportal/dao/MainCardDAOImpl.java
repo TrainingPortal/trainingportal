@@ -54,7 +54,7 @@ public class MainCardDAOImpl extends GenericDaoImpl<MainCardModel> implements Ma
 
         this.getJdbcTemplate().update(sql, card.getCardTitle(), card.getCardText(), card.getButtonName(),
                 card.getCardUrl(), card.getMainCardId());
-  
+    }
     //insert into database new Card data
     @Override
     public void storeData(MainCardModel card) {
