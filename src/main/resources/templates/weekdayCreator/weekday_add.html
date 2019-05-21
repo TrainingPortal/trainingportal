@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Add Lesson</title>
+    <title>Add Weekday</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
@@ -12,7 +12,7 @@
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
 
-<h1>New Lesson</h1>
+<h1>Registration for course</h1>
 <div class="container-fluid">
 
     <div class="row no-gutters ">
@@ -22,18 +22,18 @@
                 <input class="form-control" placeholder="Id" th:field="*{weekdayId}" type="hidden"/>
                 <input class="form-control" placeholder="course Id" th:field="*{periodId}" type="hidden"/>
 
-                <label>day Name</label>
-                <input class="form-control" placeholder="dayName" th:field="*{dayName}" type="text"/>
+                <label>Enter two days that are comfortable to you</label>
+                <input class="form-control" placeholder="Wednesday, Friday" th:field="*{dayName}" type="text"/>
                 <p class="alert alert-danger" th:errors="*{dayName}" th:if="${#fields.hasErrors('dayName')}"></p>
-                <label>timeStart</label>
-                <input class="form-control" placeholder="timeStart" th:field="*{timeStart}"
+                <label>Enter time for first day</label>
+                <input class="form-control" placeholder="12:00-14:00" th:field="*{timeStart}"
                        type="text"/>
                 <p class="alert alert-danger" th:errors="*{timeStart}"
                    th:if="${#fields.hasErrors('timeStart')}">
                    </p>
 
-                <label>timeEnd</label>
-                <input class="form-control" placeholder="timeEnd" th:field="*{timeEnd}" type="text"/>
+                <label>Enter time for second day</label>
+                <input class="form-control" placeholder="18:00-20:00" th:field="*{timeEnd}" type="text"/>
                 <p class="alert alert-danger" th:errors="*{timeEnd}"
                    th:if="${#fields.hasErrors('timeEnd')}">
                     </p>

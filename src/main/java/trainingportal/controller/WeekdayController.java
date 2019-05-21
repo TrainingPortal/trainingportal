@@ -2,11 +2,9 @@ package trainingportal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import trainingportal.model.DesiredPeriod;
 import trainingportal.model.Weekday;
@@ -141,7 +139,7 @@ public class WeekdayController {
         weekday.setPeriodId(periodId);
 
         modelAndView.addObject("weekday", weekday);
-        modelAndView.setViewName("weekdayCreator/weekday_period");
+        modelAndView.setViewName("weekdayCreator/weekday_add");
 
         return modelAndView;
     }
@@ -152,7 +150,8 @@ public class WeekdayController {
 
         weekdayService.save(weekday);
         modelAndView.addObject("period_id", periodId);
-        modelAndView.setViewName("redirect:/weekday_period/1/" + periodId);
+        modelAndView.setViewName("redirect:/thanks_page");
+//                "//1/" + periodId);
         return modelAndView;
     }
 
@@ -191,7 +190,11 @@ public class WeekdayController {
         model.setViewName("redirect:/weekday_period/1/" + id);
         return model;
     }
+    @GetMapping("/thanks_page")
+    String ThanksPage(Model model){
 
+        return "weekdayCreator/thanks_page";
+    }
 
 }
 

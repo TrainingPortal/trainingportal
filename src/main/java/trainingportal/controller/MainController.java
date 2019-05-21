@@ -53,7 +53,7 @@ public class MainController {
 
         return "frontend/profilepage";
     }
-    ////////////////////////
+
     @GetMapping("/englishDescriptionPage")
     String englishDescriptionPage(Model model){
 
@@ -80,7 +80,7 @@ public class MainController {
 
         return "frontend/businessDescriptionPage";
     }
-/////////////
+
 
     @GetMapping("/coursepage")
     String coursePage(Model model){
