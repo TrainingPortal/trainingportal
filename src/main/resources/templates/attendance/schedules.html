@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedules</title>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<h3 th:text="'Schedules for ' + ${group.groupName}"></h3>
+
+<div th:if="${schedules.size() == 0}">
+    <h1>There are no courses.</h1>
+</div>
+<div th:unless="${schedules.size() == 0}">
+    <div class="list-group" th:each="schedule : ${schedules}">
+        <a th:href="@{/presence/{groupId}/{scheduleId}(groupId=${schedule.scheduleGroup.getGroupId()},
+        scheduleId =${schedule.getScheduleId()} )}" class="list-group-item"
+           th:text="${schedule.scheduleLesson.getLessonName()} + ' ' + ${schedule.scheduleDate}">
+        </a>
+    </div>
+</div>
+</body>
+</html>

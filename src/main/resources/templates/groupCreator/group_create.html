@@ -33,7 +33,7 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="row">ID</th>
+<!--            <th scope="row">ID</th>-->
             <th scope="row">Name</th>
             <th scope="row">Capacity</th>
             <th scope="row">Course Name</th>
@@ -42,15 +42,19 @@
         </thead>
         <tbody>
         <tr th:each="group, iter : ${groupList}">
-            <td th:text="${group.groupId}"></td>
+<!--            <td th:text="${group.groupId}"></td>-->
             <td th:text="${group.groupName}"></td>
             <td th:text="${group.groupCapacity}"></td>
             <td th:text="${group.course.courseName}"></td>
             <td th:text="${group.status.statusName}"></td>
             <td>
                 <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/group_users/{page}/{groupId}
+                    (groupId = ${group.groupId}, page = 1)}">Group Users</a>
+                </div>
+                <div class="btn-group">
                     <a class="btn btn-outline-primary" th:href="@{/schedule_create/{page}/{groupId}
-                    (groupId = ${group.groupId}, page = 1)}"> Schedule</a>
+                    (groupId = ${group.groupId}, page = 1)}">Schedule</a>
                 </div>
             </td>
 
@@ -61,7 +65,7 @@
                     <a class="btn btn-info" th:href="@{/edit-group-{groupId}-{id}
                        (groupId = ${group.groupId},id = ${group.courseId}) }">Edit</a>
                     <a class="btn btn-dark" th:href="@{/group-delete-by/{groupId}/{id}
-                    (groupId = ${group.courseId},id = ${group.courseId})}">Delete</a>
+                    (groupId = ${group.groupId},id = ${group.courseId})}">Delete</a>
                 </div>
             </td>
         </tr>

@@ -17,13 +17,11 @@ import java.util.List;
 
 @Controller
 public class LessonController {
-
     @Autowired
     private LessonService lessonService;
-
     @Autowired
     private CourseService courseService;
-
+    @Autowired
     private static final int ROWS_LIMIT = 10;
 
     @RequestMapping("/course_lessons/{page}/{courseId}")
@@ -58,14 +56,6 @@ public class LessonController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "lesson-save", method = RequestMethod.POST)
-    public ModelAndView saveLesson(@RequestParam("courseId") Long courseId,
-                                   Lesson lesson, ModelAndView modelAndView) {
-
-        lessonService.save(lesson);
-        modelAndView.setViewName("redirect:/course_lessons/1/" + courseId);
-        return modelAndView;
-    }
 
     @RequestMapping(value = {"/edit-lesson-{lessonId}-{id}"}, method = RequestMethod.GET)
     public ModelAndView editLessonBase(@PathVariable("lessonId") Long lessonId,

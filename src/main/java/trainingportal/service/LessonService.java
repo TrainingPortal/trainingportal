@@ -1,7 +1,5 @@
 package trainingportal.service;
 
-import org.springframework.security.core.Authentication;
-import trainingportal.model.Course;
 import trainingportal.model.Lesson;
 import trainingportal.service.generic.GenericService;
 
@@ -14,7 +12,13 @@ public interface LessonService extends GenericService<Lesson> {
 
     int getPages(Long courseId, double total);
 
-    boolean isConnectedWithTrainer(Long userId, Long courseId);
+    boolean isConnectedWithTrainerByCourseId(Long userId, Long courseId);
+
+    Lesson getLessonByScheduleId(Long id);
 
     boolean isConnectedWithLessonByCourseId(Long userId, Long courseId);
+
+    boolean isConnectedWithTrainerByLessonId(Long userId, Long lessonId);
+
+    boolean isConnectedWithLessonByLessonId(Long userId, Long lessonId);
 }

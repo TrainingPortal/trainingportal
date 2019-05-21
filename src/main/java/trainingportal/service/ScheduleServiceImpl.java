@@ -2,29 +2,26 @@ package trainingportal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import trainingportal.dao.GroupDao;
+import trainingportal.dao.LessonDao;
 import trainingportal.dao.ScheduleDao;
 import trainingportal.model.Schedule;
+import trainingportal.service.generic.GenericServiceImpl;
 
 import java.util.List;
 
-
-@Service("scheduleService")
-@Transactional
-public class ScheduleServiceImpl implements ScheduleService {
-
+@Service
+public class ScheduleServiceImpl extends GenericServiceImpl<Schedule> implements ScheduleService {
     @Autowired
     private ScheduleDao scheduleDao;
+    @Autowired
+    private GroupDao groupDao;
+    @Autowired
+    private LessonDao lessonDao;
 
     @Override
-    public Schedule findById(Long scheduleId) {
-        return scheduleDao.findById(scheduleId);
-    }
-
-    @Override
-    public void save(Schedule schedule) {
-        scheduleDao.save(schedule);
-
+    public List<Schedule> findAllByGroupId(Long id) {
+        return scheduleDao.findAllByGroupId(id);
     }
 
     @Override
@@ -39,54 +36,31 @@ public class ScheduleServiceImpl implements ScheduleService {
     }
 
     @Override
-    public void deleteById(Long scheduleId) {
-        scheduleDao.deleteById(scheduleId);
-    }
-
-    @Override
-    public List<Schedule> findAll() {
-        return scheduleDao.findAll();
-    }
-
-    @Override
-    public List<Schedule> getAllAsPage(int page, int total) {
-        return null;
-    }
-
-    @Override
-    public int getNumberOfPages(List<Schedule> users, double total) {
-        return 0;
-    }
-
-    @Override
     public List<Schedule> getAllAsPageByGroupId(Long scheduleGroupId, int page, int total) {
 
-        if(page == 1){
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
 
-        }else{
-            page = (page - 1)*total + 1;
-        }
         return scheduleDao.getAllAsPageByGroupId(scheduleGroupId,page,total);
     }
 
     @Override
     public int countAllByGroupId(Long scheduleGroupId) {
-        return scheduleDao.countAllByGroupIdId(scheduleGroupId);
+        return scheduleDao.countAllByGroupId(scheduleGroupId);
     }
 
     @Override
     public int getPages(Long scheduleId, double total) {
-        return (int) Math.ceil(scheduleDao.countAllByGroupIdId(scheduleId)/total);
+        return (int) Math.ceil(scheduleDao.countAllByGroupId(scheduleId)/total);
     }
 
-//    @Override
-//    public boolean isConnectedWithGroup(Long scheduleId, Long scheduleGroupId) {
-//        Long scheduleGroupId =  scheduleDao.getScheduleIdByGroupId(scheduleId);
-//
-//        if(scheduleId == scheduleGroupId){
-//            return true;
-//        } else  {
-//            return false;
-//        }
-
+    @Override
+    public List<Schedule> getSchedules(Long id) {
+        List<Schedule> schedules = findAllByGroupId(id);
+        for(Schedule schedule:schedules){
+            schedule.setScheduleGroup(groupDao.findById(schedule.getScheduleGroupId()));
+            schedule.setScheduleLesson(lessonDao.findById(schedule.getScheduleLessonId()));
+        }
+        return schedules;
+    }
 }

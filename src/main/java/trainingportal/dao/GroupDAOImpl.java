@@ -1,30 +1,40 @@
 package trainingportal.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import trainingportal.dao.generic.GenericDaoImpl;
 import trainingportal.mapper.GroupMapper;
 import trainingportal.mapper.GroupStatusMapper;
+import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
 
 import javax.sql.DataSource;
+import java.util.Collections;
 import java.util.List;
 
 @Repository
 @Transactional
-public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
+public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
+    @Autowired
+    private BaseObjectMapper<Group> groupBaseObjectMapper;
+    
+    //Define table and id column
+    private static final String TABLE_NAME = "groups";
+    private static final String ID_COLUMN = "id";
 
     @Autowired
     public GroupDAOImpl(DataSource dataSource) {
         this.setDataSource(dataSource);
+        setTable(TABLE_NAME);
+        setPrimaryKey(ID_COLUMN);
     }
 
     @Override
     public List<Group> GroupsList() {
         String sql = GroupMapper.SELECT_SQL;
-        return this.getJdbcTemplate().query(sql, new Object[]{}, new GroupMapper());
+        return this.getJdbcTemplate().query(sql, new Object[]{}, groupBaseObjectMapper);
     }
 
     @Override
@@ -34,18 +44,16 @@ public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
         String sql = GroupMapper.SELECT_SQL + " WHERE course_id = ? " +
                 "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
-        return this.getJdbcTemplate().query(sql, new Object[]{courseId}, new GroupMapper());
+        return this.getJdbcTemplate().query(sql, new Object[]{courseId}, groupBaseObjectMapper);
     }
 
     @Override
     public Group findGroupById(Long groupId) {
         String sql = GroupMapper.SELECT_SQL + " WHERE id = ?";
 
-        return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, new GroupMapper());
+        return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, groupBaseObjectMapper);
     }
 
-
-    //insert into database new Course
     @Override
     public void saveGroup(Group group) {
         String sql = "INSERT INTO groups (name, capacity, course_id, status_id) VALUES (?,?,?,?)";
@@ -83,28 +91,29 @@ public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
     }
 
     @Override
-    public int countAll() {
+    public List<Group> findAllByCourseId(Long id) {
+        String sql = GroupMapper.SELECT_SQL + " WHERE course_id = ?";
 
-        String sql = "SELECT COUNT(id) FROM Groups";
-
-        return this.getJdbcTemplate().queryForObject(sql, Integer.class);
+        return this.getJdbcTemplate().query(sql, new Object[]{id}, groupBaseObjectMapper);
     }
 
     @Override
-    public List<Group> getAllAsPage(int page, int total) {
-        String sql = GroupMapper.SELECT_SQL + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
-        return this.getJdbcTemplate().query(sql, new Object[]{}, new GroupMapper());
+    protected BaseObjectMapper<Group> getObjectMapper() {
+        return groupBaseObjectMapper;
     }
 
     @Override
     public Long getTrainerIdByGroupId(Long groupId) {
 
-        String sql = "SELECT MAX(a.trainer_id) FROM Course a " +
+        String sql = "SELECT a.trainer_id FROM Course a " +
                 "INNER JOIN Groups b " +
                 "ON a.course_id = b.course_id " +
-                "WHERE b.course_id = ?";
+                "WHERE b.id = ?";
 
-        return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, Long.class);
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, Long.class);
+        } else
+            return null;
     }
 
     @Override
@@ -116,6 +125,9 @@ public class GroupDAOImpl extends JdbcDaoSupport implements GroupDao {
                 "WHERE b.course_id = ? AND c.user_id = ? " +
                 "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
-        return this.getJdbcTemplate().query(sql, new Object[]{courseId, userId}, new GroupMapper());
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().query(sql, new Object[]{courseId, userId}, groupBaseObjectMapper);
+        } else
+            return Collections.emptyList();
     }
 }

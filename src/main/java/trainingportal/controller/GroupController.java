@@ -10,41 +10,26 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Course;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
+import trainingportal.model.User;
 import trainingportal.security.UserSecurity;
 import trainingportal.service.CourseService;
 import trainingportal.service.GroupService;
+import trainingportal.service.UserService;
 
 import java.util.List;
 
 @Controller
 public class GroupController {
-
     @Autowired
     private GroupService groupService;
-
     @Autowired
     private CourseService courseService;
-
     @Autowired
     private UserSecurity userSecurity;
+    @Autowired
+    private UserService userService;
 
     private static final int ROWS_LIMIT = 10;
-//old method
-//    @RequestMapping(value = "/group_create/{page}")
-//    public ModelAndView showGroupsList(@PathVariable("page") int page, Long groupId, ModelAndView modelAndView) {
-//
-//        List<Group> groupList = groupService.getAllAsPage(page, ROWS_LIMIT);
-//
-//        for(Group group : groupList){
-//            group.setCourse(courseService.findById(group.getCourseId()));
-//            group.setStatus(groupService.findStatusById(group.getStatusId()));
-//        }
-//        modelAndView.addObject("groupList", groupList);
-//        modelAndView.addObject("pages", groupService.getPages(ROWS_LIMIT));
-//        modelAndView.setViewName("groupCreator/group_create");
-//        modelAndView.addObject("currentUrl", "group_create");
-//        return modelAndView;
-//    }
 
     @RequestMapping("/group_create/{page}/{courseId}")
     public ModelAndView showLessonListOfCourse(@PathVariable("page") int page,
@@ -64,6 +49,67 @@ public class GroupController {
         modelAndView.setViewName("groupCreator/group_create");
 
         return modelAndView;
+    }
+
+    @GetMapping("/group_users/{page}/{groupId}")
+    public ModelAndView showGroupUsersList(@PathVariable("page") int page,
+                                               @PathVariable("groupId") Long groupId,
+                                               ModelAndView modelAndView) {
+
+        List<User> userList = userService.getUsersByGroupIdAsPage(page, ROWS_LIMIT, groupId);
+
+        //Course course = courseService.findById(groupId);
+        //modelAndView.addObject("courseGroup", course);
+
+        modelAndView.addObject("pages", userService.getPagesAmountOfUsersByGroupId(groupId, ROWS_LIMIT));
+        modelAndView.addObject("groupId", groupId);
+        modelAndView.addObject("userList", userList);
+        modelAndView.addObject("currentUrl", "group_users");
+        modelAndView.setViewName("groupCreator/group_users");
+
+        return modelAndView;
+    }
+
+    @GetMapping("/add_users_to_group/{groupId}")
+    public ModelAndView showAddSubordinates(@PathVariable("groupId") Long groupId, ModelAndView model) {
+
+        List<User> users = userService.findUsersForGroupByGroupId(groupId);
+
+        model.addObject("users", users);
+
+        model.setViewName("groupCreator/add_users_to_group");
+
+        return model;
+    }
+
+    @PostMapping("/add_selected_users_to_group/{groupId}")
+    public ModelAndView addSelectedSubordinates(@PathVariable("groupId") Long groupId,
+                                                @RequestParam(value = "userId", required = false) Long[] userIds,
+                                                ModelAndView model, RedirectAttributes redir) {
+
+        String message = userService.assignUsersToGroup(groupId, userIds);
+
+        redir.addFlashAttribute("infoMessage", message);
+
+        model.setViewName("redirect:/group_users/1/" + groupId);
+
+        return model;
+    }
+
+    @GetMapping("/release_user_from_group/{userId}/{groupId}")
+    public ModelAndView setUserFree(@PathVariable("userId") Long userId,
+                                    @PathVariable("groupId") Long groupId,
+                                    ModelAndView model, RedirectAttributes redir) {
+
+        User user = userService.findById(userId);
+
+        groupService.deleteFromUserGroupByUserIdAndGroupId(userId, groupId);
+
+        redir.addFlashAttribute("infoMessage",
+                "User " + user.getUserName() + " is not a part of this group any more.");
+        model.setViewName("redirect:/group_users/1/" + groupId);
+
+        return model;
     }
 
     @GetMapping("/group-add-{courseId}")
@@ -86,7 +132,7 @@ public class GroupController {
 
     @PostMapping("/group-save")
     public ModelAndView saveGroup(@RequestParam("courseId") Long courseId, Group group, ModelAndView modelAndView) {
-        groupService.saveGroup(group);
+        groupService.save(group);
         modelAndView.setViewName("redirect:/group_create/1/" + courseId);
         return modelAndView;
     }
@@ -94,7 +140,7 @@ public class GroupController {
     @GetMapping({"/edit-group-{groupId}-{id}"})
     public ModelAndView editGroupBase(@PathVariable("groupId") Long groupId,
                                       @PathVariable("id") Long id,ModelAndView modelAndView) {
-        Group group = groupService.findGroupById(groupId);
+        Group group = groupService.findById(groupId);
 
         List<Course> courses = courseService.findAll();
         List<GroupStatus> statuses = groupService.getStatusList();
@@ -115,8 +161,9 @@ public class GroupController {
             modelAndView.setViewName("groupCreator/edit_group_by_id");
             return modelAndView;
         } else {
-            groupService.editGroup(group);
+            groupService.update(group);
             modelAndView.setViewName("redirect:/group_create/1/" + id);
+
             return modelAndView;
         }
     }
@@ -124,7 +171,7 @@ public class GroupController {
     @GetMapping("/group-delete-by/{groupId}/{id}")
     public ModelAndView deleteGroupById(@PathVariable("groupId") Long groupId,
                                         @PathVariable("id") Long id,ModelAndView model, RedirectAttributes redirect) {
-        groupService.deleteGroupById(groupId);
+        groupService.deleteById(groupId);
 
         redirect.addFlashAttribute("successMessage", "Group deleted successfully");
 

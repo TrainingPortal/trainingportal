@@ -23,18 +23,16 @@ public class ProfileController {
     private CourseService courseService;
 
     @Autowired
-    ProfileService profileService;
+    private ProfileService profileService;
 
     @RequestMapping("/profile_page/{userId}")
     ModelAndView profilePage(@PathVariable("userId") Long id, ModelAndView model){
 
         User user = userService.findById(id);
         User manager = profileService.initManager(user);
-        List<Course> courseList = courseService.findCoursesByUserId(id);
 
-        for(Course course : courseList){
-            course.setTrainer(userService.findById(course.getTrainerId()));
-        }
+        List<Course> courseList = courseService.findCoursesByUser(user);
+
         String role = profileService.getReadableRole(user);
 
         model.addObject("manager", manager);

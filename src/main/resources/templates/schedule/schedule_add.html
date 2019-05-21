@@ -18,9 +18,9 @@
 
             <input class="form-control" placeholder="Id" th:field="*{scheduleId}" type="hidden"/>
 
-            <input class="form-control" placeholder="Schedule group Id" th:field="*{scheduleGroupId}" type="number"/>
+            <input class="form-control" placeholder="Schedule group Id" th:field="*{scheduleGroupId}" type="hidden"/>
 
-            <label>Schedule Date</label>
+            <label>Lesson date</label>
             <input class="form-control" placeholder="Schedule Date" th:field="*{scheduleDate}" type="date"/>
             <p class="alert alert-danger" th:errors="*{scheduleDate}" th:if="${#fields.hasErrors('scheduleDate')}">
                 Error, check name field</p>

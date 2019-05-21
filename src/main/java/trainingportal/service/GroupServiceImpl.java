@@ -1,84 +1,61 @@
 package trainingportal.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import trainingportal.dao.CourseDao;
 import trainingportal.dao.GroupDao;
-import trainingportal.model.Course;
+import trainingportal.dao.UserGroupDao;
 import trainingportal.model.Group;
 import trainingportal.model.GroupStatus;
-import trainingportal.model.LoggedInUser;
+import trainingportal.model.UserGroup;
+import trainingportal.service.generic.GenericServiceImpl;
 
-import java.util.Collection;
 import java.util.List;
 
 @Service("groupService")
 @Transactional
-public class GroupServiceImpl implements GroupService {
-
+public class GroupServiceImpl extends GenericServiceImpl<Group> implements GroupService {
     @Autowired
     private GroupDao groupDAO;
-
     @Autowired
-    private CourseService courseService;
-
+    private CourseDao courseDao;
     @Autowired
-    private GroupService groupService;
+    private UserGroupDao userGroupDao;
 
     @Override
     public List<Group> getAllAsPageByCourseId(Long courseId, int page, int total) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
         return groupDAO.getAllAsPageByCourseId(courseId, page, total);
     }
 
     @Override
     public List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int total) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
         return groupDAO.getUserGroupsAsPageByCourseIdAndUserId(courseId, userId, page, total);
     }
 
     @Override
-    public List<Group> GroupsList() {
-        return groupDAO.GroupsList();
-    }
-
-    @Override
-    public Group findGroupById(Long GroupId) {
-        return groupDAO.findGroupById(GroupId);
-    }
-
-    @Override
-    public void saveGroup(Group group) {
-        groupDAO.saveGroup(group);
-    }
-
-    @Override
-    public void editGroup(Group group) {
-        Group groupEdit = groupDAO.findGroupById(group.getGroupId());
+    public void update(Group group) {
+        Group groupEdit = groupDAO.findById(group.getGroupId());
         if (groupEdit != null) {
             groupEdit.setGroupName(group.getGroupName());
             groupEdit.setGroupCapacity(group.getGroupCapacity());
             groupEdit.setCourseId(group.getCourseId());
             groupEdit.setStatusId(group.getStatusId());
         }
-        groupDAO.editGroup(groupEdit);
+        groupDAO.update(groupEdit);
     }
 
     @Override
-    public void deleteGroupById(Long GroupId) {
-        groupDAO.deleteGroupById(GroupId);
+    public List<Group> findAllByCourseId(Long id) {
+        return groupDAO.findAllByCourseId(id);
     }
 
     @Override
@@ -97,17 +74,6 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public List<Group> getAllAsPage(int page, int total) {
-
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
-        return groupDAO.getAllAsPage(page, total);
-    }
-
-    @Override
     public boolean isTrainerConnectedWithGroup(Long trainerId, Long groupId) {
 
         Long userId =  groupDAO.getTrainerIdByGroupId(groupId);
@@ -118,11 +84,9 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public List<Group> getGroupsPage(Long courseId, int page, int total, Long userId, String role) {
 
-        if(page == 1){
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
 
-        } else {
-            page = (page - 1) * total + 1;
-        }
         List<Group> groupList;
 
         if(role.equals("ROLE_EMPLOYEE") || role.equals("ROLE_MANAGER")) {
@@ -132,10 +96,36 @@ public class GroupServiceImpl implements GroupService {
         }
 
         for(Group group : groupList){
-            group.setCourse(courseService.findById(group.getCourseId()));
-            group.setStatus(groupService.findStatusById(group.getStatusId()));
+            group.setCourse(courseDao.findById(group.getCourseId()));
+            group.setStatus(groupDAO.findStatusById(group.getStatusId()));
         }
 
         return groupList;
+    }
+
+    @Override
+    public boolean isConnectedWithTrainerByGroupId(Long trainerId, Long groupId) {
+
+        Long userId =  groupDAO.getTrainerIdByGroupId(groupId);
+
+        return userId.equals(trainerId);
+    }
+
+    @Override
+    public boolean isConnectedWithUserByGroupId(Long userId, Long groupId) {
+
+        List<UserGroup> users =  userGroupDao.getUserGroupListByGroupId(groupId);
+
+        for(UserGroup user : users){
+            if(user.getUserId() == userId) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void deleteFromUserGroupByUserIdAndGroupId(Long userId, Long groupId) {
+        userGroupDao.deleteFromUserGroupByUserIdAndGroupId(userId, groupId);
     }
 }

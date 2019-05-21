@@ -29,10 +29,9 @@ HELP.md
 .vscode/
 
 ### Lova Vardanian local settings ###
-/src/main/resources/application.properties
+src/main/resources/application.properties
 Trainer.xlsx
 Level.xlsx
 Attendance.xlsx
-
 
 

@@ -16,10 +16,8 @@ import java.util.List;
 
 @Controller
 public class MainController {
-
     @Autowired
     private MainSliderService mainSliderService;
-
     @Autowired
     private MainCardService mainCardService;
 
@@ -27,12 +25,10 @@ public class MainController {
     public ModelAndView welcomePage(ModelAndView modelAndView) {
 
         List<MainSliderModel> sliderList = mainSliderService.getAll();
-        ArrayList<Integer> indicatorList = mainSliderService.getSlideIndicators();
         List<MainCardModel> cardList = mainCardService.getAll();
 
 
         modelAndView.addObject("sliderList", sliderList);
-        modelAndView.addObject("indicatorList", indicatorList);
         modelAndView.addObject("cardList", cardList);
         modelAndView.setViewName("frontend/index");
         return modelAndView;
@@ -55,6 +51,34 @@ public class MainController {
 
         return "frontend/profilepage";
     }
+
+    @GetMapping("/englishDescriptionPage")
+    String englishDescriptionPage(Model model){
+
+        return "frontend/englishDescriptionPage";
+    }
+    @GetMapping("/germanDescriptionPage")
+    String germanDescriptionPage(Model model){
+
+        return "frontend/germanDescriptionPage";
+    }
+
+    @GetMapping("/polishDescriptionPage")
+    String polishDescriptionPage(Model model){
+
+        return "frontend/polishDescriptionPage";
+    }
+    @GetMapping("/franceDescriptionPage")
+    String franceDescriptionPage(Model model){
+
+        return "frontend/franceDescriptionPage";
+    }
+    @GetMapping("/businessDescriptionPage")
+    String businessDescriptionPage(Model model){
+
+        return "frontend/businessDescriptionPage";
+    }
+
 
     @GetMapping("/coursepage")
     String coursePage(Model model){

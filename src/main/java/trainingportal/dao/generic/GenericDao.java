@@ -8,5 +8,7 @@ public interface GenericDao<T>{
     void update(T entity);
     void deleteById(Long id);
     List<T> findAll();
+    int countAll();
+    List<T> getAllAsPage(int page, int total);
 }
 

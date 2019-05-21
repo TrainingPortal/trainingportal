@@ -40,8 +40,8 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="row">material Id</th>
-            <th scope="row">lesson Id</th>
+<!--            <th scope="row">material Id</th>-->
+<!--            <th scope="row">lesson Id</th>-->
             <th scope="row">material Description</th>
 
 
@@ -49,8 +49,8 @@
         </thead>
         <tbody>
         <tr th:each="material, iter : ${materialListOfLesson}">
-            <td th:text="${material.materialId}"></td>
-            <td th:text="${material.lessonId}"></td>
+<!--            <td th:text="${material.materialId}"></td>-->
+<!--            <td th:text="${material.lessonId}"></td>-->
             <td th:text="${material.materialDescription}"></td>
             <td>
                 <div class="btn-group">
@@ -71,3 +71,4 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </body>
 </html>
+

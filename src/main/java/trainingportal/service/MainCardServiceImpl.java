@@ -19,14 +19,22 @@ public class MainCardServiceImpl implements MainCardService {
     private MainCardDao mainCardDao;
 
     @Override
-    public void storeData(MultipartFile file,  String cardTitle, String cardText, String buttonName, String cardUrl) throws IOException {
+    public String storeData(MultipartFile file,  String cardTitle, String cardText, String buttonName, String cardUrl) throws IOException {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Long mainCardId = 0L;
+        String fileType = file.getContentType();
+        String message;
 
         MainCardModel data = new MainCardModel(mainCardId, fileName, file.getContentType(), file.getBytes(), cardTitle, cardText, buttonName, cardUrl);
 
-        mainCardDao.storeData(data);
+        if(fileType.equals("image/jpeg") || fileType.equals("image/png") || fileType.equals("image/tiff")){
+            mainCardDao.storeData(data);
+            return message = "Successfully stored!";
+        } else {
+            mainCardDao.updateAll(data);
+            return message = "File must be an image! Data was not stored!";
+        }
 
     }
 
@@ -42,6 +50,22 @@ public class MainCardServiceImpl implements MainCardService {
     @Override
     public void deleteById(Long mainCardId){
         mainCardDao.deleteById(mainCardId);
+    }
+
+    @Override
+    public void editById(Long mainCardId, MultipartFile file, String cardTitle, String cardText, String buttonName, String buttonUrl) throws IOException {
+
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+        MainCardModel data = new MainCardModel(mainCardId, fileName, file.getContentType(), file.getBytes(), cardTitle, cardText, buttonName, buttonUrl);
+
+        if(file.getContentType().equals("application/octet-stream")){
+            mainCardDao.updateWithoutFile(data);
+        } else {
+            mainCardDao.updateAll(data);
+        }
+
+
     }
 
 }

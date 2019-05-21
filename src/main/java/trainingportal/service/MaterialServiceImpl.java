@@ -5,31 +5,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.MaterialDao;
 import trainingportal.model.Material;
+import trainingportal.service.generic.GenericServiceImpl;
 
 import java.util.List;
 
 
 @Service("materialService")
 @Transactional
-public class MaterialServiceImpl implements MaterialService {
+public class MaterialServiceImpl extends GenericServiceImpl<Material> implements MaterialService {
 
     @Autowired
     private MaterialDao materialDao;
-
-    @Override
-    public int getNumberOfPages(List<Material> users, double total) {
-        return 0;
-    }
-
-    @Override
-    public Material findById(Long MaterialId) {
-        return materialDao.findById(MaterialId);
-    }
-
-    @Override
-    public void save(Material material) {
-        materialDao.save(material);
-    }
 
     @Override
     public void update(Material material) {
@@ -42,22 +28,6 @@ public class MaterialServiceImpl implements MaterialService {
         materialDao.update(materialEdit);
     }
 
-
-    @Override
-    public void deleteById(Long materialId) {
-        materialDao.deleteById(materialId);
-    }
-
-    @Override
-    public List<Material> findAll() {
-        return materialDao.findAll();
-    }
-
-    @Override
-    public List<Material> getAllAsPage(int page, int total) {
-        return null;
-    }
-
     @Override
     public List<Material> getMaterialLessonId(Long lessonId) {
         return materialDao.getMaterialLessonId(lessonId);
@@ -66,11 +36,9 @@ public class MaterialServiceImpl implements MaterialService {
     @Override
     public List<Material> getAllAsPageByLessonId(Long lessonId, int page, int total) {
 
-        if(page == 1){
-            //do nothing
-        } else {
-            page = (page - 1) * total + 1;
-        }
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page,total);
+
         return materialDao.getAllAsPageByLessonId(lessonId, page, total);
     }
 

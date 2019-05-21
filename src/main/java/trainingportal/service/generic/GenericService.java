@@ -1,5 +1,7 @@
 package trainingportal.service.generic;
 
+import trainingportal.model.Course;
+
 import java.util.List;
 
 public interface GenericService<T> {
@@ -9,5 +11,4 @@ public interface GenericService<T> {
     void deleteById(Long id);
     List<T> findAll();
     List<T> getAllAsPage(int page, int total);
-    int getNumberOfPages(List<T> users, double total);
 }

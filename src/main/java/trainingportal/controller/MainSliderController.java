@@ -1,6 +1,7 @@
 package trainingportal.controller;
 
 
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.MainSliderModel;
 import trainingportal.service.MainSliderService;
 
@@ -15,11 +16,8 @@ import java.util.List;
 
 @RestController
 public class MainSliderController {
-
-
     @Autowired
     private MainSliderService mainSliderService;
-
 
     @GetMapping("/manage_main_slider")
     public ModelAndView manageMainSlider(ModelAndView modelAndView){
@@ -32,23 +30,17 @@ public class MainSliderController {
     }
 
     @PostMapping("/slider-save")
-    public ModelAndView uploadData(@RequestParam MultipartFile file, @RequestParam String name, @RequestParam String url, ModelAndView modelAndView) throws IOException {
-        mainSliderService.storeData(file, name, url);
+    public ModelAndView uploadData(@RequestParam MultipartFile file, @RequestParam String name, @RequestParam String url, ModelAndView modelAndView,  RedirectAttributes redirect) throws IOException {
+        String message = mainSliderService.storeData(file, name, url);
 
 
+        redirect.addFlashAttribute("message", message);
         modelAndView.setViewName("redirect:/manage_main_slider");
         return modelAndView;
     }
 
-    /*@GetMapping("/edit-data-{id}")
-    public ModelAndView editMainSlider(@PathVariable("id") int dataId, ModelAndView modelAndView){
-
-
-
-    }*/
-
     @GetMapping("/slider-delete-by-{id}")
-    public ModelAndView editMainSlider(@PathVariable("id") Long dataId, ModelAndView modelAndView){
+    public ModelAndView deleteMainSlider(@PathVariable("id") Long dataId, ModelAndView modelAndView){
 
         mainSliderService.deleteById(dataId);
 
@@ -56,6 +48,14 @@ public class MainSliderController {
         return modelAndView;
     }
 
+    @PostMapping("/slider-edit")
+    public ModelAndView editData(@RequestParam Long sliderId, @RequestParam MultipartFile editFile, @RequestParam String editName, @RequestParam String editUrl, ModelAndView modelAndView) throws IOException {
+        mainSliderService.editById(sliderId, editFile, editName, editUrl);
+
+
+        modelAndView.setViewName("redirect:/manage_main_slider");
+        return modelAndView;
+    }
 
 
 
