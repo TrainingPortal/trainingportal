@@ -41,12 +41,15 @@ public class MainCardController {
         return modelAndView;
     }
 
-    /*@GetMapping("/edit-data-{id}")
-    public ModelAndView editMainSlider(@PathVariable("id") int dataId, ModelAndView modelAndView){
+    @PostMapping("/card-edit")
+    public ModelAndView editData(@RequestParam Long cardId, @RequestParam MultipartFile editFile, @RequestParam String editTitle, @RequestParam String editText, @RequestParam String editBtnName, @RequestParam String editUrl, ModelAndView modelAndView) throws IOException {
+
+        mainCardService.editById(cardId, editFile, editTitle, editText, editBtnName, editUrl);
 
 
-
-    }*/
+        modelAndView.setViewName("redirect:/manage_main_card");
+        return modelAndView;
+    }
 
     @GetMapping("/card-delete-by-{id}")
     public ModelAndView editMainSlider(@PathVariable("id") Long dataId, ModelAndView modelAndView){

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:border="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Manage Main Slider</title>
     <meta charset="utf-8">
@@ -71,19 +71,19 @@
             </tr>
             </thead>
             <tbody>
-            <form method="post" enctype="multipart/form-data" action="/slider-edit">
-                <tr th:id="${data.mainSliderId}" th:each="data : ${dataList}">
+            <form method="post" enctype="multipart/form-data" action="/slider-edit" th:each="data : ${dataList}">
+                <tr th:id="${data.mainSliderId}">
                     <input type="text" name="sliderId" th:value="${data.mainSliderId}" hidden>
                     <td><img th:src="@{'data:image/jpeg;base64,'+${data.filesDataString}}" th:alt="${data.filesName}"
                              class="img-fluid"></td>
-                    <td><input th:class="inp + ${data.mainSliderId}" type="file" name="editFile" style="visibility: hidden" accept="image/*"></td>
+                    <td><input th:class="inp + ${data.mainSliderId}" type="file" name="editFile"
+                               style="visibility: hidden" accept="image/*"></td>
                     <td><input th:class="inp + ${data.mainSliderId}" type="text" name="editName"
-                               th:value="${data.buttonName}" style="border: none; background-color: transparent;"
+                               th:value="${data.buttonName}"
                                disabled>
                     </td>
                     <td><input th:class="inp + ${data.mainSliderId}" type="text" name="editUrl"
-                               th:value="${data.buttonUrl}"
-                               style="border: none; background-color: transparent;" disabled></td>
+                               th:value="${data.buttonUrl}" disabled></td>
                     <td>
                         <div class="btn-group">
                             <button th:id="saveBtn + ${data.mainSliderId}"
@@ -122,9 +122,7 @@
             inputs[i].style.visibility = "visible";
         }
 
-
     }
-
 </script>
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -42,11 +42,19 @@ public class MainCardDAOImpl extends JdbcDaoSupport implements MainCardDao {
     }
 
     @Override
-    public void update(MainCardModel card) {
-        String sql = MainCardMapper.EDIT_SQL + " WHERE main_card_id = ?";
+    public void updateAll(MainCardModel card) {
+        String sql = MainCardMapper.EDIT_ALL_SQL + " WHERE main_card_id = ?";
 
         this.getJdbcTemplate().update(sql, card.getFilesName(), card.getFilesType(), card.getFilesData(),
-                card.getCardTitle(), card.getCardText(), card.getButtonName(), card.getCardUrl());
+                card.getCardTitle(), card.getCardText(), card.getButtonName(), card.getCardUrl(), card.getMainCardId());
+    }
+
+    @Override
+    public void updateWithoutFile(MainCardModel card) {
+        String sql = MainCardMapper.EDIT_WITHOUT_FILE_SQL + " WHERE main_card_id = ?";
+
+        this.getJdbcTemplate().update(sql, card.getCardTitle(), card.getCardText(), card.getButtonName(),
+                card.getCardUrl(), card.getMainCardId());
     }
 
     @Override
