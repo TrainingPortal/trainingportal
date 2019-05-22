@@ -11,6 +11,8 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+
+
     <groupId>com.trainingportalgroupone</groupId>
     <artifactId>trainingportal</artifactId>
     <version>0.4.2-SNAPSHOT</version>
