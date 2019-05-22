@@ -35,7 +35,7 @@ public class Export {
             }
             
         }else {
-            throw new ExportToExcelException("Input report is empty");
+            throw new ExportToExcelException("Input data is empty");
         }
     }
 

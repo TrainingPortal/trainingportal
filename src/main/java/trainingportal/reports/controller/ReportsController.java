@@ -42,55 +42,40 @@ public class ReportsController {
     @Autowired
     private Filter filter;
 
-    @RequestMapping(value = "report/download", method = RequestMethod.GET)
+    @RequestMapping(value = "data/download", method = RequestMethod.GET)
     public ModelAndView download(@NotNull ModelAndView model) {
         return model;
     }
 
-    @RequestMapping(value = "report/downloadTrainer", method = RequestMethod.GET)
+    @RequestMapping(value = "data/downloadTrainer", method = RequestMethod.GET)
     public ModelAndView downloadTrainer(@NotNull ModelAndView model) {
 
         List<User> trainers = userService.findAllEnabledByRole(Role.TRAINER);
 
-        if (trainers.isEmpty()){
-            model.setViewName("report/Error");
-            return model;
-        }else {
-            model.addObject("trainers", trainers);
-            return model;
-        }
+        model.addObject("trainers", trainers);
+        return model;
     }
 
-    @RequestMapping(value = "report/downloadLevel", method = RequestMethod.GET)
+    @RequestMapping(value = "data/downloadLevel", method = RequestMethod.GET)
     public ModelAndView downloadLevel(@NotNull ModelAndView model) {
 
         List<Course> courseLevels = courseService.findAll();
-        List<String> allCourseList = filter.getFilteredAllCourseList(courseLevels);
+        List<String> allCourseList = filter.getFilteredAllCoureList(courseLevels);
 
-        if (allCourseList.isEmpty()){
-            model.setViewName("report/Error");
-            return model;
-        }else {
-            model.addObject("allCourses", allCourseList);
-            return model;
-        }
+        model.addObject("allCourses", allCourseList);
+        return model;
     }
 
-    @RequestMapping(value = "report/downloadAttendance", method = RequestMethod.GET)
+    @RequestMapping(value = "data/downloadAttendance", method = RequestMethod.GET)
     public ModelAndView downloadAttendance(@NotNull ModelAndView model) {
 
         List<AttendanceType> allTypes = attendanceTypeService.getAllAttendanceList();
 
-        if (allTypes.isEmpty()){
-            model.setViewName("report/Error");
-            return model;
-        }else {
-            model.addObject("allTypes", allTypes);
-            return model;
-        }
+        model.addObject("allTypes", allTypes);
+        return model;
     }
 
-    @RequestMapping(value = "report/downloadTrainer/{trainerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "data/downloadTrainer/{trainerId}", method = RequestMethod.GET)
     public ResponseEntity downloadTrainerFile(@PathVariable("trainerId") Long trainerId) {
 
         if (report.createNewTrainerReport(trainerId)) {
@@ -99,7 +84,7 @@ public class ReportsController {
         return null;
     }
 
-    @RequestMapping(value = "report/downloadLevel/{levelName}", method = RequestMethod.GET)
+    @RequestMapping(value = "data/downloadLevel/{levelName}", method = RequestMethod.GET)
     public ResponseEntity downloadLevelFile(@PathVariable("levelName") String levelName) {
 
         if (report.createNewLevelReport(levelName)) {
@@ -108,7 +93,7 @@ public class ReportsController {
         return null;
     }
 
-    @RequestMapping(value = "report/downloadAttendance/{attendanceId}", method = RequestMethod.GET)
+    @RequestMapping(value = "data/downloadAttendance/{attendanceId}", method = RequestMethod.GET)
     public ResponseEntity downloadAttendanceFile(@PathVariable("attendanceId") Long attendanceId) {
 
         if (report.createNewAttendanceReport(attendanceId)) {
