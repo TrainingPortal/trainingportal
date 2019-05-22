@@ -62,8 +62,6 @@ public interface UserService extends GenericService<User> {
 
     int getSearchPagesByRole(Long id, double total, String request);
 
-    List<User> findAllManagersForTrainer(Long trainerId);
-
     Long getUserId(Authentication authentication);
 
     List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId);
@@ -73,5 +71,4 @@ public interface UserService extends GenericService<User> {
     String assignUsersToGroup(Long groupId, Long[] userIds);
 
     List<User> findUsersForGroupByGroupId(Long groupId);
-
 }
