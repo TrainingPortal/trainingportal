@@ -552,6 +552,9 @@ values (25, 3);
 INSERT INTO desired_period (user_id, course_id)
 values (29, 5);
 
+INSERT INTO desired_period (user_id, course_id)
+values (32, 5);
+
 CREATE TABLE Weekday
 (
     weekday_id NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
