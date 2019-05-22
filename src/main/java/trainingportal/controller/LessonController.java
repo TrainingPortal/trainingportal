@@ -46,6 +46,7 @@ public class LessonController {
 
 
 
+
     @RequestMapping(value = "/lesson-add-{courseId}", method = RequestMethod.GET)
     public ModelAndView addLesson(@PathVariable Long courseId, ModelAndView modelAndView) {
         Lesson lesson = new Lesson();
@@ -56,6 +57,15 @@ public class LessonController {
         return modelAndView;
     }
 
+
+    @RequestMapping(value = "lesson-save", method = RequestMethod.POST)
+    public ModelAndView saveLesson(@RequestParam("courseId") Long courseId,
+                                   Lesson lesson, ModelAndView modelAndView) {
+
+        lessonService.save(lesson);
+        modelAndView.setViewName("redirect:/course_lessons/1/" + courseId);
+        return modelAndView;
+    }
 
     @RequestMapping(value = {"/edit-lesson-{lessonId}-{id}"}, method = RequestMethod.GET)
     public ModelAndView editLessonBase(@PathVariable("lessonId") Long lessonId,
