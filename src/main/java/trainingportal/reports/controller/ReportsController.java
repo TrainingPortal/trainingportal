@@ -13,7 +13,7 @@ import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.reports.download.Loader;
 import trainingportal.reports.service.Filter;
-import trainingportal.reports.service.ReportsSQLQuery;
+import trainingportal.reports.service.ReportsCreate;
 import trainingportal.service.AttendanceTypeService;
 import trainingportal.service.CourseService;
 import trainingportal.service.UserService;
@@ -37,45 +37,60 @@ public class ReportsController {
     private AttendanceTypeService attendanceTypeService;
 
     @Autowired
-    private ReportsSQLQuery report;
+    private ReportsCreate report;
 
     @Autowired
     private Filter filter;
 
-    @RequestMapping(value = "data/download", method = RequestMethod.GET)
+    @RequestMapping(value = "report/download", method = RequestMethod.GET)
     public ModelAndView download(@NotNull ModelAndView model) {
         return model;
     }
 
-    @RequestMapping(value = "data/downloadTrainer", method = RequestMethod.GET)
+    @RequestMapping(value = "report/downloadTrainer", method = RequestMethod.GET)
     public ModelAndView downloadTrainer(@NotNull ModelAndView model) {
 
         List<User> trainers = userService.findAllEnabledByRole(Role.TRAINER);
 
-        model.addObject("trainers", trainers);
-        return model;
+        if (trainers.isEmpty()){
+            model.setViewName("report/Error");
+            return model;
+        }else {
+            model.addObject("trainers", trainers);
+            return model;
+        }
     }
 
-    @RequestMapping(value = "data/downloadLevel", method = RequestMethod.GET)
+    @RequestMapping(value = "report/downloadLevel", method = RequestMethod.GET)
     public ModelAndView downloadLevel(@NotNull ModelAndView model) {
 
         List<Course> courseLevels = courseService.findAll();
-        List<String> allCourseList = filter.getFilteredAllCoureList(courseLevels);
+        List<String> allCourseList = filter.filterAllCourseList(courseLevels);
 
-        model.addObject("allCourses", allCourseList);
-        return model;
+        if (allCourseList.isEmpty()){
+            model.setViewName("report/Error");
+            return model;
+        }else {
+            model.addObject("allCourses", allCourseList);
+            return model;
+        }
     }
 
-    @RequestMapping(value = "data/downloadAttendance", method = RequestMethod.GET)
+    @RequestMapping(value = "report/downloadAttendance", method = RequestMethod.GET)
     public ModelAndView downloadAttendance(@NotNull ModelAndView model) {
 
         List<AttendanceType> allTypes = attendanceTypeService.getAllAttendanceList();
 
-        model.addObject("allTypes", allTypes);
-        return model;
+        if (allTypes.isEmpty()){
+            model.setViewName("report/Error");
+            return model;
+        }else {
+            model.addObject("allTypes", allTypes);
+            return model;
+        }
     }
 
-    @RequestMapping(value = "data/downloadTrainer/{trainerId}", method = RequestMethod.GET)
+    @RequestMapping(value = "report/downloadTrainer/{trainerId}", method = RequestMethod.GET)
     public ResponseEntity downloadTrainerFile(@PathVariable("trainerId") Long trainerId) {
 
         if (report.createNewTrainerReport(trainerId)) {
@@ -84,7 +99,7 @@ public class ReportsController {
         return null;
     }
 
-    @RequestMapping(value = "data/downloadLevel/{levelName}", method = RequestMethod.GET)
+    @RequestMapping(value = "report/downloadLevel/{levelName}", method = RequestMethod.GET)
     public ResponseEntity downloadLevelFile(@PathVariable("levelName") String levelName) {
 
         if (report.createNewLevelReport(levelName)) {
@@ -93,7 +108,7 @@ public class ReportsController {
         return null;
     }
 
-    @RequestMapping(value = "data/downloadAttendance/{attendanceId}", method = RequestMethod.GET)
+    @RequestMapping(value = "report/downloadAttendance/{attendanceId}", method = RequestMethod.GET)
     public ResponseEntity downloadAttendanceFile(@PathVariable("attendanceId") Long attendanceId) {
 
         if (report.createNewAttendanceReport(attendanceId)) {
