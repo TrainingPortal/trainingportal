@@ -21,7 +21,6 @@ import java.util.Map;
 @Service("userService")
 @Transactional
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
-
     @Autowired
     private SubordinateDAO subordinateDAO;
     @Autowired
@@ -207,12 +206,6 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
     @Override
     public int getSearchPagesByRole(Long id, double total, String request) {
         return (int) Math.ceil(userDao.countSearchPagesByRole(id, request) / total);
-    }
-
-    //todo
-    @Override
-    public List<User> findAllManagersForTrainer(Long trainerId) {
-        return null;
     }
 
     @Override

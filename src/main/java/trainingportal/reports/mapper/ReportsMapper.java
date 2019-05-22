@@ -57,8 +57,8 @@ public class ReportsMapper implements RowMapper<List<Object>> {
         return localList;
     }
 
-    public ReportsMapper(List<String> fields, int getFieldNumber){
+    public ReportsMapper(List<String> fields, int fieldNumber){
         this.fields = fields;
-        this.fieldNumber = getFieldNumber;
+        this.fieldNumber = fieldNumber;
     }
 }

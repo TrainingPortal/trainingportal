@@ -49,7 +49,7 @@ public class NotificationDaoImpl extends JdbcDaoSupport implements NotificationD
     @Override
     public Notification findNotificationByID(Long notificationID) {
 
-    String sql = NotificationMapper.BASE_SQL + "WHERE notification.id = ?";
+    String sql = NotificationMapper.BASE_SQL + "WHERE n.id = ?";
 
 
         Notification notification = this.getJdbcTemplate().queryForObject(sql,new Object[]{notificationID},new NotificationMapper());
@@ -59,13 +59,13 @@ public class NotificationDaoImpl extends JdbcDaoSupport implements NotificationD
     @Override
     public Boolean isNotificationExist(Notification notificationID) {
 
-        return findNotificationByID(notificationID.getNotificationID())==null ? false:true ;
+        return findNotificationByID(notificationID.getNotificationID()) != null;
     }
 
     @Override
     public void setNotificationMessage(Notification notificationID, String notificationMessage) {
 
-        String sql = NotificationMapper.UPDATE_SQL_MESSAGE + "WHERE notification.id = ?";
+        String sql = NotificationMapper.UPDATE_SQL_MESSAGE + "WHERE n.id = ?";
         this.getJdbcTemplate().update(sql,notificationMessage,notificationID.getNotificationID());
     }
 }

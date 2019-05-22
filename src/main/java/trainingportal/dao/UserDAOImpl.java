@@ -5,19 +5,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.generic.GenericDaoImpl;
-import trainingportal.mapper.ManagersForTrainerMapper;
 import trainingportal.mapper.UserMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.User;
 
 import javax.sql.DataSource;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 @Repository
 @Transactional
-public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao {
+public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     //Define table and id column
     private static final String TABLE_NAME = "users";
     private static final String ID_COLUMN = "user_id";
@@ -41,12 +39,6 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao {
             return this.getJdbcTemplate().queryForObject(sql, params, userBaseObjectMapper);
         } else
             return null;
-    }
-
-    //todo
-    @Override
-    public List<User> findAllManagersForTrainer(Long trainerId) {
-        return null;
     }
 
     @Override
@@ -210,7 +202,7 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao {
     public int countSearchPagesByRole(Long id, String request) {
 
         String sql = "SELECT COUNT(user_id) FROM users " +
-                     "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND role_id = ? ";
+                "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND role_id = ? ";
 
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, Integer.class);

@@ -10,7 +10,7 @@ import java.util.Date;
 public class NotificationMapper implements RowMapper<Notification> {
 
     public static final String BASE_SQL
-            = "SELECT n.id, n.message, n.data_notification, n.user_id, n.status_id FROM notification n ";
+            = "SELECT n.id, n.message, n.date_notification, n.user_id, n.status_id FROM notification n ";
 
     public static final String UPDATE_SQL_MESSAGE
             = "UPDATE notification SET message = ? ";
@@ -23,7 +23,7 @@ public class NotificationMapper implements RowMapper<Notification> {
         Long notificationID = rs.getLong("id");
         String notificationMessage = rs.getString("message");
       
-        Date notificationDate = rs.getDate("data_notification");
+        Date notificationDate = rs.getDate("date_notification");
 
         Long notificationUserID = rs.getLong("user_id");
         Long notificationStatusID = rs.getLong("status_id");

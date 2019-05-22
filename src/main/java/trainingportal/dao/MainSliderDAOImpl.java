@@ -45,7 +45,6 @@ public class MainSliderDAOImpl extends GenericDaoImpl<MainSliderModel> implement
         return mainSliderModelBaseObjectMapper;
     }
 
-
     @Override
     public void updateAll(MainSliderModel slide) {
         String sql = MainSliderMapper.EDIT_ALL_SQL + " WHERE main_slider_id = ?";
