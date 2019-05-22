@@ -209,6 +209,12 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         return (int) Math.ceil(userDao.countSearchPagesByRole(id, request) / total);
     }
 
+    //todo
+    @Override
+    public List<User> findAllManagersForTrainer(Long trainerId) {
+        return null;
+    }
+
     @Override
     public Long getUserId(Authentication authentication) {
         return ((LoggedInUser) authentication.getPrincipal()).getId();

@@ -17,7 +17,7 @@ import java.util.List;
 
 @Repository
 @Transactional
-public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
+public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao {
     //Define table and id column
     private static final String TABLE_NAME = "users";
     private static final String ID_COLUMN = "user_id";
@@ -41,6 +41,12 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
             return this.getJdbcTemplate().queryForObject(sql, params, userBaseObjectMapper);
         } else
             return null;
+    }
+
+    //todo
+    @Override
+    public List<User> findAllManagersForTrainer(Long trainerId) {
+        return null;
     }
 
     @Override
