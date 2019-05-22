@@ -12,9 +12,13 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.Role;
 import trainingportal.model.User;
+import trainingportal.reports.service.ReportsService;
+import trainingportal.security.UserSecurity;
 import trainingportal.service.UserService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,6 +29,9 @@ public class TrainerController {
     private UserService trainerService;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private UserSecurity userSecurity;
 
     private static final int ROWS_LIMIT = 10;
 
@@ -148,5 +155,20 @@ public class TrainerController {
         model.setViewName("redirect:/trainers/1");
 
         return model;
+    }
+
+    @RequestMapping(value = "managerListForTrainer/managers", method = RequestMethod.GET)
+    public ModelAndView viewManagers(ModelAndView model){
+
+        List<User> managers = trainerService.findAllManagersForTrainer(userSecurity.getLoggedInUserId());
+
+        if (!managers.isEmpty()){
+            model.setViewName("managerListForTrainer/managers");
+            model.addObject("managers",managers);
+            return model;
+        }else {
+            model.setViewName("report/Error");
+            return model;
+        }
     }
 }

@@ -21,6 +21,7 @@ import java.util.Map;
 @Service("userService")
 @Transactional
 public class UserServiceImpl extends GenericServiceImpl<User> implements UserService {
+
     @Autowired
     private SubordinateDAO subordinateDAO;
     @Autowired
