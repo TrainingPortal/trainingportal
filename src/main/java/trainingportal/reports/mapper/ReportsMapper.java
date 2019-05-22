@@ -19,7 +19,7 @@ public class ReportsMapper implements RowMapper<List<Object>> {
 
 
     //Choose by users who is managers or employee that have availability enter to course and course level = to ......
-    public static final String SQL_FOR_REPORTS =
+    public static final String SQL_FOR_LEVELS =
             "SELECT DISTINCT users.name as \"User Name\", email as \"Email\", course.name as \"Course Name\", " +
                     "course.course_level as \"Course Level\" \n" +
                     "FROM users INNER JOIN desired_period ON users.user_id = desired_period.user_id " +
@@ -27,7 +27,7 @@ public class ReportsMapper implements RowMapper<List<Object>> {
                     "WHERE ( users.role_id = 2 OR users.role_id = 4 ) AND course.course_level = ";
 
     //Choose by attendance for only active or stopped course where attendance type = to ......
-    public static final String SQL_FOR_LEVELS =
+    public static final String SQL_FOR_ATTENDANCE =
             "SELECT users.name as \"User Name\", Schedule.date_lesson as \"Lesson Date\", lesson.lesson_name as \"Lesson Name\", " +
                     "type, groups.name as \"Group Name\", course.name as \"Course Name\", course_status.name_status as \"Status\"  \n" +
                     "FROM attendance INNER JOIN users ON attendance.user_id = users.user_id INNER JOIN Schedule ON attendance.schedule_id = Schedule.id \n" +

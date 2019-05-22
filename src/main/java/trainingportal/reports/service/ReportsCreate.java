@@ -2,6 +2,7 @@ package trainingportal.reports.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import trainingportal.reports.dao.exception.DataDaoExceptions;
 import trainingportal.reports.mapper.ReportsMapper;
 
 import java.util.ArrayList;
@@ -13,12 +14,59 @@ public class ReportsCreate {
     @Autowired
     private ReportsService reportsService;
 
+    @Autowired
+    private ReportExport reportExport;
+
     private static List<String> listWithTrainers = new ArrayList<>();
-    private static List<String> listWithReports = new ArrayList<>();
     private static List<String> listWithLevels = new ArrayList<>();
+    private static List<String> listWithAttendance = new ArrayList<>();
 
     public ReportsCreate() {
+        trainerFieldsSetter();
+        levelFieldsSetter();
+        attendanceFieldsSetter();
+    }
 
+    public boolean createNewTrainerReport(Long trainerId){
+
+        List<List> allColList = reportsService.getMultiFieldsFromTables(listWithTrainers, ReportsMapper.SQL_FOR_TRAINERS + trainerId);
+
+        //create new List<List> with name of fields
+        List<List> allColWithName = addNameToList(allColList, listWithTrainers);
+
+        //Use Export For our List<List> formed data
+        reportExport.useExport("Trainer", "table", allColWithName);
+
+        return true;
+    }
+
+    public boolean createNewLevelReport(String levelName){
+
+        List<List> allColList = reportsService.getMultiFieldsFromTables(listWithLevels, ReportsMapper.SQL_FOR_LEVELS + "\'" + levelName + "\'");
+
+        //create new List<List> with name of fields
+        List<List> allColWithName = addNameToList(allColList, listWithLevels);
+
+        //Use Export For our List<List> formed data
+        reportExport.useExport("Attendance", "table", allColWithName);
+
+        return true;
+    }
+
+    public boolean createNewAttendanceReport(Long attendanceId){
+
+        List<List> allColList = reportsService.getMultiFieldsFromTables(listWithAttendance, ReportsMapper.SQL_FOR_ATTENDANCE + attendanceId);
+
+        //create new List<List> with name of fields
+        List<List> allColWithName = addNameToList(allColList, listWithAttendance);
+
+        //Use Export For our List<List> formed data
+        reportExport.useExport("Attendance", "table", allColWithName);
+
+        return true;
+    }
+
+    private void trainerFieldsSetter(){
         //According the sql query for Trainers
         listWithTrainers.clear();
         listWithTrainers.add("Trainer Name");
@@ -27,44 +75,46 @@ public class ReportsCreate {
         listWithTrainers.add("Course Name");
         listWithTrainers.add("Course Level");
         listWithTrainers.add("Course Status");
+    }
 
+    private void levelFieldsSetter(){
         //According the sql query for Reports
-        listWithReports.clear();
-        listWithReports.add("User Name");
-        listWithReports.add("Role");
-        listWithReports.add("Email");
-        listWithReports.add("Course Name");
-        listWithReports.add("Group Name");
-
-        //According the sql query for Levels
         listWithLevels.clear();
         listWithLevels.add("User Name");
-        listWithLevels.add("Lesson Date");
-        listWithLevels.add("Lesson Name");
-        listWithLevels.add("Group Name");
+        listWithLevels.add("Role");
+        listWithLevels.add("Email");
         listWithLevels.add("Course Name");
-        listWithLevels.add("Status");
-
+        listWithLevels.add("Group Name");
     }
 
-    public boolean createNewTrainerReport(Long trainerId){
-
-        String sql = ReportsMapper.SQL_FOR_TRAINERS + trainerId;
-        reportsService.getMultiFieldsFromTables(listWithTrainers, sql,"Trainer","table");
-        return true;
+    private void attendanceFieldsSetter(){
+        //According the sql query for Levels
+        listWithAttendance.clear();
+        listWithAttendance.add("User Name");
+        listWithAttendance.add("Lesson Date");
+        listWithAttendance.add("Lesson Name");
+        listWithAttendance.add("Group Name");
+        listWithAttendance.add("Course Name");
+        listWithAttendance.add("Status");
     }
 
-    public boolean createNewLevelReport(String levelName){
+    private List<List> addNameToList(List<List> allCol, List<String> fields) {
 
-        String sql = ReportsMapper.SQL_FOR_REPORTS + "\'" + levelName + "\'";
-        reportsService.getMultiFieldsFromTables(listWithReports, sql,"Level","table");
-        return true;
-    }
+        if (!(allCol.isEmpty()) && !(fields.isEmpty())) {
 
-    public boolean createNewAttendanceReport(Long attendanceId){
+            List<List> finalAllCol = new ArrayList<>();
+            List localCol;
 
-        String sql = ReportsMapper.SQL_FOR_LEVELS + attendanceId;
-        reportsService.getMultiFieldsFromTables(listWithLevels, sql,"Attendance","table");
-        return true;
+            for (int i = 0; i < allCol.size(); i++) {
+                localCol = new ArrayList();
+                localCol.add(fields.get(i));
+                for (int j = 0; j < allCol.get(i).size(); j++) {
+                    localCol.add(allCol.get(i).get(j));
+                }
+                finalAllCol.add(localCol);
+            }
+            return finalAllCol;
+        } else
+            throw new DataDaoExceptions("Input list OR list's is Empty");
     }
 }
