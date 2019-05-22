@@ -9,4 +9,5 @@ public interface ReportsService {
     List<List> getFieldsFromTableWithCondition(List<String> fields, String tableName, String fileName, String labelName, String whereCondition);
 
     List<List> getMultiFieldsFromTables(List<String> fields, String sql, String fileName, String labelName);
+
 }

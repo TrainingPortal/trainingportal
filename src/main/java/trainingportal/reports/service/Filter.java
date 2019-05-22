@@ -13,7 +13,7 @@ public class Filter {
     private List<Boolean> listOfTrue = new ArrayList();
     private List<String> allCourseList = new ArrayList();
 
-    public List<String> getFilteredAllCourseList(List<Course> courseLevels){
+    public List<String> getFilteredAllCoureList(List<Course> courseLevels){
 
         clearAllLists();
 

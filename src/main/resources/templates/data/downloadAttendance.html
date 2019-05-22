@@ -24,7 +24,7 @@
         <tr th:each="allType,iter:${allTypes}">
             <td th:text="${allType.attendanceType}"></td>
             <td>
-                <a th:href="@{downloadAttendance/{attendanceId} (attendanceId = ${allType.attendanceId})}" class="btn btn-outline-dark">Download file</a>
+                <a th:href="@{downloadAttendance/{attendanceId} (attendanceId = ${allType.attendanceId})}" class="btn btn-dark">Download file</a>
             </td>
         </tr>
     </table>

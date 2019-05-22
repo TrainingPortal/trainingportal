@@ -28,7 +28,7 @@ public class ReportsServiceExcel {
         //create new List<List> with name of fields
         List<List> allColWithName = addNameToList(allCol, fields);
 
-        //Use Export For our List<List> formed report
+        //Use Export For our List<List> formed data
         useExport(fileName, labelName, allColWithName);
 
         return allCol;
@@ -44,7 +44,7 @@ public class ReportsServiceExcel {
         //create new List<List> with name of fields
         List<List> allColWithName = addNameToList(allCol, fields);
 
-        //Use Export For our List<List> formed report
+        //Use Export For our List<List> formed data
         useExport(fileName, labelName, allColWithName);
 
         return allCol;
@@ -57,7 +57,7 @@ public class ReportsServiceExcel {
         //create new List<List> with name of fields
         List<List> allColWithName = addNameToList(allCol, fields);
 
-        //Use Export For our List<List> formed report
+        //Use Export For our List<List> formed data
         useExport(fileName, labelName, allColWithName);
 
         return allCol;
