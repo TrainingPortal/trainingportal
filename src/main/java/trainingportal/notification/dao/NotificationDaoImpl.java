@@ -49,7 +49,8 @@ public class NotificationDaoImpl extends JdbcDaoSupport implements NotificationD
     @Override
     public Notification findNotificationByID(Long notificationID) {
 
-        String sql = NotificationMapper.BASE_SQL + "WHERE notification.id = ?";
+    String sql = NotificationMapper.BASE_SQL + "WHERE notification.id = ?";
+
 
         Notification notification = this.getJdbcTemplate().queryForObject(sql,new Object[]{notificationID},new NotificationMapper());
         return notification;

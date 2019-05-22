@@ -42,6 +42,8 @@ public interface UserDao extends GenericDao<User> {
 
     User findUserAccount(String email);
 
+    List<User> findAllManagersForTrainer(Long trainerId);
+
     List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId);
 
     int countUsersByGroupId(Long groupId);
