@@ -93,27 +93,22 @@ public class ReportsController {
     @RequestMapping(value = "report/downloadTrainer/{trainerId}", method = RequestMethod.GET)
     public ResponseEntity downloadTrainerFile(@PathVariable("trainerId") Long trainerId) {
 
-        if (report.createNewTrainerReport(trainerId)) {
-            return loader.downloadFile("Trainer.xlsx");
-        }
-        return null;
+        report.createNewTrainerReport(trainerId);
+        return loader.downloadFile("Trainer.xlsx");
+
     }
 
     @RequestMapping(value = "report/downloadLevel/{levelName}", method = RequestMethod.GET)
     public ResponseEntity downloadLevelFile(@PathVariable("levelName") String levelName) {
 
-        if (report.createNewLevelReport(levelName)) {
-            return loader.downloadFile("Level.xlsx");
-        }
-        return null;
+        report.createNewLevelReport(levelName);
+        return loader.downloadFile("Level.xlsx");
     }
 
     @RequestMapping(value = "report/downloadAttendance/{attendanceId}", method = RequestMethod.GET)
     public ResponseEntity downloadAttendanceFile(@PathVariable("attendanceId") Long attendanceId) {
 
-        if (report.createNewAttendanceReport(attendanceId)) {
-            return loader.downloadFile("Attendance.xlsx");
-        }
-        return null;
+        report.createNewAttendanceReport(attendanceId);
+        return loader.downloadFile("Attendance.xlsx");
     }
 }

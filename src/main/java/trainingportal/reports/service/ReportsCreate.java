@@ -27,7 +27,7 @@ public class ReportsCreate {
         attendanceFieldsSetter();
     }
 
-    public boolean createNewTrainerReport(Long trainerId){
+    public void createNewTrainerReport(Long trainerId){
 
         List<List> allColList = reportsService.getMultiFieldsFromTables(listWithTrainers, ReportsMapper.SQL_FOR_TRAINERS + trainerId);
 
@@ -36,11 +36,9 @@ public class ReportsCreate {
 
         //Use Export For our List<List> formed data
         reportExport.useExport("Trainer", "table", allColWithName);
-
-        return true;
     }
 
-    public boolean createNewLevelReport(String levelName){
+    public void createNewLevelReport(String levelName){
 
         List<List> allColList = reportsService.getMultiFieldsFromTables(listWithLevels, ReportsMapper.SQL_FOR_LEVELS + "\'" + levelName + "\'");
 
@@ -48,12 +46,10 @@ public class ReportsCreate {
         List<List> allColWithName = addNameToList(allColList, listWithLevels);
 
         //Use Export For our List<List> formed data
-        reportExport.useExport("Attendance", "table", allColWithName);
-
-        return true;
+        reportExport.useExport("Level", "table", allColWithName);
     }
 
-    public boolean createNewAttendanceReport(Long attendanceId){
+    public void createNewAttendanceReport(Long attendanceId){
 
         List<List> allColList = reportsService.getMultiFieldsFromTables(listWithAttendance, ReportsMapper.SQL_FOR_ATTENDANCE + attendanceId);
 
@@ -62,8 +58,6 @@ public class ReportsCreate {
 
         //Use Export For our List<List> formed data
         reportExport.useExport("Attendance", "table", allColWithName);
-
-        return true;
     }
 
     private void trainerFieldsSetter(){
