@@ -15,8 +15,10 @@ import java.util.List;
 
 @Controller
 public class ProfileController {
+
     @Autowired
     private UserService userService;
+
     @Autowired
     private CourseService courseService;
 
@@ -28,11 +30,9 @@ public class ProfileController {
 
         User user = userService.findById(id);
         User manager = profileService.initManager(user);
-        List<Course> courseList = courseService.findCoursesByUserId(id);
 
-        for(Course course : courseList){
-            course.setTrainer(userService.findById(course.getTrainerId()));
-        }
+        List<Course> courseList = courseService.findCoursesByUser(user);
+
         String role = profileService.getReadableRole(user);
 
         model.addObject("manager", manager);

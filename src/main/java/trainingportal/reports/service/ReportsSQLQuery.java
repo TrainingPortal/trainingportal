@@ -36,9 +36,31 @@ public class ReportsSQLQuery {
                                                "WHERE ( course_status.id = 1 OR course_status.id = 3 ) AND attendance_type.id = ";
 
     public ReportsSQLQuery() {
-        setListWithTrainers();
-        setListWithLevels();
-        setListWithAttendance();
+        //According the sql query for Trainers
+        listWithTrainers.clear();
+        listWithTrainers.add("Trainer Name");
+        listWithTrainers.add("Email");
+        listWithTrainers.add("Role");
+        listWithTrainers.add("Course Name");
+        listWithTrainers.add("Course Level");
+        listWithTrainers.add("Course Status");
+
+        //According the sql query for Reports
+        listWithReports.clear();
+        listWithReports.add("User Name");
+        listWithReports.add("Role");
+        listWithReports.add("Email");
+        listWithReports.add("Course Name");
+        listWithReports.add("Group Name");
+
+        //According the sql query for Levels
+        listWithLevels.clear();
+        listWithLevels.add("User Name");
+        listWithLevels.add("Lesson Date");
+        listWithLevels.add("Lesson Name");
+        listWithLevels.add("Group Name");
+        listWithLevels.add("Course Name");
+        listWithLevels.add("Status");
     }
 
     public boolean createNewTrainerReport(Long trainerId){

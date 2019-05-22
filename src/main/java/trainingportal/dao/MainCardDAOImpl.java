@@ -32,21 +32,39 @@ public class MainCardDAOImpl extends JdbcDaoSupport implements MainCardDao {
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{mainCardId}, new MainCardMapper());
     }
 
-
-    //insert into database new Card report
     @Override
-    public void storeData(MainCardModel card) {
-        String sql = MainCardMapper.INSERT_SQL;
-        this.getJdbcTemplate().update(sql, new Object[]{card.getFilesName(), card.getFilesType(), card.getFilesData(),
-                card.getCardTitle(), card.getCardText(), card.getButtonName(), card.getCardUrl()});
+    public void updateAll(MainCardModel card) {
+        String sql = MainCardMapper.EDIT_ALL_SQL + " WHERE main_card_id = ?";
+
+        this.getJdbcTemplate().update(sql, card.getFilesName(), card.getFilesType(), card.getFilesData(),
+                card.getCardTitle(), card.getCardText(), card.getButtonName(), card.getCardUrl(), card.getMainCardId());
     }
 
     @Override
-    public void update(MainCardModel card) {
-        String sql = MainCardMapper.EDIT_SQL + " WHERE main_card_id = ?";
+    public void updateWithoutFile(MainCardModel card) {
+        String sql = MainCardMapper.EDIT_WITHOUT_FILE_SQL + " WHERE main_card_id = ?";
 
-        this.getJdbcTemplate().update(sql, card.getFilesName(), card.getFilesType(), card.getFilesData(),
-                card.getCardTitle(), card.getCardText(), card.getButtonName(), card.getCardUrl());
+        this.getJdbcTemplate().update(sql, card.getCardTitle(), card.getCardText(), card.getButtonName(),
+                card.getCardUrl(), card.getMainCardId());
+    }
+
+    @Override
+    public void deleteById(Long mainCardId) {
+        String sql = MainCardMapper.DELETE_SQL + " WHERE main_card_id = ?";
+
+        this.getJdbcTemplate().update(sql, mainCardId);
+    }
+
+    //insert into database new Card data
+    @Override
+    public void storeData(MainCardModel card) {
+        String sql = MainCardMapper.INSERT_SQL;
+      
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, card.getFilesName(), card.getFilesType(), card.getFilesData(),
+                    card.getCardTitle(), card.getCardText(), card.getButtonName(), card.getCardUrl());
+        }
+
     }
 
     @Override

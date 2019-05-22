@@ -1,5 +1,7 @@
 package trainingportal.service.generic;
 
+import trainingportal.model.Course;
+
 import java.util.List;
 
 public interface GenericService<T> {

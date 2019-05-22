@@ -49,34 +49,23 @@ public class NotificationDaoImpl extends JdbcDaoSupport implements NotificationD
     @Override
     public Notification findNotificationByID(Long notificationID) {
 
-        String sql = NotificationMapper.BASE_SQL + "WHERE n.id = ?";
+    String sql = NotificationMapper.BASE_SQL + "WHERE notification.id = ?";
+
 
         Notification notification = this.getJdbcTemplate().queryForObject(sql,new Object[]{notificationID},new NotificationMapper());
         return notification;
     }
 
     @Override
-    public List<Notification> findNotificationsByStatus(Long statusID) {
+    public Boolean isNotificationExist(Notification notificationID) {
 
-        String sql = NotificationMapper.NOTIFICATION_SQL_JOIN_NOTIFICATION_STATUS + "WHERE n.id = ?";
-        List<Notification> allNotificationList = this.getJdbcTemplate().query(sql,new Object[]{statusID},new NotificationMapper());
-        return allNotificationList;
+        return findNotificationByID(notificationID.getNotificationID())==null ? false:true ;
     }
 
     @Override
-    public Boolean isNotificationExist(Notification notification) {
+    public void setNotificationMessage(Notification notificationID, String notificationMessage) {
 
-        if (notification.getNotificationID() == null){
-            return false;
-        }else
-            return findNotificationByID(notification.getNotificationID()).getNotificationID() == null ? false : true;
-
-    }
-
-    @Override
-    public void setNotificationMessage(Notification notification, String notificationMessage) {
-
-        String sql = NotificationMapper.UPDATE_SQL_MESSAGE + "WHERE id = " + notification.getNotificationID();
-        this.getJdbcTemplate().update(sql,notificationMessage);
+        String sql = NotificationMapper.UPDATE_SQL_MESSAGE + "WHERE notification.id = ?";
+        this.getJdbcTemplate().update(sql,notificationMessage,notificationID.getNotificationID());
     }
 }

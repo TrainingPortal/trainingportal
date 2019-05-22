@@ -3,13 +3,11 @@ package trainingportal.dao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import trainingportal.dao.generic.GenericDaoImpl;
-import trainingportal.mapper.AttendanceMapper;
 import trainingportal.mapper.ScheduleMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
-import trainingportal.model.Role;
 import trainingportal.model.Schedule;
+
 import javax.sql.DataSource;
-import java.text.CollationElementIterator;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,7 +37,7 @@ public class ScheduleDaoImpl extends GenericDaoImpl<Schedule> implements Schedul
         String sql = ScheduleMapper.SELECT_SQL + " WHERE group_id = " + id;
 
         if (this.getJdbcTemplate() != null) {
-            return this.getJdbcTemplate().query(sql,getObjectMapper());
+            return this.getJdbcTemplate().query(sql, getObjectMapper());
         } else
             return Collections.emptyList();
     }

@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.RoleDao;
 import trainingportal.dao.SubordinateDAO;
 import trainingportal.dao.UserDao;
+import trainingportal.dao.UserGroupDao;
 import trainingportal.model.LoggedInUser;
 import trainingportal.model.Role;
 import trainingportal.model.User;
@@ -28,7 +29,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
     @Autowired
     private RoleDao roleDao;
     @Autowired
-    private UserService userService;
+    private UserGroupDao userGroupDao;
 
     @Override
     public User findByEmail(String email) {
@@ -214,7 +215,35 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
     }
 
     @Override
-    public List<User> findAllManagersForTrainer(Long trainerId) {
-        return userService.findAllManagersForTrainer(trainerId);
+    public List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId) {
+
+        page = getPageNumber(page,total);
+
+        return userDao.getUsersByGroupIdAsPage(page, total, groupId);
+    }
+
+    @Override
+    public int getPagesAmountOfUsersByGroupId(Long groupId, double total) {
+
+        return (int) Math.ceil(userDao.countUsersByGroupId(groupId) / total);
+    }
+
+    @Override
+    public String assignUsersToGroup(Long groupId, Long[] userIds) {
+
+        if(userIds == null) {
+            return "You chose nobody to add, no one is added";
+        }
+        for(Long userId : userIds){
+            userGroupDao.setUsersToGroup(groupId, userId);
+            userDao.deleteFromDesiredPeriodByUserId(userId);
+        }
+        return "Users were added: " + userIds.length + "." ;
+    }
+
+    @Override
+    public List<User> findUsersForGroupByGroupId(Long groupId) {
+
+        return userDao.findUsersForGroupByGroupId(groupId);
     }
 }

@@ -213,29 +213,51 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     }
 
     @Override
-    public List<User> findAllManagersForTrainer(Long trainerId) {
+    public List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId) {
 
-        List<User> allManagersList = new ArrayList<>();
-        List<User> finalAllManagersList = new ArrayList<>();
+        String sql = "SELECT a.user_id, a.name, a.email, a.password, a.enabled, a.token, a.role_id, a.manager_id " +
+                "FROM Users a " +
+                "INNER JOIN User_Group b " +
+                "ON a.user_id = b.user_id " +
+                "WHERE b.group_id = ? " +
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
 
-        String sqlAllCourse = UserMapper.allCourseForTrainer + trainerId;
-        String sqlAllUsers = UserMapper.allUsersOnThisCourse;
-        String sqlAllManager = UserMapper.allManagerForWithTrainer;
+        return getUsers(groupId, sql);
+    }
 
-        List<Long> courseIDList = this.getJdbcTemplate().query(sqlAllCourse, new ManagersForTrainerMapper());
+    @Override
+    public int countUsersByGroupId(Long groupId) {
 
-        if (!courseIDList.isEmpty()){
-            for (int i = 0; i < courseIDList.size(); i++) {
-                allManagersList = this.getJdbcTemplate().query(new String(sqlAllUsers + courseIDList.get(i)),new UserMapper());
-            }
+        String sql = "SELECT COUNT(a.user_id) FROM Users a " +
+                "INNER JOIN User_Group b " +
+                "ON a.user_id = b.user_id " +
+                "WHERE b.group_id = ? ";
+
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, Integer.class);
+        } else
+            return 0;
+    }
+
+    @Override
+    public List<User> findUsersForGroupByGroupId(Long groupId) {
+
+        String sql = "SELECT a.user_id, a.name, a.email, a.password, a.enabled, a.token, a.role_id, a.manager_id " +
+                "FROM Users a " +
+                "INNER JOIN Desired_Period b ON a.user_id = b.user_id " +
+                "INNER JOIN Groups c ON b.course_id = c.course_id " +
+                "WHERE c.id = ?";
+
+        return getUsers(groupId, sql);
+    }
+
+    @Override
+    public void deleteFromDesiredPeriodByUserId(Long userId) {
+
+        String sql = "DELETE FROM Desired_Period WHERE user_id = ?";
+
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, userId);
         }
-
-        if (!allManagersList.isEmpty()){
-            for (int i = 0; i < allManagersList.size(); i++) {
-                finalAllManagersList = this.getJdbcTemplate().query(new String(sqlAllManager + allManagersList.get(i).getManagerId()),new UserMapper());
-            }
-        }
-
-        return finalAllManagersList;
     }
 }

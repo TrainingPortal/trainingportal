@@ -12,7 +12,9 @@ public interface MainCardDao {
 
     void storeData(MainCardModel card);
 
-    void update(MainCardModel card);
+    void updateAll(MainCardModel card);
+
+    void updateWithoutFile(MainCardModel card);
 
     void deleteById(Long mainCardId);
 

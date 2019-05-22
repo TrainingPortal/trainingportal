@@ -23,6 +23,9 @@
         <form id="usernameForm" name="usernameForm">
             <div class="form-group">
                 <p placeholder="Username" id="name" th:text="${user.Username}"></p>
+                <p placeholder="id" id="id" th:text="${id}" class = "hidden"></p>
+                <p placeholder="id" id="chatId" th:text="${chatId}" class = "hidden"></p>
+
 <!--                <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />-->
             </div>
             <div class="form-group">
@@ -35,12 +38,44 @@
 <div id="chat-page" class="hidden">
     <div class="chat-container">
         <div class="chat-header">
-            <h2>FORUM</h2>
+            <h2 th:text="${chatName}"></h2>
         </div>
         <div class="connecting">
             Connecting...
         </div>
-        <ul id="messageArea">
+        <ul id="messageArea"  >
+
+
+
+            <li class = "chat-message" th:each="message, iter : ${messagesFromChat}">
+                <i style="background-color: rgb(255,193,7);" th:text="${message.sender.charAt(0)}"></i>
+                <span th:text="${message.sender}"> </span>
+                <p  th:text="${message.getMessageDate()}"></p>
+                <p th:text="${message.message}"></p>
+            </li>
+
+
+
+
+
+<!--            <table class="table table-striped">-->
+<!--                <thead>-->
+<!--                <tr>-->
+<!--                    <th scope="row">message Id</th>-->
+<!--                    <th scope="row">message</th>-->
+
+<!--                </tr>-->
+<!--                </thead>-->
+<!--                <tbody>-->
+
+<!--                <tr th:each="message, iter : ${messagesFromChat}">-->
+<!--                    <td th:text="${message.id}"></td>-->
+<!--                    <td th:text="${message.message}"></td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+
+
 
         </ul>
         <form id="messageForm" name="messageForm" nameForm="messageForm">
@@ -53,6 +88,7 @@
             </div>
         </form>
     </div>
+
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.1.4/sockjs.min.js"></script>

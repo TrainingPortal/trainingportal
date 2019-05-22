@@ -107,4 +107,3 @@ public class LessonDaoImpl extends GenericDaoImpl<Lesson> implements LessonDao {
         return this.getJdbcTemplate().queryForObject(sql, new Object[]{lessonId}, Long.class);
     }
 }
-

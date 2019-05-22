@@ -66,5 +66,12 @@ public interface UserService extends GenericService<User> {
 
     Long getUserId(Authentication authentication);
 
+    List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId);
+
+    int getPagesAmountOfUsersByGroupId(Long groupId, double total);
+
+    String assignUsersToGroup(Long groupId, Long[] userIds);
+
+    List<User> findUsersForGroupByGroupId(Long groupId);
 
 }

@@ -30,14 +30,16 @@ public class ScheduleController {
 
     @RequestMapping("/schedule_create/{page}/{groupId}")
     public ModelAndView showScheduleListOfGroup(@PathVariable("page") int page,
-                                               @PathVariable("groupId") Long id,
-                                               ModelAndView modelAndView) {
-        List<Schedule> scheduleOfGroup = scheduleService.getAllAsPageByGroupId(id, page , ROWS_LIMIT);
-
+                                                @PathVariable("groupId") Long id,
+                                                ModelAndView modelAndView) {
+        List<Schedule> scheduleOfGroup = scheduleService.getAllAsPageByGroupId(id, page, ROWS_LIMIT);
+        for (Schedule schedule : scheduleOfGroup) {
+            schedule.setScheduleLesson(lessonService.findById(schedule.getScheduleLessonId()));
+        }
         Group group = groupService.findById(id);
-        modelAndView.addObject("groupSchedule",group);
+        modelAndView.addObject("groupSchedule", group);
 
-        modelAndView.addObject("pages", scheduleService.getPages(id,ROWS_LIMIT));
+        modelAndView.addObject("pages", scheduleService.getPages(id, ROWS_LIMIT));
         modelAndView.addObject("id", id);
         modelAndView.addObject("scheduleOfGroup", scheduleOfGroup);
         modelAndView.addObject("currentUrl", "schedule_create");
@@ -48,12 +50,12 @@ public class ScheduleController {
 
     @RequestMapping("/schedule_for_user/{page}/{groupId}")
     public ModelAndView showScheduleForUserOfGroup(@PathVariable("page") int page,
-                                                @PathVariable("groupId") Long id,
-                                                ModelAndView modelAndView) {
+                                                   @PathVariable("groupId") Long id,
+                                                   ModelAndView modelAndView) {
 
-        List<Schedule> scheduleForUser = scheduleService.getAllAsPageByGroupId(id, page , ROWS_LIMIT);
+        List<Schedule> scheduleForUser = scheduleService.getAllAsPageByGroupId(id, page, ROWS_LIMIT);
 
-        modelAndView.addObject("pages", scheduleService.getPages(id,ROWS_LIMIT));
+        modelAndView.addObject("pages", scheduleService.getPages(id, ROWS_LIMIT));
         modelAndView.addObject("id", id);
         modelAndView.addObject("scheduleForUser", scheduleForUser);
         modelAndView.addObject("currentUrl", "schedule_for_user");
@@ -62,33 +64,33 @@ public class ScheduleController {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/schedule-add-{groupId}", method = RequestMethod.GET)
-    public ModelAndView addSchedule(@PathVariable Long groupId, ModelAndView modelAndView) {
+    @RequestMapping(value = "/schedule-add-{scheduleGroupId}", method = RequestMethod.GET)
+    public ModelAndView addSchedule(@PathVariable Long scheduleGroupId, ModelAndView modelAndView) {
 
         Schedule schedule = new Schedule();
-        schedule.setScheduleGroupId(groupId);
+        schedule.setScheduleGroupId(scheduleGroupId);
 
         List<Lesson> lessons = lessonService.findAll();
 
-        modelAndView.addObject("lessons", lessons);
         modelAndView.addObject("schedule", schedule);
+        modelAndView.addObject("lessons", lessons);
         modelAndView.setViewName("schedule/schedule_add");
         return modelAndView;
     }
 
     @RequestMapping(value = "schedule-save", method = RequestMethod.POST)
-    public ModelAndView saveSchedule(@RequestParam("groupId") Long groupId,
+    public ModelAndView saveSchedule(@RequestParam("scheduleGroupId") Long scheduleGroupId,
                                      Schedule schedule, ModelAndView modelAndView) {
 
         scheduleService.save(schedule);
-        modelAndView.addObject("groupId", groupId);
-        modelAndView.setViewName("redirect:/schedule_create/1/" + groupId);
+        modelAndView.addObject("groupId", scheduleGroupId);
+        modelAndView.setViewName("redirect:/schedule_create/1/" + scheduleGroupId);
         return modelAndView;
     }
 
     @RequestMapping(value = {"/schedule-edit-{scheduleId}-{groupId}"}, method = RequestMethod.GET)
     public ModelAndView editScheduleBase(@PathVariable("scheduleId") Long scheduleId,
-                                       @PathVariable("groupId") Long id, ModelAndView modelAndView) {
+                                         @PathVariable("groupId") Long id, ModelAndView modelAndView) {
 
         Schedule schedule = scheduleService.findById(scheduleId);
         modelAndView.addObject("schedule", schedule);
@@ -99,8 +101,8 @@ public class ScheduleController {
 
     @RequestMapping(value = {"/schedule-edit-{scheduleId}-{id}"}, method = RequestMethod.POST)
     public ModelAndView editScheduleById(@PathVariable("id") Long id,
-                                       @PathVariable("scheduleId") Long scheduleId,
-                                       Schedule schedule, BindingResult bindingResult, ModelAndView modelAndView) {
+                                         @PathVariable("scheduleId") Long scheduleId,
+                                         Schedule schedule, BindingResult bindingResult, ModelAndView modelAndView) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("schedule/schedule_edit");
             return modelAndView;
@@ -114,7 +116,7 @@ public class ScheduleController {
 
     @RequestMapping(value = "/schedule-delete/{scheduleId}/{id}", method = RequestMethod.GET)
     public ModelAndView deleteScheduleById(@PathVariable("scheduleId") Long scheduleId,
-                                         @PathVariable("id") Long id, ModelAndView model) {
+                                           @PathVariable("id") Long id, ModelAndView model) {
         scheduleService.deleteById(scheduleId);
 //        redirect.addFlashAttribute("successMessage", "schedule deleted successfully");
         model.setViewName("redirect:/schedule_create/1/" + id);

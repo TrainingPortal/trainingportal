@@ -9,7 +9,6 @@ import trainingportal.model.Lesson;
 import trainingportal.model.UserGroup;
 import trainingportal.service.generic.GenericServiceImpl;
 
-
 import java.util.List;
 
 @Service("lessonService")
@@ -42,7 +41,7 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
     public List<Lesson> getLessonsPageByCourseId(int page, int total, Long courseId) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page, total);
 
         return lessonDao.getAllAsPageByCourseId(courseId, page, total);
     }
@@ -53,8 +52,8 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
     }
 
     @Override
-    public boolean isConnectedWithTrainer(Long userId, Long courseId) {
-        Long trainerId =  lessonDao.getTrainerIdByCourseId(courseId);
+    public boolean isConnectedWithTrainerByCourseId(Long userId, Long courseId) {
+        Long trainerId = lessonDao.getTrainerIdByCourseId(courseId);
 
         return userId == trainerId;
     }
@@ -62,10 +61,10 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
     @Override
     public boolean isConnectedWithLessonByCourseId(Long userId, Long courseId) {
 
-        List<UserGroup> users =  userGroupDao.getUserIdByCourseId(courseId);
+        List<UserGroup> users = userGroupDao.getUserIdByCourseId(courseId);
 
-        for(UserGroup user : users){
-            if(user.getUserId() == userId) {
+        for (UserGroup user : users) {
+            if (user.getUserId() == userId) {
                 return true;
             }
         }
@@ -79,7 +78,7 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
 
     public boolean isConnectedWithTrainerByLessonId(Long userId, Long lessonId) {
 
-        Long trainerId =  lessonDao.getTrainerIdByLessonId(lessonId);
+        Long trainerId = lessonDao.getTrainerIdByLessonId(lessonId);
 
         return trainerId == userId;
     }
@@ -87,10 +86,10 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
     @Override
     public boolean isConnectedWithLessonByLessonId(Long userId, Long lessonId) {
 
-        List<UserGroup> users =  userGroupDao.getUserIdByLessonId(lessonId);
+        List<UserGroup> users = userGroupDao.getUserIdByLessonId(lessonId);
 
-        for(UserGroup user : users){
-            if(user.getUserId() == userId) {
+        for (UserGroup user : users) {
+            if (user.getUserId() == userId) {
                 return true;
             }
         }

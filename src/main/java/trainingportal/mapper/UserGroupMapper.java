@@ -13,7 +13,8 @@ public class UserGroupMapper implements BaseObjectMapper<UserGroup> {
             = "SELECT a.id, a.group_id, a.user_id FROM User_Group";
 
     public static String SELECT_USERS_BY_COURSE_ID_SQL
-            = "SELECT a.id, a.group_id, a.user_id FROM User_Group a INNER JOIN Groups b ON a.group_id = b.id " +
+            = "SELECT a.id, a.group_id, a.user_id FROM User_Group a " +
+            "INNER JOIN Groups b ON a.group_id = b.id " +
             "INNER JOIN Course c ON b.course_id = c.course_id " +
             "WHERE c.course_id = ?";
 
@@ -24,6 +25,11 @@ public class UserGroupMapper implements BaseObjectMapper<UserGroup> {
             "INNER JOIN User_Group d ON c.id = d.group_id " +
             "WHERE a.lesson_id = ?";
 
+    public static String SELECT_USER_GROUP_LIST_BY_GROUP_ID
+            = "SELECT a.id, a.group_id, a.user_id FROM User_Group a " +
+            "INNER JOIN Groups b ON a.group_id = b.id " +
+            "INNER JOIN Course c ON b.course_id = c.course_id " +
+            "WHERE b.id = ?";
 
     @Override
     public Map<String, Object> mapObject(UserGroup obj) {

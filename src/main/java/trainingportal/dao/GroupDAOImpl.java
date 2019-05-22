@@ -19,7 +19,7 @@ import java.util.List;
 public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
     @Autowired
     private BaseObjectMapper<Group> groupBaseObjectMapper;
-    
+
     //Define table and id column
     private static final String TABLE_NAME = "groups";
     private static final String ID_COLUMN = "id";
@@ -56,7 +56,7 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
 
     @Override
     public void saveGroup(Group group) {
-        String sql = "INSERT INTO groups (name, capacity, course_id, status_id) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO GROUPS (name, capacity, course_id, status_id) VALUES (?,?,?,?)";
         this.getJdbcTemplate().update(sql, new Object[]{group.getGroupName(), group.getGroupCapacity(),
                 group.getCourseId(), group.getStatusId()});
     }
@@ -105,10 +105,10 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
     @Override
     public Long getTrainerIdByGroupId(Long groupId) {
 
-        String sql = "SELECT MAX(a.trainer_id) FROM Course a " +
+        String sql = "SELECT a.trainer_id FROM Course a " +
                 "INNER JOIN Groups b " +
                 "ON a.course_id = b.course_id " +
-                "WHERE b.course_id = ?";
+                "WHERE b.id = ?";
 
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, Long.class);

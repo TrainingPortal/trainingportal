@@ -49,8 +49,12 @@
             <td th:text="${group.status.statusName}"></td>
             <td>
                 <div class="btn-group">
+                    <a class="btn btn-outline-primary" th:href="@{/group_users/{page}/{groupId}
+                    (groupId = ${group.groupId}, page = 1)}">Group Users</a>
+                </div>
+                <div class="btn-group">
                     <a class="btn btn-outline-primary" th:href="@{/schedule_create/{page}/{groupId}
-                    (groupId = ${group.groupId}, page = 1)}"> Schedule</a>
+                    (groupId = ${group.groupId}, page = 1)}">Schedule</a>
                 </div>
             </td>
 

@@ -92,6 +92,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') " +
                         "and @userSecurity.isConnectedWithTrainerByCourseId(#id))");
 
+        http.authorizeRequests()
+                .antMatchers("/group_users/*/{id}")
+                .access("hasRole('ROLE_ADMIN') " +
+                        "or (hasRole('ROLE_TRAINER') and " +
+                        "@userSecurity.isConnectedWithTrainerByGroupId(#id))" +
+                        "or (hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER') " +
+                        "and @userSecurity.isConnectedWithUserByGroupId(#id))");
+        http.authorizeRequests()
+                .antMatchers("/add_users_to_group/{id}", "/release_user_from_group/*/{id}")
+                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') and " +
+                        "@userSecurity.isConnectedWithTrainerByGroupId(#id))");
+
         //Lessons pages
         http.authorizeRequests()
                 .antMatchers("/lesson-add-{id}","/edit-lesson-*-{id}", "/lesson-delete-by/*/{id}")
@@ -120,14 +132,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/schedule-edit-*-{id}", "/schedule-delete/*/{id}", "/schedule-add-{id}")
                 .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') and " +
-                        "@userSecurity.isConnectedWithTrainerByCourseId(#id))");
+                        "@userSecurity.isConnectedWithTrainerByGroupId(#id))");
         http.authorizeRequests()
                 .antMatchers("/schedule_create/*/{id}")
                 .access("hasRole('ROLE_ADMIN') " +
                         "or (hasRole('ROLE_TRAINER') and " +
-                        "@userSecurity.isConnectedWithTrainerByCourseId(#id))" +
+                        "@userSecurity.isConnectedWithTrainerByGroupId(#id))" +
                         "or (hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER') " +
-                        "and @userSecurity.isConnectedWithLessonByCourseId(#id))");
+                        "and @userSecurity.isConnectedWithUserByGroupId(#id))");
 
         // Profile page settings
         http.authorizeRequests()
@@ -136,7 +148,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "or (hasRole('ROLE_EMPLOYEE') and @userSecurity.hasUserId(#id)) " +
                         "or (hasRole('ROLE_TRAINER') and @userSecurity.hasUserId(#id)) " +
                         "or (hasRole('ROLE_MANAGER') and (@userSecurity.isSubordinate(#id) " +
-                        "or @userSecurity.hasUserId(#id)))");
+                        "or @userSecurity.hasUserId(#id)) or @userSecurity.isTrainer(#id))");
+
+        //Attendance:
+        // myCourses
+        http.authorizeRequests()
+                .antMatchers("/myCourses")
+                .access("hasRole('ROLE_ADMIN') or hasRole('ROLE_TRAINER')");
+        //myGroups
+        http.authorizeRequests()
+                .antMatchers("/myGroups/{id}")
+                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') and " +
+                        "@userSecurity.isConnectedWithTrainerByCourseId(#id))");
+        //myScheduleForGroup
+        http.authorizeRequests()
+                .antMatchers("/myScheduleForGroup/{id}")
+                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') and " +
+                        "@userSecurity.isConnectedWithTrainerByGroupId(#id))");
+        //presence
+        http.authorizeRequests()
+                .antMatchers("/presence/{id}/*")
+                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') and " +
+                        "@userSecurity.isConnectedWithTrainerByGroupId(#id))");
 
         // When the user has logged in as XX.
         // But access a page that requires role YY,
