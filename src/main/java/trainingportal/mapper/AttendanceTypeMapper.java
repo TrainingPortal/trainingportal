@@ -27,8 +27,8 @@ public class AttendanceTypeMapper implements BaseObjectMapper<AttendanceType> {
     public Map<String, Object> mapObject(AttendanceType obj) {
         Map<String, Object> res = new HashMap<>();
 
-        res.put("id", obj.getAttendanceTypeId());
-        res.put("type", obj.getType());
+        res.put("id", obj.getAttendanceId());
+        res.put("type", obj.getAttendanceType());
 
         return res;
     }
