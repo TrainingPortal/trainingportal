@@ -65,7 +65,6 @@
             <thead>
             <tr>
                 <th scope="col">Slider Image</th>
-                <th scope="col"></th>
                 <th scope="col">Button Name</th>
                 <th scope="col">Button URL</th>
             </tr>
@@ -75,9 +74,8 @@
                 <tr th:id="${data.mainSliderId}">
                     <input type="text" name="sliderId" th:value="${data.mainSliderId}" hidden>
                     <td><img th:src="@{'data:image/jpeg;base64,'+${data.filesDataString}}" th:alt="${data.filesName}"
-                             class="img-fluid"></td>
-                    <td><input th:class="inp + ${data.mainSliderId}" type="file" name="editFile"
-                               style="visibility: hidden" accept="image/*"></td>
+                             class="img-fluid"><input th:class="inp + ${data.mainSliderId}" type="file" name="editFile" id="image"
+                                                      style="display: none" accept="image/*"></td>
                     <td><input th:class="inp + ${data.mainSliderId}" type="text" name="editName"
                                th:value="${data.buttonName}"
                                disabled>
@@ -119,7 +117,7 @@
         var inputs = document.getElementsByClassName('inp' + id);
         for (i in inputs) {
             inputs[i].disabled = false;
-            inputs[i].style.visibility = "visible";
+            inputs[i].style.display = "inline";
         }
 
     }
