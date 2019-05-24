@@ -1,12 +1,16 @@
 package trainingportal.notification.conrtoller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.ModelAndView;
 import trainingportal.notification.model.Notification;
-import trainingportal.notification.model.NotificationStatus;
 import trainingportal.notification.service.NotificationService;
+import trainingportal.notification.model.NotificationString;
 
 import java.util.List;
 
@@ -16,22 +20,36 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
 
-    @RequestMapping(value = "/allNotification", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public void getAllNotification() {
         System.out.println("This is NotificationController");
 
         List<Notification> allNotificationList = notificationService.findAllNotifications();
 
-        for (Notification noti:allNotificationList) {
-            System.out.println(noti.getNotificationMessage());
-        }
-
-//        System.out.println(notificationService.findAllNotificationsOfManagers());
-//        System.out.println(notificationService.findAllNotificationsOfTrainers());
-//        System.out.println(notificationService.findAllNotificationsOfUsers());
-//        System.out.println(notificationService.findNotificationByID(5L));
-        //System.out.println(notificationService.isNotificationExist(notificationService.findNotificationByID(5L)));
-        //System.out.println(notificationService.findNotificationsByStatus(NotificationStatus.POSTED));
-        //notificationService.setNotificationMessage(notificationService.findNotificationByID(5L),"new notification");
     }
+
+//        message = notificationService.findNotificationByID(4L);
+//        HtmlUtils.htmlEscape();
+
+    @GetMapping("notification/allNotification")
+    public ModelAndView getNotificationString(ModelAndView modelAndView){
+
+        modelAndView.setViewName("notification/allNotification");
+        return modelAndView;
+    }
+
+    @MessageMapping("/hello")
+    @SendTo("/topic/notificationString")
+    @RequestMapping(value = "notification/allNotification", method = RequestMethod.POST)
+    public NotificationString notificationString(String notificationMessage) {
+
+        //todo get user id
+
+        Notification notification = new Notification(notificationMessage,2L);
+        notificationService.saveNewNotification(notification);
+
+        return new NotificationString(notification.getNotificationMessage());
+    }
+
+
 }

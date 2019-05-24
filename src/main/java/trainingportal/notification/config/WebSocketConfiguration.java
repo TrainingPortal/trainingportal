@@ -1,4 +1,4 @@
-package trainingportal.notification.websocket;
+package trainingportal.notification.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;

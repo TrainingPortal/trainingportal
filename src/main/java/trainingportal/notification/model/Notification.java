@@ -57,4 +57,13 @@ public class Notification {
         this.notificationUserID = notificationUserID;
         this.notificationStatusID = notificationStatusID;
     }
+
+    public Notification(String notificationMessage, Long notificationUserID){
+        this.notificationMessage = notificationMessage;
+        this.notificationDate = new Date();
+        this.notificationUserID = notificationUserID;
+        this.notificationStatusID = 1L;
+    }
+
+    public Notification(){}
 }
