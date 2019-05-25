@@ -18,5 +18,8 @@ public interface NotificationDao {
 
     Boolean isNotificationExist(Notification notificationID);
 
-    void setNotificationMessage(Notification notificationID, String notificationMessage);
+    void setNotificationMessage(Notification notification, String notificationMessage);
+
+    public void saveNewNotification(Notification notification);
+
 }

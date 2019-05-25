@@ -18,5 +18,7 @@ public interface NotificationService {
 
     Boolean isNotificationExist(Notification notificationID);
 
-    void setNotificationMessage(Notification notificationID, String notificationMessage);
+    void setNotificationMessage(Notification notification, String notificationMessage);
+
+    void saveNewNotification(Notification notification);
 }

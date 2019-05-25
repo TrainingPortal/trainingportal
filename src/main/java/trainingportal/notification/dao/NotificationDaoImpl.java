@@ -7,6 +7,8 @@ import trainingportal.notification.mapper.NotificationMapper;
 import trainingportal.notification.model.Notification;
 
 import javax.sql.DataSource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -65,7 +67,15 @@ public class NotificationDaoImpl extends JdbcDaoSupport implements NotificationD
     @Override
     public void setNotificationMessage(Notification notificationID, String notificationMessage) {
 
-        String sql = NotificationMapper.UPDATE_SQL_MESSAGE + "WHERE n.id = ?";
+        String sql = NotificationMapper.UPDATE_SQL_MESSAGE + "WHERE id = ?";
         this.getJdbcTemplate().update(sql,notificationMessage,notificationID.getNotificationID());
+    }
+
+    @Override
+    public void saveNewNotification(Notification notification) {
+
+        String date = new SimpleDateFormat("yyyy-MM-dd").format(notification.getNotificationDate());
+
+        this.getJdbcTemplate().update(NotificationMapper.CREATE_NEW_NOTIFICATION_SQL,notification.getNotificationMessage(),date,notification.getNotificationUserID(),notification.getNotificationStatusID());
     }
 }

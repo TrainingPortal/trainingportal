@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class Export {
 
-    public void exportDataToExcel(String fileName, String labelName, Object[][] data) {
+    public void exportDataToExcel(String fileName, String labelName, Object[][] data) throws ExportToExcelException {
 
         if (data[0][0] != null) {
 
@@ -39,7 +39,7 @@ public class Export {
         }
     }
 
-    public void exportDataToExcel(String fileName, String labelName, List list){
+    public void exportDataToExcel(String fileName, String labelName, List list) throws ExportToExcelException {
 
         if (!list.isEmpty()) {
 
@@ -57,7 +57,7 @@ public class Export {
         }
     }
 
-    public void exportDataToExcelGenerics(String fileName, String labelName, List<List> list) {
+    public void exportDataToExcelGenerics(String fileName, String labelName, List<List> list) throws ExportToExcelException {
 
         if (!list.isEmpty()) {
 
