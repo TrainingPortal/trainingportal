@@ -33,7 +33,7 @@ public class MainCardController {
     public ModelAndView uploadData(@RequestParam MultipartFile file, @RequestParam String title,
                                    @RequestParam String description, @RequestParam String name,
                                    @RequestParam String url, ModelAndView modelAndView, RedirectAttributes redirect) throws IOException {
-        String message = mainCardService.storeData(file, title, description, name, url);
+        boolean message = mainCardService.storeData(file, title, description, name, url);
 
         redirect.addFlashAttribute("message", message);
         modelAndView.setViewName("redirect:/manage_main_card");
@@ -41,11 +41,11 @@ public class MainCardController {
     }
 
     @PostMapping("/card-edit")
-    public ModelAndView editData(@RequestParam Long cardId, @RequestParam MultipartFile editFile, @RequestParam String editTitle, @RequestParam String editText, @RequestParam String editBtnName, @RequestParam String editUrl, ModelAndView modelAndView) throws IOException {
+    public ModelAndView editData(@RequestParam Long cardId, @RequestParam MultipartFile editFile, @RequestParam String editTitle, @RequestParam String editText, @RequestParam String editBtnName, @RequestParam String editUrl, ModelAndView modelAndView, RedirectAttributes redirect) throws IOException {
 
-        mainCardService.editById(cardId, editFile, editTitle, editText, editBtnName, editUrl);
+        boolean message = mainCardService.editById(cardId, editFile, editTitle, editText, editBtnName, editUrl);
 
-
+        redirect.addFlashAttribute("message", message);
         modelAndView.setViewName("redirect:/manage_main_card");
         return modelAndView;
     }

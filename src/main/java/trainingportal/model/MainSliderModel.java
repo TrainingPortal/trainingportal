@@ -20,18 +20,28 @@ public class MainSliderModel {
 //    @Column (name = "button_url")
     private String buttonUrl;
 
+    private String captionHeader;
+
+    private String captionText;
+
+    private int slideInterval;
+
     private String filesDataString;
 
     protected MainSliderModel() {
     }
 
-    public MainSliderModel(Long mainSliderId, String filesName, String filesType, byte[] filesData, String buttonName, String buttonUrl) {
+    public MainSliderModel(Long mainSliderId, String filesName, String filesType, byte[] filesData, String buttonName,
+                           String buttonUrl, String captionHeader, String captionText, int slideInterval) {
         this.mainSliderId = mainSliderId;
         this.filesName = filesName;
         this.filesType = filesType;
         this.filesData = filesData;
         this.buttonName = buttonName;
         this.buttonUrl = buttonUrl;
+        this.captionHeader = captionHeader;
+        this.captionText = captionText;
+        this.slideInterval = slideInterval;
     }
 
     public Long getMainSliderId() {
@@ -88,6 +98,30 @@ public class MainSliderModel {
 
     public String getFilesDataString(){
         return filesDataString;
+    }
+
+    public String getCaptionHeader(){
+        return captionHeader;
+    }
+
+    public void setCaptionHeader(String captionHeader){
+        this.captionHeader = captionHeader;
+    }
+
+    public String getCaptionText(){
+        return captionText;
+    }
+
+    public void setCaptionText(String captionText){
+        this.captionText = captionText;
+    }
+
+    public int getSlideInterval(){
+        return slideInterval;
+    }
+
+    public void setSlideInterval(int slideInterval){
+        this.slideInterval = slideInterval;
     }
 
 }

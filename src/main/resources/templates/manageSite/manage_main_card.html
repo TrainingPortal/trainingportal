@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/../css/responsive-table.css">
 </head>
 
 <body>
@@ -64,10 +65,19 @@
 
     <br>
 
-    <div th:if="${message != null}" class="container">
-        <div class="d-flex justify-content-center">
-            <p class="bg-info text-white" th:text="${message}"></p>
-        </div>
+    <div th:if="${message} == true" class="alert alert-success alert-dismissible fade show" role="alert">
+        Data successfully stored!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div th:if="${message} == false" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <h4 class="alert-heading">Data was NOT stored!</h4>
+        <hr>
+        <p>It is possible to upload only images (jpeg, png or tiff).</p>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
     </div>
 
     <br>
@@ -79,7 +89,6 @@
         <thead>
         <tr>
             <th scope="row">Photo</th>
-            <th scope="row"></th>
             <th scope="row">Card Title</th>
             <th scope="row">Card Text</th>
             <th scope="row">Button Name</th>
@@ -90,9 +99,9 @@
         <form method="post" enctype="multipart/form-data" action="/card-edit" th:each="data : ${dataList}">
         <tr th:id="${data.mainCardId}">
             <input name="cardId" th:value="${data.mainCardId}" hidden>
-            <td><img th:src="@{'data:image/jpeg;base64,'+${data.filesDataString}}" th:alt="${filesName}" class="img-fluid"></td>
-            <td><input th:class="inp + ${data.mainCardId}" type="file" name="editFile"
-                                                   style="visibility: hidden" accept="image/*"></td>
+            <td><img th:src="@{'data:image/jpeg;base64,'+${data.filesDataString}}" th:alt="${filesName}" class="img-fluid">
+                <input th:class="inp + ${data.mainCardId}" type="file" name="editFile"
+                       style="display: none" accept="image/*"></td>
             <td><input th:class="inp + ${data.mainCardId}" type="text" name="editTitle"
                                                    th:value="${data.cardTitle}"
                                                    disabled></td>
@@ -135,7 +144,7 @@
         var inputs = document.getElementsByClassName('inp' + id);
         for (i in inputs) {
             inputs[i].disabled = false;
-            inputs[i].style.visibility = "visible";
+            inputs[i].style.display = "inline";
         }
 
     }

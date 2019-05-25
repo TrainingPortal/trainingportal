@@ -50,14 +50,16 @@ public class MainSliderDAOImpl extends GenericDaoImpl<MainSliderModel> implement
         String sql = MainSliderMapper.EDIT_ALL_SQL + " WHERE main_slider_id = ?";
 
         this.getJdbcTemplate().update(sql, slide.getFilesName(), slide.getFilesType(), slide.getFilesData(),
-                slide.getButtonName(), slide.getButtonUrl(), slide.getMainSliderId());
+                slide.getButtonName(), slide.getButtonUrl(), slide.getCaptionHeader(), slide.getCaptionText(),
+                slide.getSlideInterval(), slide.getMainSliderId());
     }
 
     @Override
     public void updateWithoutFile(MainSliderModel slide) {
         String sql = MainSliderMapper.EDIT_WITHOUT_FILE_SQL + " WHERE main_slider_id = ?";
 
-        this.getJdbcTemplate().update(sql, slide.getButtonName(), slide.getButtonUrl(), slide.getMainSliderId());
+        this.getJdbcTemplate().update(sql, slide.getButtonName(), slide.getButtonUrl(), slide.getCaptionHeader(), slide.getCaptionText(),
+                slide.getSlideInterval(), slide.getMainSliderId());
     }
 
     @Override
@@ -74,7 +76,8 @@ public class MainSliderDAOImpl extends GenericDaoImpl<MainSliderModel> implement
 
         if (this.getJdbcTemplate() != null) {
             this.getJdbcTemplate().update(sql, slide.getFilesName(), slide.getFilesType(), slide.getFilesData(),
-                    slide.getButtonName(), slide.getButtonUrl());
+                    slide.getButtonName(), slide.getButtonUrl(), slide.getCaptionHeader(), slide.getCaptionText(),
+                    slide.getSlideInterval());
         }
 
     }

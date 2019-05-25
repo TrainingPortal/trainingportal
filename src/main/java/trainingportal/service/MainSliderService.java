@@ -9,7 +9,8 @@ import java.util.List;
 
 public interface MainSliderService {
 
-    String storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException;
+    boolean storeData(MultipartFile file, String buttonName, String buttonUrl, String slHeader, String slText,
+                      int interval) throws IOException;
 
     List<MainSliderModel> getAll();
 
@@ -17,6 +18,7 @@ public interface MainSliderService {
 
     int countAll();
 
-    void editById(Long mainSliderId, MultipartFile file, String buttonName, String buttonUrl) throws IOException;
+    boolean editById(Long mainSliderId, MultipartFile file, String buttonName, String buttonUrl,
+                     String slHeader, String slText, int interval) throws IOException;
 
 }

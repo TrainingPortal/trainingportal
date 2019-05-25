@@ -15,13 +15,16 @@ public class MainSliderMapper implements BaseObjectMapper<MainSliderModel> {
             = "SELECT * FROM main_slider";
 
     public static final String INSERT_SQL
-            = "INSERT INTO main_slider(files_name, files_type, files_data, button_name, button_url) VALUES (?, ?, ?, ?, ?)";
+            = "INSERT INTO main_slider(files_name, files_type, files_data, button_name, button_url, caption_header, " +
+            "caption_text, slide_interval) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
     public static final String EDIT_ALL_SQL
-            = "UPDATE main_slider SET  files_name = ?, files_type = ?, files_data = ?, button_name = ?, button_url = ?";
+            = "UPDATE main_slider SET  files_name = ?, files_type = ?, files_data = ?, button_name = ?, button_url = ?, " +
+            "caption_header = ?, caption_text = ?, slide_interval = ?";
 
     public static final String EDIT_WITHOUT_FILE_SQL
-            = "UPDATE main_slider SET button_name = ?, button_url = ?";
+            = "UPDATE main_slider SET button_name = ?, button_url = ?, caption_header = ?, caption_text = ?, " +
+            "slide_interval = ?";
 
     public static final String COUNT_ALL_SQL
             = "SELECT COUNT (*) FROM main_slider";
@@ -39,8 +42,12 @@ public class MainSliderMapper implements BaseObjectMapper<MainSliderModel> {
         byte[] filesData = resultSet.getBytes("files_data");
         String buttonName = resultSet.getString("button_name");
         String buttonUrl = resultSet.getString("button_url");
+        String captionHeader = resultSet.getString("caption_header");
+        String captionText = resultSet.getString("caption_text");
+        int interval = resultSet.getInt("slide_interval");
 
-        return new MainSliderModel(mainSliderId, filesName, filesType, filesData, buttonName, buttonUrl);
+        return new MainSliderModel(mainSliderId, filesName, filesType, filesData, buttonName, buttonUrl, captionHeader,
+                captionText, interval);
     }
 
     @Override
@@ -54,6 +61,9 @@ public class MainSliderMapper implements BaseObjectMapper<MainSliderModel> {
         res.put("files_data", obj.getFilesData());
         res.put("button_name", obj.getButtonName());
         res.put("button_url", obj.getButtonUrl());
+        res.put("caption_header", obj.getCaptionHeader());
+        res.put("caption_text", obj.getCaptionText());
+        res.put("slide_interval", obj.getSlideInterval());
 
         return res;
     }
