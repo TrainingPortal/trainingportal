@@ -2,6 +2,7 @@ package trainingportal.reports.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import trainingportal.export.exception.ExportToExcelException;
 import trainingportal.reports.dao.exception.DataDaoExceptions;
 import trainingportal.reports.mapper.ReportsMapper;
 
@@ -27,37 +28,79 @@ public class ReportsCreate {
         attendanceFieldsSetter();
     }
 
-    public void createNewTrainerReport(Long trainerId){
+    public void createNewTrainerReport(Long trainerId) {
 
-        List<List> allColList = reportsService.getMultiFieldsFromTables(listWithTrainers, ReportsMapper.SQL_FOR_TRAINERS + trainerId);
+        List<List> allColList = null;
+        try {
+            allColList = reportsService.getMultiFieldsFromTables(listWithTrainers, ReportsMapper.SQL_FOR_TRAINERS + trainerId);
+        } catch (DataDaoExceptions dataDaoExceptions) {
+            //todo ADD LOGGER
+        }
 
         //create new List<List> with name of fields
-        List<List> allColWithName = addNameToList(allColList, listWithTrainers);
+        List<List> allColWithName = null;
+        try {
+            allColWithName = getListWithSettledNames(allColList, listWithTrainers);
+        } catch (DataDaoExceptions dataDaoExceptions) {
+            //todo ADD LOGGER
+        }
 
         //Use Export For our List<List> formed data
-        reportExport.useExport("Trainer", "table", allColWithName);
+        try {
+            reportExport.useExport("Trainer", "table", allColWithName);
+        } catch (ExportToExcelException e) {
+            //todo ADD LOGGER
+        }
     }
 
-    public void createNewLevelReport(String levelName){
+    public void createNewLevelReport(String levelName) {
 
-        List<List> allColList = reportsService.getMultiFieldsFromTables(listWithLevels, ReportsMapper.SQL_FOR_LEVELS + "\'" + levelName + "\'");
+        List<List> allColList = null;
+        try {
+            allColList = reportsService.getMultiFieldsFromTables(listWithLevels, ReportsMapper.SQL_FOR_LEVELS + "\'" + levelName + "\'");
+        } catch (DataDaoExceptions dataDaoExceptions) {
+            //todo ADD LOGGER
+        }
 
         //create new List<List> with name of fields
-        List<List> allColWithName = addNameToList(allColList, listWithLevels);
+        List<List> allColWithName = null;
+        try {
+            allColWithName = getListWithSettledNames(allColList, listWithLevels);
+        } catch (DataDaoExceptions dataDaoExceptions) {
+            //todo ADD LOGGER
+        }
 
         //Use Export For our List<List> formed data
-        reportExport.useExport("Level", "table", allColWithName);
+        try {
+            reportExport.useExport("Level", "table", allColWithName);
+        } catch (ExportToExcelException e) {
+            //todo ADD LOGGER
+        }
     }
 
-    public void createNewAttendanceReport(Long attendanceId){
+    public void createNewAttendanceReport(Long attendanceId) {
 
-        List<List> allColList = reportsService.getMultiFieldsFromTables(listWithAttendance, ReportsMapper.SQL_FOR_ATTENDANCE + attendanceId);
+        List<List> allColList = null;
+        try {
+            allColList = reportsService.getMultiFieldsFromTables(listWithAttendance, ReportsMapper.SQL_FOR_ATTENDANCE + attendanceId);
+        } catch (DataDaoExceptions dataDaoExceptions) {
+            //todo ADD LOGGER
+        }
 
         //create new List<List> with name of fields
-        List<List> allColWithName = addNameToList(allColList, listWithAttendance);
+        List<List> allColWithName = null;
+        try {
+            allColWithName = getListWithSettledNames(allColList, listWithAttendance);
+        } catch (DataDaoExceptions dataDaoExceptions) {
+            //todo ADD LOGGER
+        }
 
         //Use Export For our List<List> formed data
-        reportExport.useExport("Attendance", "table", allColWithName);
+        try {
+            reportExport.useExport("Attendance", "table", allColWithName);
+        } catch (ExportToExcelException e) {
+            //todo ADD LOGGER
+        }
     }
 
     private void trainerFieldsSetter(){
@@ -92,7 +135,7 @@ public class ReportsCreate {
         listWithAttendance.add("Status");
     }
 
-    private List<List> addNameToList(List<List> allCol, List<String> fields) {
+    private List<List> getListWithSettledNames(List<List> allCol, List<String> fields) throws DataDaoExceptions {
 
         if (!(allCol.isEmpty()) && !(fields.isEmpty())) {
 

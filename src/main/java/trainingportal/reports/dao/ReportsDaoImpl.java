@@ -21,9 +21,8 @@ public class ReportsDaoImpl extends JdbcDaoSupport implements ReportsDao {
     }
 
     @Override
-    public List<List> getFieldsFromTable(List<String> fields, String sql) {
+    public List<List> getFieldsFromTable(List<String> fields, String sql) throws DataDaoExceptions {
 
-        //This is our final List with Multiple listColumn's inside Generic <List>
         List<List> allCol = new ArrayList<>();
 
         if (!fields.isEmpty()) {
