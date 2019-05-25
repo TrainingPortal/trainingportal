@@ -50,6 +50,4 @@ public class NotificationController {
 
         return new NotificationString(notification.getNotificationMessage());
     }
-
-
 }

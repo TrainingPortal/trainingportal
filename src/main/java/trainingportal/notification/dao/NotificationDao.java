@@ -21,4 +21,5 @@ public interface NotificationDao {
     void setNotificationMessage(Notification notification, String notificationMessage);
 
     public void saveNewNotification(Notification notification);
+
 }

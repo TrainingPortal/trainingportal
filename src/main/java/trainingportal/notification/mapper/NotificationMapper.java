@@ -26,9 +26,7 @@ public class NotificationMapper implements RowMapper<Notification> {
 
         Long notificationID = rs.getLong("id");
         String notificationMessage = rs.getString("message");
-
         Date notificationDate = rs.getDate("date_notification");
-
         Long notificationUserID = rs.getLong("user_id");
         Long notificationStatusID = rs.getLong("status_id");
 
