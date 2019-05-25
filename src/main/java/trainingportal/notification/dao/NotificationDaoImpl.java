@@ -8,7 +8,6 @@ import trainingportal.notification.model.Notification;
 
 import javax.sql.DataSource;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @Repository
@@ -20,42 +19,35 @@ public class NotificationDaoImpl extends JdbcDaoSupport implements NotificationD
     @Override
     public List<Notification> findAllNotifications() {
 
-        List<Notification> allNotifications = this.getJdbcTemplate().query(NotificationMapper.BASE_SQL,new NotificationMapper());
-        return allNotifications;
+        return this.getJdbcTemplate().query(NotificationMapper.BASE_SQL,new NotificationMapper());
     }
 
     @Override
     public List<Notification> findAllNotificationsOfUsers() {
 
-        String sql = NotificationMapper.USERS_LEFT_JOIN_NOTIFICATION + "WHERE enabled = 1 AND role_id = 2";
-        List<Notification> allUsersNotifications = this.getJdbcTemplate().query(sql, new NotificationMapper());
-        return allUsersNotifications;
+        String sql = NotificationMapper.USERS_LEFT_JOIN_NOTIFICATION + NotificationMapper.WHERE_ENABLED_AND_ROLE + "2";
+        return this.getJdbcTemplate().query(sql, new NotificationMapper());
     }
 
     @Override
     public List<Notification> findAllNotificationsOfTrainers() {
 
         String sql = NotificationMapper.USERS_LEFT_JOIN_NOTIFICATION + "WHERE enabled = 1 AND role_id = 3";
-        List<Notification> allTrainersNotifications = this.getJdbcTemplate().query(sql, new NotificationMapper());
-        return allTrainersNotifications;
+        return this.getJdbcTemplate().query(sql, new NotificationMapper(),1,3);
     }
 
     @Override
     public List<Notification> findAllNotificationsOfManagers() {
 
         String sql = NotificationMapper.USERS_LEFT_JOIN_NOTIFICATION + "WHERE enabled = 1 AND role_id = 4";
-        List<Notification> allManagersNotifications = this.getJdbcTemplate().query(sql, new NotificationMapper());
-        return allManagersNotifications;
+        return this.getJdbcTemplate().query(sql, new NotificationMapper());
     }
 
     @Override
     public Notification findNotificationByID(Long notificationID) {
 
-    String sql = NotificationMapper.BASE_SQL + "WHERE n.id = ?";
-
-
-        Notification notification = this.getJdbcTemplate().queryForObject(sql,new Object[]{notificationID},new NotificationMapper());
-        return notification;
+        String sql = NotificationMapper.BASE_SQL + NotificationMapper.WHERE_ID;
+        return this.getJdbcTemplate().queryForObject(sql,new Object[]{notificationID},new NotificationMapper());
     }
 
     @Override
@@ -67,7 +59,7 @@ public class NotificationDaoImpl extends JdbcDaoSupport implements NotificationD
     @Override
     public void setNotificationMessage(Notification notificationID, String notificationMessage) {
 
-        String sql = NotificationMapper.UPDATE_SQL_MESSAGE + "WHERE id = ?";
+        String sql = NotificationMapper.UPDATE_SQL_MESSAGE + NotificationMapper.WHERE_ID;
         this.getJdbcTemplate().update(sql,notificationMessage,notificationID.getNotificationID());
     }
 
