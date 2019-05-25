@@ -14,7 +14,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public User initManager(User user) {
 
-        if(user.getRoleId().intValue() == Role.EMPLOYEE && user.getManagerId() != 0){
+        if (user.getRoleId().intValue() == Role.EMPLOYEE && user.getManagerId() != 0) {
             return userService.findManagerBySubordinateId(user.getUserId());
         } else {
             return new User();

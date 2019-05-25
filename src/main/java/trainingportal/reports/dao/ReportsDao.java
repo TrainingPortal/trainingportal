@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ReportsDao {
 
-    List<List> getFieldsFromTable(List<String> fields, String fileName, String labelName, String sql);
+    List<List> getFieldsFromTable(List<String> fields, String sql);
 
     default String setSQL(List<String> fields, String tableName, String whereCondition) {
 

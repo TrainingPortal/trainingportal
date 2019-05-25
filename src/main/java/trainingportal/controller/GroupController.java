@@ -1,7 +1,6 @@
 package trainingportal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -139,7 +138,7 @@ public class GroupController {
 
     @GetMapping({"/edit-group-{groupId}-{id}"})
     public ModelAndView editGroupBase(@PathVariable("groupId") Long groupId,
-                                      @PathVariable("id") Long id,ModelAndView modelAndView) {
+                                      @PathVariable("id") Long id, ModelAndView modelAndView) {
         Group group = groupService.findById(groupId);
 
         List<Course> courses = courseService.findAll();
@@ -156,7 +155,7 @@ public class GroupController {
 
     @PostMapping({"/edit-group-{groupId}-{id}"})
     public ModelAndView editGroupById(@PathVariable("id") Long id, @PathVariable("groupId") Long groupId,
-            Group group, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
+                                      Group group, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("groupCreator/edit_group_by_id");
             return modelAndView;
@@ -170,7 +169,7 @@ public class GroupController {
 
     @GetMapping("/group-delete-by/{groupId}/{id}")
     public ModelAndView deleteGroupById(@PathVariable("groupId") Long groupId,
-                                        @PathVariable("id") Long id,ModelAndView model, RedirectAttributes redirect) {
+                                        @PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirect) {
         groupService.deleteById(groupId);
 
         redirect.addFlashAttribute("successMessage", "Group deleted successfully");

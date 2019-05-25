@@ -56,6 +56,16 @@ public class MainCardDAOImpl extends GenericDaoImpl<MainCardModel> implements Ma
                 card.getCardUrl(), card.getMainCardId());
 
     }
+    }
+
+    //todo
+//    @Override
+//    public void deleteById(Long mainCardId) {
+//        String sql = MainCardMapper.DELETE_SQL + " WHERE main_card_id = ?";
+//
+//        this.getJdbcTemplate().update(sql, mainCardId);
+//    }
+
     //insert into database new Card data
     @Override
     public void storeData(MainCardModel card) {
