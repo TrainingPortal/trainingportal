@@ -36,17 +36,17 @@ public abstract class GenericServiceImpl<T> implements GenericService<T> {
     }
 
     @Override
-    public List<T> getAllAsPage(int page, int total) {
-        if(page != 1){
-            page = (page - 1) * total + 1;
+    public List<T> getAllAsPage(int page, int rowsPerPage) {
+        if(page > 1){
+            page = (page - 1) * rowsPerPage + 1;
         }
 
-        return genericDao.getAllAsPage(page, total);
+        return genericDao.getAllAsPage(page, rowsPerPage);
     }
 
-    protected int getPageNumber(int page, int total){
-        if(page != 1){
-            page = (page - 1) * total + 1;
+    protected int getPageNumber(int page, int rowsPerPage){
+        if(page > 1){
+            page = (page - 1) * rowsPerPage + 1;
         }
 
         return page;

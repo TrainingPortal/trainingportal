@@ -20,7 +20,7 @@ import java.util.List;
 @Controller
 public class ScheduleController {
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
     @Autowired
     private ScheduleService scheduleService;
     @Autowired
@@ -32,14 +32,14 @@ public class ScheduleController {
     public ModelAndView showScheduleListOfGroup(@PathVariable("page") int page,
                                                 @PathVariable("groupId") Long id,
                                                 ModelAndView modelAndView) {
-        List<Schedule> scheduleOfGroup = scheduleService.getAllAsPageByGroupId(id, page, ROWS_LIMIT);
+        List<Schedule> scheduleOfGroup = scheduleService.getAllAsPageByGroupId(id, page, ROWS_PER_PAGE);
         for (Schedule schedule : scheduleOfGroup) {
             schedule.setScheduleLesson(lessonService.findById(schedule.getScheduleLessonId()));
         }
         Group group = groupService.findById(id);
         modelAndView.addObject("groupSchedule", group);
 
-        modelAndView.addObject("pages", scheduleService.getPages(id, ROWS_LIMIT));
+        modelAndView.addObject("pages", scheduleService.getPages(id, ROWS_PER_PAGE));
         modelAndView.addObject("id", id);
         modelAndView.addObject("scheduleOfGroup", scheduleOfGroup);
         modelAndView.addObject("currentUrl", "schedule_create");
@@ -53,9 +53,9 @@ public class ScheduleController {
                                                    @PathVariable("groupId") Long id,
                                                    ModelAndView modelAndView) {
 
-        List<Schedule> scheduleForUser = scheduleService.getAllAsPageByGroupId(id, page, ROWS_LIMIT);
+        List<Schedule> scheduleForUser = scheduleService.getAllAsPageByGroupId(id, page, ROWS_PER_PAGE);
 
-        modelAndView.addObject("pages", scheduleService.getPages(id, ROWS_LIMIT));
+        modelAndView.addObject("pages", scheduleService.getPages(id, ROWS_PER_PAGE));
         modelAndView.addObject("id", id);
         modelAndView.addObject("scheduleForUser", scheduleForUser);
         modelAndView.addObject("currentUrl", "schedule_for_user");

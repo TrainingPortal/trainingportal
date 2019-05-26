@@ -51,10 +51,12 @@
 <!--                    <a class="nav-link " href="/chat" th:if="${#request.userPrincipal != null}">FORUM</a>-->
 <!--                </li>-->
                 <li class="nav-item">
-                    <a class="nav-link " th:href="@{/show_chats/{page}(page=1)}" th:if="${#request.userPrincipal != null}">FORUMS</a>
+                    <a class="nav-link " th:href="@{/show_chats/{page}(page=1)}"
+                       th:if="${#request.userPrincipal != null}">FORUMS</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="/notification/allNotification">NOTIFICATION</a>
+                    <a class="nav-link " th:href="@{/notification/allNotification}"
+                       th:if="${#request.userPrincipal != null}">NOTIFICATION</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/helppage">HELP</a>
@@ -128,10 +130,12 @@
 <!--                        <a class="nav-link " href="/chat" th:if="${#request.userPrincipal != null}">FORUM</a>-->
 <!--                    </li>-->
                     <li class="nav-item">
-                        <a class="nav-link " th:href="@{/show_chats/{page}(page=1)}" th:if="${#request.userPrincipal != null}">FORUMS</a>
+                        <a class="nav-link " th:href="@{/show_chats/{page}(page=1)}"
+                           th:if="${#request.userPrincipal != null}">FORUMS</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="/notification/allNotification">NOTIFICATION</a>
+                        <a class="nav-link " th:href="@{/notification/allNotification}"
+                           th:if="${#request.userPrincipal != null}">NOTIFICATION</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/coursepage">ALL COURSES</a>

@@ -42,31 +42,31 @@ public interface UserService extends GenericService<User> {
 
     String assignSubordinates(Long managerId, Long[] userIds);
 
-    List<User> getAllByRoleAsPage(int page, int total, Long roleId);
+    List<User> getAllByRoleAsPage(int page, int rowsPerPage, Long roleId);
 
-    List<User> getSubordinatesByIdAsPage(int page, int total, Long id);
+    List<User> getSubordinatesByIdAsPage(int page, int rowsPerPage, Long id);
 
     Map<Long, String> setMapStatus();
 
-    List<User> getFreeUsersAsPage(int page, int total);
+    List<User> getFreeUsersAsPage(int page, int rowsPerPage);
 
     List<Role> getRoles();
 
-    int getPagesByRole(Long id, double total);
+    int getPagesByRole(Long id, double rowsPerPage);
 
-    int getPagesByManager(Long id, double total);
+    int getPagesByManager(Long id, double rowsPerPage);
 
-    int getFreeUsersPages(double total);
+    int getFreeUsersPages(double rowsPerPage);
 
-    List<User> searchByRole(Long id, String request, int page, int total);
+    List<User> searchByRole(Long id, String request, int page, int rowsPerPage);
 
-    int getSearchPagesByRole(Long id, double total, String request);
+    int getSearchPagesByRole(Long id, double rowsPerPage, String request);
 
     Long getUserId(Authentication authentication);
 
-    List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId);
+    List<User> getUsersByGroupIdAsPage(int page, int rowsPerPage, Long groupId);
 
-    int getPagesAmountOfUsersByGroupId(Long groupId, double total);
+    int getPagesAmountOfUsersByGroupId(Long groupId, double rowsPerPage);
 
     String assignUsersToGroup(Long groupId, Long[] userIds);
 

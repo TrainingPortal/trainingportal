@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface InfoDeskDao extends GenericDao<InfoDesk> {
 
-    List<InfoDesk> getAllAsPage(int page, int total);
+    List<InfoDesk> getAllAsPage(int page, int rowsPerPage);
     int countAll();
     List<InfoDesk> getRequestForHelpByEmpId(Long employeeId);
 

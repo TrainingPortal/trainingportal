@@ -140,7 +140,7 @@
             <scope>runtime</scope>
         </dependency>
 
-<!--FOR NOTIFICATION-->
+        <!--FOR NOTIFICATION-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator-core</artifactId>
@@ -160,7 +160,7 @@
             <artifactId>bootstrap</artifactId>
             <version>3.3.7</version>
         </dependency>
-<!---->
+        <!---->
 
     </dependencies>
 

@@ -28,20 +28,20 @@ public class GroupController {
     @Autowired
     private UserService userService;
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
 
     @RequestMapping("/group_create/{page}/{courseId}")
     public ModelAndView showLessonListOfCourse(@PathVariable("page") int page,
                                                @PathVariable("courseId") Long id,
                                                ModelAndView modelAndView) {
 
-        List<Group> groupList = groupService.getGroupsPage(id, page, ROWS_LIMIT,
+        List<Group> groupList = groupService.getGroupsPage(id, page, ROWS_PER_PAGE,
                 userSecurity.getLoggedInUserId(), userSecurity.getLoggedInUserRole());
 
         Course course = courseService.findById(id);
         modelAndView.addObject("courseGroup", course);
 
-        modelAndView.addObject("pages", groupService.getPages(id, ROWS_LIMIT));
+        modelAndView.addObject("pages", groupService.getPages(id, ROWS_PER_PAGE));
         modelAndView.addObject("id", id);
         modelAndView.addObject("groupList", groupList);
         modelAndView.addObject("currentUrl", "group_create");
@@ -55,13 +55,14 @@ public class GroupController {
                                                @PathVariable("groupId") Long groupId,
                                                ModelAndView modelAndView) {
 
-        List<User> userList = userService.getUsersByGroupIdAsPage(page, ROWS_LIMIT, groupId);
+        List<User> userList = userService.getUsersByGroupIdAsPage(page, ROWS_PER_PAGE, groupId);
 
         //Course course = courseService.findById(groupId);
         //modelAndView.addObject("courseGroup", course);
 
-        modelAndView.addObject("pages", userService.getPagesAmountOfUsersByGroupId(groupId, ROWS_LIMIT));
+        modelAndView.addObject("pages", userService.getPagesAmountOfUsersByGroupId(groupId, ROWS_PER_PAGE));
         modelAndView.addObject("groupId", groupId);
+        modelAndView.addObject("courseId", courseService.findCourseIdByGroupId(groupId).getCourseId());
         modelAndView.addObject("userList", userList);
         modelAndView.addObject("currentUrl", "group_users");
         modelAndView.setViewName("groupCreator/group_users");

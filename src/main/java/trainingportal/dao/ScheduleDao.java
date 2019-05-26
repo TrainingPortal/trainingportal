@@ -8,7 +8,7 @@ import java.util.List;
 public interface ScheduleDao extends GenericDao<Schedule> {
     List<Schedule> findAllByGroupId(Long id);
 
-    List<Schedule> getAllAsPageByGroupId(Long scheduleGroupId, int page, int total);
+    List<Schedule> getAllAsPageByGroupId(Long scheduleGroupId, int page, int rowsPerPage);
 
     int countAllByGroupId(Long scheduleGroupId);
 }

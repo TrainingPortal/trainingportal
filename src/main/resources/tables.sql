@@ -19,6 +19,7 @@ drop table User_Group;
 drop TABLE User_Chat;
 drop TABLE Weekday;
 drop TABLE Notification_Status;
+drop TABLE Desired_Period_Status;
 drop TABLE Desired_Period;
 drop TABLE Group_Status;
 drop TABLE Course_Status;
@@ -528,32 +529,44 @@ values ('Opened');
 INSERT INTO Notification_Status (name)
 values ('Closed');
 
+CREATE TABLE Desired_Period_Status
+(
+    status_id          NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    name               VARCHAR2(20)
+);
+
+INSERT INTO Desired_Period_Status (name)
+values ('Opened');
+INSERT INTO Desired_Period_Status (name)
+values ('Closed');
+
 CREATE TABLE Desired_Period
 (
     desired_period_id NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     user_id           NUMBER,
-    course_id         NUMBER
+    course_id         NUMBER,
+    status_id         NUMBER
 );
 
-INSERT INTO desired_period (user_id, course_id)
-values (12, 1);
-INSERT INTO desired_period (user_id, course_id)
-values (20, 1);
-INSERT INTO desired_period (user_id, course_id)
-values (21, 2);
-INSERT INTO desired_period (user_id, course_id)
-values (22, 3);
-INSERT INTO desired_period (user_id, course_id)
-values (23, 4);
-INSERT INTO desired_period (user_id, course_id)
-values (24, 5);
-INSERT INTO desired_period (user_id, course_id)
-values (25, 3);
-INSERT INTO desired_period (user_id, course_id)
-values (29, 5);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (12, 1, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (20, 1, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (21, 2, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (22, 3, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (23, 4, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (24, 5, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (25, 3, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (29, 5, 1);
 
-INSERT INTO desired_period (user_id, course_id)
-values (32, 5);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (32, 5, 1);
 
 CREATE TABLE Weekday
 (
