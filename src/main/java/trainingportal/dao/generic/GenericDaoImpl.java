@@ -97,8 +97,8 @@ public abstract class GenericDaoImpl<T> extends JdbcDaoSupport implements Generi
     }
 
     @Override
-    public List<T> getAllAsPage(int page, int total) {
-        String sql = getObjectMapper().getSelectSql() + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+    public List<T> getAllAsPage(int page, int rowsPerPage) {
+        String sql = getObjectMapper().getSelectSql() + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().query(sql, new Object[]{}, getObjectMapper());
         } else

@@ -6,7 +6,7 @@ public interface WeekdayDao {
 
     List<Weekday> getWeekdayPeriodId(Long periodId);
 
-    List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int total);
+    List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int rowsPerPage);
 
     int countAllByPeriodId(Long periodId);
 }

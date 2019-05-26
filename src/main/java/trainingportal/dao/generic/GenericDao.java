@@ -9,6 +9,6 @@ public interface GenericDao<T>{
     void deleteById(Long id);
     List<T> findAll();
     int countAll();
-    List<T> getAllAsPage(int page, int total);
+    List<T> getAllAsPage(int page, int rowsPerPage);
 }
 

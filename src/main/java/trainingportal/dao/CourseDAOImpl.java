@@ -66,6 +66,13 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
             return Collections.emptyList();
     }
 
+    protected Course getCourse(Long id, String sql) {
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, courseBaseObjectMapper);
+        } else
+            return null;
+    }
+
     public int countAllByUserId(Long userId) {
 
         String sql = "SELECT COUNT(course_id) FROM Course WHERE trainer_id = ?";
@@ -77,10 +84,10 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
     }
 
     @Override
-    public List<Course> getAllAsPageById(Long id, int page, int total) {
+    public List<Course> getAllAsPageById(Long id, int page, int rowsPerPage) {
 
         String sql = CourseMapper.SELECT_SQL + " WHERE trainer_id = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return getCourses(id, sql);
     }
@@ -102,15 +109,27 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
     }
 
     @Override
-    public List<Course> getAllAsPageByEmployeeId(Long userId, int page, int total) {
+    public List<Course> getAllAsPageByEmployeeId(Long userId, int page, int rowsPerPage) {
 
         String sql = "SELECT a.course_id, a.name, a.course_level, a.course_status_id, a.min_number, " +
                 "a.max_number, a.description, a.trainer_id FROM ((Course a " +
                 "INNER JOIN groups b ON a.course_id = b.course_id) " +
                 "INNER JOIN user_group c ON b.id = c.group_id) " +
                 "WHERE c.user_id = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return getCourses(userId, sql);
+    }
+
+    @Override
+    public Course findCourseIdByGroupId(Long groupId) {
+
+        String sql = "SELECT a.course_id, a.name, a.course_level, a.course_status_id, a.min_number, a.max_number, " +
+                "a.description, a.trainer_id FROM Course a " +
+                "INNER JOIN Groups b " +
+                "ON a.course_id = b.course_id " +
+                "WHERE b.id = ?";
+
+        return getCourse(groupId, sql);
     }
 }

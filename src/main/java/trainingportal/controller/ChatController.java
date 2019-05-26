@@ -39,7 +39,7 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
 
 
     @MessageMapping("/chat.sendMessage")
@@ -79,9 +79,9 @@ public class ChatController {
     @RequestMapping(value = "/show_chats/{page}")
     public ModelAndView openChatList(@PathVariable("page") int page, ModelAndView modelAndView){
 
-        List<Chat> chatsList = chatService.getChatPage(page, ROWS_LIMIT);
+        List<Chat> chatsList = chatService.getChatPage(page, ROWS_PER_PAGE);
         modelAndView.addObject("chatsList", chatsList);
-        modelAndView.addObject("pages", chatService.getPages(ROWS_LIMIT));
+        modelAndView.addObject("pages", chatService.getPages(ROWS_PER_PAGE));
         modelAndView.setViewName("chatCreator/show_chats");
         modelAndView.addObject("currentUrl", "show_chats");
 

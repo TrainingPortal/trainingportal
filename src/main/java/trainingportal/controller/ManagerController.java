@@ -23,17 +23,17 @@ public class ManagerController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
 
     /* Show all managers*/
     @RequestMapping("/managers/{page}")
     public ModelAndView allManagers(@PathVariable("page") int page, ModelAndView model) {
 
-        List<User> managers = managerService.getAllByRoleAsPage(page, ROWS_LIMIT, Role.MANAGER);
+        List<User> managers = managerService.getAllByRoleAsPage(page, ROWS_PER_PAGE, Role.MANAGER);
 
         model.addObject("managers", managers);
         model.addObject("pages",
-                managerService.getPagesByRole(Role.MANAGER, ROWS_LIMIT));
+                managerService.getPagesByRole(Role.MANAGER, ROWS_PER_PAGE));
         model.addObject("currentUrl", "managers");
         model.setViewName("manager/managers");
 
@@ -44,10 +44,10 @@ public class ManagerController {
     public ModelAndView searchManagers(@PathVariable("page") int page, @RequestParam("search") String request,
                                        ModelAndView model) {
 
-        List<User> managers = managerService.searchByRole(Role.MANAGER, request, page, ROWS_LIMIT);
+        List<User> managers = managerService.searchByRole(Role.MANAGER, request, page, ROWS_PER_PAGE);
 
         model.addObject("managers", managers);
-        model.addObject("pages", managerService.getSearchPagesByRole(Role.MANAGER, ROWS_LIMIT, request));
+        model.addObject("pages", managerService.getSearchPagesByRole(Role.MANAGER, ROWS_PER_PAGE, request));
         model.addObject("currentUrl", "manager_search");
         model.addObject("search", request);
         model.setViewName("manager/manager_search");
@@ -97,11 +97,11 @@ public class ManagerController {
         User manager = managerService.findById(id);
 
         // Find all subordinates of the manager by manager's id
-        List<User> subordinates = managerService.getSubordinatesByIdAsPage(page, ROWS_LIMIT, id);
+        List<User> subordinates = managerService.getSubordinatesByIdAsPage(page, ROWS_PER_PAGE, id);
 
         model.addObject("manager", manager);
         model.addObject("subordinates", subordinates);
-        model.addObject("pages", managerService.getPagesByManager(id, ROWS_LIMIT));
+        model.addObject("pages", managerService.getPagesByManager(id, ROWS_PER_PAGE));
         model.addObject("currentUrl", "subordinates");
         model.addObject("id", id);
 
@@ -213,7 +213,7 @@ public class ManagerController {
         return model;
     }
 
-    @RequestMapping(value = "/manager-delete-{id}", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/manager-delete-{id}", method = RequestMethod.GET)
     public ModelAndView deleteManager(@PathVariable("id") Long managerId, ModelAndView model, RedirectAttributes redir){
 
         User manager = managerService.findById(managerId);
@@ -221,7 +221,7 @@ public class ManagerController {
         redir.addFlashAttribute("successMessage", "User " + manager.getUserName() + " "+ manager.getEmail() + " deleted successfully");
         model.setViewName("redirect:/managers/1");
         return model;
-    }
+    }*/
 
     @RequestMapping(value = "/managers-delete-all", method = RequestMethod.GET)
     public ModelAndView deleteAllManagers(ModelAndView model, RedirectAttributes redir){

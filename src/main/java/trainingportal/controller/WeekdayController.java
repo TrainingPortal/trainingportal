@@ -22,7 +22,7 @@ public class WeekdayController {
       @Autowired
       private DesiredPeriodService desiredPeriodService;
 
-      private static final int ROWS_LIMIT = 10;
+      private static final int ROWS_PER_PAGE = 10;
 
 
 
@@ -30,11 +30,11 @@ public class WeekdayController {
       public ModelAndView showMWeekdayListOfPeriods(@PathVariable("page") int page,
                                                     @PathVariable("desiredPeriodId") Long id,
                                                     ModelAndView modelAndView) {
-          List<Weekday> periodOfWeekdays = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_LIMIT);
+          List<Weekday> periodOfWeekdays = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_PER_PAGE);
           DesiredPeriod desiredPeriod =  desiredPeriodService.findById(id);
           modelAndView.addObject("periodOfWeekdays", desiredPeriod);
 
-          modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_LIMIT));
+          modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_PER_PAGE));
           modelAndView.addObject("id", id);
           modelAndView.addObject("periodOfWeekdays", periodOfWeekdays);
           modelAndView.addObject("currentUrl", "weekday_period");
@@ -111,19 +111,19 @@ public class WeekdayController {
     @Autowired
     private DesiredPeriodService desiredPeriodService;
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
 
 
     @RequestMapping("/weekday_period/{page}/{periodId}")
     public ModelAndView showWeekdayListOfLessons(@PathVariable("page") int page,
                                                  @PathVariable("periodId") Long id,
                                                  ModelAndView modelAndView) {
-        List<Weekday> weekdayListOfPeriod = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_LIMIT);
+        List<Weekday> weekdayListOfPeriod = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_PER_PAGE);
 
         DesiredPeriod desiredPeriod =  desiredPeriodService.findById(id);
         modelAndView.addObject("desiredPeriod", desiredPeriod);
 
-        modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_LIMIT));
+        modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_PER_PAGE));
         modelAndView.addObject("id", id);
         modelAndView.addObject("weekdayListOfPeriod", weekdayListOfPeriod);
         modelAndView.addObject("currentUrl", "weekday_period");
