@@ -32,21 +32,21 @@ public interface UserDao extends GenericDao<User> {
 
     void setNewPassword(String password, String token);
 
-    List<User> getAllByRoleAsPage(int page, int total, Long roleId);
+    List<User> getAllByRoleAsPage(int page, int rowsPerPage, Long roleId);
 
     int countAllByRole(Long id);
 
-    List<User> searchByRole(Long id, String request, int page, int total);
+    List<User> searchByRole(Long id, String request, int page, int rowsPerPage);
 
     int countSearchPagesByRole(Long id, String request);
 
     User findUserAccount(String email);
 
-    List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId);
+    List<User> getUsersByGroupIdAsPage(int page, int rowsPerPage, Long groupId);
 
     int countUsersByGroupId(Long groupId);
 
     List<User> findUsersForGroupByGroupId(Long groupId);
 
-    void deleteFromDesiredPeriodByUserId(Long userId);
+    void disableDesiredPeriodByUserId(Long userId);
 }

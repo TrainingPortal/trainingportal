@@ -44,9 +44,9 @@ public class WeekdayDaoImpl extends GenericDaoImpl<Weekday> implements WeekdayDa
     }
 
     @Override
-    public List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int total) {
+    public List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int rowsPerPage) {
         String sql = WeekdayMapper.SELECT_SQL + " WHERE period_id = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return getWeekdays(periodId, sql);
     }

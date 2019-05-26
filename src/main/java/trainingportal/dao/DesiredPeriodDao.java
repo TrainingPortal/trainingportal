@@ -10,7 +10,7 @@ public interface DesiredPeriodDao {
 
     List<DesiredPeriod> findAll();
 
-    List<DesiredPeriod> getAllAsPageByCourseId(Long courseId, int page, int total);
+    List<DesiredPeriod> getAllAsPageByCourseId(Long courseId, int page, int rowsPerPage);
 
     List<DesiredPeriod> getPeriodCourseId(Long courseId);
 
@@ -22,7 +22,7 @@ public interface DesiredPeriodDao {
 
     void deleteById(Long desiredPeriodId);
 
-    List<DesiredPeriod> getAllAsPageByUserId(Long userId, Long courseId, int page, int total);
+    List<DesiredPeriod> getAllAsPageByUserId(Long userId, Long courseId, int page, int rowsPerPage);
 
     int countAllByCourseId(Long courseId);
 

@@ -23,7 +23,7 @@ public class DesiredPeriodController {
 //    @Autowired
 //    private CourseService courseService;
 //
-//    private static final int ROWS_LIMIT = 10;
+//    private static final int ROWS_PER_PAGE = 10;
 //
 //
 //    @RequestMapping("/period_course")
@@ -45,12 +45,12 @@ public class DesiredPeriodController {
 //                                                  ModelAndView modelAndView) {
 //
 ////        List<Material> MaterialOfLesson = materialService.getMaterialLessonId(id);
-//        List<Course> periodListOfCourses = courseService.getAllAsPageById(id, page, ROWS_LIMIT);
+//        List<Course> periodListOfCourses = courseService.getAllAsPageById(id, page, ROWS_PER_PAGE);
 //
 //        Course course =  courseService.findById(id);
 //        modelAndView.addObject("periodListOfCourses", course);
 //
-//        modelAndView.addObject("pages", desiredPeriodService.getPages(id, ROWS_LIMIT));
+//        modelAndView.addObject("pages", desiredPeriodService.getPages(id, ROWS_PER_PAGE));
 //        modelAndView.addObject("id", id);
 //        modelAndView.addObject("materialListOfLesson", periodListOfCourses);
 //        modelAndView.addObject("currentUrl", "period_course");
@@ -93,19 +93,19 @@ public class DesiredPeriodController {
 //    @Autowired
 //    private DesiredPeriodService desiredPeriodService;
 //
-//    private static final int ROWS_LIMIT = 10;
+//    private static final int ROWS_PER_PAGE = 10;
 //
 //
 //    @RequestMapping("/weekday_period/{page}/{desiredPeriodId}")
 //    public ModelAndView showWeekdayListOfLessons(@PathVariable("page") int page,
 //                                                  @PathVariable("desiredPeriodId") Long id,
 //                                                  ModelAndView modelAndView) {
-//        List<Weekday> weekdayListOfPeriod = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_LIMIT);
+//        List<Weekday> weekdayListOfPeriod = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_PER_PAGE);
 //
 //        DesiredPeriod desiredPeriod =  desiredPeriodService.findById(id);
 //        modelAndView.addObject("weekdayListOfPeriod", desiredPeriod);
 //
-//        modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_LIMIT));
+//        modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_PER_PAGE));
 //        modelAndView.addObject("id", id);
 //        modelAndView.addObject("weekdayListOfPeriod", weekdayListOfPeriod);
 //        modelAndView.addObject("currentUrl", "weekday_period");
@@ -181,19 +181,19 @@ public class DesiredPeriodController {
     @Autowired
     private CourseService courseService;
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
 
     @RequestMapping("/period_course/{page}/{courseId}")
     public ModelAndView showPeriodListOfCourse(@PathVariable("page") int page,
                                                @PathVariable("courseId") Long id,
                                                ModelAndView modelAndView) {
 
-        List<DesiredPeriod> periodsOfCourse = desiredPeriodService.getPeriodPageByCourseId(page, ROWS_LIMIT, id);
+        List<DesiredPeriod> periodsOfCourse = desiredPeriodService.getPeriodPageByCourseId(page, ROWS_PER_PAGE, id);
 
         Course course = courseService.findById(id);
         modelAndView.addObject("periodCourse", course);
 
-        modelAndView.addObject("pages", desiredPeriodService.getPages(id, ROWS_LIMIT));
+        modelAndView.addObject("pages", desiredPeriodService.getPages(id, ROWS_PER_PAGE));
         modelAndView.addObject("id", id);
         modelAndView.addObject("periodsOfCourse", periodsOfCourse);
         modelAndView.addObject("currentUrl", "period_course");

@@ -8,12 +8,12 @@ import java.util.List;
 
 public interface WeekdayService extends GenericService<Weekday> {
 
-    int getNumberOfPages(List<Weekday> users, double total);
+    int getNumberOfPages(List<Weekday> users, double rowsPerPage);
 
     List<Weekday> getWeekdayPeriodId(Long periodId);
 
-    List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int total);
+    List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int rowsPerPage);
 
-    int getPages(Long periodId, double total);
+    int getPages(Long periodId, double rowsPerPage);
 }
 

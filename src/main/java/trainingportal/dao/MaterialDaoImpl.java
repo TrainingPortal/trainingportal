@@ -41,9 +41,9 @@ public class MaterialDaoImpl extends GenericDaoImpl<Material> implements Materia
     }
 
     @Override
-    public List<Material> getAllAsPageByLessonId(Long lessonId, int page, int total) {
+    public List<Material> getAllAsPageByLessonId(Long lessonId, int page, int rowsPerPage) {
         String sql = MaterialMapper.SELECT_SQL + " WHERE lesson_id = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return getMaterials(lessonId, sql);
     }
