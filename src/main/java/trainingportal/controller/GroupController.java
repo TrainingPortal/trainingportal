@@ -1,7 +1,6 @@
 package trainingportal.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -29,20 +28,20 @@ public class GroupController {
     @Autowired
     private UserService userService;
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
 
     @RequestMapping("/group_create/{page}/{courseId}")
     public ModelAndView showLessonListOfCourse(@PathVariable("page") int page,
                                                @PathVariable("courseId") Long id,
                                                ModelAndView modelAndView) {
 
-        List<Group> groupList = groupService.getGroupsPage(id, page, ROWS_LIMIT,
+        List<Group> groupList = groupService.getGroupsPage(id, page, ROWS_PER_PAGE,
                 userSecurity.getLoggedInUserId(), userSecurity.getLoggedInUserRole());
 
         Course course = courseService.findById(id);
         modelAndView.addObject("courseGroup", course);
 
-        modelAndView.addObject("pages", groupService.getPages(id, ROWS_LIMIT));
+        modelAndView.addObject("pages", groupService.getPages(id, ROWS_PER_PAGE));
         modelAndView.addObject("id", id);
         modelAndView.addObject("groupList", groupList);
         modelAndView.addObject("currentUrl", "group_create");
@@ -56,13 +55,14 @@ public class GroupController {
                                                @PathVariable("groupId") Long groupId,
                                                ModelAndView modelAndView) {
 
-        List<User> userList = userService.getUsersByGroupIdAsPage(page, ROWS_LIMIT, groupId);
+        List<User> userList = userService.getUsersByGroupIdAsPage(page, ROWS_PER_PAGE, groupId);
 
         //Course course = courseService.findById(groupId);
         //modelAndView.addObject("courseGroup", course);
 
-        modelAndView.addObject("pages", userService.getPagesAmountOfUsersByGroupId(groupId, ROWS_LIMIT));
+        modelAndView.addObject("pages", userService.getPagesAmountOfUsersByGroupId(groupId, ROWS_PER_PAGE));
         modelAndView.addObject("groupId", groupId);
+        modelAndView.addObject("courseId", courseService.findCourseIdByGroupId(groupId).getCourseId());
         modelAndView.addObject("userList", userList);
         modelAndView.addObject("currentUrl", "group_users");
         modelAndView.setViewName("groupCreator/group_users");
@@ -139,7 +139,7 @@ public class GroupController {
 
     @GetMapping({"/edit-group-{groupId}-{id}"})
     public ModelAndView editGroupBase(@PathVariable("groupId") Long groupId,
-                                      @PathVariable("id") Long id,ModelAndView modelAndView) {
+                                      @PathVariable("id") Long id, ModelAndView modelAndView) {
         Group group = groupService.findById(groupId);
 
         List<Course> courses = courseService.findAll();
@@ -156,7 +156,7 @@ public class GroupController {
 
     @PostMapping({"/edit-group-{groupId}-{id}"})
     public ModelAndView editGroupById(@PathVariable("id") Long id, @PathVariable("groupId") Long groupId,
-            Group group, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
+                                      Group group, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("groupCreator/edit_group_by_id");
             return modelAndView;
@@ -170,7 +170,7 @@ public class GroupController {
 
     @GetMapping("/group-delete-by/{groupId}/{id}")
     public ModelAndView deleteGroupById(@PathVariable("groupId") Long groupId,
-                                        @PathVariable("id") Long id,ModelAndView model, RedirectAttributes redirect) {
+                                        @PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirect) {
         groupService.deleteById(groupId);
 
         redirect.addFlashAttribute("successMessage", "Group deleted successfully");

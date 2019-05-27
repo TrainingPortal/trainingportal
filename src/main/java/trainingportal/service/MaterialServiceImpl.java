@@ -34,17 +34,17 @@ public class MaterialServiceImpl extends GenericServiceImpl<Material> implements
     }
 
     @Override
-    public List<Material> getAllAsPageByLessonId(Long lessonId, int page, int total) {
+    public List<Material> getAllAsPageByLessonId(Long lessonId, int page, int rowsPerPage) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page, rowsPerPage);
 
-        return materialDao.getAllAsPageByLessonId(lessonId, page, total);
+        return materialDao.getAllAsPageByLessonId(lessonId, page, rowsPerPage);
     }
 
     @Override
-    public int getPages(Long lessonId, double total) {
-        return (int) Math.ceil(materialDao.countAllByLessonId(lessonId) / total);
+    public int getPages(Long lessonId, double rowsPerPage) {
+        return (int) Math.ceil(materialDao.countAllByLessonId(lessonId) / rowsPerPage);
     }
 
 }

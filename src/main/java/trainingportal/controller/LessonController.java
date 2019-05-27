@@ -22,7 +22,7 @@ public class LessonController {
     @Autowired
     private CourseService courseService;
     @Autowired
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
 
     @RequestMapping("/course_lessons/{page}/{courseId}")
     public ModelAndView showLessonListOfCourse(@PathVariable("page") int page,
@@ -30,12 +30,12 @@ public class LessonController {
                                                ModelAndView modelAndView) {
 
         //List<Lesson> lessonsOfCourse = lessonService.getLessonCourseId(id);
-        List<Lesson> lessonsOfCourse = lessonService.getLessonsPageByCourseId(page, ROWS_LIMIT, id);
+        List<Lesson> lessonsOfCourse = lessonService.getLessonsPageByCourseId(page, ROWS_PER_PAGE, id);
 
         Course course = courseService.findById(id);
         modelAndView.addObject("courseLesson", course);
 
-        modelAndView.addObject("pages", lessonService.getPages(id, ROWS_LIMIT));
+        modelAndView.addObject("pages", lessonService.getPages(id, ROWS_PER_PAGE));
         modelAndView.addObject("id", id);
         modelAndView.addObject("lessonsOfCourse", lessonsOfCourse);
         modelAndView.addObject("currentUrl", "course_lessons");
@@ -43,6 +43,7 @@ public class LessonController {
 
         return modelAndView;
     }
+
 
 
 
@@ -56,6 +57,15 @@ public class LessonController {
         return modelAndView;
     }
 
+
+    @RequestMapping(value = "lesson-save", method = RequestMethod.POST)
+    public ModelAndView saveLesson(@RequestParam("courseId") Long courseId,
+                                   Lesson lesson, ModelAndView modelAndView) {
+
+        lessonService.save(lesson);
+        modelAndView.setViewName("redirect:/course_lessons/1/" + courseId);
+        return modelAndView;
+    }
 
     @RequestMapping(value = {"/edit-lesson-{lessonId}-{id}"}, method = RequestMethod.GET)
     public ModelAndView editLessonBase(@PathVariable("lessonId") Long lessonId,

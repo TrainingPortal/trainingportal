@@ -18,9 +18,15 @@ public class MainCardMapper implements BaseObjectMapper<MainCardModel> {
             = "INSERT INTO main_cards(files_name, files_type, files_data, card_title, card_text, button_name, card_url)" +
             " VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-    public static final String EDIT_SQL
+    public static final String EDIT_ALL_SQL
             = "UPDATE main_cards SET  files_name = ?, files_type = ?, files_data = ?, card_title = ?, card_text = ?," +
             " button_name = ?, card_url =?";
+
+    public static final String EDIT_WITHOUT_FILE_SQL
+            = "UPDATE main_cards SET card_title = ?, card_text = ?, button_name = ?, card_url = ?";
+
+    public static final String DELETE_SQL
+            = "DELETE FROM main_cards";
 
 
     @Override

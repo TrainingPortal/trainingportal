@@ -20,14 +20,23 @@ public class MainSliderServiceImpl implements MainSliderService {
     private MainSliderDao mainSliderDao;
 
     @Override
-    public void storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException {
+    public String storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Long mainSliderId = 0L;
+        String fileType = file.getContentType();
+        String message;
 
-        MainSliderModel data = new MainSliderModel(mainSliderId, fileName, file.getContentType(), file.getBytes(), buttonName, buttonUrl);
+        MainSliderModel data = new MainSliderModel(mainSliderId, fileName, fileType, file.getBytes(), buttonName, buttonUrl);
 
-        mainSliderDao.storeData(data);
+
+        if(fileType.equals("image/jpeg") || fileType.equals("image/png") || fileType.equals("image/tiff")){
+            mainSliderDao.storeData(data);
+            return message = "Successfully stored!";
+        } else {
+            mainSliderDao.updateAll(data);
+            return message = "File must be an image! Data was not stored!";
+        }
 
     }
 
@@ -50,16 +59,20 @@ public class MainSliderServiceImpl implements MainSliderService {
         return mainSliderDao.countAll();
     }
 
-    // Needed for carousel indicators
     @Override
-    public ArrayList<Integer> getSlideIndicators(){
-        int number;
-        number = countAll();
-        ArrayList<Integer> indicatorList = new ArrayList<Integer>();
-        for (int i = 0; i <= number; i++){
-            indicatorList.add(i);
+    public void editById(Long mainSliderId, MultipartFile file, String buttonName, String buttonUrl) throws IOException {
+
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+        MainSliderModel data = new MainSliderModel(mainSliderId, fileName, file.getContentType(), file.getBytes(), buttonName, buttonUrl);
+
+        if(file.getContentType().equals("application/octet-stream")){
+            mainSliderDao.updateWithoutFile(data);
+        } else {
+            mainSliderDao.updateAll(data);
         }
-        return indicatorList;
+
+
     }
 
 }

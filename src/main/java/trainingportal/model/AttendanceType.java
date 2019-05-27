@@ -1,27 +1,27 @@
 package trainingportal.model;
 
 public class AttendanceType {
-    private Long attendanceTypeId;
-    private String type;
+    private Long attendanceId;
+    private String attendanceType;
 
-    public AttendanceType(Long attendanceTypeId, String type) {
-        this.attendanceTypeId = attendanceTypeId;
-        this.type = type;
+    public AttendanceType(Long attendanceId, String attendanceType) {
+        this.attendanceId = attendanceId;
+        this.attendanceType = attendanceType;
     }
 
-    public Long getAttendanceTypeId() {
-        return attendanceTypeId;
+    public Long getAttendanceId() {
+        return attendanceId;
     }
 
-    public void setAttendanceTypeId(Long attendanceTypeId) {
-        this.attendanceTypeId = attendanceTypeId;
+    public void setAttendanceId(Long attendanceId) {
+        this.attendanceId = attendanceId;
     }
 
-    public String getType() {
-        return type;
+    public String getAttendanceType() {
+        return attendanceType;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setAttendanceType(String attendanceType) {
+        this.attendanceType = attendanceType;
     }
 }

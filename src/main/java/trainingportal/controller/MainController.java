@@ -11,7 +11,6 @@ import trainingportal.service.MainCardService;
 import trainingportal.service.MainSliderService;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -25,12 +24,10 @@ public class MainController {
     public ModelAndView welcomePage(ModelAndView modelAndView) {
 
         List<MainSliderModel> sliderList = mainSliderService.getAll();
-        ArrayList<Integer> indicatorList = mainSliderService.getSlideIndicators();
         List<MainCardModel> cardList = mainCardService.getAll();
 
 
         modelAndView.addObject("sliderList", sliderList);
-        modelAndView.addObject("indicatorList", indicatorList);
         modelAndView.addObject("cardList", cardList);
         modelAndView.setViewName("frontend/index");
         return modelAndView;
@@ -49,7 +46,7 @@ public class MainController {
     }
 
     @GetMapping("/profilepage")
-    String profilePage(Model model, Principal principal){
+    String profilePage(Model model, Principal principal) {
 
         return "frontend/profilepage";
     }
@@ -83,25 +80,25 @@ public class MainController {
 
 
     @GetMapping("/coursepage")
-    String coursePage(Model model){
+    String coursePage(Model model) {
 
         return "frontend/coursepage";
     }
 
     @GetMapping("/instructorpage")
-    String instructorPage(Model model){
+    String instructorPage(Model model) {
 
         return "frontend/instructorpage";
     }
 
     @GetMapping("/helppage")
-    String helpPage(Model model){
+    String helpPage(Model model) {
 
         return "frontend/helppage";
     }
 
     @GetMapping("/website_settings")
-    public ModelAndView settingsPage(ModelAndView modelAndView){
+    public ModelAndView settingsPage(ModelAndView modelAndView) {
 
         modelAndView.setViewName("manageSite/website_settings");
         return modelAndView;

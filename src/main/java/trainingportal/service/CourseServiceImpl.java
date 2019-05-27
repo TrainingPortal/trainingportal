@@ -7,6 +7,7 @@ import trainingportal.dao.CourseDao;
 import trainingportal.dao.UserDao;
 import trainingportal.model.Course;
 import trainingportal.model.CourseStatus;
+import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.generic.GenericServiceImpl;
 import trainingportal.model.Role;
@@ -23,8 +24,8 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
     private UserDao userDao;
 
     @Override
-    public int getPages(double total) {
-        return (int) Math.ceil(courseDao.countAll() / total);
+    public int getPages(double rowsPerPage) {
+        return (int) Math.ceil(courseDao.countAll() / rowsPerPage);
     }
 
     @Override
@@ -32,13 +33,13 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
         return courseDao.findByTrainerId(id);
     }
 
-    public int getPagesByUserId(Long userId, double total) {
+    public int getPagesByUserId(Long userId, double rowsPerPage) {
 
-        if(userId.equals(Role.ADMIN)){
-            return (int) Math.ceil(courseDao.countAll() / total);
+        if (userId.equals(Role.ADMIN)) {
+            return (int) Math.ceil(courseDao.countAll() / rowsPerPage);
         }
 
-        return (int) Math.ceil(courseDao.countAllByUserId(userId) / total);
+        return (int) Math.ceil(courseDao.countAllByUserId(userId) / rowsPerPage);
     }
 
     @Override
@@ -52,21 +53,21 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
     }
 
     @Override
-    public List<Course> getCoursesPage(int page, int total, Long userId, String role) {
+    public List<Course> getCoursesPage(int page, int rowsPerPage, Long userId, String role) {
 
         //get page number  GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page, rowsPerPage);
 
         List<Course> courseList;
 
-        if(role.equals("ROLE_ADMIN")){
-            courseList = courseDao.getAllAsPage(page, total);
-        } else if(role.equals("ROLE_TRAINER")){
-            courseList = courseDao.getAllAsPageById(userId, page, total);
+        if (role.equals("ROLE_ADMIN")) {
+            courseList = courseDao.getAllAsPage(page, rowsPerPage);
+        } else if (role.equals("ROLE_TRAINER")) {
+            courseList = courseDao.getAllAsPageById(userId, page, rowsPerPage);
         } else {
-            courseList = courseDao.getAllAsPageByEmployeeId(userId, page, total);
+            courseList = courseDao.getAllAsPageByEmployeeId(userId, page, rowsPerPage);
         }
-        for(Course course : courseList){
+        for (Course course : courseList) {
             course.setTrainer(userDao.findById(course.getTrainerId()));
             course.setStatus(courseDao.findStatusById(course.getCourseStatus()));
         }
@@ -90,5 +91,9 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
         return courseList;
     }
 
+    @Override
+    public Course findCourseIdByGroupId(Long groupId) {
 
+        return courseDao.findCourseIdByGroupId(groupId);
+    }
 }

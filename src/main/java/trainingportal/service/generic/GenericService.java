@@ -10,5 +10,5 @@ public interface GenericService<T> {
     void update(T entity);
     void deleteById(Long id);
     List<T> findAll();
-    List<T> getAllAsPage(int page, int total);
+    List<T> getAllAsPage(int page, int rowsPerPage);
 }

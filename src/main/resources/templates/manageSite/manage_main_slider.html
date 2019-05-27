@@ -2,83 +2,138 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Manage Main Slider</title>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
-    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
-    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
-    <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
 
-<div class="container">
-    <h3>Add Slider</h3>
-
-    <form method="post" enctype="multipart/form-data" action="/slider-save">
-
+<div class="container-fluid">
+    <br>
+    <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#uploadForm">Open add slider form
+    </button>
+    <br>
+    <form method="post" enctype="multipart/form-data" action="/slider-save" id="uploadForm"
+          class="collapse">
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="file">Upload Image:</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="file" id="file" name="file"/>
+            <label class="col-sm-2 col-form-label" for="file">Choose image:</label>
+            <div class="col-auto">
+                <input class="form-control-file" type="file" id="file" name="file" accept="image/*" required>
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="name">Button name:</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="text" id="name" placeholder="Button's name" name="name"/>
+            <div class="col-auto">
+                <input class="form-control" type="text" id="name" placeholder="Button's name" name="name">
             </div>
         </div>
 
         <div class="form-group row">
-            <label class="col-sm-2 col-form-label" for="url">Page:</label>
-            <div class="col-sm-10">
-                <input class="form-control" type="url" id="url" placeholder="Input URL for button" name="url"/>
+            <label class="col-sm-2 col-form-label" for="url">Button reference:</label>
+            <div class="col-auto">
+                <input class="form-control" type="text" id="url" placeholder="Input URL for button" name="url">
             </div>
         </div>
 
         <div class="form-group row">
-            <div class="col-sm-2 col-form-label">
+            <div class="col-auto col-form-label">
                 <button type="submit" class="btn btn-success">Save data</button>
             </div>
         </div>
-
     </form>
 
-</div>
 
-<div class="container">
+    <br>
+
+    <div th:if="${message != null}" class="container">
+        <div class="d-flex justify-content-center">
+            <p class="bg-info text-white" th:text="${message}"></p>
+        </div>
+    </div>
+
+    <br>
+
+
     <h3>List of slider data</h3>
 
-    <table class="table table-striped">
-        <thead>
-        <tr>
-<!--            <th scope="row">Image</th>-->
-            <th scope="row">Image Name</th>
-            <th scope="row">Button Name</th>
-            <th scope="row">Button URL</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="data : ${dataList}">
-<!--            <td th:text="tempNoImage"></td>-->
-            <td th:text="${data.filesName}"></td>
-            <td th:text="${data.buttonName}"></td>
-            <td th:text="${data.buttonUrl}"></td>
-            <td>
-                <div class="btn-group">
-                    <!--                    Delete button use @PathVariable to understand what id it need-->
-                    <!--<button type="button" class="btn btn-outline-warning" disabled>Edit</button>-->
-                    <a class="btn btn-outline-danger" th:href="@{/slider-delete-by-{id} (id = ${data.mainSliderId}) }">Delete</a>
-                </div>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Slider Image</th>
+                <th scope="col"></th>
+                <th scope="col">Button Name</th>
+                <th scope="col">Button URL</th>
+            </tr>
+            </thead>
+            <tbody>
+            <form method="post" enctype="multipart/form-data" action="/slider-edit" th:each="data : ${dataList}">
+                <tr th:id="${data.mainSliderId}">
+                    <input type="text" name="sliderId" th:value="${data.mainSliderId}" hidden>
+                    <td><img th:src="@{'data:image/jpeg;base64,'+${data.filesDataString}}" th:alt="${data.filesName}"
+                             class="img-fluid"></td>
+                    <td><input th:class="inp + ${data.mainSliderId}" type="file" name="editFile"
+                               style="visibility: hidden" accept="image/*"></td>
+                    <td><input th:class="inp + ${data.mainSliderId}" type="text" name="editName"
+                               th:value="${data.buttonName}"
+                               disabled>
+                    </td>
+                    <td><input th:class="inp + ${data.mainSliderId}" type="text" name="editUrl"
+                               th:value="${data.buttonUrl}" disabled></td>
+                    <td>
+                        <div class="btn-group">
+                            <button th:id="saveBtn + ${data.mainSliderId}"
+                                    th:onclick="'post(\'' + ${data.mainSliderId} + '\');'" type="submit"
+                                    class="btn btn-success" style="visibility: hidden;">Save
+                            </button>
+                            <button th:id="editBtn + ${data.mainSliderId}"
+                                    th:onclick="'makeEditable(\'' + ${data.mainSliderId} + '\');'" type="button"
+                                    class="btn btn-outline-warning">Edit
+                            </button>
+                            <a class="btn btn-outline-danger"
+                               th:href="@{/slider-delete-by-{id} (id = ${data.mainSliderId}) }">Delete</a>
+                        </div>
+                    </td>
+                </tr>
+            </form>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 
+<script>
+    function makeEditable(id) {
+
+        var element = document.getElementById(id);
+
+        element.setAttribute("class", "table-warning");
+
+        document.getElementById('saveBtn' + id).style.visibility = "visible";
+        document.getElementById('editBtn' + id).style.visibility = "collapse";
+
+        var inputs = document.getElementsByClassName('inp' + id);
+        for (i in inputs) {
+            inputs[i].disabled = false;
+            inputs[i].style.visibility = "visible";
+        }
+
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

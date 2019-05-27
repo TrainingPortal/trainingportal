@@ -27,21 +27,22 @@ public class CourseController {
     @Autowired
     private UserSecurity userSecurity;
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
 
     @RequestMapping(value = "/course_create/{page}")
     public ModelAndView showCoursesList(@PathVariable("page") int page, Long courseId, ModelAndView modelAndView) {
 
-        List<Course> courseList = courseService.getCoursesPage(page, ROWS_LIMIT,
+        List<Course> courseList = courseService.getCoursesPage(page, ROWS_PER_PAGE,
                 userSecurity.getLoggedInUserId(), userSecurity.getLoggedInUserRole());
 
         modelAndView.addObject("courseList", courseList);
         modelAndView.addObject("pages",
-                courseService.getPagesByUserId(userSecurity.getLoggedInUserId() ,ROWS_LIMIT));
+                courseService.getPagesByUserId(userSecurity.getLoggedInUserId(), ROWS_PER_PAGE));
         modelAndView.addObject("currentUrl", "course_create");
         modelAndView.setViewName("courseCreator/course_create");
         return modelAndView;
     }
+
     @RequestMapping(value = "/course-add", method = RequestMethod.GET)
     public ModelAndView addCourse(ModelAndView modelAndView) {
 

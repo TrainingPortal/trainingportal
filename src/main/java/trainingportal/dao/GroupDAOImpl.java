@@ -19,7 +19,7 @@ import java.util.List;
 public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
     @Autowired
     private BaseObjectMapper<Group> groupBaseObjectMapper;
-    
+
     //Define table and id column
     private static final String TABLE_NAME = "groups";
     private static final String ID_COLUMN = "id";
@@ -38,11 +38,11 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
     }
 
     @Override
-    public List<Group> getAllAsPageByCourseId(Long courseId, int page, int total) {
+    public List<Group> getAllAsPageByCourseId(Long courseId, int page, int rowsPerPage) {
 //            String sql = GroupMapper.SELECT_SQL + " WHERE  COURSE_ID = ? ";
 
         String sql = GroupMapper.SELECT_SQL + " WHERE course_id = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return this.getJdbcTemplate().query(sql, new Object[]{courseId}, groupBaseObjectMapper);
     }
@@ -56,7 +56,7 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
 
     @Override
     public void saveGroup(Group group) {
-        String sql = "INSERT INTO groups (name, capacity, course_id, status_id) VALUES (?,?,?,?)";
+        String sql = "INSERT INTO GROUPS (name, capacity, course_id, status_id) VALUES (?,?,?,?)";
         this.getJdbcTemplate().update(sql, new Object[]{group.getGroupName(), group.getGroupCapacity(),
                 group.getCourseId(), group.getStatusId()});
     }
@@ -117,13 +117,13 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
     }
 
     @Override
-    public List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int total) {
+    public List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int rowsPerPage) {
 
         String sql = "SELECT a.id, a.name, a.capacity, a.course_id, a.status_id FROM Groups a " +
                 "INNER JOIN Course b ON a.course_id = b.course_id " +
                 "INNER JOIN User_Group c ON a.id = c.group_id " +
                 "WHERE b.course_id = ? AND c.user_id = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().query(sql, new Object[]{courseId, userId}, groupBaseObjectMapper);

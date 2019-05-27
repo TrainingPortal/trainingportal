@@ -22,19 +22,19 @@ public class MaterialController {
     @Autowired
     private LessonService lessonService;
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
 
     @RequestMapping("/material_lesson/{page}/{lessonId}")
     public ModelAndView showMaterialListOfLessons(@PathVariable("page") int page,
                                                   @PathVariable("lessonId") Long id,
              ModelAndView modelAndView) {
 
-        List<Material> materialListOfLesson = materialService.getAllAsPageByLessonId(id, page, ROWS_LIMIT);
+        List<Material> materialListOfLesson = materialService.getAllAsPageByLessonId(id, page, ROWS_PER_PAGE);
 
         Lesson lesson =  lessonService.findById(id);
         modelAndView.addObject("materialOfLesson", lesson);
 
-        modelAndView.addObject("pages", materialService.getPages(id, ROWS_LIMIT));
+        modelAndView.addObject("pages", materialService.getPages(id, ROWS_PER_PAGE));
         modelAndView.addObject("id", id);
         modelAndView.addObject("materialListOfLesson", materialListOfLesson);
         modelAndView.addObject("currentUrl", "material_lesson");

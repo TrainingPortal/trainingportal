@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ReportsDao {
 
-    List<List> getFieldsFromTable(List<String> fields, String fileName, String labelName, String sql);
+    List<List> getFieldsFromTable(List<String> fields, String sql) throws DataDaoExceptions;
 
-    default String setSQL(List<String> fields, String tableName, String whereCondition) {
+    default String getSQL(List<String> fields, String tableName, String whereCondition) throws DataDaoExceptions {
 
         if (!fields.isEmpty()) {
             String sql = "SELECT ";

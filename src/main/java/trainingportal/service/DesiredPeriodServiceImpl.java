@@ -53,12 +53,12 @@ public  class DesiredPeriodServiceImpl implements DesiredPeriodService {
     }
 
     @Override
-    public List<DesiredPeriod> getAllAsPage(int page, int total) {
+    public List<DesiredPeriod> getAllAsPage(int page, int rowsPerPage) {
         return null;
     }
 
     @Override
-    public int getNumberOfPages(List<DesiredPeriod> users, double total) {
+    public int getNumberOfPages(List<DesiredPeriod> users, double rowsPerPage) {
         return 0;
     }
 
@@ -69,19 +69,19 @@ public  class DesiredPeriodServiceImpl implements DesiredPeriodService {
     }
 
     @Override
-    public List<DesiredPeriod> getPeriodPageByCourseId(int page, int total, Long courseId) {
+    public List<DesiredPeriod> getPeriodPageByCourseId(int page, int rowsPerPage, Long courseId) {
 
         if(page == 1){
             //do nothing
         } else {
-            page = (page - 1) * total + 1;
+            page = (page - 1) * rowsPerPage + 1;
         }
-        return desiredPeriodDao.getAllAsPageByCourseId(courseId, page, total);
+        return desiredPeriodDao.getAllAsPageByCourseId(courseId, page, rowsPerPage);
     }
 
     @Override
-    public int getPages(Long courseId, double total) {
-        return (int) Math.ceil(desiredPeriodDao.countAllByCourseId(courseId) / total);
+    public int getPages(Long courseId, double rowsPerPage) {
+        return (int) Math.ceil(desiredPeriodDao.countAllByCourseId(courseId) / rowsPerPage);
     }
 
     @Override

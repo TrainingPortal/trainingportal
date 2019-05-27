@@ -43,18 +43,17 @@
             <td th:text="${manager.userName}"></td>
             <td th:text="${manager.email}"></td>
             <td>
-                <a th:href="@{/manager-{id}(id=${manager.userId})}" class="btn btn-primary">Show</a>
+                <a th:href="@{/profile_page/{id}(id=${manager.userId})}" class="btn btn-primary">Show</a>
                 <a th:href="@{/manager-update-{id}(id=${manager.userId})}" class="btn btn-primary">Update</a>
                 <a th:href="@{/subordinates/{page}/{userId}(userId=${manager.userId}, page=1)}" class="btn btn-info">Subordinates</a>
-                <a th:href="@{/manager-delete-{id}(id=${manager.userId})}" class="btn btn-danger">Delete</a>
+                <!--<a th:href="@{/manager-delete-{id}(id=${manager.userId})}" class="btn btn-danger">Delete</a>-->
             </td>
         </tr>
     </table>
     <div th:replace="frontend/pagination :: pagination"></div>
 </div>
 <a th:href="@{/manager-add}" class="btn btn-info">Add manager</a>
-<a th:href="@{/managers-delete-all}" class="btn btn-danger">Delete all managers</a>
-<a th:href="@{/managers-download-all-managers}" class="btn btn-dark">Download all managers</a>
+<!--<a th:href="@{/managers-delete-all}" class="btn btn-danger">Delete all managers</a>-->
 <!--href="/Users/mrlova/IdeaProjects/trainingportal/" download="allManagers.xlsx"-->
 </body>
 </html>

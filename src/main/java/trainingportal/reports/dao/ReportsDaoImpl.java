@@ -21,17 +21,16 @@ public class ReportsDaoImpl extends JdbcDaoSupport implements ReportsDao {
     }
 
     @Override
-    public List<List> getFieldsFromTable(List<String> fields, String fileName, String labelName, String sql) {
+    public List<List> getFieldsFromTable(List<String> fields, String sql) throws DataDaoExceptions {
 
-        //This is our final List with Multiple listColumn's inside Generic <List>
         List<List> allCol = new ArrayList<>();
 
         if (!fields.isEmpty()) {
 
-            for (int ii = 0; ii < fields.size(); ii++) {
+            for (int current_field_number = 0; current_field_number < fields.size(); current_field_number++) {
 
                 //Here we get all column from ii field
-                List currentFieldsList = this.getJdbcTemplate().query(sql, new ReportsMapper(fields, ii));
+                List currentFieldsList = this.getJdbcTemplate().query(sql, new ReportsMapper(fields, current_field_number));
 
                 //Adding to allCol current Fields List
                 allCol.add(currentFieldsList);
