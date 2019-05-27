@@ -10,6 +10,7 @@ import trainingportal.model.DesiredPeriod;
 import javax.sql.DataSource;
 
 import java.util.List;
+
 @Repository
 @Transactional
 public class DesiredPeriodDaoImpl extends JdbcDaoSupport implements DesiredPeriodDao {

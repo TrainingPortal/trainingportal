@@ -14,12 +14,6 @@
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
 
-<!--<div th:if="${lessonsOfCourse.size() == 0}">-->
-<!--    <p th:text="${courseLesson.courseName} + 'Curse has no Lessons'"></p>-->
-<!--</div>-->
-<!--<div th:unless="${lessonsOfCourse.size() == 0}">-->
-<!--    <table class="table pt-0 mt-0 table-fit table-sm table-hover">-->
-<!--        <caption th:text="'Lessons of ' + ${courseLesson.courseName}"></caption>-->
 
 <div class="container-fluid">
     <h2>Lessons List</h2>
@@ -29,7 +23,7 @@
         (courseId = ${courseLesson.courseId})}">CREATE NEW LESSON</a>
     </div>
 
-    <div  class="btn">
+    <div class="btn">
         <a class="btn btn btn-info btn-lg" th:href="@{/course_create/1}">Back to Course</a>
     </div>
 
@@ -37,16 +31,11 @@
         <thead>
         <tr>
             <th scope="row">lesson number</th>
-<!--            <th scope="row">lesson Id</th>-->
-<!--            <th scope="row">course Id</th>-->
             <th scope="row">lesson name</th>
             <th scope="row">lesson description</th>
             <th scope="row">lesson duration</th>
-            <!--            <th scope="row">homework Id</th>-->
             <th scope="row">Materials</th>
 
-            <!--            for better times-->
-            <!--            <th scope="row">Homework</th>-->
 
         </tr>
         </thead>
@@ -55,28 +44,19 @@
 
         <tr th:each="lesson, iter : ${lessonsOfCourse}">
             <td th:text="${lesson.lessonNumber}"></td>
-            <!--            <td th:text="${lesson.lessonId}"></td>-->
-<!--            <td th:text="${lesson.courseId}"></td>-->
             <td th:text="${lesson.lessonName}"></td>
             <td th:text="${lesson.lessonDescription}"></td>
             <td th:text="${lesson.lessonDuration}"></td>
-            <!--            <td th:text="${lesson.homeworkId}"></td>-->
+
 
             <td>
                 <div class="btn-group">
                     <a class="btn btn-outline-primary" th:href="@{/material_lesson/{page}/{lessonId}
                     (lessonId = ${lesson.lessonId}, page = 1)}">
-                     Materials</a>
+                        Materials</a>
                 </div>
             </td>
 
-            <!--            for better times          -->
-            <!--            <td>-->
-            <!--                <div class="btn-group">-->
-            <!--                    <a class="btn btn-outline-primary" th:href="@{/lesson_homework (id = ${lesson.homeworkId})}">-->
-            <!--                        Show/Add Homework</a>-->
-            <!--                </div>-->
-            <!--            </td>-->
 
             <td>
                 <div class="btn-group" th:if="${#request.isUserInRole('ROLE_ADMIN') == true

@@ -6,11 +6,13 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import trainingportal.model.DesiredPeriod;
 import trainingportal.model.Weekday;
 import trainingportal.service.DesiredPeriodService;
 import trainingportal.service.WeekdayService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -32,7 +34,7 @@ public class WeekdayController {
                                                  ModelAndView modelAndView) {
         List<Weekday> weekdayListOfPeriod = weekdayService.getAllAsPageByPeriodId(id, page, ROWS_LIMIT);
 
-        DesiredPeriod desiredPeriod =  desiredPeriodService.findById(id);
+        DesiredPeriod desiredPeriod = desiredPeriodService.findById(id);
         modelAndView.addObject("desiredPeriod", desiredPeriod);
 
         modelAndView.addObject("pages", weekdayService.getPages(id, ROWS_LIMIT));
@@ -81,8 +83,10 @@ public class WeekdayController {
 
     @RequestMapping(value = {"edit-weekday-{weekdayId}-{id}"}, method = RequestMethod.POST)
     public ModelAndView editWeekdayById(@PathVariable("id") Long id, @PathVariable("weekdayId") Long weekdayId,
-                                        Weekday weekday, BindingResult bindingResult, ModelAndView modelAndView) {
+                                        @Valid Weekday weekday, BindingResult bindingResult, ModelAndView modelAndView, RedirectAttributes redirect) {
         if (bindingResult.hasErrors()) {
+            redirect.addFlashAttribute("errorMessage",
+                    "Write two days correctly!");
             modelAndView.setViewName("weekdayCreator/edit_weekday_by_id");
             return modelAndView;
         } else {
@@ -102,8 +106,9 @@ public class WeekdayController {
         model.setViewName("redirect:/weekday_period/1/" + id);
         return model;
     }
+
     @GetMapping("/thanks_page")
-    String ThanksPage(Model model){
+    String ThanksPage(Model model) {
 
         return "weekdayCreator/thanks_page";
     }
