@@ -17,27 +17,28 @@
 
     <div class="row no-gutters ">
         <div class="col">
-            <form action="#" method="post"  th:action="@{/weekday-save}" th:object="${weekday}">
+            <form action="#" method="post" th:action="@{/weekday-save}" th:object="${weekday}">
 
                 <input class="form-control" placeholder="Id" th:field="*{weekdayId}" type="hidden"/>
                 <input class="form-control" placeholder="course Id" th:field="*{periodId}" type="hidden"/>
 
                 <label>Enter two days that are comfortable to you</label>
-                <input class="form-control" placeholder="Wednesday, Friday" th:field="*{dayName}" type="text"/>
+                <input class="form-control" placeholder="Wednesday, Friday" th:field="*{dayName}" type="text" required
+                       minlength="11"/>
                 <p class="alert alert-danger" th:errors="*{dayName}" th:if="${#fields.hasErrors('dayName')}"></p>
                 <label>Enter time for first day</label>
                 <input class="form-control" placeholder="12:00-14:00" th:field="*{timeStart}"
-                       type="text"/>
+                       type="text" required minlength="9"/>
                 <p class="alert alert-danger" th:errors="*{timeStart}"
                    th:if="${#fields.hasErrors('timeStart')}">
-                   </p>
+                </p>
 
                 <label>Enter time for second day</label>
-                <input class="form-control" placeholder="18:00-20:00" th:field="*{timeEnd}" type="text"/>
+                <input class="form-control" placeholder="18:00-20:00" th:field="*{timeEnd}" type="text" required
+                       minlength="9"/>
                 <p class="alert alert-danger" th:errors="*{timeEnd}"
                    th:if="${#fields.hasErrors('timeEnd')}">
-                    </p>
-
+                </p>
 
 
                 <input class="btn btn-success" type="submit" value="Save"/>

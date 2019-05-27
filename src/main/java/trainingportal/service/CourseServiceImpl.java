@@ -10,6 +10,8 @@ import trainingportal.model.CourseStatus;
 import trainingportal.model.Role;
 import trainingportal.model.User;
 import trainingportal.service.generic.GenericServiceImpl;
+import trainingportal.model.Role;
+
 
 import java.util.List;
 
