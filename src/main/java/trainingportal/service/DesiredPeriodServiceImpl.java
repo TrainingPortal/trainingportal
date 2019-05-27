@@ -10,9 +10,10 @@ import trainingportal.model.DesiredPeriod;
 import trainingportal.model.UserGroup;
 
 import java.util.List;
+
 @Service
 @Transactional
-public  class DesiredPeriodServiceImpl implements DesiredPeriodService {
+public class DesiredPeriodServiceImpl implements DesiredPeriodService {
 
     @Autowired
     private DesiredPeriodDao desiredPeriodDao;
@@ -71,7 +72,7 @@ public  class DesiredPeriodServiceImpl implements DesiredPeriodService {
     @Override
     public List<DesiredPeriod> getPeriodPageByCourseId(int page, int rowsPerPage, Long courseId) {
 
-        if(page == 1){
+        if (page == 1) {
             //do nothing
         } else {
             page = (page - 1) * rowsPerPage + 1;
@@ -86,7 +87,7 @@ public  class DesiredPeriodServiceImpl implements DesiredPeriodService {
 
     @Override
     public boolean isConnectedWithTrainer(Long userId, Long courseId) {
-        Long trainerId =  desiredPeriodDao.getUserIdByCourseId(courseId);
+        Long trainerId = desiredPeriodDao.getUserIdByCourseId(courseId);
 
         return userId == trainerId;
     }
@@ -94,10 +95,10 @@ public  class DesiredPeriodServiceImpl implements DesiredPeriodService {
     @Override
     public boolean isConnectedWithPeriodByCourseId(Long userId, Long courseId) {
 
-        List<UserGroup> users =  userGroupDao.getUserIdByCourseId(courseId);
+        List<UserGroup> users = userGroupDao.getUserIdByCourseId(courseId);
 
-        for(UserGroup user : users){
-            if(user.getUserId() == userId) {
+        for (UserGroup user : users) {
+            if (user.getUserId() == userId) {
                 return true;
             }
         }

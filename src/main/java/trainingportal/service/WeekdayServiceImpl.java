@@ -12,13 +12,13 @@ import java.util.List;
 
 @Service("weekdayService")
 @Transactional
-public class WeekdayServiceImpl implements WeekdayService{
+public class WeekdayServiceImpl implements WeekdayService {
 
     @Autowired
     private WeekdayDaoImpl WeekdayDao;
 
     @Override
-    public int getNumberOfPages(List<Weekday> users, double rowsPerPage) {
+    public int getNumberOfPages(List<Weekday> users, double total) {
         return 0;
     }
 
@@ -59,7 +59,7 @@ public class WeekdayServiceImpl implements WeekdayService{
     }
 
     @Override
-    public List<Weekday> getAllAsPage(int page, int rowsPerPage) {
+    public List<Weekday> getAllAsPage(int page, int total) {
         return null;
     }
 
@@ -70,20 +70,20 @@ public class WeekdayServiceImpl implements WeekdayService{
     }
 
     @Override
-    public List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int rowsPerPage) {
+    public List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int total) {
 
-        if(page == 1){
+        if (page == 1) {
             //do nothing
         } else {
-            page = (page - 1) * rowsPerPage + 1;
+            page = (page - 1) * total + 1;
         }
-        List<Weekday> allAsPageByPeriodId = WeekdayDao.getAllAsPageByPeriodId(periodId, page, rowsPerPage);
+        List<Weekday> allAsPageByPeriodId = WeekdayDao.getAllAsPageByPeriodId(periodId, page, total);
         return allAsPageByPeriodId;
     }
 
     @Override
-    public int getPages(Long periodId, double rowsPerPage) {
-        return (int) Math.ceil(WeekdayDao.countAllByPeriodId(periodId) / rowsPerPage);
+    public int getPages(Long periodId, double total) {
+        return (int) Math.ceil(WeekdayDao.countAllByPeriodId(periodId) / total);
     }
 
 

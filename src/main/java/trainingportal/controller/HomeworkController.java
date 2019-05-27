@@ -72,7 +72,6 @@ public class HomeworkController {
                                            @PathVariable("id") Long id, ModelAndView model, RedirectAttributes redirect) {
         homeworkService.deleteById(HomeworkId);
         model.addObject("id", id);
-//        redirect.addFlashAttribute("successMessage", "homework deleted successfully");
         model.setViewName("redirect:/lesson_homework");
         return model;
     }

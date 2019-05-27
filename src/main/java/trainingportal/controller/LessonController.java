@@ -29,7 +29,6 @@ public class LessonController {
                                                @PathVariable("courseId") Long id,
                                                ModelAndView modelAndView) {
 
-        //List<Lesson> lessonsOfCourse = lessonService.getLessonCourseId(id);
         List<Lesson> lessonsOfCourse = lessonService.getLessonsPageByCourseId(page, ROWS_PER_PAGE, id);
 
         Course course = courseService.findById(id);
@@ -43,8 +42,6 @@ public class LessonController {
 
         return modelAndView;
     }
-
-
 
 
     @RequestMapping(value = "/lesson-add-{courseId}", method = RequestMethod.GET)
