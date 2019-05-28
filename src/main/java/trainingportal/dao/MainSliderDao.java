@@ -8,8 +8,6 @@ public interface MainSliderDao {
 
     List<MainSliderModel> getAll();
 
-    MainSliderModel findById(Long mainSliderId);
-
     void storeData(MainSliderModel slide);
 
     void updateAll(MainSliderModel slide);
@@ -18,6 +16,5 @@ public interface MainSliderDao {
 
     void deleteById(Long mainSliderId);
 
-    int countAll();
 
 }

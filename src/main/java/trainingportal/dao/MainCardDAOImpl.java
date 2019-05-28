@@ -1,13 +1,11 @@
 package trainingportal.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.generic.GenericDaoImpl;
 import trainingportal.mapper.MainCardMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
-import trainingportal.model.Course;
 import trainingportal.model.MainCardModel;
 
 import javax.sql.DataSource;
@@ -33,7 +31,7 @@ public class MainCardDAOImpl extends GenericDaoImpl<MainCardModel> implements Ma
 
     @Override
     public List<MainCardModel> getAll() {
-        String sql = MainCardMapper.SELECT_ALL_SQL + " ORDER BY main_card_id";
+        String sql = MainCardMapper.SELECT_ALL_SQL + MainCardMapper.ORDER_ID;
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().query(sql, new Object[]{}, mainCardModelBaseObjectMapper);
         } else
@@ -42,7 +40,7 @@ public class MainCardDAOImpl extends GenericDaoImpl<MainCardModel> implements Ma
 
     @Override
     public void updateAll(MainCardModel card) {
-        String sql = MainCardMapper.EDIT_ALL_SQL + " WHERE main_card_id = ?";
+        String sql = MainCardMapper.EDIT_ALL_SQL + MainCardMapper.WHERE_ID;
 
         this.getJdbcTemplate().update(sql, card.getFilesName(), card.getFilesType(), card.getFilesData(),
                 card.getCardTitle(), card.getCardText(), card.getButtonName(), card.getCardUrl(), card.getMainCardId());
@@ -50,7 +48,7 @@ public class MainCardDAOImpl extends GenericDaoImpl<MainCardModel> implements Ma
 
     @Override
     public void updateWithoutFile(MainCardModel card) {
-        String sql = MainCardMapper.EDIT_WITHOUT_FILE_SQL + " WHERE main_card_id = ?";
+        String sql = MainCardMapper.EDIT_WITHOUT_FILE_SQL + MainCardMapper.WHERE_ID;
 
         this.getJdbcTemplate().update(sql, card.getCardTitle(), card.getCardText(), card.getButtonName(),
                 card.getCardUrl(), card.getMainCardId());
@@ -60,8 +58,7 @@ public class MainCardDAOImpl extends GenericDaoImpl<MainCardModel> implements Ma
 
     @Override
     public void deleteById(Long mainCardId) {
-        String sql = MainCardMapper.DELETE_SQL + " WHERE main_card_id = ?";
-
+        String sql = MainCardMapper.DELETE_SQL + MainCardMapper.WHERE_ID;
         this.getJdbcTemplate().update(sql, mainCardId);
     }
 

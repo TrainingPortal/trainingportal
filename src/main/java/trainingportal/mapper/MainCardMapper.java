@@ -1,6 +1,5 @@
 package trainingportal.mapper;
 
-import org.springframework.jdbc.core.RowMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.MainCardModel;
 
@@ -27,6 +26,12 @@ public class MainCardMapper implements BaseObjectMapper<MainCardModel> {
 
     public static final String DELETE_SQL
             = "DELETE FROM main_cards";
+
+    public static final String WHERE_ID
+            = " WHERE main_card_id = ?";
+
+    public static final String ORDER_ID
+            = " ORDER BY main_card_id";
 
 
     @Override

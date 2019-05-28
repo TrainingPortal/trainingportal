@@ -4,19 +4,18 @@ import org.springframework.web.multipart.MultipartFile;
 import trainingportal.model.MainSliderModel;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public interface MainSliderService {
 
-    String storeData(MultipartFile file, String buttonName, String buttonUrl) throws IOException;
+    boolean storeData(MultipartFile file, String buttonName, String buttonUrl, String slHeader, String slText,
+                      int interval) throws IOException;
 
     List<MainSliderModel> getAll();
 
     void deleteById(Long mainSliderId);
 
-    int countAll();
-
-    void editById(Long mainSliderId, MultipartFile file, String buttonName, String buttonUrl) throws IOException;
+    boolean editById(Long mainSliderId, MultipartFile file, String buttonName, String buttonUrl,
+                     String slHeader, String slText, int interval) throws IOException;
 
 }
