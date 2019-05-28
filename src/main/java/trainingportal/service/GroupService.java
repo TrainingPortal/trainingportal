@@ -26,8 +26,10 @@ public interface GroupService extends GenericService<Group> {
     List<Group> getGroupsPage(Long courseId, int page, int rowsPerPage, Long userId, String role);
 
     boolean isConnectedWithTrainerByGroupId(Long trainerId, Long groupId);
-
+    public int getPagesWithoutChat(Long courseId, double total);
     boolean isConnectedWithUserByGroupId(Long userId, Long groupId);
-
+    public List<Group> getGroupsWithoutChatPage(Long courseId, int page, int total);
+    List<Group>  findAllGroupsWithoutChatByCourseId(Long id);
     void deleteFromUserGroupByUserIdAndGroupId(Long userId, Long groupId);
+    List<Group> getGroupsPageWithoutChat(Long courseId, int page, int total);
 }

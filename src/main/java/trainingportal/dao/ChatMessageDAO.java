@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface ChatMessageDAO extends GenericDao<ChatMessage> {
 
-    public List<ChatMessage> getMessagesByChatId(Long chatId);
+   List<ChatMessage> getMessagesByChatId(Long chatId);
 }
