@@ -19,6 +19,7 @@ drop table User_Group;
 drop TABLE User_Chat;
 drop TABLE Weekday;
 drop TABLE Notification_Status;
+drop TABLE Desired_Period_Status;
 drop TABLE Desired_Period;
 drop TABLE Group_Status;
 drop TABLE Course_Status;
@@ -590,32 +591,44 @@ values ('Opened');
 INSERT INTO Notification_Status (name)
 values ('Closed');
 
+CREATE TABLE Desired_Period_Status
+(
+    status_id          NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    name               VARCHAR2(20)
+);
+
+INSERT INTO Desired_Period_Status (name)
+values ('Opened');
+INSERT INTO Desired_Period_Status (name)
+values ('Closed');
+
 CREATE TABLE Desired_Period
 (
     desired_period_id NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     user_id           NUMBER,
-    course_id         NUMBER
+    course_id         NUMBER,
+    status_id         NUMBER
 );
 
-INSERT INTO desired_period (user_id, course_id)
-values (12, 1);
-INSERT INTO desired_period (user_id, course_id)
-values (20, 1);
-INSERT INTO desired_period (user_id, course_id)
-values (21, 2);
-INSERT INTO desired_period (user_id, course_id)
-values (22, 3);
-INSERT INTO desired_period (user_id, course_id)
-values (23, 4);
-INSERT INTO desired_period (user_id, course_id)
-values (24, 5);
-INSERT INTO desired_period (user_id, course_id)
-values (25, 3);
-INSERT INTO desired_period (user_id, course_id)
-values (29, 5);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (12, 1, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (20, 1, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (21, 2, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (22, 3, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (23, 4, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (24, 5, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (25, 3, 1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (29, 5, 1);
 
-INSERT INTO desired_period (user_id, course_id)
-values (32, 5);
+INSERT INTO desired_period (user_id, course_id, status_id)
+values (32, 5, 1);
 
 CREATE TABLE Weekday
 (
@@ -625,6 +638,13 @@ CREATE TABLE Weekday
     time_end   VARCHAR2(20),
     period_id  NUMBER
 );
+
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),2);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('wednesday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),3);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('mondey',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),4);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),5);
+
+
 
 INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),1);
 INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),2);
@@ -684,6 +704,7 @@ CREATE TABLE main_slider
 );
 
 COMMIT;
+
 
 --delete dependencies
 alter table users
@@ -794,6 +815,31 @@ alter table Schedule
     add constraint schedule_fk_group FOREIGN KEY (group_id) references Groups (id);
 alter table Schedule
     add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lesson_id);
+alter table users add constraint user_fr_manager FOREIGN KEY(manager_Id) references users (user_Id);
+alter table users ADD constraint users_fk_roles FOREIGN KEY(role_Id) references roles (role_Id);
+alter table Notification ADD constraint ntfk_fk_user FOREIGN KEY (user_id) references users (user_Id);
+alter table Notification add constraint ntfk_fk_status FOREIGN KEY (status_id) references Notification_Status (id);
+alter table chat add constraint chat_fk_group FOREIGN KEY (group_id) references groups (id);
+alter table Info_Desk add constraint idesk_emp_fk_user FOREIGN KEY (emp_id) references users (user_Id);
+alter table Info_Desk add constraint idesk_fk_qstatus FOREIGN KEY (status_id) references Question_Status (id);
+alter table Feedback add constraint fdbk_tr_fk_user FOREIGN KEY (trainer_id) references users (user_Id);
+alter table Feedback
+    add constraint fdbk_fk_cource FOREIGN KEY (course_id) references course (course_id);
+alter table Feedback add constraint fdbk_emp_fk_user FOREIGN KEY (employee_id) references users (user_Id);
+alter table User_Group add constraint ugroup_fk_user FOREIGN KEY (user_id) references users (user_Id);
+alter table User_Group add constraint ugroup_fk_group FOREIGN KEY (group_id) references Groups (id);
+alter table Groups
+    add constraint group_fk_course FOREIGN KEY (course_id) references Course (course_id);
+alter table Groups add constraint group_fr_status FOREIGN KEY (status_id) references Group_Status (id);
+alter table User_Chat add constraint uchat_fk_user FOREIGN KEY (user_id) references users (user_Id);
+alter table User_Chat add constraint uchat_fk_chat FOREIGN KEY (chat_id) references Chat (id);
+alter table Attendance add constraint atten_fk_user FOREIGN KEY (user_id) references users (user_Id);
+alter table Attendance add constraint atten_fk_schedule FOREIGN KEY (schedule_id) references Schedule (id);
+alter table Attendance add constraint atten_fk_type FOREIGN KEY (type_id) references Attendance_Type(id);
+alter table Schedule add constraint schedule_fk_group FOREIGN KEY (group_id) references Groups (id);
+alter table Schedule
+    add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lesson_id);
+
 -- alter table Homework add constraint lesson_fk_homework FOREIGN KEY (lesson_id) references Lesson (lesson_id);
 alter table Lesson
     add constraint lesson_fk_course FOREIGN KEY (course_id) references Course (course_id);

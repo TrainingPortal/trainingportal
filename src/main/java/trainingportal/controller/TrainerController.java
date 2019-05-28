@@ -26,15 +26,15 @@ public class TrainerController {
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
 
     /* Show all trainers*/
     @RequestMapping("/trainers/{page}")
     public ModelAndView allTrainers(@PathVariable("page") int page, ModelAndView model) {
 
-        List<User> trainers = trainerService.getAllByRoleAsPage(page, ROWS_LIMIT, Role.TRAINER);
+        List<User> trainers = trainerService.getAllByRoleAsPage(page, ROWS_PER_PAGE, Role.TRAINER);
         model.addObject("trainers", trainers);
-        model.addObject("pages", trainerService.getPagesByRole(Role.TRAINER, ROWS_LIMIT));
+        model.addObject("pages", trainerService.getPagesByRole(Role.TRAINER, ROWS_PER_PAGE));
         model.addObject("currentUrl", "trainers");
         model.setViewName("trainer/trainers");
 
@@ -130,7 +130,7 @@ public class TrainerController {
         return model;
     }
 
-    @RequestMapping(value = "/trainer-delete-{id}", method = RequestMethod.GET)
+    /*@RequestMapping(value = "/trainer-delete-{id}", method = RequestMethod.GET)
     public ModelAndView deleteTrainer(@PathVariable("id") Long trainerId, ModelAndView model, RedirectAttributes redir){
 
         User trainer = trainerService.findById(trainerId);
@@ -138,7 +138,7 @@ public class TrainerController {
         redir.addFlashAttribute("successMessage", "User " + trainer.getUserName() + " "+ trainer.getEmail() + " deleted successfully");
         model.setViewName("redirect:/trainers/1");
         return model;
-    }
+    }*/
 
     @RequestMapping(value = "/trainers-delete-all", method = RequestMethod.GET)
     public ModelAndView deleteAllTrainers(ModelAndView model, RedirectAttributes redir){

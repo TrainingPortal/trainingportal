@@ -13,8 +13,8 @@ import java.util.List;
 @Transactional
 public interface ChatService extends GenericService<Chat> {
 
-    List<Chat> getChatPage(int page, int total);
-    int getPages(double total);
+    List<Chat> getChatPage(int page, int rowsPerPage);
+    int getPages(double rowsPerPage);
     String getChatNameById(Long chatId);
 
 }

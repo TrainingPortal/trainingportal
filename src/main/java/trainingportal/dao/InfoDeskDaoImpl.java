@@ -21,8 +21,8 @@ public class InfoDeskDaoImpl extends JdbcDaoSupport implements InfoDeskDao {
     }
 
     @Override
-    public List<InfoDesk> getAllAsPage(int page, int total) {
-        String sql = InfoDeskMapper.SELECT_SQL + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+    public List<InfoDesk> getAllAsPage(int page, int rowsPerPage) {
+        String sql = InfoDeskMapper.SELECT_SQL + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
         return this.getJdbcTemplate().query(sql, new Object[]{}, new InfoDeskMapper());
     }
 

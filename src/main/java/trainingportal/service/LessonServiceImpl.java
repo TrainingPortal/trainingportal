@@ -38,17 +38,17 @@ public class LessonServiceImpl extends GenericServiceImpl<Lesson> implements Les
     }
 
     @Override
-    public List<Lesson> getLessonsPageByCourseId(int page, int total, Long courseId) {
+    public List<Lesson> getLessonsPageByCourseId(int page, int rowsPerPage, Long courseId) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page, total);
+        page = getPageNumber(page, rowsPerPage);
 
-        return lessonDao.getAllAsPageByCourseId(courseId, page, total);
+        return lessonDao.getAllAsPageByCourseId(courseId, page, rowsPerPage);
     }
 
     @Override
-    public int getPages(Long courseId, double total) {
-        return (int) Math.ceil(lessonDao.countAllByCourseId(courseId) / total);
+    public int getPages(Long courseId, double rowsPerPage) {
+        return (int) Math.ceil(lessonDao.countAllByCourseId(courseId) / rowsPerPage);
     }
 
     @Override

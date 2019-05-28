@@ -19,7 +19,9 @@ public class Lesson {
     private Long courseId;
     @NotNull
     private int lessonNumber;
-    public Lesson() {}
+
+    public Lesson() {
+    }
 
 
     public Lesson(Long lessonId, String lessonName, String lessonDescription, Double lessonDuration, Long homeworkId, Long courseId, int lessonNumber) {

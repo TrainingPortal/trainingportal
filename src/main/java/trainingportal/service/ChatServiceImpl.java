@@ -41,28 +41,28 @@ public class ChatServiceImpl implements ChatService {
     }
 
     @Override
-    public List<Chat> getAllAsPage(int page, int total) {
+    public List<Chat> getAllAsPage(int page, int rowsPerPage) {
         return null;
     }
 
 
     @Override
-    public List<Chat> getChatPage(int page, int total) {
+    public List<Chat> getChatPage(int page, int rowsPerPage) {
         if(page == 1){
             //do nothing
         } else {
-            page = (page - 1) * total + 1;
+            page = (page - 1) * rowsPerPage + 1;
         }
         List<Chat> chatsList;
 
-        chatsList = chatDao.getAllAsPage(page, total);
+        chatsList = chatDao.getAllAsPage(page, rowsPerPage);
 
         return chatsList;
     }
 
     @Override
-    public int getPages(double total) {
-        return (int) Math.ceil(chatDao.countAll() / total);
+    public int getPages(double rowsPerPage) {
+        return (int) Math.ceil(chatDao.countAll() / rowsPerPage);
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
 public interface GroupDao extends GenericDao<Group> {
     List<Group> GroupsList();
 
-    List<Group> getAllAsPageByCourseId(Long courseId, int page, int total);
+    List<Group> getAllAsPageByCourseId(Long courseId, int page, int rowsPerPage);
 
     Group findGroupById(Long groupId);
 
@@ -27,5 +27,5 @@ public interface GroupDao extends GenericDao<Group> {
 
     Long getTrainerIdByGroupId(Long groupId);
 
-    List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int total);
+    List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int rowsPerPage);
 }

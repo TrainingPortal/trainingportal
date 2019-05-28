@@ -163,10 +163,10 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     }
 
     @Override
-    public List<User> getAllByRoleAsPage(int page, int total, Long roleId) {
+    public List<User> getAllByRoleAsPage(int page, int rowsPerPage, Long roleId) {
 
         String sql = UserMapper.SELECT_SQL +
-                " WHERE role_id = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                " WHERE role_id = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return getUsers(roleId, sql);
     }
@@ -183,10 +183,10 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     }
 
     @Override
-    public List<User> searchByRole(Long id, String request, int page, int total) {
+    public List<User> searchByRole(Long id, String request, int page, int rowsPerPage) {
 
         String sql = UserMapper.SELECT_SQL + "WHERE (name LIKE '%" + request + "%' OR email LIKE '%" + request + "%') AND role_id = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return getUsers(id, sql);
     }
@@ -211,14 +211,14 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
     }
 
     @Override
-    public List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId) {
+    public List<User> getUsersByGroupIdAsPage(int page, int rowsPerPage, Long groupId) {
 
         String sql = "SELECT a.user_id, a.name, a.email, a.password, a.enabled, a.token, a.role_id, a.manager_id " +
                 "FROM Users a " +
                 "INNER JOIN User_Group b " +
                 "ON a.user_id = b.user_id " +
                 "WHERE b.group_id = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return getUsers(groupId, sql);
     }
@@ -244,15 +244,17 @@ public class UserDAOImpl extends GenericDaoImpl<User> implements UserDao{
                 "FROM Users a " +
                 "INNER JOIN Desired_Period b ON a.user_id = b.user_id " +
                 "INNER JOIN Groups c ON b.course_id = c.course_id " +
-                "WHERE c.id = ?";
+                "WHERE c.id = ? AND b.status_id = 1";
 
         return getUsers(groupId, sql);
     }
 
     @Override
-    public void deleteFromDesiredPeriodByUserId(Long userId) {
+    public void disableDesiredPeriodByUserId(Long userId) {
 
-        String sql = "DELETE FROM Desired_Period WHERE user_id = ?";
+        String sql = "UPDATE Desired_Period " +
+                "SET status_id = 2 " +
+                "WHERE user_id = ?";
 
         if (this.getJdbcTemplate() != null) {
             this.getJdbcTemplate().update(sql, userId);

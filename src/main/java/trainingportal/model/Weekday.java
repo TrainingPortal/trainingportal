@@ -1,6 +1,7 @@
 package trainingportal.model;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 
 public class Weekday {
@@ -9,12 +10,15 @@ public class Weekday {
 
     @NotNull
     private String dayName;
+    @Size(min = 5, max = 25)
 
     @NotNull
     private String timeStart;
+    @Size(min = 8, max = 15)
 
     @NotNull
     private String timeEnd;
+    @Size(min = 8, max = 15)
 
     @NotNull
     private Long periodId;

@@ -46,8 +46,8 @@ public class ChatDaoImpl extends JdbcDaoSupport implements ChatDao {
     }
 
     @Override
-    public List<Chat> getAllAsPage(int page, int total) {
-        String sql = ChatMapper.SELECT_SQL + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+    public List<Chat> getAllAsPage(int page, int rowsPerPage) {
+        String sql = ChatMapper.SELECT_SQL + " OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
         return this.getJdbcTemplate().query(sql, new Object[]{}, new ChatMapper());
     }
 
