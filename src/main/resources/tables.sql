@@ -253,7 +253,7 @@ values ('Lesson-10', 'Just, yet, still, already', 60, 1, 10);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
 values ('Intermediate English grammar-1', 'Predicting the Future', 60, 2, 1);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Intermediate English grammar-2', 'Verbs & Prepositions', 60, 2, 2);
+values ('Intermediate English grammar-2', 'Verbs Prepositions', 60, 2, 2);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
 values ('Intermediate English grammar-3', 'Words that are often confused', 60, 2, 3);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
@@ -840,7 +840,7 @@ alter table Chat_Message
     add constraint message_fk_chat FOREIGN KEY (chat_id) references Chat (id);
 
 
-commit
+commit;
 
 
 
