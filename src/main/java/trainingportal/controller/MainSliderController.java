@@ -30,8 +30,10 @@ public class MainSliderController {
     }
 
     @PostMapping("/slider-save")
-    public ModelAndView uploadData(@RequestParam MultipartFile file, @RequestParam String name, @RequestParam String url, ModelAndView modelAndView,  RedirectAttributes redirect) throws IOException {
-        String message = mainSliderService.storeData(file, name, url);
+    public ModelAndView uploadData(@RequestParam MultipartFile file, @RequestParam String name, @RequestParam String url,
+                                   @RequestParam String slHeader, @RequestParam String slText, @RequestParam int interval,
+                                   ModelAndView modelAndView,  RedirectAttributes redirect) throws IOException {
+        boolean message = mainSliderService.storeData(file, name, url, slHeader, slText, interval);
 
 
         redirect.addFlashAttribute("message", message);
@@ -49,10 +51,13 @@ public class MainSliderController {
     }
 
     @PostMapping("/slider-edit")
-    public ModelAndView editData(@RequestParam Long sliderId, @RequestParam MultipartFile editFile, @RequestParam String editName, @RequestParam String editUrl, ModelAndView modelAndView) throws IOException {
-        mainSliderService.editById(sliderId, editFile, editName, editUrl);
+    public ModelAndView editData(@RequestParam Long sliderId, @RequestParam MultipartFile editFile,
+                                 @RequestParam String editName, @RequestParam String editUrl, @RequestParam String editHeader,
+                                 @RequestParam String editText, @RequestParam int editInterval, ModelAndView modelAndView,
+                                 RedirectAttributes redirect) throws IOException {
+        boolean message = mainSliderService.editById(sliderId, editFile, editName, editUrl, editHeader, editText, editInterval);
 
-
+        redirect.addFlashAttribute("message", message);
         modelAndView.setViewName("redirect:/manage_main_slider");
         return modelAndView;
     }
