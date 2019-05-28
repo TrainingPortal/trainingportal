@@ -32,7 +32,7 @@
         <tbody>
         <tr th:each="attendance, itemStat : ${attendances}">
             <td th:text="${attendance.user.userName}">
-            <td th:text="${attendance.attendanceType.type}"></td>
+            <td th:text="${attendance.attendanceType.getAttendanceType()}"></td>
             <td th:text="${attendance.schedule.scheduleDate}"></td>
         </tr>
     </table>

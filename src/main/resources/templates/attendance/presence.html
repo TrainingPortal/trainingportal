@@ -36,8 +36,8 @@
                         <select id="formSelect" class="form-control"
                                 th:field="*{attendances[__${itemStat.index}__].attendanceTypeId}">
                             <option th:each="attendanceType : ${attendanceTypes}"
-                                    th:value="${attendanceType.getAttendanceTypeId()}"
-                                    th:text="${attendanceType.getType()}">
+                                    th:value="${attendanceType.getAttendanceId()}"
+                                    th:text="${attendanceType.getAttendanceType()}">
                             </option>
                         </select>
                     </td>
