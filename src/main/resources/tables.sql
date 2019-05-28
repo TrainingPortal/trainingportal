@@ -709,6 +709,15 @@ CREATE TABLE main_slider
     button_url     VARCHAR2(100 CHAR)
 );
 
+alter table main_slider
+add caption_header VARCHAR2(100);
+
+alter table main_slider
+add caption_text VARCHAR2(100);
+
+alter table main_slider
+add slide_interval NUMBER;
+
 COMMIT;
 
 
