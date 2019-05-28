@@ -41,7 +41,11 @@ public class GroupController {
         Course course = courseService.findById(id);
         modelAndView.addObject("courseGroup", course);
 
-        modelAndView.addObject("pages", groupService.getPages(id, ROWS_PER_PAGE));
+        modelAndView.addObject("pages",
+                groupService.getPages(id,
+                        ROWS_PER_PAGE,
+                        userSecurity.getLoggedInUserId(),
+                        userSecurity.getLoggedInUserRole()));
         modelAndView.addObject("id", id);
         modelAndView.addObject("groupList", groupList);
         modelAndView.addObject("currentUrl", "group_create");

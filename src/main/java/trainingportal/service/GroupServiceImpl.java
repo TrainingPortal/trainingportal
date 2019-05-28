@@ -69,8 +69,13 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     }
 
     @Override
-    public int getPages(Long courseId, double rowsPerPage) {
-        return (int) Math.ceil(groupDAO.countAll() / rowsPerPage);
+    public int getPages(Long courseId, double rowsPerPage, Long userId, String role) {
+
+        if (role.equals("ROLE_EMPLOYEE") || role.equals("ROLE_MANAGER")) {
+            return (int) Math.ceil(groupDAO.countGroupsByCourseIdAndUserId(courseId, userId) / rowsPerPage);
+        } else {
+            return (int) Math.ceil(groupDAO.countAllByCourseId(courseId) / rowsPerPage);
+        }
     }
 
     @Override

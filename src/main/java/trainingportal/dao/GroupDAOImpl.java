@@ -130,4 +130,29 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
         } else
             return Collections.emptyList();
     }
+
+    @Override
+    public int countAllByCourseId(Long courseId) {
+
+        String sql = "SELECT COUNT(id) FROM groups WHERE course_id = ?";
+
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{courseId}, Integer.class);
+        } else
+            return 0;
+    }
+
+    @Override
+    public int countGroupsByCourseIdAndUserId(Long courseId, Long userId) {
+
+        String sql = "SELECT COUNT(a.id) FROM Groups a " +
+                "INNER JOIN Course b ON a.course_id = b.course_id " +
+                "INNER JOIN User_Group c ON a.id = c.group_id " +
+                "WHERE b.course_id = ? AND c.user_id = ?";
+
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{courseId, userId}, Integer.class);
+        } else
+            return 0;
+    }
 }

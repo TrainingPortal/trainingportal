@@ -73,9 +73,22 @@ public class CourseDAOImpl extends GenericDaoImpl<Course> implements CourseDao {
             return null;
     }
 
-    public int countAllByUserId(Long userId) {
+    public int countAllByTrainerId(Long trainerId) {
 
         String sql = "SELECT COUNT(course_id) FROM Course WHERE trainer_id = ?";
+
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{trainerId}, Integer.class);
+        } else
+            return 0;
+    }
+
+    public int countAllByUserId(Long userId) {
+
+        String sql = "SELECT COUNT(a.course_id) FROM ((Course a " +
+                "INNER JOIN groups b ON a.course_id = b.course_id) " +
+                "INNER JOIN user_group c ON b.id = c.group_id) " +
+                "WHERE c.user_id = ?";
 
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().queryForObject(sql, new Object[]{userId}, Integer.class);
