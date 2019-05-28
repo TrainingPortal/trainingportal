@@ -7,21 +7,12 @@
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
     <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
-    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/main.css" rel="stylesheet">
+    <!--    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}">-->
+    <!--    <link href="/main.css" rel="stylesheet" th:href="/main.css">-->
 </head>
 <body>
 
 <div th:insert="frontend/navbar :: nav"></div>
-
-<!--<div class="card text-white bg-dark mb-3" style="max-width: 18rem; text-align: center;">-->
-<!--    <div class="card-header">Notification To <br> {UserName} </div>-->
-<!--    <div class="card-body">-->
-<!--        <h5 class="card-title">Notification title</h5>-->
-<!--        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>-->
-<!--    </div>-->
-<!--    <div class="card-footer bg-transparent border-success">From <br> {FromName}</div>-->
-<!--</div>-->
 
 <br>
 
@@ -30,24 +21,34 @@
     Javascript and reload this page!</h2></noscript>
 <div id="main-content" class="container">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6" th:if="${#request.isUserInRole('ROLE_ADMIN') == true }">
             <form class="form-inline">
                 <div class="form-group">
                     <label for="connect">WebSocket connection:</label>
-                    <button id="connect" class="btn btn-default" type="submit">Connect</button>
-                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
-                    </button>
+                    &nbsp;
+                    <!-- <button id="connect" class="btn btn-default" type="submit">Connect</button>-->
+                    <button id="connect" type="button" class="btn btn-light">Connect</button>
+                    &nbsp;
+                    <button id="disconnect" type="button" class="btn btn-light">Disconnect</button>
+                    <!--<button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">Disconnect
+                    </button>-->
                 </div>
             </form>
         </div>
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="name">What is your name?</label>
-                    <input type="text" id="name" class="form-control" placeholder="Your name here...">
-                    <button id="send" class="btn btn-default" type="submit">Send</button>
-                </div>
-            </form>
+        <div class="btn"
+             th:if="${#request.isUserInRole('ROLE_ADMIN') == true }">
+            <div class="col-md-6">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="notificationMessage"><!--NOTIFICATION <br> --></label>
+                        <input type="text" id="notificationMessage" class="form-control"
+                               placeholder="Type notification here...">
+                        &nbsp;
+                        <!--<button id="send" class="btn btn-default" type="submit">Send</button>-->
+                        <button id="send" type="button" class="btn btn-light">Send</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -55,12 +56,33 @@
             <table id="conversation" class="table table-striped">
                 <thead>
                 <tr>
-                    <th>Greetings</th>
+                    <th>NOTIFICATIONS :</th>
                 </tr>
                 </thead>
-                <tbody id="greetings">
+                <tbody id="notificationString">
                 </tbody>
             </table>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div id="main-cont" class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table pt-0 mt-0 table-fit table-sm table-hove">
+                    <thead class="">
+                    <tr>
+                        <th style="width: 20%">Date</th>
+                        <th style="width: 50%">Notification content</th>
+                    </tr>
+                    </thead>
+                    <tr th:each="notification,iter:${allNotificationList}">
+                        <td th:text="${notification.notificationDate}"></td>
+                        <td th:text="${notification.getNotificationMessage()}"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>

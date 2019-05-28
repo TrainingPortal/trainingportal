@@ -10,6 +10,7 @@ import trainingportal.model.DesiredPeriod;
 import javax.sql.DataSource;
 
 import java.util.List;
+
 @Repository
 @Transactional
 public class DesiredPeriodDaoImpl extends JdbcDaoSupport implements DesiredPeriodDao {
@@ -26,10 +27,10 @@ public class DesiredPeriodDaoImpl extends JdbcDaoSupport implements DesiredPerio
     }
 
     @Override
-    public List<DesiredPeriod> getAllAsPageByCourseId(Long courseId, int page, int total) {
+    public List<DesiredPeriod> getAllAsPageByCourseId(Long courseId, int page, int rowsPerPage) {
 
         String sql = DesiredPeriodMapper.SELECT_SQL + " WHERE course_id = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return this.getJdbcTemplate().query(sql, new Object[]{courseId}, new DesiredPeriodMapper());
     }
@@ -71,10 +72,10 @@ public class DesiredPeriodDaoImpl extends JdbcDaoSupport implements DesiredPerio
     }
 
     @Override
-    public List<DesiredPeriod> getAllAsPageByUserId(Long userId, Long courseId, int page, int total) {
+    public List<DesiredPeriod> getAllAsPageByUserId(Long userId, Long courseId, int page, int rowsPerPage) {
 
         String sql = DesiredPeriodMapper.SELECT_SQL + " WHERE course_id = ?" +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return this.getJdbcTemplate().query(sql, new Object[]{courseId}, new DesiredPeriodMapper());
     }

@@ -21,6 +21,11 @@
         (courseId = ${courseGroup.courseId})}">CREATE NEW GROUP</a>
     </div>
 
+
+    <div  class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+        <a class="btn btn-success btn-lg" th:href="@{/create_group_chats/{page}/{courseId}(page=1,courseId = ${courseGroup.courseId})}">CREATE GROUP CHATS</a>
+    </div>
+
     <div  class="btn">
         <a class="btn btn btn-info btn-lg"
            th:href="@{/admin }" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">Back to admin</a>
@@ -68,10 +73,23 @@
                     (groupId = ${group.groupId},id = ${group.courseId})}">Delete</a>
                 </div>
             </td>
+
+            <td>
+                <div class="btn-group" th:if="${#request.isUserInRole('ROLE_EMPLOYEE') == true
+                or #request.isUserInRole('ROLE_MANAGER')}">
+
+                    <a class="btn btn-info" th:href="@{/open-group-chat/{groupId}
+                       (groupId = ${group.groupId}) }">Group chat</a>
+
+                </div>
+            </td>
+
+
+
         </tr>
         </tbody>
     </table>
-    <div th:replace="frontend/pagination :: pagination"></div>
+    <div th:replace="frontend/pagination :: pagination_with_slashed_id"></div>
 </div>
 
 

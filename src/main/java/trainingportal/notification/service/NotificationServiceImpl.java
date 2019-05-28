@@ -44,7 +44,12 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void setNotificationMessage(Notification notificationID, String notificationMessage) {
-        notificationDao.setNotificationMessage(notificationID,notificationMessage);
+    public void setNotificationMessage(Notification notification, String notificationMessage) {
+        notificationDao.setNotificationMessage(notification,notificationMessage);
+    }
+
+    @Override
+    public void saveNewNotification(Notification notification) {
+        notificationDao.saveNewNotification(notification);
     }
 }

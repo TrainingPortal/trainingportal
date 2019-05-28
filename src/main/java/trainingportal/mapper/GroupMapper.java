@@ -13,6 +13,10 @@ public class GroupMapper implements BaseObjectMapper<Group> {
 
     public static final String SELECT_SQL
             = "SELECT id, name, capacity, course_id, status_id FROM groups";
+    public static final String SELECT__WITHOUT_CHAT_SQL
+            = "SELECT id, name, capacity, course_id, status_id FROM groups " +
+            "WHERE id not in (SELECT GROUPS.id from Groups INNER JOIN CHAT ON \" +\n" +
+            "                \"GROUPS.id = CHAT.group_id)";
 
     public static final String EDIT_SQL
             = "UPDATE groups SET name = ?, capacity = ?, course_id = ?, status_id = ?";

@@ -15,13 +15,15 @@ public interface CourseService extends GenericService<Course> {
 
     CourseStatus findStatusById(Long id);
 
-    int getPages(double total);
+    int getPages(double rowsPerPage);
 
     List<Course> findByTrainerId(Long id);
 
-    int getPagesByUserId(Long userId, double total);
+    int getPagesByUserId(Long userId, double rowsPerPage, String role);
 
-    List<Course> getCoursesPage(int page, int total, Long userId, String role);
+    List<Course> getCoursesPage(int page, int rowsPerPage, Long userId, String role);
 
     List<Course> findCoursesByUser(User user);
+
+    Course findCourseIdByGroupId(Long groupId);
 }

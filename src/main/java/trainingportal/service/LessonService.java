@@ -8,9 +8,9 @@ import java.util.List;
 public interface LessonService extends GenericService<Lesson> {
     List<Lesson> getLessonCourseId(Long lessonId);
 
-    List<Lesson> getLessonsPageByCourseId(int page, int total, Long courseId);
+    List<Lesson> getLessonsPageByCourseId(int page, int rowsPerPage, Long courseId);
 
-    int getPages(Long courseId, double total);
+    int getPages(Long courseId, double rowsPerPage);
 
     boolean isConnectedWithTrainerByCourseId(Long userId, Long courseId);
 

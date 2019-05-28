@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Forums List</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport">
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<div class="container-fluid">
+    <h2 class="text-center">Your group chats:</h2>
+
+
+
+    <table class="table table-striped" >
+        <thead>
+        <tr>
+
+            <th scope="row">Сhat name</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="chat, iter : ${chatsList}">
+
+            <td th:text="${chat.chatName}"></td>
+
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary"
+                       th:href="@{/chat/{chatId}(chatId = ${chat.id})}">Open</a>
+
+
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="frontend/pagination :: pagination"></div>
+
+
+
+
+    <table class="table table-striped">
+
+    </table>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

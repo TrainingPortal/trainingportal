@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Personal chats</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport">
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<div class="container-fluid">
+    <h2 class="text-center">Your personal chats:</h2>
+
+    <div align="center">
+        <a class="btn btn-success btn-lg" th:href="@{/search_users}">FIND USERS</a>
+    </div>
+    <div th:if="${chatsList.size() == 0}">
+        <h5 class="w3-opacity"><b>You don't have any personal chats yet...</b></h5>
+    </div>
+    <table class="table table-striped" >
+        <thead>
+        <tr>
+
+            <th scope="row">Users in chat</th>
+
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="chat, iter : ${chatsList}">
+
+            <td th:text="${chat.chatName}"></td>
+
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-info"
+                       th:href="@{/chat/{chatId}(chatId = ${chat.id})}">Send Message</a>
+
+                </div>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+
+
+
+    <table class="table table-striped">
+
+    </table>
+
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

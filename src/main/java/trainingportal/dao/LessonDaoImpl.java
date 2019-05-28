@@ -36,9 +36,9 @@ public class LessonDaoImpl extends GenericDaoImpl<Lesson> implements LessonDao {
     }
 
     @Override
-    public List<Lesson> getAllAsPageByCourseId(Long courseId, int page, int total) {
+    public List<Lesson> getAllAsPageByCourseId(Long courseId, int page, int rowsPerPage) {
         String sql = LessonMapper.SELECT_SQL + " WHERE course_id = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return getLessons(courseId, sql);
     }
@@ -57,10 +57,10 @@ public class LessonDaoImpl extends GenericDaoImpl<Lesson> implements LessonDao {
     }
 
     @Override
-    public List<Lesson> getAllAsPageByTrainerId(Long userId, Long courseId, int page, int total) {
+    public List<Lesson> getAllAsPageByTrainerId(Long userId, Long courseId, int page, int rowsPerPage) {
 
         String sql = LessonMapper.SELECT_SQL + " WHERE course_id = ?" +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return getLessons(courseId, sql);
     }

@@ -47,6 +47,12 @@
                             class="fa fa-user fa-fw w3-margin-right w3-large w3-text-teal"></i><span
                             th:text="'Manager: ' + ${manager.userName}"></span></p>
 
+
+                    <div th:if="${@userSecurity.hasUserId(user.userId)}">
+                        <hr>
+                        <a th:href="@{/open-personal-chat-list}"><p>My messages</p></a>
+                        <hr>
+                    </div>
                     <div th:if="${@userSecurity.hasUserId(user.userId)}">
                         <hr>
                         <p class="w3-large" ><b>Settings</b></p>

@@ -105,6 +105,7 @@ button.accent {
 }
 
 #username-page {
+    display: none;
     text-align: center;
 }
 
@@ -295,4 +296,31 @@ button.accent {
     .chat-header h2 {
         font-size: 1.1em;
     }
+}
+
+
+#chatScrollBottom span {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 46px;
+    height: 46px;
+    margin-left: -23px;
+    border: 1px solid #000;
+    border-radius: 100%;
+    box-sizing: border-box;
+}
+#chatScrollBottom span::after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    content: '';
+    width: 16px;
+    height: 16px;
+    margin: -12px 0 0 -8px;
+    border-left: 1px solid #000;
+    border-bottom: 1px solid #000;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    box-sizing: border-box;
 }

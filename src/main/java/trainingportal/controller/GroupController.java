@@ -28,20 +28,24 @@ public class GroupController {
     @Autowired
     private UserService userService;
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
 
     @RequestMapping("/group_create/{page}/{courseId}")
     public ModelAndView showLessonListOfCourse(@PathVariable("page") int page,
                                                @PathVariable("courseId") Long id,
                                                ModelAndView modelAndView) {
 
-        List<Group> groupList = groupService.getGroupsPage(id, page, ROWS_LIMIT,
+        List<Group> groupList = groupService.getGroupsPage(id, page, ROWS_PER_PAGE,
                 userSecurity.getLoggedInUserId(), userSecurity.getLoggedInUserRole());
 
         Course course = courseService.findById(id);
         modelAndView.addObject("courseGroup", course);
 
-        modelAndView.addObject("pages", groupService.getPages(id, ROWS_LIMIT));
+        modelAndView.addObject("pages",
+                groupService.getPages(id,
+                        ROWS_PER_PAGE,
+                        userSecurity.getLoggedInUserId(),
+                        userSecurity.getLoggedInUserRole()));
         modelAndView.addObject("id", id);
         modelAndView.addObject("groupList", groupList);
         modelAndView.addObject("currentUrl", "group_create");
@@ -50,18 +54,35 @@ public class GroupController {
         return modelAndView;
     }
 
+    @RequestMapping("/create_group_chats/{page}/{courseId}")
+    public ModelAndView showGroupsWithoutChat(@PathVariable("page") int page,
+                                               @PathVariable("courseId") Long id,
+                                               ModelAndView modelAndView) {
+        List<Group> groupList = groupService.getGroupsPageWithoutChat(id,page,ROWS_PER_PAGE);
+
+        Course course = courseService.findById(id);
+        modelAndView.addObject("pages", groupService.getPagesWithoutChat(id, ROWS_PER_PAGE));
+        modelAndView.addObject("courseGroup", course);
+        modelAndView.addObject("groupList", groupList);
+        modelAndView.addObject("id", id);
+        modelAndView.addObject("currentUrl", "create_group_chats");
+        modelAndView.setViewName("chatCreator/create_group_chats");
+
+        return modelAndView;
+    }
     @GetMapping("/group_users/{page}/{groupId}")
     public ModelAndView showGroupUsersList(@PathVariable("page") int page,
                                                @PathVariable("groupId") Long groupId,
                                                ModelAndView modelAndView) {
 
-        List<User> userList = userService.getUsersByGroupIdAsPage(page, ROWS_LIMIT, groupId);
+        List<User> userList = userService.getUsersByGroupIdAsPage(page, ROWS_PER_PAGE, groupId);
 
         //Course course = courseService.findById(groupId);
         //modelAndView.addObject("courseGroup", course);
 
-        modelAndView.addObject("pages", userService.getPagesAmountOfUsersByGroupId(groupId, ROWS_LIMIT));
+        modelAndView.addObject("pages", userService.getPagesAmountOfUsersByGroupId(groupId, ROWS_PER_PAGE));
         modelAndView.addObject("groupId", groupId);
+        modelAndView.addObject("courseId", courseService.findCourseIdByGroupId(groupId).getCourseId());
         modelAndView.addObject("userList", userList);
         modelAndView.addObject("currentUrl", "group_users");
         modelAndView.setViewName("groupCreator/group_users");
@@ -132,6 +153,7 @@ public class GroupController {
     @PostMapping("/group-save")
     public ModelAndView saveGroup(@RequestParam("courseId") Long courseId, Group group, ModelAndView modelAndView) {
         groupService.save(group);
+
         modelAndView.setViewName("redirect:/group_create/1/" + courseId);
         return modelAndView;
     }

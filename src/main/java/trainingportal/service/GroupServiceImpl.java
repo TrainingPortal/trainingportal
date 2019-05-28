@@ -24,21 +24,21 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     private UserGroupDao userGroupDao;
 
     @Override
-    public List<Group> getAllAsPageByCourseId(Long courseId, int page, int total) {
+    public List<Group> getAllAsPageByCourseId(Long courseId, int page, int rowsPerPage) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page, total);
+        page = getPageNumber(page, rowsPerPage);
 
-        return groupDAO.getAllAsPageByCourseId(courseId, page, total);
+        return groupDAO.getAllAsPageByCourseId(courseId, page, rowsPerPage);
     }
 
     @Override
-    public List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int total) {
+    public List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int rowsPerPage) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page, total);
+        page = getPageNumber(page, rowsPerPage);
 
-        return groupDAO.getUserGroupsAsPageByCourseIdAndUserId(courseId, userId, page, total);
+        return groupDAO.getUserGroupsAsPageByCourseIdAndUserId(courseId, userId, page, rowsPerPage);
     }
 
     @Override
@@ -69,8 +69,13 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     }
 
     @Override
-    public int getPages(Long courseId, double total) {
-        return (int) Math.ceil(groupDAO.countAll() / total);
+    public int getPages(Long courseId, double rowsPerPage, Long userId, String role) {
+
+        if (role.equals("ROLE_EMPLOYEE") || role.equals("ROLE_MANAGER")) {
+            return (int) Math.ceil(groupDAO.countGroupsByCourseIdAndUserId(courseId, userId) / rowsPerPage);
+        } else {
+            return (int) Math.ceil(groupDAO.countAllByCourseId(courseId) / rowsPerPage);
+        }
     }
 
     @Override
@@ -82,17 +87,17 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     }
 
     @Override
-    public List<Group> getGroupsPage(Long courseId, int page, int total, Long userId, String role) {
+    public List<Group> getGroupsPage(Long courseId, int page, int rowsPerPage, Long userId, String role) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page, total);
+        page = getPageNumber(page, rowsPerPage);
 
         List<Group> groupList;
 
         if (role.equals("ROLE_EMPLOYEE") || role.equals("ROLE_MANAGER")) {
-            groupList = groupDAO.getUserGroupsAsPageByCourseIdAndUserId(courseId, userId, page, total);
+            groupList = groupDAO.getUserGroupsAsPageByCourseIdAndUserId(courseId, userId, page, rowsPerPage);
         } else {
-            groupList = groupDAO.getAllAsPageByCourseId(courseId, page, total);
+            groupList = groupDAO.getAllAsPageByCourseId(courseId, page, rowsPerPage);
         }
 
         for (Group group : groupList) {
@@ -100,6 +105,21 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
             group.setStatus(groupDAO.findStatusById(group.getStatusId()));
         }
 
+        return groupList;
+    }
+
+    @Override
+    public List<Group> getGroupsWithoutChatPage(Long courseId, int page, int total) {
+
+        //get page number in GENERIC SERVICE implementation class
+        page = getPageNumber(page, total);
+
+        List<Group> groupList;
+            groupList = groupDAO.getAllAsPageByCourseId(courseId, page, total);
+        for (Group group : groupList) {
+            group.setCourse(courseDao.findById(group.getCourseId()));
+            group.setStatus(groupDAO.findStatusById(group.getStatusId()));
+        }
         return groupList;
     }
 
@@ -127,5 +147,19 @@ public class GroupServiceImpl extends GenericServiceImpl<Group> implements Group
     @Override
     public void deleteFromUserGroupByUserIdAndGroupId(Long userId, Long groupId) {
         userGroupDao.deleteFromUserGroupByUserIdAndGroupId(userId, groupId);
+    }
+
+    @Override
+    public int getPagesWithoutChat(Long courseId, double total) {
+        return (int) Math.ceil(groupDAO.countAllGroupWithoutPage(courseId) / total);
+    }
+    @Override
+   public List<Group>  findAllGroupsWithoutChatByCourseId(Long id){
+       return  groupDAO.findAllGroupsWithoutChatByCourseId(id);
+    }
+
+    @Override
+    public List<Group> getGroupsPageWithoutChat(Long courseId, int page, int total) {
+        return groupDAO.getGroupsPageWithoutChat(courseId,page,total);
     }
 }

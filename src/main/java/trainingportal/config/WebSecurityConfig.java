@@ -171,6 +171,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER') and " +
                         "@userSecurity.isConnectedWithTrainerByGroupId(#id))");
 
+        // Notifications page
+        http.authorizeRequests()
+                .antMatchers("/notification/allNotification")
+                .access("hasRole('ROLE_ADMIN') or (hasRole('ROLE_TRAINER')) " +
+                        "or (hasRole('ROLE_EMPLOYEE')) or (hasRole('ROLE_MANAGER'))");
+
         // When the user has logged in as XX.
         // But access a page that requires role YY,
         // AccessDeniedException will be thrown.

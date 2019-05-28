@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface InfoDeskService extends GenericService<InfoDesk> {
 
-    List<InfoDesk> getAllAsPage(int page, int total);
+    List<InfoDesk> getAllAsPage(int page, int rowsPerPage);
     List<InfoDesk> getRequestForHelpByEmpId(Long employeeId);
-    int getPages(double total);
+    int getPages(double rowsPerPage);
 }

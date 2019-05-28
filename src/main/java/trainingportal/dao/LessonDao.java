@@ -9,9 +9,9 @@ public interface LessonDao extends GenericDao<Lesson> {
 
     List<Lesson> getLessonCourseId(Long courseId);
 
-    List<Lesson> getAllAsPageByCourseId(Long courseId, int page, int total);
+    List<Lesson> getAllAsPageByCourseId(Long courseId, int page, int rowsPerPage);
 
-    List<Lesson> getAllAsPageByTrainerId(Long userId, Long courseId, int page, int total);
+    List<Lesson> getAllAsPageByTrainerId(Long userId, Long courseId, int page, int rowsPerPage);
 
     int countAllByCourseId(Long courseId);
 

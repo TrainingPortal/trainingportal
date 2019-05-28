@@ -66,10 +66,10 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
     }
 
     @Override
-    public List<User> getSubordinatesByIdAsPage(int page, int total, Long id) {
+    public List<User> getSubordinatesByIdAsPage(int page, int rowsPerPage, Long id) {
 
         String sql = UserMapper.SELECT_SQL +
-                "WHERE u.manager_id = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "WHERE u.manager_id = ? OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         List<User> users;
         if (this.getJdbcTemplate() != null) {
@@ -80,10 +80,10 @@ public class SubordinateDAOImpl extends JdbcDaoSupport implements SubordinateDAO
     }
 
     @Override
-    public List<User> getFreeUsersAsPage(int page, int total) {
+    public List<User> getFreeUsersAsPage(int page, int rowsPerPage) {
 
         String sql = UserMapper.SELECT_SQL + "WHERE u.manager_id IS NULL AND u.role_id = ? AND u.enabled = 1 " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         return getSubordinates(sql);
     }

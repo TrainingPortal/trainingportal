@@ -13,21 +13,23 @@ public interface GroupService extends GenericService<Group> {
 
     GroupStatus findStatusById(Long id);
 
-    int getPages(Long courseId,double total);
+    int getPages(Long courseId,double rowsPerPage, Long userId, String role);
 
-    List<Group> getAllAsPageByCourseId(Long courseId, int page, int total);
+    List<Group> getAllAsPageByCourseId(Long courseId, int page, int rowsPerPage);
 
-    List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int total);
+    List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int rowsPerPage);
 
-    List<Group> getAllAsPage(int page, int total);
+    List<Group> getAllAsPage(int page, int rowsPerPage);
 
     boolean isTrainerConnectedWithGroup(Long trainerId, Long groupId);
 
-    List<Group> getGroupsPage(Long courseId, int page, int total, Long userId, String role);
+    List<Group> getGroupsPage(Long courseId, int page, int rowsPerPage, Long userId, String role);
 
     boolean isConnectedWithTrainerByGroupId(Long trainerId, Long groupId);
-
+    public int getPagesWithoutChat(Long courseId, double total);
     boolean isConnectedWithUserByGroupId(Long userId, Long groupId);
-
+    public List<Group> getGroupsWithoutChatPage(Long courseId, int page, int total);
+    List<Group>  findAllGroupsWithoutChatByCourseId(Long id);
     void deleteFromUserGroupByUserIdAndGroupId(Long userId, Long groupId);
+    List<Group> getGroupsPageWithoutChat(Long courseId, int page, int total);
 }
