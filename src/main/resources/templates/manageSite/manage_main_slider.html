@@ -139,7 +139,7 @@
                     </td>
                     <td class="d-block d-md-table-cell">
                         <p class="d-md-none">Slide duration:</p>
-                        <select th:class="inp + ${data.mainSliderId}" name="editInterval">
+                        <select th:class="inp + ${data.mainSliderId}" name="editInterval" disabled>
                             <option th:value="${data.slideInterval}" th:text="${data.slideInterval}"></option>
                             <option value="1">1 second</option>
                             <option value="3">3 seconds</option>
