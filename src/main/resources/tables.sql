@@ -127,15 +127,23 @@ CREATE TABLE Course
 );
 
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Amazing English', 'B2', 1, 5, 30, 'very good course', 2);
+VALUES ('English For Child', 'B2', 1, 5, 30, 'very good course', 2);
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Good English', 'B2', 1, 5, 30, 'very good course', 3);
+VALUES ('English For Programmers', 'C1', 1, 5, 30, 'very good course', 3);
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Very good English', 'B2', 1, 5, 30, 'very good course', 4);
+VALUES ('Spanish For Everyone', 'A2', 1, 5, 30, 'very good course', 4);
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Very amazing English', 'B2', 1, 5, 30, 'very good course', 5);
+VALUES ('Spanish From Native Speakers', 'C2', 1, 5, 30, 'very good course', 5);
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Amazing very good English', 'B2', 1, 5, 30, 'very good course', 6);
+VALUES ('Germany Business Language', 'B2', 1, 5, 30, 'very good course', 6);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('Spanish From Native Speakers', 'B1', 1, 5, 30, 'very good course', 6);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('English Business Language', 'C1', 1, 5, 30, 'very good course', 6);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('Franch From Native Speakers', 'B2', 1, 5, 30, 'very good course', 6);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('Franch Business Language', 'B2', 1, 5, 30, 'very good course', 6);
 
 CREATE TABLE User_Group
 (
@@ -410,7 +418,7 @@ values ('Present');
 INSERT INTO Attendance_Type (type)
 values ('Absent without reason');
 INSERT INTO Attendance_Type (type)
-values ('Absent due tu bussines trip');
+values ('Absent due tu business trip');
 INSERT INTO Attendance_Type (type)
 values ('Absent due to sick leave');
 INSERT INTO Attendance_Type (type)
@@ -479,7 +487,6 @@ CREATE TABLE Question_Status
     name VARCHAR2(20)
 );
 
-
 INSERT INTO Question_Status (name)
 values ('Draft');
 INSERT INTO Question_Status (name)
@@ -490,8 +497,6 @@ INSERT INTO Question_Status (name)
 values ('Answered');
 INSERT INTO Question_Status (name)
 values ('Reopen');
-
-
 
 CREATE TABLE Chat
 (
@@ -641,7 +646,7 @@ CREATE TABLE Weekday
 
 INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),2);
 INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('wednesday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),3);
-INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('mondey',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),4);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('monday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),4);
 INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),5);
 
 
@@ -675,7 +680,7 @@ values ('Open');
 INSERT INTO Course_Status (name_status)
 values ('Closed');
 INSERT INTO Course_Status (name_status)
-values ('Stoped');
+values ('Stopped');
 
 
 
