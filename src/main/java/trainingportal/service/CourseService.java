@@ -19,7 +19,7 @@ public interface CourseService extends GenericService<Course> {
 
     List<Course> findByTrainerId(Long id);
 
-    int getPagesByUserId(Long userId, double rowsPerPage);
+    int getPagesByUserId(Long userId, double rowsPerPage, String role);
 
     List<Course> getCoursesPage(int page, int rowsPerPage, Long userId, String role);
 

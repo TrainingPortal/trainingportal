@@ -32,4 +32,8 @@ public interface GroupDao extends GenericDao<Group> {
 
 
     List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int rowsPerPage);
+  
+    int countAllByCourseId(Long courseId);
+
+    int countGroupsByCourseIdAndUserId(Long courseId, Long userId);
 }
