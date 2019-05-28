@@ -2,7 +2,7 @@ package trainingportal.notification.model;
 
 import java.util.Date;
 
-public class Notification {
+public class Notification implements Comparable<Notification> {
 
     private Long notificationID;
     private String notificationMessage;
@@ -62,8 +62,14 @@ public class Notification {
         this.notificationMessage = notificationMessage;
         this.notificationDate = new Date();
         this.notificationUserID = notificationUserID;
-        this.notificationStatusID = 1L;
+        this.notificationStatusID = NotificationStatus.POSTED;
     }
 
     public Notification(){}
+
+
+    @Override
+    public int compareTo(Notification o) {
+        return this.notificationDate.compareTo(o.notificationDate);
+    }
 }

@@ -51,35 +51,47 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
     public Group findGroupById(Long groupId) {
         String sql = GroupMapper.SELECT_SQL + " WHERE id = ?";
 
-        return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, groupBaseObjectMapper);
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, groupBaseObjectMapper);
+        }
+        else return null;
     }
 
     @Override
     public void saveGroup(Group group) {
         String sql = "INSERT INTO GROUPS (name, capacity, course_id, status_id) VALUES (?,?,?,?)";
-        this.getJdbcTemplate().update(sql, new Object[]{group.getGroupName(), group.getGroupCapacity(),
-                group.getCourseId(), group.getStatusId()});
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, new Object[]{group.getGroupName(), group.getGroupCapacity(),
+                    group.getCourseId(), group.getStatusId()});
+        }
     }
 
     @Override
     public void editGroup(Group group) {
         String sql = GroupMapper.EDIT_SQL + " WHERE id = ?";
 
-        this.getJdbcTemplate().update(sql, group.getGroupName(), group.getGroupCapacity(),
-                group.getCourseId(), group.getStatusId(), group.getGroupId());
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, group.getGroupName(), group.getGroupCapacity(),
+                    group.getCourseId(), group.getStatusId(), group.getGroupId());
+        }
     }
 
     @Override
     public void deleteGroupById(Long groupId) {
         String sql = "DELETE FROM groups WHERE id = ?";
 
-        this.getJdbcTemplate().update(sql, groupId);
+        if (this.getJdbcTemplate() != null) {
+            this.getJdbcTemplate().update(sql, groupId);
+        }
     }
 
     @Override
     public List<GroupStatus> getStatusList() {
 
-        return this.getJdbcTemplate().query(GroupStatusMapper.SELECT_SQL, new GroupStatusMapper());
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().query(GroupStatusMapper.SELECT_SQL, new GroupStatusMapper());
+        }
+        else return null;
     }
 
     @Override
@@ -87,7 +99,10 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
 
         String sql = GroupStatusMapper.SELECT_SQL + " WHERE id = ?";
 
-        return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new GroupStatusMapper());
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql, new Object[]{id}, new GroupStatusMapper());
+        }
+        else return null;
     }
 
     @Override
@@ -110,10 +125,9 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
                 "ON a.course_id = b.course_id " +
                 "WHERE b.id = ?";
 
-        if (this.getJdbcTemplate() != null) {
+
             return this.getJdbcTemplate().queryForObject(sql, new Object[]{groupId}, Long.class);
-        } else
-            return null;
+
     }
 
     @Override
@@ -130,4 +144,33 @@ public class GroupDAOImpl extends GenericDaoImpl<Group> implements GroupDao {
         } else
             return Collections.emptyList();
     }
+
+    @Override
+    public int countAllGroupWithoutPage(Long courseId) {
+        String sql = " SELECT COUNT(id) FROM groups " +
+                "WHERE id not in (SELECT GROUPS.id from Groups INNER JOIN CHAT ON " +
+                "GROUPS.id = CHAT.group_id) AND course_id = ?";
+
+        return this.getJdbcTemplate().queryForObject(sql,new Object[]{courseId}, Integer.class);
+    }
+
+
+    @Override
+    public List<Group> getGroupsPageWithoutChat(Long courseId, int page, int total) {
+        String sql = "SELECT id, name, capacity, course_id, status_id FROM groups WHERE id not in" +
+                " (SELECT GROUPS.id from Groups INNER JOIN CHAT ON GROUPS.id = CHAT.group_id) AND course_id = ? ";
+
+            return this.getJdbcTemplate().query(sql,new Object[]{courseId}, groupBaseObjectMapper);
+
+
+    }
+    @Override
+    public List<Group> findAllGroupsWithoutChatByCourseId(Long id) {
+        String sql = "SELECT id, name, capacity, course_id, status_id FROM groups WHERE id not in (SELECT GROUPS.id from Groups INNER JOIN CHAT ON GROUPS.id = CHAT.group_id) AND course_id = ? ";
+
+
+            return this.getJdbcTemplate().query(sql, new Object[]{id}, groupBaseObjectMapper);
+
+    }
+
 }

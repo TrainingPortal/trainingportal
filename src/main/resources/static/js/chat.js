@@ -7,6 +7,9 @@ var messageForm = document.querySelector('#messageForm');
 var messageInput = document.querySelector('#message');
 var messageArea = document.querySelector('#messageArea');
 var connectingElement = document.querySelector('.connecting');
+var chatOpenButton = document.querySelector('.chatOpenButton');
+var chatScrollBottom = document.querySelector('#chatScrollBottom');
+
 
 var stompClient = null;
 var username = null;
@@ -20,6 +23,7 @@ var colors = [
 
 window.onload = function () {
     changeHistoryMessagesColor();
+    connect();
     scrollMessageAreaToBottom();
 }
 
@@ -157,5 +161,7 @@ function scrollMessageAreaToBottom(){
     messageArea.scrollTop = messageArea.scrollHeight;
 }
 
-usernameForm.addEventListener('submit', connect, true)
-messageForm.addEventListener('submit', sendMessage, true)
+
+usernameForm.addEventListener('submit', connect, true);
+messageForm.addEventListener('submit', sendMessage, true);
+chatScrollBottom.addEventListener('click', scrollMessageAreaToBottom, true);

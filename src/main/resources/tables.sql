@@ -41,61 +41,61 @@ CREATE TABLE Users
 INSERT INTO users(name, email, password, enabled, role_Id)
 VALUES ('adminBoss', 'boss@gmail.com', 'password123', 1, 1);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userTrainer1', 'userTrainer@gmail.com', 'password123', 1, 3);
+VALUES ('Vova', 'vova1@gmail.com', 'password123', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userTrainer2', 'userTrainer@gmail.com', 'password123', 1, 3);
+VALUES ('Kiril', 'kir45@gmail.com', 'password123', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userTrainer3', 'userTrainer@gmail.com', 'password123', 1, 3);
+VALUES ('Alina', 'alin01@gmail.com', 'password123', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userTrainer4', 'userTrainer@gmail.com', 'password123', 1, 3);
+VALUES ('Maxim', 'notBurba@gmail.com', 'password123', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userTrainer5', 'userTrainer@gmail.com', 'password123', 1, 3);
+VALUES ('Anna', 'anni7a@gmail.com', 'password123', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userTrainer6', 'userTrainer@gmail.com', 'password123', 1, 3);
+VALUES ('Semen', 'se7man@gmail.com', 'password123', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userTrainer7', 'userTrainer@gmail.com', 'password123', 1, 3);
+VALUES ('Roma', 'roman4kin@gmail.com', 'password123', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userTrainer8', 'userTrainer@gmail.com', 'password123', 1, 3);
+VALUES ('Margarita', 'margo44@gmail.com', 'password123', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userManager1', 'userManager@gmail.com', 'password123', 1, 4);
+VALUES ('Den', 'den0102@gmail.com', 'password123', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userManager2', 'userManager@gmail.com', 'password123', 1, 4);
+VALUES ('Vlad', 'vlados09@gmail.com', 'password123', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userManager3', 'userManager@gmail.com', 'password123', 1, 4);
+VALUES ('Roma', 'r8ma@gmail.com', 'password123', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userManager4', 'userManager@gmail.com', 'password123', 1, 4);
+VALUES ('Masha', 'mariii@gmail.com', 'password123', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userManager5', 'userManager@gmail.com', 'password123', 1, 4);
+VALUES ('Ksenia', 'ks@gmail.com', 'password123', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userManager6', 'userManager@gmail.com', 'password123', 1, 4);
+VALUES ('Sasha', 'alex001@gmail.com', 'password123', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userManager7', 'userManager@gmail.com', 'password123', 1, 4);
+VALUES ('Denis', 'di8@gmail.com', 'password123', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userManager8', 'userManager@gmail.com', 'password123', 1, 4);
+VALUES ('Boris', 'bori@gmail.com', 'password123', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userManager9', 'userManager@gmail.com', 'password123', 1, 4);
+VALUES ('Karina', 'kar7@gmail.com', 'password123', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('userManager10', 'userManager@gmail.com', 'password123', 1, 4);
+VALUES ('Vova', 'vii@gmail.com', 'password123', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('userUser1', 'userUser@gmail.com', 'password123', 1, 2, 10);
+VALUES ('Alex', 'alex@gmail.com', 'password123', 1, 2, 10);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('userUser2', 'userUser@gmail.com', 'password123', 1, 2, 10);
+VALUES ('Ben', 'beno@gmail.com', 'password123', 1, 2, 10);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('userUser3', 'userUser@gmail.com', 'password123', 1, 2, 11);
+VALUES ('Natali', 'nati@gmail.com', 'password123', 1, 2, 11);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('userUser4', 'userUser@gmail.com', 'password123', 1, 2, 11);
+VALUES ('Dasha', 'di@gmail.com', 'password123', 1, 2, 11);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('userUser5', 'userUser@gmail.com', 'password123', 1, 2, 11);
+VALUES ('Diana', 'di2na@gmail.com', 'password123', 1, 2, 11);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('userUser6', 'userUser@gmail.com', 'password123', 1, 2, 12);
+VALUES ('Pasha', 'paul@gmail.com', 'password123', 1, 2, 12);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('userUser7', 'userUser@gmail.com', 'password123', 1, 2, 13);
+VALUES ('Oleg', 'oleg@gmail.com', 'password123', 1, 2, 13);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('userUser8', 'userUser@gmail.com', 'password123', 1, 2, 13);
+VALUES ('Oli', 'olii@gmail.com', 'password123', 1, 2, 13);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('userUser9', 'userUser@gmail.com', 'password123', 1, 2, 15);
+VALUES ('Vlad', 'vl@gmail.com', 'password123', 1, 2, 15);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('userUser10', 'userUser@gmail.com', 'password123', 1, 2, 17);
+VALUES ('Lena', 'li4@gmail.com', 'password123', 1, 2, 17);
 
 
 
@@ -143,6 +143,23 @@ CREATE TABLE User_Group
     group_id NUMBER,
     user_id  NUMBER
 );
+
+INSERT INTO User_Group (group_id, user_id)
+values (1, 11);
+INSERT INTO User_Group (group_id, user_id)
+values (2, 14);
+INSERT INTO User_Group (group_id, user_id)
+values (3, 19);
+INSERT INTO User_Group (group_id, user_id)
+values (4, 20);
+INSERT INTO User_Group (group_id, user_id)
+values (5, 26);
+INSERT INTO User_Group (group_id, user_id)
+values (1, 29);
+INSERT INTO User_Group (group_id, user_id)
+values (5, 22);
+INSERT INTO User_Group (group_id, user_id)
+values (2, 13);
 
 CREATE TABLE Groups
 (
@@ -361,6 +378,27 @@ CREATE TABLE Attendance
     schedule_id NUMBER
 );
 
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (13, 1, 1);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (20, 2, 3);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (29, 3, 5);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (10, 4, 7);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (11, 5, 9);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (21, 1, 10);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (22, 2, 12);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (23, 3, 13);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (24, 4, 16);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (25, 5, 20);
+
 CREATE TABLE Attendance_Type
 (
     id   NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
@@ -495,6 +533,30 @@ CREATE TABLE Notification
     user_id           NUMBER,
     status_id         NUMBER
 );
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('Hello everybody, today our site is updating, please take it easy',TO_DATE('2019-01-05', 'YYYY-MM-DD'), 2,1);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('We update Message Chat hope you like it',TO_DATE('2019-02-05', 'YYYY-MM-DD'), 2,2);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('We added new functionality for downloading reports for admins',TO_DATE('2019-03-15', 'YYYY-MM-DD'), 10,3);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('Hi everybody, please mark your trainings with star up to 5 in new Chat topic called trainer_mark',TO_DATE('2018-06-05', 'YYYY-MM-DD'), 10,4);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('Hello, we add discounts for new courses, check it out',TO_DATE('2018-11-11', 'YYYY-MM-DD'), 11,5);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('Hi guys, soon is coming possibility to pay online!',TO_DATE('2019-04-04', 'YYYY-MM-DD'), 21,1);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('Please do not swearing in chats otherwise you will get ban!',TO_DATE('2019-04-05', 'YYYY-MM-DD'), 22,2);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('We got 10.000 users, Thank everybody!',TO_DATE('2019-05-01', 'YYYY-MM-DD'), 29,3);
 
 CREATE TABLE Chat_Message
 (

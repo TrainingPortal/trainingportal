@@ -25,21 +25,21 @@ public class NotificationDaoImpl extends JdbcDaoSupport implements NotificationD
     @Override
     public List<Notification> findAllNotificationsOfUsers() {
 
-        String sql = NotificationMapper.USERS_LEFT_JOIN_NOTIFICATION + NotificationMapper.WHERE_ENABLED_AND_ROLE + "2";
+        String sql = NotificationMapper.USERS_LEFT_JOIN_NOTIFICATION + NotificationMapper.WHERE_ENABLED_AND_ROLE + 2;
         return this.getJdbcTemplate().query(sql, new NotificationMapper());
     }
 
     @Override
     public List<Notification> findAllNotificationsOfTrainers() {
 
-        String sql = NotificationMapper.USERS_LEFT_JOIN_NOTIFICATION + "WHERE enabled = 1 AND role_id = 3";
-        return this.getJdbcTemplate().query(sql, new NotificationMapper(),1,3);
+        String sql = NotificationMapper.USERS_LEFT_JOIN_NOTIFICATION + NotificationMapper.WHERE_ENABLED_AND_ROLE + 3;
+        return this.getJdbcTemplate().query(sql, new NotificationMapper());
     }
 
     @Override
     public List<Notification> findAllNotificationsOfManagers() {
 
-        String sql = NotificationMapper.USERS_LEFT_JOIN_NOTIFICATION + "WHERE enabled = 1 AND role_id = 4";
+        String sql = NotificationMapper.USERS_LEFT_JOIN_NOTIFICATION + NotificationMapper.WHERE_ENABLED_AND_ROLE + 4;
         return this.getJdbcTemplate().query(sql, new NotificationMapper());
     }
 
@@ -67,7 +67,6 @@ public class NotificationDaoImpl extends JdbcDaoSupport implements NotificationD
     public void saveNewNotification(Notification notification) {
 
         String date = new SimpleDateFormat("yyyy-MM-dd").format(notification.getNotificationDate());
-
         this.getJdbcTemplate().update(NotificationMapper.CREATE_NEW_NOTIFICATION_SQL,notification.getNotificationMessage(),date,notification.getNotificationUserID(),notification.getNotificationStatusID());
     }
 }

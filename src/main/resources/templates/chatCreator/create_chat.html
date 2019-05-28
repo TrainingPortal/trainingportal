@@ -18,9 +18,8 @@
 
 
             <label>Forum Name</label>
-            <input type="text" th:field="*{chatName}" class="form-control" placeholder="Name"/>
+            <input type="text" required th:field="*{chatName}" class="form-control" placeholder="Name"/>
             <p th:if="${#fields.hasErrors('chatName')}" th:errors="*{chatName}" class="alert alert-danger">Name Error</p>
-
 
             <input type="submit" class="btn btn-success" value="Save Forum"/>
         </form>
