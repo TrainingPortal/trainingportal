@@ -202,69 +202,46 @@ CREATE TABLE Lesson
 );
 
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-1', 'very helpful description', 60, 1, 1);
+values ('Basic English grammar-1', 'Countable & Uncountable nouns 1', 60, 1, 1);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-2', 'very helpful description', 60, 1, 2);
+values ('Basic English grammar-2', 'Past Continuous and Past Simple', 60, 1, 2);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-3', 'very helpful description', 60, 1, 3);
+values ('Basic English grammar-3', 'Question forms & subject/object questions', 60, 1, 3);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-4', 'very helpful description', 60, 1, 4);
+values ('Basic English grammar-4', 'Verbs followed by ing or by to + infinitive', 60, 1, 4);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-5', 'very helpful description', 60, 1, 5);
+values ('Basic English grammar-5', 'very helpful description', 60, 1, 5);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-6', 'very helpful description', 60, 1, 6);
+values ('Basic English grammar-6', 'Adjectives (gradable / non-gradable)', 60, 1, 6);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-7', 'very helpful description', 60, 1, 7);
+values ('Basic English grammar-7', 'British English and American English', 60, 1, 7);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-8', 'very helpful description', 60, 1, 8);
+values ('Basic English grammar-8', 'Future continuous & Future perfect', 60, 1, 8);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-9', 'very helpful description', 60, 1, 9);
+values ('Basic English grammar-9', 'in spite of / despite / although', 60, 1, 9);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-10', 'very helpful description', 60, 1, 10);
+values ('Lesson-10', 'Just, yet, still, already', 60, 1, 10);
 
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-1', 'very helpful description', 60, 2, 1);
+values ('Intermediate English grammar-1', 'Predicting the Future', 60, 2, 1);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-2', 'very helpful description', 60, 2, 2);
+values ('Intermediate English grammar-2', 'Verbs & Prepositions', 60, 2, 2);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-3', 'very helpful description', 60, 2, 3);
+values ('Intermediate English grammar-3', 'Words that are often confused', 60, 2, 3);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-4', 'very helpful description', 60, 2, 4);
+values ('Intermediate English grammar-4', 'Relative clauses – defining relative clauses', 60, 2, 4);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-5', 'very helpful description', 60, 2, 5);
+values ('Intermediate English grammar-5', 'Relative clauses – defining relative clauses', 60, 2, 5);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-6', 'very helpful description', 60, 2, 6);
+values ('Intermediate English grammar-6', 'Relative clauses – defining relative clauses', 60, 2, 6);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-7', 'very helpful description', 60, 2, 7);
+values ('Intermediate English grammar-7', 'Relative clauses – defining relative clauses', 60, 2, 7);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-8', 'very helpful description', 60, 2, 8);
+values ('Intermediate English grammar-8', 'Relative clauses – defining relative clauses', 60, 2, 8);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-9', 'very helpful description', 60, 2, 9);
+values ('Intermediate English grammar-9', 'Predicting the Future', 60, 2, 9);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-10', 'very helpful description', 60, 2, 10);
-
-INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-1', 'very helpful description', 60, 3, 1);
-INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-2', 'very helpful description', 60, 3, 2);
-INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-3', 'very helpful description', 60, 3, 3);
-INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-4', 'very helpful description', 60, 3, 4);
-INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-5', 'very helpful description', 60, 3, 5);
-INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-6', 'very helpful description', 60, 3, 6);
-INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-7', 'very helpful description', 60, 3, 7);
-INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-8', 'very helpful description', 60, 3, 8);
-INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-9', 'very helpful description', 60, 3, 9);
-INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Lesson-10', 'very helpful description', 60, 3, 10);
-
-
+values ('Intermediate English grammar-10', 'Reflexive pronouns', 60, 2, 10);
 CREATE TABLE Homework
 (
     homework_id            NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
@@ -432,25 +409,25 @@ CREATE TABLE Material
 );
 
 INSERT INTO Material (lesson_id, description)
-values (1, 'material');
+values (1, 'List — это упорядоченный список. Объекты хранятся в порядке их добавления в список. Доступ к элементам списка осуществляется по индексу.');
 INSERT INTO Material (lesson_id, description)
-values (2, 'some book');
+values (2, 'Set — множество неповторяющихся объектов. В коллекции этого типа разрешено наличие только одной ссылки типа null.');
 INSERT INTO Material (lesson_id, description)
-values (3, 'some article');
+values (3, 'Queue — коллекция, предназначенная для хранения элементов в порядке, нужном для их обработки. ');
 INSERT INTO Material (lesson_id, description)
-values (4, 'some material');
+values (4, 'Интерфейс java.util.Map<K,V> используется для отображения каждого элемента из одного множества объектов (ключей) на другое (значений). ');
 INSERT INTO Material (lesson_id, description)
-values (5, 'some very interesting material');
+values (5, 'Реализации: java.util.TreeSet<E> — коллекция, которая хранит свои элементы в виде упорядоченного по значениям дерева. TreeSet инкапсулирует в себе TreeMap, который в свою очередь использует сбалансированное бинарное красно-черное дерево для хранения элементов. ');
 INSERT INTO Material (lesson_id, description)
-values (6, 'some very interesting material');
+values (6, 'sArrayList реализован внутри в виде обычного массива. Поэтому при вставке элемента в середину, приходится сначала сдвигать на один все элементы после него, а уже затем в освободившееся место вставлять новый элемент. ');
 INSERT INTO Material (lesson_id, description)
-values (7, 'some very interesting material');
+values (7, 'LinkedList реализован внутри по-другому. Он реализован в виде связного списка: набора отдельных элементов, каждый из которых хранит ссылку на следующий и предыдущий элементы.');
 INSERT INTO Material (lesson_id, description)
-values (8, 'some very interesting material');
+values (8, 'Если коротко, то Oracle пишет — используйте ArrayList вместо массивов. ');
 INSERT INTO Material (lesson_id, description)
-values (9, 'some very interesting material');
+values (9, 'Vector deprecated. У Vector некоторые методы синхронизированы и поэтому они медленные. В любом случае Vector не рекомендуется использовать вообще.');
 INSERT INTO Material (lesson_id, description)
-values (10, 'some very interesting material');
+values (10, 'HashSet гораздо быстрее чем TreeSet (константное время против логарифмического для большинства операций, таких как add, remove, contains), но TreeSet гарантирует упорядоченность объектов. Оба не синхронизированы.');
 
 CREATE TABLE Feedback
 (
@@ -628,13 +605,16 @@ INSERT INTO desired_period (user_id, course_id, status_id)
 values (23, 4, 1);
 INSERT INTO desired_period (user_id, course_id, status_id)
 values (24, 5, 1);
+INSERT INTO desired_period(course_id, user_id, status_id)
+VALUES (25, 6, 1);
 INSERT INTO desired_period (user_id, course_id, status_id)
-values (25, 3, 1);
+VALUES (26,7,1);
 INSERT INTO desired_period (user_id, course_id, status_id)
-values (29, 5, 1);
-
+VALUES (27,8,1);
 INSERT INTO desired_period (user_id, course_id, status_id)
-values (32, 5, 1);
+VALUES (28,9,1);
+INSERT INTO desired_period (user_id, course_id, status_id)
+VALUES (29,10,1);
 
 CREATE TABLE Weekday
 (
@@ -645,18 +625,18 @@ CREATE TABLE Weekday
     period_id  NUMBER
 );
 
-INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),2);
-INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('wednesday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),3);
-INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('monday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),4);
-INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),5);
-
-
-
-INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),1);
-INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),2);
-INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('wednesday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),3);
-INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('monday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),4);
-INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),5);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Thursday, wednesday', '18:00-20:00','9:00-12:00',1);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Sunday, Friday', '11:00-20:00','9:00-11:00',2);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Monday, Thursday', '18:00-20:00','19:00-22:00',3);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Monday, wednesday', '8:00-20:00','9:00-12:00',4);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Thursday, Sunday', '18:00-20:00','9:00-22:00',5);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Monday, Friday', '6:00-20:00','9:00-12:00',1);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Thursday, wednesday', '18:00-20:00','9:00-12:00',1);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Sunday, Friday', '11:00-20:00','9:00-11:00',1);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Monday, Thursday', '18:00-20:00','19:00-22:00',1);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Monday, wednesday', '8:00-20:00','9:00-12:00',1);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Thursday, Sunday', '18:00-20:00','9:00-22:00',1);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('Monday, Friday', '6:00-20:00','9:00-12:00',1);
 
 CREATE TABLE Group_Status
 (
