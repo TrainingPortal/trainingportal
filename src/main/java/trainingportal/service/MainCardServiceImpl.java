@@ -19,21 +19,21 @@ public class MainCardServiceImpl implements MainCardService {
     private MainCardDao mainCardDao;
 
     @Override
-    public String storeData(MultipartFile file,  String cardTitle, String cardText, String buttonName, String cardUrl) throws IOException {
+    public boolean storeData(MultipartFile file,  String cardTitle, String cardText, String buttonName, String cardUrl) throws IOException {
         // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         Long mainCardId = 0L;
         String fileType = file.getContentType();
-        String message;
+        boolean message;
 
-        MainCardModel data = new MainCardModel(mainCardId, fileName, file.getContentType(), file.getBytes(), cardTitle, cardText, buttonName, cardUrl);
+        MainCardModel data = new MainCardModel(mainCardId, fileName, file.getContentType(), file.getBytes(), cardTitle,
+                cardText, buttonName, cardUrl);
 
         if(fileType.equals("image/jpeg") || fileType.equals("image/png") || fileType.equals("image/tiff")){
             mainCardDao.storeData(data);
-            return message = "Successfully stored!";
+            return message = true;
         } else {
-            mainCardDao.updateAll(data);
-            return message = "File must be an image! Data was not stored!";
+            return message = false;
         }
 
     }
@@ -53,16 +53,24 @@ public class MainCardServiceImpl implements MainCardService {
     }
 
     @Override
-    public void editById(Long mainCardId, MultipartFile file, String cardTitle, String cardText, String buttonName, String buttonUrl) throws IOException {
+    public boolean editById(Long mainCardId, MultipartFile file, String cardTitle, String cardText, String buttonName,
+                            String buttonUrl) throws IOException {
 
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileType = file.getContentType();
+        boolean message;
 
-        MainCardModel data = new MainCardModel(mainCardId, fileName, file.getContentType(), file.getBytes(), cardTitle, cardText, buttonName, buttonUrl);
+        MainCardModel data = new MainCardModel(mainCardId, fileName, file.getContentType(), file.getBytes(), cardTitle,
+                cardText, buttonName, buttonUrl);
 
         if(file.getContentType().equals("application/octet-stream")){
             mainCardDao.updateWithoutFile(data);
-        } else {
+            return message = true;
+        } else if(fileType.equals("image/jpeg") || fileType.equals("image/png") || fileType.equals("image/tiff")){
             mainCardDao.updateAll(data);
+            return message = true;
+        } else {
+            return message = false;
         }
 
 

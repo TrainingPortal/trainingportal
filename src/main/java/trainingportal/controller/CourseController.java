@@ -37,7 +37,9 @@ public class CourseController {
 
         modelAndView.addObject("courseList", courseList);
         modelAndView.addObject("pages",
-                courseService.getPagesByUserId(userSecurity.getLoggedInUserId(), ROWS_PER_PAGE));
+                courseService.getPagesByUserId(userSecurity.getLoggedInUserId(),
+                        ROWS_PER_PAGE,
+                        userSecurity.getLoggedInUserRole()));
         modelAndView.addObject("currentUrl", "course_create");
         modelAndView.setViewName("courseCreator/course_create");
         return modelAndView;
