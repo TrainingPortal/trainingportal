@@ -33,12 +33,16 @@ public class CourseServiceImpl extends GenericServiceImpl<Course> implements Cou
         return courseDao.findByTrainerId(id);
     }
 
-    public int getPagesByUserId(Long userId, double rowsPerPage) {
+    @Override
+    public int getPagesByUserId(Long userId, double rowsPerPage, String role) {
 
-        if (userId.equals(Role.ADMIN)) {
+        if (role.equals("ROLE_ADMIN")) {
             return (int) Math.ceil(courseDao.countAll() / rowsPerPage);
         }
 
+        if (role.equals("ROLE_TRAINER")) {
+            return (int) Math.ceil(courseDao.countAllByTrainerId(userId) / rowsPerPage);
+        }
         return (int) Math.ceil(courseDao.countAllByUserId(userId) / rowsPerPage);
     }
 
