@@ -93,7 +93,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
             updatedUser.setUserId(user.getUserId());
             updatedUser.setUserName(user.getUserName());
             updatedUser.setEmail(user.getEmail());
-            updatedUser.setPassword(user.getPassword());
+            //updatedUser.setPassword(user.getPassword());
             updatedUser.setEnabled(user.getEnabled());
             updatedUser.setManagerId(user.getManagerId());
             updatedUser.setRoleId(user.getRoleId());
