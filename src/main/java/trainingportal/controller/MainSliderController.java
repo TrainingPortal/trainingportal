@@ -53,7 +53,8 @@ public class MainSliderController {
     @PostMapping("/slider-edit")
     public ModelAndView editData(@RequestParam Long sliderId, @RequestParam MultipartFile editFile,
                                  @RequestParam String editName, @RequestParam String editUrl, @RequestParam String editHeader,
-                                 @RequestParam String editText, @RequestParam int editInterval, ModelAndView modelAndView, RedirectAttributes redirect) throws IOException {
+                                 @RequestParam String editText, @RequestParam int editInterval, ModelAndView modelAndView,
+                                 RedirectAttributes redirect) throws IOException {
         boolean message = mainSliderService.editById(sliderId, editFile, editName, editUrl, editHeader, editText, editInterval);
 
         redirect.addFlashAttribute("message", message);

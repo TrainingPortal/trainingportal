@@ -41,7 +41,10 @@ public class MainCardController {
     }
 
     @PostMapping("/card-edit")
-    public ModelAndView editData(@RequestParam Long cardId, @RequestParam MultipartFile editFile, @RequestParam String editTitle, @RequestParam String editText, @RequestParam String editBtnName, @RequestParam String editUrl, ModelAndView modelAndView, RedirectAttributes redirect) throws IOException {
+    public ModelAndView editData(@RequestParam Long cardId, @RequestParam MultipartFile editFile,
+                                 @RequestParam String editTitle, @RequestParam String editText,
+                                 @RequestParam String editBtnName, @RequestParam String editUrl, ModelAndView modelAndView,
+                                 RedirectAttributes redirect) throws IOException {
 
         boolean message = mainCardService.editById(cardId, editFile, editTitle, editText, editBtnName, editUrl);
 

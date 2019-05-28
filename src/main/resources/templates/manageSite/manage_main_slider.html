@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/../css/responsive-table.css">
 </head>
 
 <body>
@@ -50,7 +49,8 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="slText">Caption text:</label>
             <div class="col-auto">
-                <textarea rows="2" class="form-control" type="text" id="slText" placeholder="Text on slider" name="slText"></textarea>
+                <textarea rows="2" class="form-control" type="text" id="slText" placeholder="Text on slider"
+                          name="slText"></textarea>
             </div>
         </div>
 
@@ -98,7 +98,7 @@
     <div class="table-responsive">
         <table class="table">
             <thead>
-            <tr>
+            <tr class="d-none d-md-table-row">
                 <th scope="col">Slider Image</th>
                 <th scope="col">Button Name</th>
                 <th scope="col">Button URL</th>
@@ -111,38 +111,53 @@
             <form method="post" enctype="multipart/form-data" action="/slider-edit" th:each="data : ${dataList}">
                 <tr th:id="${data.mainSliderId}">
                     <input type="text" name="sliderId" th:value="${data.mainSliderId}" hidden>
-                    <td><img th:src="@{'data:image/jpeg;base64,'+${data.filesDataString}}" th:alt="${data.filesName}"
-                             class="img-fluid"><input th:class="inp + ${data.mainSliderId}" type="file" name="editFile" id="image"
-                                                      style="display: none" accept="image/*"></td>
-                    <td><input th:class="inp + ${data.mainSliderId}" type="text" name="editName"
-                               th:value="${data.buttonName}"
-                               disabled>
+                    <td class="d-block d-md-table-cell">
+                        <img th:src="@{'data:image/jpeg;base64,'+${data.filesDataString}}" th:alt="${data.filesName}"
+                             class="img-fluid"><input th:class="inp + ${data.mainSliderId}" type="file" name="editFile"
+                                                      id="image" style="display: none" accept="image/*">
                     </td>
-                    <td><input th:class="inp + ${data.mainSliderId}" type="text" name="editUrl"
-                               th:value="${data.buttonUrl}" disabled></td>
-                    <td><input th:class="inp + ${data.mainSliderId}" type="text" name="editHeader"
-                               th:value="${data.captionHeader}" disabled></td>
-                    <td><textarea rows="2" th:class="inp + ${data.mainSliderId}" type="text" name="editText"
-                                  th:text="${data.captionText}" disabled></textarea></td>
-                    <td><select th:class="inp + ${data.mainSliderId}" name="editInterval">
-                        <option th:value="${data.slideInterval}" th:text="${data.slideInterval}"></option>
-                        <option value="1">1 second</option>
-                        <option value="3">3 seconds</option>
-                        <option value="5">5 seconds</option>
-                        <option value="7">7 seconds</option>
-                        <option value="9">9 seconds</option>
-                    </select></td>
-                    <td>
+                    <td class="d-block d-md-table-cell">
+                        <p class="d-md-none">Button name:</p>
+                        <input th:class="inp + ${data.mainSliderId}" type="text" name="editName"
+                               th:value="${data.buttonName}" disabled>
+                    </td>
+                    <td class="d-block d-md-table-cell">
+                        <p class="d-md-none">Button URL:</p>
+                        <input th:class="inp + ${data.mainSliderId}" type="text" name="editUrl"
+                               th:value="${data.buttonUrl}" disabled>
+                    </td>
+                    <td class="d-block d-md-table-cell">
+                        <p class="d-md-none">Caption header:</p>
+                        <input th:class="inp + ${data.mainSliderId}" type="text" name="editHeader"
+                               th:value="${data.captionHeader}" disabled>
+                    </td>
+                    <td class="d-block d-md-table-cell">
+                        <p class="d-md-none">Caption text:</p>
+                        <textarea rows="2" th:class="inp + ${data.mainSliderId}" type="text" name="editText"
+                                  th:text="${data.captionText}" disabled>
+                        </textarea>
+                    </td>
+                    <td class="d-block d-md-table-cell">
+                        <p class="d-md-none">Slide duration:</p>
+                        <select th:class="inp + ${data.mainSliderId}" name="editInterval">
+                            <option th:value="${data.slideInterval}" th:text="${data.slideInterval}"></option>
+                            <option value="1">1 second</option>
+                            <option value="3">3 seconds</option>
+                            <option value="5">5 seconds</option>
+                            <option value="7">7 seconds</option>
+                            <option value="9">9 seconds</option>
+                        </select>
+                    </td>
+                    <td class="d-block d-md-table-cell">
                         <div class="btn-group">
-                            <button th:id="saveBtn + ${data.mainSliderId}"
-                                    th:onclick="'post(\'' + ${data.mainSliderId} + '\');'" type="submit"
-                                    class="btn btn-success" style="visibility: hidden;">Save
+                            <button th:id="saveBtn + ${data.mainSliderId}" type="submit" class="btn btn-success"
+                                    style="visibility: hidden;">Save
                             </button>
                             <button th:id="editBtn + ${data.mainSliderId}"
                                     th:onclick="'makeEditable(\'' + ${data.mainSliderId} + '\');'" type="button"
-                                    class="btn btn-outline-warning">Edit
+                                    class="btn btn-warning">Edit
                             </button>
-                            <a class="btn btn-outline-danger"
+                            <a class="btn btn-outline-danger" onclick="return confirm('Delete this item?');"
                                th:href="@{/slider-delete-by-{id} (id = ${data.mainSliderId}) }">Delete</a>
                         </div>
                     </td>
@@ -154,25 +169,6 @@
 </div>
 
 
-<script>
-    function makeEditable(id) {
-
-        var element = document.getElementById(id);
-
-        element.setAttribute("class", "table-warning");
-
-        document.getElementById('saveBtn' + id).style.visibility = "visible";
-        document.getElementById('editBtn' + id).style.visibility = "collapse";
-
-        var inputs = document.getElementsByClassName('inp' + id);
-        for (i in inputs) {
-            inputs[i].disabled = false;
-            inputs[i].style.display = "inline";
-        }
-
-    }
-</script>
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -182,6 +178,9 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
+
+<script src="../../js/makeEditable.js"></script>
+
 </body>
 
 </html>

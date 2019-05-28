@@ -1,13 +1,11 @@
 package trainingportal.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.dao.generic.GenericDaoImpl;
 import trainingportal.mapper.MainSliderMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
-import trainingportal.model.Course;
 import trainingportal.model.MainSliderModel;
 
 import javax.sql.DataSource;
@@ -33,7 +31,7 @@ public class MainSliderDAOImpl extends GenericDaoImpl<MainSliderModel> implement
 
     @Override
     public List<MainSliderModel> getAll() {
-        String sql = MainSliderMapper.SELECT_ALL_SQL + " ORDER BY main_slider_id";
+        String sql = MainSliderMapper.SELECT_ALL_SQL + MainSliderMapper.ORDER_ID;
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().query(sql, new Object[]{}, mainSliderModelBaseObjectMapper);
         } else
@@ -47,7 +45,7 @@ public class MainSliderDAOImpl extends GenericDaoImpl<MainSliderModel> implement
 
     @Override
     public void updateAll(MainSliderModel slide) {
-        String sql = MainSliderMapper.EDIT_ALL_SQL + " WHERE main_slider_id = ?";
+        String sql = MainSliderMapper.EDIT_ALL_SQL + MainSliderMapper.WHERE_ID;
 
         this.getJdbcTemplate().update(sql, slide.getFilesName(), slide.getFilesType(), slide.getFilesData(),
                 slide.getButtonName(), slide.getButtonUrl(), slide.getCaptionHeader(), slide.getCaptionText(),
@@ -56,15 +54,15 @@ public class MainSliderDAOImpl extends GenericDaoImpl<MainSliderModel> implement
 
     @Override
     public void updateWithoutFile(MainSliderModel slide) {
-        String sql = MainSliderMapper.EDIT_WITHOUT_FILE_SQL + " WHERE main_slider_id = ?";
+        String sql = MainSliderMapper.EDIT_WITHOUT_FILE_SQL + MainSliderMapper.WHERE_ID;
 
-        this.getJdbcTemplate().update(sql, slide.getButtonName(), slide.getButtonUrl(), slide.getCaptionHeader(), slide.getCaptionText(),
-                slide.getSlideInterval(), slide.getMainSliderId());
+        this.getJdbcTemplate().update(sql, slide.getButtonName(), slide.getButtonUrl(), slide.getCaptionHeader(),
+                slide.getCaptionText(), slide.getSlideInterval(), slide.getMainSliderId());
     }
 
     @Override
     public void deleteById(Long mainSliderId) {
-        String sql = MainSliderMapper.DELETE_SQL + " WHERE main_slider_id = ?";
+        String sql = MainSliderMapper.DELETE_SQL + MainSliderMapper.WHERE_ID;
 
         this.getJdbcTemplate().update(sql, mainSliderId);
     }

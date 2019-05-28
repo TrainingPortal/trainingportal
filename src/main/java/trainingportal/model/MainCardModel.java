@@ -1,27 +1,21 @@
 package trainingportal.model;
 
-//@Entity
-//@Table(name = "main_cards")
 public class MainCardModel {
 
-//    @Id
-//    @GeneratedValue
-//    @Column(name = "main_card_id")
     private Long mainCardId;
-//    @Column(name = "files_name")
+
     private String filesName;
-//    @Column(name = "files_type")
+
     private String filesType;
-//    @Lob
-//    @Column(name = "files_data")
+
     private byte[] filesData;
-//    @Column(name = "card_title")
+
     private String cardTitle;
-//    @Column(name = "card_text")
+
     private String cardText;
-//    @Column(name = "button_name")
+
     private String buttonName;
-//    @Column (name = "card_url")
+
     private String cardUrl;
 
     private String filesDataString;
@@ -87,7 +81,6 @@ public class MainCardModel {
     public void setCardText(){
         this.cardTitle = cardText;
     }
-
 
     public String getButtonName(){
         return buttonName;

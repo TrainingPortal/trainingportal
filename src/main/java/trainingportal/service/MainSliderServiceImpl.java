@@ -9,7 +9,6 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
@@ -53,11 +52,6 @@ public class MainSliderServiceImpl implements MainSliderService {
     @Override
     public void deleteById(Long mainSliderId){
         mainSliderDao.deleteById(mainSliderId);
-    }
-
-    @Override
-    public int countAll(){
-        return mainSliderDao.countAll();
     }
 
     @Override

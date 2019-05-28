@@ -1,6 +1,5 @@
 package trainingportal.mapper;
 
-import org.springframework.jdbc.core.RowMapper;
 import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.MainSliderModel;
 
@@ -26,11 +25,14 @@ public class MainSliderMapper implements BaseObjectMapper<MainSliderModel> {
             = "UPDATE main_slider SET button_name = ?, button_url = ?, caption_header = ?, caption_text = ?, " +
             "slide_interval = ?";
 
-    public static final String COUNT_ALL_SQL
-            = "SELECT COUNT (*) FROM main_slider";
-
     public static final String DELETE_SQL
             = "DELETE FROM main_slider";
+
+    public static final String WHERE_ID
+            = " WHERE main_slider_id = ?";
+
+    public static final String ORDER_ID
+            = " ORDER BY main_slider_id";
 
 
 

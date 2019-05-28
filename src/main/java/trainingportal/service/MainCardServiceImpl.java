@@ -26,7 +26,8 @@ public class MainCardServiceImpl implements MainCardService {
         String fileType = file.getContentType();
         boolean message;
 
-        MainCardModel data = new MainCardModel(mainCardId, fileName, file.getContentType(), file.getBytes(), cardTitle, cardText, buttonName, cardUrl);
+        MainCardModel data = new MainCardModel(mainCardId, fileName, file.getContentType(), file.getBytes(), cardTitle,
+                cardText, buttonName, cardUrl);
 
         if(fileType.equals("image/jpeg") || fileType.equals("image/png") || fileType.equals("image/tiff")){
             mainCardDao.storeData(data);
@@ -52,13 +53,15 @@ public class MainCardServiceImpl implements MainCardService {
     }
 
     @Override
-    public boolean editById(Long mainCardId, MultipartFile file, String cardTitle, String cardText, String buttonName, String buttonUrl) throws IOException {
+    public boolean editById(Long mainCardId, MultipartFile file, String cardTitle, String cardText, String buttonName,
+                            String buttonUrl) throws IOException {
 
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         String fileType = file.getContentType();
         boolean message;
 
-        MainCardModel data = new MainCardModel(mainCardId, fileName, file.getContentType(), file.getBytes(), cardTitle, cardText, buttonName, buttonUrl);
+        MainCardModel data = new MainCardModel(mainCardId, fileName, file.getContentType(), file.getBytes(), cardTitle,
+                cardText, buttonName, buttonUrl);
 
         if(file.getContentType().equals("application/octet-stream")){
             mainCardDao.updateWithoutFile(data);

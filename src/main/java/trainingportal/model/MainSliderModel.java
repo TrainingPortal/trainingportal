@@ -1,23 +1,17 @@
 package trainingportal.model;
 
-//@Entity
-//@Table(name = "main_slider")
 public class MainSliderModel {
 
-//    @Id
-//    @GeneratedValue
-//    @Column(name = "main_slider_id")
     private Long mainSliderId;
-//    @Column(name = "files_name")
+
     private String filesName;
-//    @Column(name = "files_type")
+
     private String filesType;
-//    @Lob
-//    @Column(name = "files_data")
+
     private byte[] filesData;
-//    @Column(name = "button_name")
+
     private String buttonName;
-//    @Column (name = "button_url")
+
     private String buttonUrl;
 
     private String captionHeader;

@@ -23,24 +23,30 @@
             <a th:if="${#request.userPrincipal == null}" href="/registration" class="btn btn-success" role="button">REGISTRATION</a>
         </div>
     </div>
-</div>
-<!--end of card part-->
 
-<!--using Carousel For Courses with controls, need to understand how to easily add more courses(without hardcodding)-->
-<div class="container">
+    <!--end of card part-->
+
+    <!--using Carousel For Courses with controls, need to understand how to easily add more courses(without hardcodding)-->
+
     <div id="carouselForCourses" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#carouselForCourses" th:each="slider : ${sliderList}" th:data-slide-to="${sliderStat.index}" th:class="*{sliderStat.first} ? 'active' : ' '"></li>
+            <li data-target="#carouselForCourses" th:each="slider : ${sliderList}"
+                th:data-slide-to="${sliderStat.index}" th:class="*{sliderStat.first} ? 'active' : ' '"></li>
         </ol>
         <div class="carousel-inner">
-            <div class="carousel-item" th:each="slider : ${sliderList}" th:classappend="*{sliderStat.first} ? 'active' : ' '" th:data-interval="${slider.slideInterval * 1000}">
-                <img class="d-block mx-auto img-fluid" th:src="@{'data:image/jpeg;base64,'+${slider.filesDataString}}" th:alt="${slider.filesName}">
-                <div class="carousel-caption d-none d-md-block" th:if="${slider.captionHeader != null || slider.captionText != null}">
+            <div class="carousel-item" th:each="slider : ${sliderList}"
+                 th:classappend="*{sliderStat.first} ? 'active' : ' '"
+                 th:data-interval="${slider.slideInterval * 1000}">
+                <img class="d-block mx-auto img-fluid" th:src="@{'data:image/jpeg;base64,'+${slider.filesDataString}}"
+                     th:alt="${slider.filesName}">
+                <div class="carousel-caption d-none d-md-block"
+                     th:if="${slider.captionHeader != null || slider.captionText != null}">
                     <h3 th:text="${slider.captionHeader}"></h3>
                     <p th:text="${slider.captionText}"></p>
                 </div>
                 <div class="carousel-caption d-none d-md-block" th:if="${slider.buttonName != null}">
-                    <a th:href="@{${slider.buttonUrl}}" class="btn btn-info" role="button" th:text="${slider.buttonName}"></a>
+                    <a th:href="@{${slider.buttonUrl}}" class="btn btn-info" role="button"
+                       th:text="${slider.buttonName}"></a>
                 </div>
             </div>
         </div>
@@ -53,23 +59,22 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-</div>
 
-<div class="container">
+
     <h2 class="text-center">Our Teachers</h2>
-</div>
 
-<div class="container">
+
     <div class="card-columns">
         <div class="card" th:each="card : ${cardList}">
-            <img class="card-img-top" th:src="@{'data:image/jpeg;base64,'+${card.filesDataString}}" th:alt="${card.filesName}">
-            <div class="card-header">
+            <img class="card-img-top" th:src="@{'data:image/jpeg;base64,'+${card.filesDataString}}"
+                 th:alt="${card.filesName}">
+            <div class="card-header" th:if="${card.cardTitle != null}">
                 <h4 class="card-title" th:text="${card.cardTitle}"></h4>
             </div>
-            <div class="card-body">
+            <div class="card-body" th:if="${card.cardText != null}">
                 <p class="card-text" th:text="${card.cardText}"></p>
             </div>
-            <div class="card-footer">
+            <div class="card-footer" th:if="${card.buttonName != null}">
                 <a th:href="@{${card.cardUrl}}" class="btn btn-success stretched-link" th:text="${card.buttonName}"></a>
             </div>
         </div>
