@@ -42,14 +42,14 @@ public class InfoDeskServiceImpl implements InfoDeskService {
     }
 
     @Override
-    public List<InfoDesk> getAllAsPage(int page, int total) {
+    public List<InfoDesk> getAllAsPage(int page, int rowsPerPage) {
         if(page == 1){
             //do nothing
         } else {
-            page = (page - 1) * total + 1;
+            page = (page - 1) * rowsPerPage + 1;
         }
 
-        List<InfoDesk> infoDeskList = infoDeskDao.getAllAsPage(page, total);
+        List<InfoDesk> infoDeskList = infoDeskDao.getAllAsPage(page, rowsPerPage);
 
         return infoDeskList;
     }
@@ -60,7 +60,7 @@ public class InfoDeskServiceImpl implements InfoDeskService {
     }
 
     @Override
-    public int getPages(double total) {
-        return (int) Math.ceil(infoDeskDao.countAll() / total);
+    public int getPages(double rowsPerPage) {
+        return (int) Math.ceil(infoDeskDao.countAll() / rowsPerPage);
     }
 }

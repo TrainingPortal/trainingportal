@@ -21,7 +21,7 @@ import java.util.List;
 @Controller
 public class InfoDeskController {
 
-    private static final int ROWS_LIMIT = 10;
+    private static final int ROWS_PER_PAGE = 10;
     @Autowired
     private InfoDeskService infoDeskService;
     @Autowired
@@ -63,10 +63,10 @@ public class InfoDeskController {
         //  public ModelAndView openChatList(ModelAndView modelAndView){
 
 
-        List<InfoDesk> chatsList = infoDeskService.getAllAsPage(page, ROWS_LIMIT);
+        List<InfoDesk> chatsList = infoDeskService.getAllAsPage(page, ROWS_PER_PAGE);
 
         modelAndView.addObject("chatsList", chatsList);
-        modelAndView.addObject("pages", infoDeskService.getPages(ROWS_LIMIT));
+        modelAndView.addObject("pages", infoDeskService.getPages(ROWS_PER_PAGE));
         modelAndView.setViewName("infoDesk/show_InfoDesk");
         modelAndView.addObject("currentUrl", "show_InfoDesk");
 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Add period</title>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
+</head>
+
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<h1></h1>
+<div class="container-fluid">
+
+    <div class="row no-gutters ">
+        <div class="col">
+            <form action="#" method="post" th:action="@{desired_period-add}" th:object="${desiredPeriod}">
+                <input class="form-control" placeholder="Id" th:field="*{desiredPeriodId}" type="hidden"/>
+
+                <input class="form-control" placeholder="lessonId" th:field="*{userId}" type="number"/>
+                <p class="alert alert-danger" th:errors="*{userId}" th:if="${#fields.hasErrors('lessonId')}">
+                    Error, check lessonId field</p>
+
+                <input class="form-control" placeholder="materialDescription" th:field="*{groupId}"
+                       type="text"/>
+                <p class="alert alert-danger" th:errors="*{groupId}"
+                   th:if="${#fields.hasErrors('materialDescription')}">
+                    Error, check materialDescription field</p>
+
+                <input class="btn btn-success" type="submit" value="Save material"/>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

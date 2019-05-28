@@ -7,7 +7,7 @@ import trainingportal.model.Course;
 import java.util.List;
 
 public interface ChatDao extends GenericDao<Chat> {
-    List<Chat> getAllAsPage(int page, int total);
+    List<Chat> getAllAsPage(int page, int rowsPerPage);
     int countAll();
     String getChatNameById(Long chatId);
 }

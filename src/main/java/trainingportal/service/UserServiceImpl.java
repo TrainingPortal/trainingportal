@@ -134,30 +134,30 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
     }
 
     @Override
-    public List<User> getAllByRoleAsPage(int page, int total, Long roleId) {
+    public List<User> getAllByRoleAsPage(int page, int rowsPerPage, Long roleId) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page,rowsPerPage);
 
-        return userDao.getAllByRoleAsPage(page, total, roleId);
+        return userDao.getAllByRoleAsPage(page, rowsPerPage, roleId);
     }
 
     @Override
-    public List<User> getSubordinatesByIdAsPage(int page, int total, Long id) {
+    public List<User> getSubordinatesByIdAsPage(int page, int rowsPerPage, Long id) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page,rowsPerPage);
 
-        return subordinateDAO.getSubordinatesByIdAsPage(page, total, id);
+        return subordinateDAO.getSubordinatesByIdAsPage(page, rowsPerPage, id);
     }
 
     @Override
-    public List<User> getFreeUsersAsPage(int page, int total) {
+    public List<User> getFreeUsersAsPage(int page, int rowsPerPage) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page,rowsPerPage);
 
-        return subordinateDAO.getFreeUsersAsPage(page, total);
+        return subordinateDAO.getFreeUsersAsPage(page, rowsPerPage);
     }
 
     @Override
@@ -176,36 +176,36 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
     }
 
     @Override
-    public int getPagesByRole(Long id, double total) {
-        return (int) Math.ceil(userDao.countAllByRole(id) / total);
+    public int getPagesByRole(Long id, double rowsPerPage) {
+        return (int) Math.ceil(userDao.countAllByRole(id) / rowsPerPage);
     }
 
     @Override
-    public int getPagesByManager(Long id, double total) {
-        return (int) Math.ceil(subordinateDAO.countAllByManager(id) / total);
+    public int getPagesByManager(Long id, double rowsPerPage) {
+        return (int) Math.ceil(subordinateDAO.countAllByManager(id) / rowsPerPage);
     }
 
     @Override
-    public int getFreeUsersPages(double total) {
-        return (int) Math.ceil(subordinateDAO.countFreeUsers() / total);
+    public int getFreeUsersPages(double rowsPerPage) {
+        return (int) Math.ceil(subordinateDAO.countFreeUsers() / rowsPerPage);
     }
 
     @Override
-    public List<User> searchByRole(Long id, String request, int page, int total) {
+    public List<User> searchByRole(Long id, String request, int page, int rowsPerPage) {
 
         if(request.equals("")) {
             return Collections.emptyList();
         }
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page,rowsPerPage);
 
-        return userDao.searchByRole(id, request, page, total);
+        return userDao.searchByRole(id, request, page, rowsPerPage);
     }
 
     @Override
-    public int getSearchPagesByRole(Long id, double total, String request) {
-        return (int) Math.ceil(userDao.countSearchPagesByRole(id, request) / total);
+    public int getSearchPagesByRole(Long id, double rowsPerPage, String request) {
+        return (int) Math.ceil(userDao.countSearchPagesByRole(id, request) / rowsPerPage);
     }
 
     @Override
@@ -214,17 +214,17 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
     }
 
     @Override
-    public List<User> getUsersByGroupIdAsPage(int page, int total, Long groupId) {
+    public List<User> getUsersByGroupIdAsPage(int page, int rowsPerPage, Long groupId) {
 
-        page = getPageNumber(page,total);
+        page = getPageNumber(page,rowsPerPage);
 
-        return userDao.getUsersByGroupIdAsPage(page, total, groupId);
+        return userDao.getUsersByGroupIdAsPage(page, rowsPerPage, groupId);
     }
 
     @Override
-    public int getPagesAmountOfUsersByGroupId(Long groupId, double total) {
+    public int getPagesAmountOfUsersByGroupId(Long groupId, double rowsPerPage) {
 
-        return (int) Math.ceil(userDao.countUsersByGroupId(groupId) / total);
+        return (int) Math.ceil(userDao.countUsersByGroupId(groupId) / rowsPerPage);
     }
 
     @Override
@@ -235,7 +235,7 @@ public class UserServiceImpl extends GenericServiceImpl<User> implements UserSer
         }
         for(Long userId : userIds){
             userGroupDao.setUsersToGroup(groupId, userId);
-            userDao.deleteFromDesiredPeriodByUserId(userId);
+            userDao.disableDesiredPeriodByUserId(userId);
         }
         return "Users were added: " + userIds.length + "." ;
     }

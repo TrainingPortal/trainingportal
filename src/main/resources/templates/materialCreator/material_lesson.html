@@ -14,13 +14,6 @@
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
 
-<!--<div th:if="${lessonsOfCourse.size() == 0}">-->
-<!--    <p th:text="${courseLesson.courseName} + 'Curse has no Lessons'"></p>-->
-<!--</div>-->
-<!--<div th:unless="${lessonsOfCourse.size() == 0}">-->
-<!--    <table class="table pt-0 mt-0 table-fit table-sm table-hover">-->
-<!--        <caption th:text="'Lessons of ' + ${courseLesson.courseName}"></caption>-->
-
 <div class="container-fluid">
     <h2>Material List</h2>
 
@@ -40,8 +33,6 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <!--            <th scope="row">material Id</th>-->
-            <!--            <th scope="row">lesson Id</th>-->
             <th scope="row">material Description</th>
 
 
@@ -49,8 +40,6 @@
         </thead>
         <tbody>
         <tr th:each="material, iter : ${materialListOfLesson}">
-            <!--            <td th:text="${material.materialId}"></td>-->
-            <!--            <td th:text="${material.lessonId}"></td>-->
             <td th:text="${material.materialDescription}"></td>
             <td>
                 <div class="btn-group">

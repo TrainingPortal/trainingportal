@@ -36,12 +36,12 @@ public class ScheduleServiceImpl extends GenericServiceImpl<Schedule> implements
     }
 
     @Override
-    public List<Schedule> getAllAsPageByGroupId(Long scheduleGroupId, int page, int total) {
+    public List<Schedule> getAllAsPageByGroupId(Long scheduleGroupId, int page, int rowsPerPage) {
 
         //get page number in GENERIC SERVICE implementation class
-        page = getPageNumber(page,total);
+        page = getPageNumber(page,rowsPerPage);
 
-        return scheduleDao.getAllAsPageByGroupId(scheduleGroupId,page,total);
+        return scheduleDao.getAllAsPageByGroupId(scheduleGroupId,page,rowsPerPage);
     }
 
     @Override
@@ -50,8 +50,8 @@ public class ScheduleServiceImpl extends GenericServiceImpl<Schedule> implements
     }
 
     @Override
-    public int getPages(Long scheduleId, double total) {
-        return (int) Math.ceil(scheduleDao.countAllByGroupId(scheduleId)/total);
+    public int getPages(Long scheduleId, double rowsPerPage) {
+        return (int) Math.ceil(scheduleDao.countAllByGroupId(scheduleId)/rowsPerPage);
     }
 
     @Override

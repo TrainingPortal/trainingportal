@@ -146,7 +146,7 @@
             <scope>runtime</scope>
         </dependency>
 
-<!--FOR NOTIFICATION-->
+        <!--FOR NOTIFICATION-->
         <dependency>
             <groupId>org.webjars</groupId>
             <artifactId>webjars-locator-core</artifactId>
@@ -182,6 +182,7 @@
             <scope>runtime</scope>
         </dependency>
 <!---->
+        <!---->
 
     </dependencies>
 

@@ -13,7 +13,7 @@ function setConnected(connected) {
 }
 
 function connect() {
-    var socket = new SockJS('/gs-guide-websocket');
+    var socket = new SockJS('/ws');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         setConnected(true);
@@ -33,7 +33,7 @@ function disconnect() {
 }
 
 function sendName() {
-    stompClient.send("/js/app/hello", {}, ( $("#notificationMessage").val() ) );
+    stompClient.send("/app/hello", {}, ( $("#notificationMessage").val() ) );
 }
 
 function showGreeting(message) {

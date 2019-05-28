@@ -35,16 +35,16 @@
             <td th:text="${trainer.userName}"></td>
             <td th:text="${trainer.email}"></td>
             <td>
-                <a th:href="@{/trainer-{id}(id=${trainer.userId})}" class="btn btn-primary">Show</a>
+                <a th:href="@{/profile_page/{id}(id=${trainer.userId})}" class="btn btn-primary">Show</a>
                 <a th:href="@{/trainer-update-{id}(id=${trainer.userId})}" class="btn btn-primary">Update</a>
-                <a th:href="@{/trainer-delete-{id}(id=${trainer.userId})}" class="btn btn-danger">Delete</a>
+                <!--<a th:href="@{/trainer-delete-{id}(id=${trainer.userId})}" class="btn btn-danger">Delete</a>-->
             </td>
         </tr>
     </table>
     <div th:replace="frontend/pagination :: pagination"></div>
 </div>
 <a th:href="@{/trainer-add}" class="btn btn-info">Add trainer</a>
-<a th:href="@{/trainers-delete-all}" class="btn btn-danger">Delete all trainers</a>
+<!--<a th:href="@{/trainers-delete-all}" class="btn btn-danger">Delete all trainers</a>-->
 <!--href="/Users/mrlova/IdeaProjects/trainingportal/allTrainers.xlsx" download="allTrainers.xlsx"-->
 </body>
 </html>

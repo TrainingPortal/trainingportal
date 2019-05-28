@@ -8,7 +8,6 @@
     <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
     <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
     <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
-<!--    <title>Lesson material list</title>-->
 </head>
 
 <body>
@@ -27,32 +26,30 @@
     <table class="table table-striped">
         <thead>
         <tr>
-            <th scope="row">id</th>
             <th scope="row">Name of day</th>
             <th scope="row">time for the first days</th>
             <th scope="row">time for the second days</th>
-            <th scope="row">perid id</th>
 
 
         </tr>
         </thead>
         <tbody>
         <tr th:each="weekday, iter : ${weekdayListOfPeriod}">
-            <td th:text="${weekday.weekdayId}"></td>
+
             <td th:text="${weekday.dayName}"></td>
             <td th:text="${weekday.timeStart}"></td>
             <td th:text="${weekday.timeEnd}"></td>
-            <td th:text="${weekday.periodId}"></td>
+
             <td>
                 <div class="btn-group">
-                  
+
                     <a class="btn btn-info" th:href="@{/edit-weekday-{weekdayId}-{id}
                     (weekdayId = ${weekday.weekdayId}, id = ${weekday.periodId}) }">Edit</a>
-
 
                     <a class="btn btn-dark" th:href="@{/weekday-delete-by/{weekdayId}/{id}
                      (weekdayId = ${weekday.weekdayId}, id = ${weekday.periodId}) }">Delete</a>
                 </div>
+
             </td>
         </tr>
         </tbody>

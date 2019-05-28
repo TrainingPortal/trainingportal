@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service("weekdayService")
 @Transactional
-public class WeekdayServiceImpl implements WeekdayService{
+public class WeekdayServiceImpl implements WeekdayService {
 
     @Autowired
     private WeekdayDaoImpl WeekdayDao;
@@ -72,7 +72,7 @@ public class WeekdayServiceImpl implements WeekdayService{
     @Override
     public List<Weekday> getAllAsPageByPeriodId(Long periodId, int page, int total) {
 
-        if(page == 1){
+        if (page == 1) {
             //do nothing
         } else {
             page = (page - 1) * total + 1;

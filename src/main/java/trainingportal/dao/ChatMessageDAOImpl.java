@@ -55,7 +55,7 @@ public class ChatMessageDAOImpl extends JdbcDaoSupport implements ChatMessageDAO
     }
 
     @Override
-    public List<ChatMessage> getAllAsPage(int page, int total) {
+    public List<ChatMessage> getAllAsPage(int page, int rowsPerPage) {
         return null;
     }
 

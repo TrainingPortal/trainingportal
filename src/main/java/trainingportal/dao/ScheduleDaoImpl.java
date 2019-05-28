@@ -43,9 +43,9 @@ public class ScheduleDaoImpl extends GenericDaoImpl<Schedule> implements Schedul
     }
 
     @Override
-    public List<Schedule> getAllAsPageByGroupId(Long scheduleGroupId, int page, int total) {
+    public List<Schedule> getAllAsPageByGroupId(Long scheduleGroupId, int page, int rowsPerPage) {
         String sql = ScheduleMapper.SELECT_SQL + " WHERE GROUP_ID = ? " +
-                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + total + " ROWS ONLY";
+                "OFFSET " + (page - 1) + " ROWS FETCH NEXT " + rowsPerPage + " ROWS ONLY";
 
         if (this.getJdbcTemplate() != null) {
             return this.getJdbcTemplate().query(sql, new Object[]{scheduleGroupId}, scheduleBaseObjectMapper);

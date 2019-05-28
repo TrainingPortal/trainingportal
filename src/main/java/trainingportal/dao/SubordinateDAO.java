@@ -14,9 +14,9 @@ public interface SubordinateDAO {
 
     void setManagerId(Long managerId, Long userId);
 
-    List<User> getSubordinatesByIdAsPage(int page, int total, Long id);
+    List<User> getSubordinatesByIdAsPage(int page, int rowsPerPage, Long id);
 
-    List<User> getFreeUsersAsPage(int page, int total);
+    List<User> getFreeUsersAsPage(int page, int rowsPerPage);
 
     int countAllByManager(Long id);
 
