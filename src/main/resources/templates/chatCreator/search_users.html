@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Search users</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}"/>
+    <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}"/>
+    <link type="text/css" rel="stylesheet" href="/../css/custom.css" th:href="@{css/custom.css}"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:insert="frontend/navbar :: nav"></div>
+
+<div class="py-0 my-0 pl-3 bg-primary text-white">
+    <h1 class="my-0 py-0">Search users</h1>
+</div>
+
+<input class="form-control" id="myInput" type="text" placeholder="Search..">
+
+<div style="margin-bottom: 0;" th:if="${successMessage}"
+     class="alert alert-success" role="alert"
+     th:text="${successMessage}">
+</div>
+
+
+<div th:if="${users.size() == 0}">
+    <p>There are no free users</p>
+</div>
+
+<div th:unless="${users.size() == 0}">
+        <table class="table pt-0 mt-0 table-fit table-sm table-hover">
+            <thead class="">
+            <tr>
+                <th style="width: 40%">Name</th>
+                <th style="width: 50%">Email</th>
+                <th style="width: 10%">Chat</th>
+            </tr>
+            </thead>
+            <tbody id="myTable">
+            <tr th:each="user, iter : ${users}">
+                <td th:text="${user.userName}"></td>
+                <td th:text="${user.email}"></td>
+                <td>
+                    <a class="btn btn-info" th:href="@{/open-personal-chat/{receiverId}
+                       (receiverId = ${user.userId}) }"  name="userId" >Send message</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </form>
+</div><br>
+
+
+<script>
+    $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+            var value = $(this).val().toLowerCase();
+            $("#myTable tr").filter(function() {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

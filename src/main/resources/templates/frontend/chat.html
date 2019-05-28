@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <title>FORUM</title>
+    <title>Chat room</title>
     <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
     <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" />
     <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}" />
@@ -26,7 +26,6 @@
                 <p placeholder="id" id="id" th:text="${id}" class = "hidden"></p>
                 <p placeholder="id" id="chatId" th:text="${chatId}" class = "hidden"></p>
 
-<!--                <input type="text" id="name" placeholder="Username" autocomplete="off" class="form-control" />-->
             </div>
             <div class="form-group">
                 <button type="submit" class="accent username-submit">Start Chatting</button>
@@ -35,7 +34,7 @@
     </div>
 </div>
 
-<div id="chat-page" class="hidden">
+<div id="chat-page">
     <div class="chat-container">
         <div class="chat-header">
             <h2 th:text="${chatName}"></h2>
@@ -43,6 +42,7 @@
         <div class="connecting">
             Connecting...
         </div>
+        <a href="#" id="chatScrollBottom"><span></span></a>
         <ul id="messageArea"  >
 
 
@@ -54,26 +54,6 @@
                 <p th:text="${message.message}"></p>
             </li>
 
-
-
-
-
-<!--            <table class="table table-striped">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th scope="row">message Id</th>-->
-<!--                    <th scope="row">message</th>-->
-
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-
-<!--                <tr th:each="message, iter : ${messagesFromChat}">-->
-<!--                    <td th:text="${message.id}"></td>-->
-<!--                    <td th:text="${message.message}"></td>-->
-<!--                </tr>-->
-<!--                </tbody>-->
-<!--            </table>-->
 
 
 

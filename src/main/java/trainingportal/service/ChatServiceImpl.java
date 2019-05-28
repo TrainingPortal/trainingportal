@@ -65,8 +65,43 @@ public class ChatServiceImpl implements ChatService {
         return (int) Math.ceil(chatDao.countAll() / rowsPerPage);
     }
 
+
+
     @Override
     public String getChatNameById(Long chatId) {
         return chatDao.getChatNameById(chatId);
     }
+
+    @Override
+    public void saveGroupChat(Chat chat) {
+        chatDao.saveGroupChat(chat);
+    }
+
+    @Override
+    public Long getChatByGroupId(Long groupId) {
+
+        return  chatDao.getChatByGroupId(groupId);
+    }
+
+    @Override
+    public boolean ifChatExistsByUsersId(Long senderId, Long receiverId) {
+       return chatDao.ifChatExistsByUsersId(senderId,receiverId);
+    }
+
+    @Override
+    public Chat findChatByName(String chatName) {
+        return chatDao.findChatByName(chatName);
+    }
+
+    @Override
+    public Chat findChatByUsersId(Long senderId, Long receiverId) {
+        return chatDao.findChatIdByUsersId(senderId,receiverId);
+    }
+
+    @Override
+    public List<Chat> findAllPersonalChatsByUserId(Long userId) {
+        return chatDao.findAllPersonalChatsByUserId(userId);
+    }
+
+
 }

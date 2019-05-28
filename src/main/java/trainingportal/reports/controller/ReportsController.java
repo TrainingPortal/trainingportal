@@ -11,7 +11,6 @@ import trainingportal.model.AttendanceType;
 import trainingportal.model.Course;
 import trainingportal.model.Role;
 import trainingportal.model.User;
-import trainingportal.reports.dao.exception.DataDaoExceptions;
 import trainingportal.reports.download.Loader;
 import trainingportal.reports.service.Filter;
 import trainingportal.reports.service.ReportsCreate;
