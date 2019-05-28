@@ -1,3 +1,32 @@
+--CASCADE Drop;
+-- drop table Users CASCADE CONSTRAINTS;
+-- drop table Roles CASCADE CONSTRAINTS;
+-- drop table Course CASCADE CONSTRAINTS;
+-- drop table FeedBack CASCADE CONSTRAINTS;
+-- drop table Info_Desk CASCADE CONSTRAINTS;
+-- drop table Chat CASCADE CONSTRAINTS;
+-- drop table Material CASCADE CONSTRAINTS;
+-- drop table Task CASCADE CONSTRAINTS;
+-- drop table Homework CASCADE CONSTRAINTS;
+-- drop table Attendance CASCADE CONSTRAINTS;
+-- drop table Attendance_Type CASCADE CONSTRAINTS;
+-- drop table Question_Status CASCADE CONSTRAINTS;
+-- drop table Chat_Message CASCADE CONSTRAINTS;
+-- drop table Notification CASCADE CONSTRAINTS;
+-- drop table Groups CASCADE CONSTRAINTS;
+-- drop table Schedule CASCADE CONSTRAINTS;
+-- drop table Lesson CASCADE CONSTRAINTS;
+-- drop table User_Group CASCADE CONSTRAINTS;
+-- drop TABLE User_Chat CASCADE CONSTRAINTS;
+-- drop TABLE Weekday CASCADE CONSTRAINTS;
+-- drop TABLE Notification_Status CASCADE CONSTRAINTS;
+-- drop TABLE Desired_Period_Status CASCADE CONSTRAINTS;
+-- drop TABLE Desired_Period CASCADE CONSTRAINTS;
+-- drop TABLE Group_Status CASCADE CONSTRAINTS;
+-- drop TABLE Course_Status CASCADE CONSTRAINTS;
+-- drop table main_slider CASCADE CONSTRAINTS;
+-- DROP TABLE main_cards CASCADE CONSTRAINTS;
+
 drop table Users;
 drop table Roles;
 drop table Course;
@@ -39,64 +68,63 @@ CREATE TABLE Users
 );
 
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('adminBoss', 'boss@gmail.com', 'password123', 1, 1);
+VALUES ('adminBoss', 'boss@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 1);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Vova', 'vova1@gmail.com', 'password123', 1, 3);
+VALUES ('Vova', 'vova1@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Kiril', 'kir45@gmail.com', 'password123', 1, 3);
+VALUES ('Kiril', 'kir45@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Alina', 'alin01@gmail.com', 'password123', 1, 3);
+VALUES ('Alina', 'alin01@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Maxim', 'notBurba@gmail.com', 'password123', 1, 3);
+VALUES ('Maxim', 'notBurba@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Anna', 'anni7a@gmail.com', 'password123', 1, 3);
+VALUES ('Anna', 'anni7a@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Semen', 'se7man@gmail.com', 'password123', 1, 3);
+VALUES ('Semen', 'se7man@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Roma', 'roman4kin@gmail.com', 'password123', 1, 3);
+VALUES ('Roma', 'roman4kin@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Margarita', 'margo44@gmail.com', 'password123', 1, 3);
+VALUES ('Margarita', 'margo44@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 3);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Den', 'den0102@gmail.com', 'password123', 1, 4);
+VALUES ('Den', 'den0102@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Vlad', 'vlados09@gmail.com', 'password123', 1, 4);
+VALUES ('Vlad', 'vlados09@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Roma', 'r8ma@gmail.com', 'password123', 1, 4);
+VALUES ('Roma', 'r8ma@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Masha', 'mariii@gmail.com', 'password123', 1, 4);
+VALUES ('Masha', 'mariii@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Ksenia', 'ks@gmail.com', 'password123', 1, 4);
+VALUES ('Ksenia', 'ks@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Sasha', 'alex001@gmail.com', 'password123', 1, 4);
+VALUES ('Sasha', 'alex001@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Denis', 'di8@gmail.com', 'password123', 1, 4);
+VALUES ('Denis', 'di8@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Boris', 'bori@gmail.com', 'password123', 1, 4);
+VALUES ('Boris', 'bori@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Karina', 'kar7@gmail.com', 'password123', 1, 4);
+VALUES ('Karina', 'kar7@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id)
-VALUES ('Vova', 'vii@gmail.com', 'password123', 1, 4);
+VALUES ('Vova', 'vii@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 4);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('Alex', 'alex@gmail.com', 'password123', 1, 2, 10);
+VALUES ('Alex', 'alex@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 2, 10);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('Ben', 'beno@gmail.com', 'password123', 1, 2, 10);
+VALUES ('Ben', 'beno@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 2, 10);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('Natali', 'nati@gmail.com', 'password123', 1, 2, 11);
+VALUES ('Natali', 'nati@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 2, 11);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('Dasha', 'di@gmail.com', 'password123', 1, 2, 11);
+VALUES ('Dasha', 'di@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 2, 11);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('Diana', 'di2na@gmail.com', 'password123', 1, 2, 11);
+VALUES ('Diana', 'di2na@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 2, 11);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('Pasha', 'paul@gmail.com', 'password123', 1, 2, 12);
+VALUES ('Pasha', 'paul@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 2, 12);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('Oleg', 'oleg@gmail.com', 'password123', 1, 2, 13);
+VALUES ('Oleg', 'oleg@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 2, 13);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('Oli', 'olii@gmail.com', 'password123', 1, 2, 13);
+VALUES ('Oli', 'olii@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 2, 13);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('Vlad', 'vl@gmail.com', 'password123', 1, 2, 15);
+VALUES ('Vlad', 'vl@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 2, 15);
 INSERT INTO users(name, email, password, enabled, role_Id, manager_Id)
-VALUES ('Lena', 'li4@gmail.com', 'password123', 1, 2, 17);
-
+VALUES ('Lena', 'li4@gmail.com', '$2a$10$/vM40N/tobkFPHT1Q1BZYO30drubr2TifmQnCdW80paSZbCBH4pti', 1, 2, 17);
 
 
 CREATE TABLE roles
@@ -141,9 +169,9 @@ VALUES ('Spanish From Native Speakers', 'B1', 1, 5, 30, 'very good course', 6);
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
 VALUES ('English Business Language', 'C1', 1, 5, 30, 'very good course', 6);
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Franch From Native Speakers', 'B2', 1, 5, 30, 'very good course', 6);
+VALUES ('French From Native Speakers', 'B2', 1, 5, 30, 'very good course', 6);
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Franch Business Language', 'B2', 1, 5, 30, 'very good course', 6);
+VALUES ('French Business Language', 'B2', 1, 5, 30, 'very good course', 6);
 
 CREATE TABLE User_Group
 (
@@ -202,23 +230,23 @@ CREATE TABLE Lesson
 );
 
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Basic English grammar-1', 'Countable & Uncountable nouns 1', 60, 1, 1);
+values ('Basic English grammar-1', 'Countable  Uncountable nouns 1', 60, 1, 1);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
 values ('Basic English grammar-2', 'Past Continuous and Past Simple', 60, 1, 2);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Basic English grammar-3', 'Question forms & subject/object questions', 60, 1, 3);
+values ('Basic English grammar-3', 'Question forms  subject, object questions', 60, 1, 3);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Basic English grammar-4', 'Verbs followed by ing or by to + infinitive', 60, 1, 4);
+values ('Basic English grammar-4', 'Verbs followed by ing or by to  infinitive', 60, 1, 4);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
 values ('Basic English grammar-5', 'very helpful description', 60, 1, 5);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Basic English grammar-6', 'Adjectives (gradable / non-gradable)', 60, 1, 6);
+values ('Basic English grammar-6', 'Adjectives (gradable  non-gradable)', 60, 1, 6);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
 values ('Basic English grammar-7', 'British English and American English', 60, 1, 7);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Basic English grammar-8', 'Future continuous & Future perfect', 60, 1, 8);
+values ('Basic English grammar-8', 'Future continuous  Future perfect', 60, 1, 8);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Basic English grammar-9', 'in spite of / despite / although', 60, 1, 9);
+values ('Basic English grammar-9', 'in spite of , despite , although', 60, 1, 9);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
 values ('Lesson-10', 'Just, yet, still, already', 60, 1, 10);
 
@@ -229,19 +257,20 @@ values ('Intermediate English grammar-2', 'Verbs & Prepositions', 60, 2, 2);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
 values ('Intermediate English grammar-3', 'Words that are often confused', 60, 2, 3);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Intermediate English grammar-4', 'Relative clauses – defining relative clauses', 60, 2, 4);
+values ('Intermediate English grammar-4', 'Relative clauses - defining relative clauses', 60, 2, 4);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Intermediate English grammar-5', 'Relative clauses – defining relative clauses', 60, 2, 5);
+values ('Intermediate English grammar-5', 'Relative clauses - defining relative clauses', 60, 2, 5);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Intermediate English grammar-6', 'Relative clauses – defining relative clauses', 60, 2, 6);
+values ('Intermediate English grammar-6', 'Relative clauses - defining relative clauses', 60, 2, 6);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Intermediate English grammar-7', 'Relative clauses – defining relative clauses', 60, 2, 7);
+values ('Intermediate English grammar-7', 'Relative clauses - defining relative clauses', 60, 2, 7);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
-values ('Intermediate English grammar-8', 'Relative clauses – defining relative clauses', 60, 2, 8);
+values ('Intermediate English grammar-8', 'Relative clauses - defining relative clauses', 60, 2, 8);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
 values ('Intermediate English grammar-9', 'Predicting the Future', 60, 2, 9);
 INSERT INTO Lesson (lesson_name, lesson_description, lesson_duration, course_id, lesson_number)
 values ('Intermediate English grammar-10', 'Reflexive pronouns', 60, 2, 10);
+
 CREATE TABLE Homework
 (
     homework_id            NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
@@ -443,20 +472,21 @@ CREATE TABLE Info_Desk
 (
     id          NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
     emp_id      NUMBER,
-    description VARCHAR2(4000),
+    question VARCHAR2(4000),
+    answer VARCHAR2(4000),
     status_id   NUMBER
 );
 
-INSERT INTO Info_Desk (emp_id, description, status_id)
+INSERT INTO Info_Desk (emp_id, question, status_id)
 values (21, 'Dear Admin, how does it work?', 1);
-INSERT INTO Info_Desk (emp_id, description, status_id)
+INSERT INTO Info_Desk (emp_id, question, status_id)
 values (21, 'Dear Admin, who is my Manager?', 2);
-INSERT INTO Info_Desk (emp_id, description, status_id)
+INSERT INTO Info_Desk (emp_id, question, status_id)
 values (21, 'Dear Admin, why is my Manager so angry?', 3);
-INSERT INTO Info_Desk (emp_id, description, status_id)
-values (21, 'Where am i?', 4);
-INSERT INTO Info_Desk (emp_id, description, status_id)
-values (21, 'Where is my money, Jhonny???', 5);
+INSERT INTO Info_Desk (emp_id, question, answer,status_id)
+values (22, 'Where am i?','here', 4);
+INSERT INTO Info_Desk (emp_id, question, answer,status_id)
+values (22, 'Where is my money, Johnny ???', 'i am Lebowski',5);
 
 CREATE TABLE Question_Status
 (
@@ -605,7 +635,7 @@ INSERT INTO desired_period (user_id, course_id, status_id)
 values (23, 4, 1);
 INSERT INTO desired_period (user_id, course_id, status_id)
 values (24, 5, 1);
-INSERT INTO desired_period(course_id, user_id, status_id)
+INSERT INTO desired_period(user_id, course_id, status_id)
 VALUES (25, 6, 1);
 INSERT INTO desired_period (user_id, course_id, status_id)
 VALUES (26,7,1);
@@ -613,8 +643,7 @@ INSERT INTO desired_period (user_id, course_id, status_id)
 VALUES (27,8,1);
 INSERT INTO desired_period (user_id, course_id, status_id)
 VALUES (28,9,1);
-INSERT INTO desired_period (user_id, course_id, status_id)
-VALUES (29,10,1);
+
 
 CREATE TABLE Weekday
 (
@@ -686,17 +715,12 @@ CREATE TABLE main_slider
     files_type     VARCHAR2(10 CHAR),
     files_data     BLOB,
     button_name    VARCHAR2(50 CHAR),
-    button_url     VARCHAR2(100 CHAR)
+    button_url     VARCHAR2(100 CHAR),
+    caption_header VARCHAR2(100 CHAR),
+    caption_text VARCHAR2(100 CHAR),
+    slide_interval NUMBER
 );
 
-alter table main_slider
-add caption_header VARCHAR2(100);
-
-alter table main_slider
-add caption_text VARCHAR2(100);
-
-alter table main_slider
-add slide_interval NUMBER;
 
 COMMIT;
 
@@ -767,48 +791,6 @@ alter table Chat_Message
 
 
 --create dependencies
-alter table users
-    add constraint user_fr_manager FOREIGN KEY (manager_Id) references users (user_Id);
-alter table users
-    ADD constraint users_fk_roles FOREIGN KEY (role_Id) references roles (role_Id);
-alter table Notification
-    ADD constraint ntfk_fk_user FOREIGN KEY (user_id) references users (user_Id);
-alter table Notification
-    add constraint ntfk_fk_status FOREIGN KEY (status_id) references Notification_Status (id);
-alter table chat
-    add constraint chat_fk_group FOREIGN KEY (group_id) references groups (id);
-alter table Info_Desk
-    add constraint idesk_emp_fk_user FOREIGN KEY (emp_id) references users (user_Id);
-alter table Info_Desk
-    add constraint idesk_fk_qstatus FOREIGN KEY (status_id) references Question_Status (id);
-alter table Feedback
-    add constraint fdbk_tr_fk_user FOREIGN KEY (trainer_id) references users (user_Id);
-alter table Feedback
-    add constraint fdbk_fk_cource FOREIGN KEY (course_id) references course (course_id);
-alter table Feedback
-    add constraint fdbk_emp_fk_user FOREIGN KEY (employee_id) references users (user_Id);
-alter table User_Group
-    add constraint ugroup_fk_user FOREIGN KEY (user_id) references users (user_Id);
-alter table User_Group
-    add constraint ugroup_fk_group FOREIGN KEY (group_id) references Groups (id);
-alter table Groups
-    add constraint group_fk_course FOREIGN KEY (course_id) references Course (course_id);
-alter table Groups
-    add constraint group_fr_status FOREIGN KEY (status_id) references Group_Status (id);
-alter table User_Chat
-    add constraint uchat_fk_user FOREIGN KEY (user_id) references users (user_Id);
-alter table User_Chat
-    add constraint uchat_fk_chat FOREIGN KEY (chat_id) references Chat (id);
-alter table Attendance
-    add constraint atten_fk_user FOREIGN KEY (user_id) references users (user_Id);
-alter table Attendance
-    add constraint atten_fk_schedule FOREIGN KEY (schedule_id) references Schedule (id);
-alter table Attendance
-    add constraint atten_fk_type FOREIGN KEY (type_id) references Attendance_Type (id);
-alter table Schedule
-    add constraint schedule_fk_group FOREIGN KEY (group_id) references Groups (id);
-alter table Schedule
-    add constraint schedule_fk_lesson FOREIGN KEY (lesson_id) references Lesson (lesson_id);
 alter table users add constraint user_fr_manager FOREIGN KEY(manager_Id) references users (user_Id);
 alter table users ADD constraint users_fk_roles FOREIGN KEY(role_Id) references roles (role_Id);
 alter table Notification ADD constraint ntfk_fk_user FOREIGN KEY (user_id) references users (user_Id);
