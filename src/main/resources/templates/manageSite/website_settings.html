@@ -2,28 +2,48 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Website Settings</title>
-    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
-    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
-    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
-    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
-    <link href="/../css/custom.css" rel="stylesheet" th:href="@{css/custom.css}" type="text/css"/>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <body>
 <div th:insert="frontend/navbar :: nav"></div>
 
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <a class="btn btn-outline-light text-dark btn-block" th:href="@{/manage_main_slider}">Manage main slider</a>
+<div class="container-fluid">
+    <br>
+    <div class="card-deck">
+        <div class="card border-info shadow p-3 mb-5 bg-white rounded">
+            <a class="btn" href="manage_main_slider">
+                <h4 class="card-header text-info">Main slider settings</h4>
+                <div class="card-body">
+                    <p class="card-text">Add/Edit/Delete images, buttons and references for the slider on main page.</p>
+                </div>
+            </a>
         </div>
-        <div class="col">
-            <a class="btn btn-outline-light text-dark btn-block" th:href="@{/manage_main_card}">Manage main card</a>
+        <div class="card border-info shadow p-3 mb-5 bg-white rounded">
+            <a class="btn" href="manage_main_card">
+                <h4 class="card-header text-info">Main card settings</h4>
+                <div class="card-body">
+                    <p class="card-text">Add/Edit/Delete photos, titles and descriptions of cards on the main page
+                        that displays information about teachers.</p>
+                </div>
+            </a>
         </div>
     </div>
 </div>
 
 
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

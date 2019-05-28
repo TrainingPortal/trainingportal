@@ -127,15 +127,23 @@ CREATE TABLE Course
 );
 
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Amazing English', 'B2', 1, 5, 30, 'very good course', 2);
+VALUES ('English For Child', 'B2', 1, 5, 30, 'very good course', 2);
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Good English', 'B2', 1, 5, 30, 'very good course', 3);
+VALUES ('English For Programmers', 'C1', 1, 5, 30, 'very good course', 3);
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Very good English', 'B2', 1, 5, 30, 'very good course', 4);
+VALUES ('Spanish For Everyone', 'A2', 1, 5, 30, 'very good course', 4);
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Very amazing English', 'B2', 1, 5, 30, 'very good course', 5);
+VALUES ('Spanish From Native Speakers', 'C2', 1, 5, 30, 'very good course', 5);
 INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
-VALUES ('Amazing very good English', 'B2', 1, 5, 30, 'very good course', 6);
+VALUES ('Germany Business Language', 'B2', 1, 5, 30, 'very good course', 6);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('Spanish From Native Speakers', 'B1', 1, 5, 30, 'very good course', 6);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('English Business Language', 'C1', 1, 5, 30, 'very good course', 6);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('Franch From Native Speakers', 'B2', 1, 5, 30, 'very good course', 6);
+INSERT INTO Course(name, course_level, course_status_id, min_number, max_number, description, trainer_id)
+VALUES ('Franch Business Language', 'B2', 1, 5, 30, 'very good course', 6);
 
 CREATE TABLE User_Group
 (
@@ -410,7 +418,7 @@ values ('Present');
 INSERT INTO Attendance_Type (type)
 values ('Absent without reason');
 INSERT INTO Attendance_Type (type)
-values ('Absent due tu bussines trip');
+values ('Absent due tu business trip');
 INSERT INTO Attendance_Type (type)
 values ('Absent due to sick leave');
 INSERT INTO Attendance_Type (type)
@@ -479,7 +487,6 @@ CREATE TABLE Question_Status
     name VARCHAR2(20)
 );
 
-
 INSERT INTO Question_Status (name)
 values ('Draft');
 INSERT INTO Question_Status (name)
@@ -490,8 +497,6 @@ INSERT INTO Question_Status (name)
 values ('Answered');
 INSERT INTO Question_Status (name)
 values ('Reopen');
-
-
 
 CREATE TABLE Chat
 (
@@ -569,8 +574,9 @@ CREATE TABLE Chat_Message
 
 CREATE TABLE User_Chat
 (
-    id      NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
-    user_id NUMBER,
+    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    sender_id NUMBER,
+    receiver_id NUMBER,
     chat_id NUMBER
 );
 
@@ -641,7 +647,7 @@ CREATE TABLE Weekday
 
 INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),2);
 INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('wednesday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),3);
-INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('mondey',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),4);
+INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('monday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),4);
 INSERT INTO Weekday (day_name,time_start,time_end,period_id) values ('thursday',TO_DATE('01/11/2019','DD/MM/YYYY'),TO_DATE('01/12/2019','DD/MM/YYYY'),5);
 
 
@@ -675,7 +681,7 @@ values ('Open');
 INSERT INTO Course_Status (name_status)
 values ('Closed');
 INSERT INTO Course_Status (name_status)
-values ('Stoped');
+values ('Stopped');
 
 
 
@@ -702,6 +708,15 @@ CREATE TABLE main_slider
     button_name    VARCHAR2(50 CHAR),
     button_url     VARCHAR2(100 CHAR)
 );
+
+alter table main_slider
+add caption_header VARCHAR2(100);
+
+alter table main_slider
+add caption_text VARCHAR2(100);
+
+alter table main_slider
+add slide_interval NUMBER;
 
 COMMIT;
 
@@ -735,10 +750,9 @@ alter table Groups
     drop constraint group_fk_course;
 alter table Groups
     drop constraint group_fr_status;
-alter table User_Chat
-    drop constraint uchat_fk_user;
-alter table User_Chat
-    drop constraint uchat_fk_chat;
+alter table User_Chat drop constraint uchat_fk_sender;
+alter table User_Chat drop constraint uchat_fk_receiver;
+alter table User_Chat drop constraint uchat_fk_chat;
 alter table Attendance
     drop constraint atten_fk_user;
 alter table Attendance
@@ -831,7 +845,8 @@ alter table User_Group add constraint ugroup_fk_group FOREIGN KEY (group_id) ref
 alter table Groups
     add constraint group_fk_course FOREIGN KEY (course_id) references Course (course_id);
 alter table Groups add constraint group_fr_status FOREIGN KEY (status_id) references Group_Status (id);
-alter table User_Chat add constraint uchat_fk_user FOREIGN KEY (user_id) references users (user_Id);
+alter table User_Chat add constraint uchat_fk_sender FOREIGN KEY (sender_id) references users (user_Id);
+alter table User_Chat add constraint uchat_fk_receiver FOREIGN KEY (receiver_id) references users (user_Id);
 alter table User_Chat add constraint uchat_fk_chat FOREIGN KEY (chat_id) references Chat (id);
 alter table Attendance add constraint atten_fk_user FOREIGN KEY (user_id) references users (user_Id);
 alter table Attendance add constraint atten_fk_schedule FOREIGN KEY (schedule_id) references Schedule (id);

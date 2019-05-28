@@ -118,10 +118,8 @@ public class ReportsCreate {
         //According the sql query for Reports
         listWithLevels.clear();
         listWithLevels.add("User Name");
-        listWithLevels.add("Role");
         listWithLevels.add("Email");
         listWithLevels.add("Course Name");
-        listWithLevels.add("Group Name");
     }
 
     private void attendanceFieldsSetter(){

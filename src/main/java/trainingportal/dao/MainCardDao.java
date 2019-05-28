@@ -8,8 +8,6 @@ public interface MainCardDao {
 
     List<MainCardModel> getAll();
 
-    MainCardModel findById(Long mainCardId);
-
     void storeData(MainCardModel card);
 
     void updateAll(MainCardModel card);

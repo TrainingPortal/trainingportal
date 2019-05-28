@@ -1,17 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Training Center Home</title>
-    <link rel="stylesheet" href="/../css/bootstrap.css" th:href="@{/css/bootstrap.css}" />
-    <link rel="stylesheet" href="/../css/bootstrap-grid.css" th:href="@{/css/bootstrap-grid.css}" />
-    <link rel="stylesheet" href="/../css/bootstrap-reboot.css" th:href="@{/css/bootstrap-reboot.css}" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" rel="stylesheet" href="/../css/custom.css" th:href="@{css/custom.css}"/>
     <link href="/../css/buttonTop.css" rel="stylesheet" th:href="@{css/buttonTop.css}" type="text/css"/>
-    <style>
-
-    </style>
 </head>
 <body>
 
@@ -27,20 +23,30 @@
             <a th:if="${#request.userPrincipal == null}" href="/registration" class="btn btn-success" role="button">REGISTRATION</a>
         </div>
     </div>
-</div>
-<!--end of card part-->
 
-<!--using Carousel For Courses with controls, need to understand how to easily add more courses(without hardcodding)-->
-<div class="container">
+    <!--end of card part-->
+
+    <!--using Carousel For Courses with controls, need to understand how to easily add more courses(without hardcodding)-->
+
     <div id="carouselForCourses" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#carouselForCourses" th:each="slider : ${sliderList}" th:data-slide-to="${sliderStat.count}" th:class="*{sliderStat.first} ? 'active' : ' '"></li>
+            <li data-target="#carouselForCourses" th:each="slider : ${sliderList}"
+                th:data-slide-to="${sliderStat.index}" th:class="*{sliderStat.first} ? 'active' : ' '"></li>
         </ol>
         <div class="carousel-inner">
-            <div class="carousel-item" th:each="slider : ${sliderList}" th:classappend="*{sliderStat.first} ? 'active' : ' '">
-                <img class="d-block mx-auto" th:src="@{'data:image/jpeg;base64,'+${slider.filesDataString}}" th:alt="${slider.filesName}">
-                <div class="carousel-caption" th:if="${slider.buttonName != null}">
-                    <a th:href="@{${slider.buttonUrl}}" class="btn btn-info" role="button" th:text="${slider.buttonName}"></a>
+            <div class="carousel-item" th:each="slider : ${sliderList}"
+                 th:classappend="*{sliderStat.first} ? 'active' : ' '"
+                 th:data-interval="${slider.slideInterval * 1000}">
+                <img class="d-block mx-auto img-fluid" th:src="@{'data:image/jpeg;base64,'+${slider.filesDataString}}"
+                     th:alt="${slider.filesName}">
+                <div class="carousel-caption d-none d-md-block"
+                     th:if="${slider.captionHeader != null || slider.captionText != null}">
+                    <h3 th:text="${slider.captionHeader}"></h3>
+                    <p th:text="${slider.captionText}"></p>
+                </div>
+                <div class="carousel-caption d-none d-md-block" th:if="${slider.buttonName != null}">
+                    <a th:href="@{${slider.buttonUrl}}" class="btn btn-info" role="button"
+                       th:text="${slider.buttonName}"></a>
                 </div>
             </div>
         </div>
@@ -53,23 +59,22 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-</div>
 
-<div class="container">
+
     <h2 class="text-center">Our Teachers</h2>
-</div>
 
-<div class="container">
+
     <div class="card-columns">
         <div class="card" th:each="card : ${cardList}">
-            <img class="card-img-top" th:src="@{'data:image/jpeg;base64,'+${card.filesDataString}}" th:alt="${card.filesName}">
-            <div class="card-header">
+            <img class="card-img-top" th:src="@{'data:image/jpeg;base64,'+${card.filesDataString}}"
+                 th:alt="${card.filesName}">
+            <div class="card-header" th:if="${card.cardTitle != null}">
                 <h4 class="card-title" th:text="${card.cardTitle}"></h4>
             </div>
-            <div class="card-body">
+            <div class="card-body" th:if="${card.cardText != null}">
                 <p class="card-text" th:text="${card.cardText}"></p>
             </div>
-            <div class="card-footer">
+            <div class="card-footer" th:if="${card.buttonName != null}">
                 <a th:href="@{${card.cardUrl}}" class="btn btn-success stretched-link" th:text="${card.buttonName}"></a>
             </div>
         </div>
@@ -79,9 +84,15 @@
 
 <div th:insert="frontend/footer :: foot"></div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
 </body>
 

@@ -13,7 +13,7 @@ public interface GroupService extends GenericService<Group> {
 
     GroupStatus findStatusById(Long id);
 
-    int getPages(Long courseId,double rowsPerPage);
+    int getPages(Long courseId,double rowsPerPage, Long userId, String role);
 
     List<Group> getAllAsPageByCourseId(Long courseId, int page, int rowsPerPage);
 
