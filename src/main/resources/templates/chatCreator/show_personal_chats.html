@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Forums List</title>
+    <title>Personal chats</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <meta content="width=device-width" name="viewport">
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
@@ -15,17 +15,19 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="container-fluid">
-    <h2 class="text-center">Forums List</h2>
+    <h2 class="text-center">Your personal chats:</h2>
 
     <div align="center">
-        <a class="btn btn-success btn-lg" th:href="@{/create-chat }">CREATE NEW FORUM</a>
+        <a class="btn btn-success btn-lg" th:href="@{/search_users}">FIND USERS</a>
     </div>
-
+    <div th:if="${chatsList.size() == 0}">
+        <h5 class="w3-opacity"><b>You don't have any personal chats yet...</b></h5>
+    </div>
     <table class="table table-striped" >
         <thead>
         <tr>
 
-            <th scope="row">Forum name</th>
+            <th scope="row">Users in chat</th>
 
         </tr>
         </thead>
@@ -34,17 +36,17 @@
 
             <td th:text="${chat.chatName}"></td>
 
-          <td>
-            <div class="btn-group">
-                <a class="btn btn-outline-primary chatOpenButton"
-                   th:href="@{/chat/{chatId}(chatId = ${chat.id})}">Open</a>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-info"
+                       th:href="@{/chat/{chatId}(chatId = ${chat.id})}">Send Message</a>
 
-            </div>
-          </td>
+                </div>
+            </td>
         </tr>
+
         </tbody>
     </table>
-    <div th:replace="frontend/pagination :: pagination"></div>
 
 
 

@@ -56,7 +56,7 @@ public class MainCardDAOImpl extends GenericDaoImpl<MainCardModel> implements Ma
                 card.getCardUrl(), card.getMainCardId());
 
     }
-    }
+
 
     @Override
     public void deleteById(Long mainCardId) {

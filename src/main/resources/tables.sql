@@ -38,6 +38,9 @@ CREATE TABLE Users
     manager_Id number
 );
 
+
+select * from user_chat;
+
 INSERT INTO users(name, email, password, enabled, role_Id)
 VALUES ('adminBoss', 'boss@gmail.com', 'password123', 1, 1);
 INSERT INTO users(name, email, password, enabled, role_Id)

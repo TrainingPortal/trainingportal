@@ -1,12 +1,15 @@
 package trainingportal.mapper;
 
 import org.springframework.jdbc.core.RowMapper;
+import trainingportal.mapper.generic.BaseObjectMapper;
 import trainingportal.model.Chat;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ChatMapper implements RowMapper<Chat> {
+public class ChatMapper implements BaseObjectMapper<Chat> {
 
     public static final String SELECT_SQL
             = "SELECT id, chat_name, group_id FROM Chat";
@@ -29,5 +32,15 @@ public class ChatMapper implements RowMapper<Chat> {
         Long groupId = resultSet.getLong("group_id");
 
         return new Chat(id, chat_name, groupId);
+    }
+
+    @Override
+    public Map<String, Object> mapObject(Chat obj) {
+        return null;
+    }
+
+    @Override
+    public String getSelectSql() {
+        return SELECT_SQL;
     }
 }
