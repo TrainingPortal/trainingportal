@@ -574,8 +574,9 @@ CREATE TABLE Chat_Message
 
 CREATE TABLE User_Chat
 (
-    id      NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
-    user_id NUMBER,
+    id NUMBER GENERATED ALWAYS AS IDENTITY(START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
+    sender_id NUMBER,
+    receiver_id NUMBER,
     chat_id NUMBER
 );
 
@@ -740,10 +741,9 @@ alter table Groups
     drop constraint group_fk_course;
 alter table Groups
     drop constraint group_fr_status;
-alter table User_Chat
-    drop constraint uchat_fk_user;
-alter table User_Chat
-    drop constraint uchat_fk_chat;
+alter table User_Chat drop constraint uchat_fk_sender;
+alter table User_Chat drop constraint uchat_fk_receiver;
+alter table User_Chat drop constraint uchat_fk_chat;
 alter table Attendance
     drop constraint atten_fk_user;
 alter table Attendance
@@ -836,7 +836,8 @@ alter table User_Group add constraint ugroup_fk_group FOREIGN KEY (group_id) ref
 alter table Groups
     add constraint group_fk_course FOREIGN KEY (course_id) references Course (course_id);
 alter table Groups add constraint group_fr_status FOREIGN KEY (status_id) references Group_Status (id);
-alter table User_Chat add constraint uchat_fk_user FOREIGN KEY (user_id) references users (user_Id);
+alter table User_Chat add constraint uchat_fk_sender FOREIGN KEY (sender_id) references users (user_Id);
+alter table User_Chat add constraint uchat_fk_receiver FOREIGN KEY (receiver_id) references users (user_Id);
 alter table User_Chat add constraint uchat_fk_chat FOREIGN KEY (chat_id) references Chat (id);
 alter table Attendance add constraint atten_fk_user FOREIGN KEY (user_id) references users (user_Id);
 alter table Attendance add constraint atten_fk_schedule FOREIGN KEY (schedule_id) references Schedule (id);
