@@ -54,6 +54,22 @@ public class GroupController {
         return modelAndView;
     }
 
+    @RequestMapping("/create_group_chats/{page}/{courseId}")
+    public ModelAndView showGroupsWithoutChat(@PathVariable("page") int page,
+                                               @PathVariable("courseId") Long id,
+                                               ModelAndView modelAndView) {
+        List<Group> groupList = groupService.getGroupsPageWithoutChat(id,page,ROWS_PER_PAGE);
+
+        Course course = courseService.findById(id);
+        modelAndView.addObject("pages", groupService.getPagesWithoutChat(id, ROWS_PER_PAGE));
+        modelAndView.addObject("courseGroup", course);
+        modelAndView.addObject("groupList", groupList);
+        modelAndView.addObject("id", id);
+        modelAndView.addObject("currentUrl", "create_group_chats");
+        modelAndView.setViewName("chatCreator/create_group_chats");
+
+        return modelAndView;
+    }
     @GetMapping("/group_users/{page}/{groupId}")
     public ModelAndView showGroupUsersList(@PathVariable("page") int page,
                                                @PathVariable("groupId") Long groupId,
@@ -137,6 +153,7 @@ public class GroupController {
     @PostMapping("/group-save")
     public ModelAndView saveGroup(@RequestParam("courseId") Long courseId, Group group, ModelAndView modelAndView) {
         groupService.save(group);
+
         modelAndView.setViewName("redirect:/group_create/1/" + courseId);
         return modelAndView;
     }

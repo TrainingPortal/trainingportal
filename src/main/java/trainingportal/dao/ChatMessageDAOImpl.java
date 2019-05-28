@@ -4,14 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 import trainingportal.mapper.ChatMessageMapper;
-import trainingportal.mapper.UserMapper;
 import trainingportal.model.ChatMessage;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
-import trainingportal.model.User;
-
 import javax.sql.DataSource;
 
-import javax.sql.DataSource;
 import java.util.List;
 @Repository
 @Transactional
@@ -61,18 +57,25 @@ public class ChatMessageDAOImpl extends JdbcDaoSupport implements ChatMessageDAO
 
     @Override
     public List<ChatMessage> getMessagesByChatId(Long chatId) {
-        String sql = ChatMessageMapper.SELECT_SQL + " WHERE chat_id = ?";
-        List<ChatMessage> messagesList = this.getJdbcTemplate().query(sql, new Object[]{chatId}, new ChatMessageMapper());
-        for (ChatMessage message:messagesList
-             ) {
-            message.setSender(getUsernameByMessageId(message.getId()));
-
+        String sql = ChatMessageMapper.SELECT_SQL + " WHERE chat_id = ? order by id";
+        List<ChatMessage> messagesList = null;
+        if (this.getJdbcTemplate() != null) {
+            messagesList = this.getJdbcTemplate().query(sql, new Object[]{chatId}, new ChatMessageMapper());
+        }
+        if (messagesList != null) {
+            for (ChatMessage message:messagesList
+                 ) {
+                message.setSender(getUsernameByMessageId(message.getId()));
+            }
         }
         return messagesList;
     }
 
     public String getUsernameByMessageId(Long messageId){
         String sql = "SELECT name FROM users u INNER JOIN Chat_Message cm on u.user_id = cm.sender_id where cm.id = ?";
-        return this.getJdbcTemplate().queryForObject(sql,new Object[]{messageId}, String.class);
+        if (this.getJdbcTemplate() != null) {
+            return this.getJdbcTemplate().queryForObject(sql,new Object[]{messageId}, String.class);
+        }
+        else return null;
     }
 }

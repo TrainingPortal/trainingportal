@@ -20,15 +20,19 @@ public interface GroupDao extends GenericDao<Group> {
     void deleteGroupById(Long groupId);
 
     List<GroupStatus> getStatusList();
-
+    int countAllGroupWithoutPage(Long courseId);
     GroupStatus findStatusById(Long id);
 
     List<Group> findAllByCourseId(Long id);
 
     Long getTrainerIdByGroupId(Long groupId);
+    List<Group>  findAllGroupsWithoutChatByCourseId(Long id);
+   // List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int total);
+    List<Group> getGroupsPageWithoutChat(Long courseId, int page, int total);
+
 
     List<Group> getUserGroupsAsPageByCourseIdAndUserId(Long courseId, Long userId, int page, int rowsPerPage);
-
+  
     int countAllByCourseId(Long courseId);
 
     int countGroupsByCourseIdAndUserId(Long courseId, Long userId);

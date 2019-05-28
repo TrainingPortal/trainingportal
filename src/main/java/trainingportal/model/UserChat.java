@@ -4,16 +4,24 @@ public class UserChat {
 
     private Long id;
 
-    private Long userId;
+    private Long senderId;
+
+    private Long receiverId;
 
     private Long chatId;
 
     public UserChat() {
     }
 
-    public UserChat(Long id, Long userId, Long chatId) {
+    public UserChat(Long id, Long senderId, Long receiverId, Long chatId) {
         this.id = id;
-        this.userId = userId;
+        this.senderId = senderId;
+        this.receiverId = receiverId;
+        this.chatId = chatId;
+    }
+    public UserChat(Long senderId, Long receiverId, Long chatId) {
+        this.senderId = senderId;
+        this.receiverId = receiverId;
         this.chatId = chatId;
     }
 
@@ -25,12 +33,20 @@ public class UserChat {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getSenderId() {
+        return senderId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setSenderId(Long senderId) {
+        this.senderId = senderId;
+    }
+
+    public Long getReceiverId() {
+        return receiverId;
+    }
+
+    public void setReceiverId(Long receiverId) {
+        this.receiverId = receiverId;
     }
 
     public Long getChatId() {
@@ -45,7 +61,8 @@ public class UserChat {
     public String toString() {
         return "UserChat{" +
                 "id=" + id +
-                ", userId=" + userId +
+                ", senderId=" + senderId +
+                ", receiverId=" + receiverId +
                 ", chatId=" + chatId +
                 '}';
     }
