@@ -24,13 +24,14 @@
     <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">
         <a class="btn btn btn-info btn-lg" th:href="@{/admin }">Back to admin</a>
     </div>
-    <a class="btn btn btn-info btn-lg" th:href="@{/weekday_period/1/1?id=1}">Weekdays</a>
-
+    <div class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') == true}">
+        <a class="btn btn btn-info btn-lg" th:href="@{/weekday_period/1/1?id=1}">Weekdays</a>
+    </div>
 
     <table class="table table-striped">
         <thead>
         <tr>
-<!--            <th scope="row">Id</th>-->
+            <!--            <th scope="row">Id</th>-->
             <th scope="row">course name</th>
             <th scope="row">course level</th>
             <th scope="row">course status</th>
@@ -42,7 +43,7 @@
         </thead>
         <tbody>
         <tr th:each="course, iter : ${courseList}">
-<!--            <td th:text="${course.courseId}"></td>-->
+            <!--            <td th:text="${course.courseId}"></td>-->
             <td th:text="${course.courseName}"></td>
             <td th:text="${course.courseLevel}"></td>
             <td th:text="${course.status.statusName}"></td>

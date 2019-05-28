@@ -17,12 +17,6 @@
 <div class="container-fluid">
     <h2>Weekday List</h2>
 
-    <div class="btn">
-        <a class="btn btn-success btn-lg" th:href="@{/weekday-add-{periodId}
-              (periodId = ${desiredPeriod.desiredPeriodId})}">CREATE NEW WEEKDAY</a>
-
-    </div>
-
     <table class="table table-striped">
         <thead>
         <tr>
@@ -43,8 +37,8 @@
             <td>
                 <div class="btn-group">
 
-                    <a class="btn btn-info" th:href="@{/edit-weekday-{weekdayId}-{id}
-                    (weekdayId = ${weekday.weekdayId}, id = ${weekday.periodId}) }">Edit</a>
+<!--                    <a class="btn btn-info" th:href="@{/edit-weekday-{weekdayId}-{id}-->
+<!--                    (weekdayId = ${weekday.weekdayId}, id = ${weekday.periodId}) }">Edit</a>-->
 
                     <a class="btn btn-dark" th:href="@{/weekday-delete-by/{weekdayId}/{id}
                      (weekdayId = ${weekday.weekdayId}, id = ${weekday.periodId}) }">Delete</a>
