@@ -147,6 +147,23 @@ CREATE TABLE User_Group
     user_id  NUMBER
 );
 
+INSERT INTO User_Group (group_id, user_id)
+values (1, 11);
+INSERT INTO User_Group (group_id, user_id)
+values (2, 14);
+INSERT INTO User_Group (group_id, user_id)
+values (3, 19);
+INSERT INTO User_Group (group_id, user_id)
+values (4, 20);
+INSERT INTO User_Group (group_id, user_id)
+values (5, 26);
+INSERT INTO User_Group (group_id, user_id)
+values (1, 29);
+INSERT INTO User_Group (group_id, user_id)
+values (5, 22);
+INSERT INTO User_Group (group_id, user_id)
+values (2, 13);
+
 CREATE TABLE Groups
 (
     id        NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
@@ -364,6 +381,27 @@ CREATE TABLE Attendance
     schedule_id NUMBER
 );
 
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (13, 1, 1);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (20, 2, 3);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (29, 3, 5);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (10, 4, 7);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (11, 5, 9);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (21, 1, 10);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (22, 2, 12);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (23, 3, 13);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (24, 4, 16);
+INSERT INTO attendance (user_id, type_id, schedule_id)
+values (25, 5, 20);
+
 CREATE TABLE Attendance_Type
 (
     id   NUMBER GENERATED ALWAYS AS IDENTITY (START WITH 1 INCREMENT BY 1) NOT NULL PRIMARY KEY,
@@ -498,6 +536,30 @@ CREATE TABLE Notification
     user_id           NUMBER,
     status_id         NUMBER
 );
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('This is Firts Message',TO_DATE('2019-06-05', 'YYYY-MM-DD'), 2,1);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('This is seconf Message',TO_DATE('2019-06-05', 'YYYY-MM-DD'), 2,2);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('TJust some Message',TO_DATE('2019-06-05', 'YYYY-MM-DD'), 10,3);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('Message',TO_DATE('2019-06-05', 'YYYY-MM-DD'), 10,4);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('Some text',TO_DATE('2019-06-05', 'YYYY-MM-DD'), 11,5);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('This Message',TO_DATE('2019-06-05', 'YYYY-MM-DD'), 21,1);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('Just Message',TO_DATE('2019-06-05', 'YYYY-MM-DD'), 22,2);
+
+INSERT INTO Notification(message,date_notification,user_id,status_id)
+VALUES ('This is last Message',TO_DATE('201-06-05', 'YYYY-MM-DD'), 29,3);
 
 CREATE TABLE Chat_Message
 (
