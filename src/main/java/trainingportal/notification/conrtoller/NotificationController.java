@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import trainingportal.notification.model.Notification;
 import trainingportal.notification.service.NotificationService;
 import trainingportal.notification.model.NotificationString;
-import trainingportal.security.UserSecurityImpl;
+import trainingportal.security.UserSecurity;
 
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +21,7 @@ public class NotificationController {
     private NotificationService notificationService;
 
     @Autowired
-    private UserSecurityImpl userSecurity;
+    private UserSecurity userSecurity;
 
     private Long loggedInUser;
 

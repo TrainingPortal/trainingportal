@@ -62,7 +62,7 @@ public class Notification implements Comparable<Notification> {
         this.notificationMessage = notificationMessage;
         this.notificationDate = new Date();
         this.notificationUserID = notificationUserID;
-        this.notificationStatusID = 1L;
+        this.notificationStatusID = NotificationStatus.POSTED;
     }
 
     public Notification(){}
