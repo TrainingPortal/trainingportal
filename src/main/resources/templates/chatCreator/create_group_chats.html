@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>Forums List</title>
+    <title>Group Create</title>
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
     <meta content="width=device-width" name="viewport">
     <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
@@ -15,42 +15,46 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="container-fluid">
-    <h2 class="text-center">Forums List</h2>
+    <h2 align="center">There are groups without CHATS:</h2>
 
-    <div align="center">
-        <a class="btn btn-success btn-lg" th:href="@{/create-chat }">CREATE NEW FORUM</a>
+
+
+    <div  class="btn" th:if="${#request.isUserInRole('ROLE_ADMIN') and groupList.size() != 0}">
+        <a class="btn btn-success btn-lg" th:href="@{/create-chat-for-groups/{courseId}
+        (courseId = ${courseGroup.courseId})  }">CREATE CHATS FOR ALL GROUPS</a>
     </div>
 
-    <table class="table table-striped" >
+
+
+
+    <div  class="btn">
+        <a class="btn btn btn-info btn-lg" th:href="@{/course_create/1}">Back to Course</a>
+    </div>
+    <div th:if="${groupList.size() == 0}">
+        <h5 class="w3-opacity" align="center"><b>All groups have chats!</b></h5>
+    </div>
+    <table class="table table-striped">
         <thead>
+
         <tr>
 
-            <th scope="row">Forum name</th>
+            <th scope="row">Name</th>
+
+        <th scope="row">Course Name</th>
 
         </tr>
         </thead>
         <tbody>
-        <tr th:each="chat, iter : ${chatsList}">
+        <tr th:each="group, iter : ${groupList}">
 
-            <td th:text="${chat.chatName}"></td>
+            <td th:text="${group.groupName}"></td>
 
-          <td>
-            <div class="btn-group">
-                <a class="btn btn-outline-primary chatOpenButton"
-                   th:href="@{/chat/{chatId}(chatId = ${chat.id})}">Open</a>
+          <td th:text="${group.courseId}"></td>
 
-            </div>
-          </td>
+
+
         </tr>
         </tbody>
-    </table>
-    <div th:replace="frontend/pagination :: pagination"></div>
-
-
-
-
-    <table class="table table-striped">
-
     </table>
 
 </div>

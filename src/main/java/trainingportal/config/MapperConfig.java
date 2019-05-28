@@ -69,6 +69,10 @@ public class MapperConfig {
         return new UserGroupMapper();
     }
     @Bean
+    public BaseObjectMapper<UserChat> userChatBaseObjectMapper(){
+        return new UserChatMapper();
+    }
+    @Bean
     public BaseObjectMapper<CourseStatus> courseStatusBaseObjectMapper(){
         return new CourseStatusMapper();
     }

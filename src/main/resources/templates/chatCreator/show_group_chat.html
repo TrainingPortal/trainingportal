@@ -15,17 +15,15 @@
 <div th:insert="frontend/navbar :: nav"></div>
 
 <div class="container-fluid">
-    <h2 class="text-center">Forums List</h2>
+    <h2 class="text-center">Your group chats:</h2>
 
-    <div align="center">
-        <a class="btn btn-success btn-lg" th:href="@{/create-chat }">CREATE NEW FORUM</a>
-    </div>
+
 
     <table class="table table-striped" >
         <thead>
         <tr>
 
-            <th scope="row">Forum name</th>
+            <th scope="row">Сhat name</th>
 
         </tr>
         </thead>
@@ -34,13 +32,14 @@
 
             <td th:text="${chat.chatName}"></td>
 
-          <td>
-            <div class="btn-group">
-                <a class="btn btn-outline-primary chatOpenButton"
-                   th:href="@{/chat/{chatId}(chatId = ${chat.id})}">Open</a>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-outline-primary"
+                       th:href="@{/chat/{chatId}(chatId = ${chat.id})}">Open</a>
 
-            </div>
-          </td>
+
+                </div>
+            </td>
         </tr>
         </tbody>
     </table>
