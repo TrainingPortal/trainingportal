@@ -9,24 +9,25 @@ import java.sql.SQLException;
 public class InfoDeskMapper implements RowMapper<InfoDesk> {
 
     public static final String SELECT_SQL
-            = "SELECT id, emp_id, description, status_id  FROM Info_Desk";
+            = "SELECT id, emp_id, question, answer, status_id  FROM Info_Desk";
 
     public static final String EDIT_SQL
-            = "UPDATE Info_Desk SET  emp_id = ?, description = ?, status_id = ? ";
+            = "UPDATE Info_Desk SET  emp_id = ?, question = ?, answer = ?, status_id = ? ";
 
     public static final String INSERT_SQL
-            = "INSERT INTO Info_Desk (emp_id, description, status_id) VALUES (?,?,?)";
+            = "INSERT INTO Info_Desk (emp_id, question, status_id) VALUES (?,?,?)";
 
     public static final String DELETE
-            ="DELETE FROM Info_Desk";
+            ="DELETE FROM Info_Desk ";
 
     @Override
     public InfoDesk mapRow(ResultSet rs, int rowNum) throws SQLException {
        Long infoDeskId = rs.getLong("id");
        Long employeeId = rs.getLong("emp_id");
-       String infoDeskDescription = rs.getString("description");
+       String infoDeskQuestion = rs.getString("question");
+       String infoDeskAnswer = rs.getString("answer");
        Long infoDeskStatusId = rs.getLong("status_id");
 
-        return new InfoDesk(infoDeskId,employeeId,infoDeskDescription,infoDeskStatusId);
+        return new InfoDesk(infoDeskId,employeeId,infoDeskQuestion, infoDeskAnswer,infoDeskStatusId);
     }
 }
