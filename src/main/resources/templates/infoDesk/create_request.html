@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport">
+    <title>create-request</title>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+</head>
+<body>
+
+<div th:insert="frontend/navbar :: nav"></div>
+
+
+<div class="container-fluid">
+    <h2 class="text-center">List of Users Help Requests</h2>
+
+    <div  class="btn">
+        <a class="btn btn btn-info btn-lg" th:href="@{/request-add-{infoDeskStatusId}-{employeeId}
+        (employeeId = ${@userSecurity.getLoggedInUserId()}, infoDeskStatusId = ${2})}">Create Help Request</a>
+    </div>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="row">Request Description</th>
+            <th scope="row">Request Answer</th>
+            <th scope="row">Status of Request</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="infoDesk, iter : ${listOFQuestions}">
+            <td th:text="${infoDesk.infoDeskQuestion}"></td>
+            <td th:text="${infoDesk.infoDeskAnswer}"></td>
+            <td th:text="${infoDesk.questionStatus.questionStatusName}"></td>
+            <td>
+                   <div class="btn-group">
+                        <a class="btn btn-info" th:href="@{/reopen-request-{infoDeskStatusId}-{employeeId}-{id}
+                         (infoDeskStatusId = ${5},  employeeId =${infoDesk.employeeId},
+                    id = ${infoDesk.infoDeskId})}">Reopen Request</a>
+                   </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:replace="frontend/pagination :: pagination"></div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

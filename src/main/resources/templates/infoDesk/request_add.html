@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
+    <meta content="width=device-width" name="viewport">
+    <title>Create Request</title>
+    <link href="/../css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link href="/../css/bootstrap-grid.css" rel="stylesheet" th:href="@{/css/bootstrap-grid.css}"/>
+    <link href="/../css/bootstrap-reboot.css" rel="stylesheet" th:href="@{/css/bootstrap-reboot.css}"/>
+</head>
+<body>
+
+<div th:insert="frontend/navbar :: nav"></div>
+
+<h1>New Course</h1>
+<div class="container-fluid">
+
+    <div class="row no-gutters ">
+        <div class="col">
+            <form action="#" method="post" th:action="@{request-save}" th:object="${infoDesk}">
+                <input class="form-control" placeholder="Id" th:field="*{infoDeskId}" type="hidden"/>
+                <input class="form-control" placeholder="employeeId" th:field="*{employeeId}" type="hidden"/>
+                <input class="form-control" placeholder="infoDeskStatusId" th:field="*{infoDeskStatusId}" type="hidden"/>
+
+                <div class="form-group">
+                    <label>Question</label>
+                    <input class="form-control" placeholder="Type your question here" th:field="*{infoDeskQuestion}" type="text"/>
+                    <p class="alert alert-danger" th:errors="*{infoDeskQuestion}" th:if="${#fields.hasErrors('infoDeskQuestion')}">
+                        Error, check name field</p>
+                </div>
+
+                <input class="btn btn-success" type="submit" value="Send"/>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>

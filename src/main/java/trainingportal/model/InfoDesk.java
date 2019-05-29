@@ -3,20 +3,20 @@ package trainingportal.model;
 public class InfoDesk {
     private Long infoDeskId;
     private Long employeeId;
-    private String infoDeskDescription;
+    private String infoDeskQuestion;
+    private String infoDeskAnswer;
     private Long infoDeskStatusId;
     private User senderName;
-    private String sender;
     private QuestionStatus questionStatus;
 
     public InfoDesk() {
     }
 
-
-    public InfoDesk(Long infoDeskId, Long employeeId, String infoDeskDescription, Long infoDeskStatusId) {
+    public InfoDesk(Long infoDeskId, Long employeeId, String infoDeskQuestion, String infoDeskAnswer, Long infoDeskStatusId) {
         this.infoDeskId = infoDeskId;
         this.employeeId = employeeId;
-        this.infoDeskDescription = infoDeskDescription;
+        this.infoDeskQuestion = infoDeskQuestion;
+        this.infoDeskAnswer = infoDeskAnswer;
         this.infoDeskStatusId = infoDeskStatusId;
     }
 
@@ -36,12 +36,20 @@ public class InfoDesk {
         this.employeeId = employeeId;
     }
 
-    public String getInfoDeskDescription() {
-        return infoDeskDescription;
+    public String getInfoDeskQuestion() {
+        return infoDeskQuestion;
     }
 
-    public void setInfoDeskDescription(String infoDeskDescription) {
-        this.infoDeskDescription = infoDeskDescription;
+    public void setInfoDeskQuestion(String infoDeskQuestion) {
+        this.infoDeskQuestion = infoDeskQuestion;
+    }
+
+    public String getInfoDeskAnswer() {
+        return infoDeskAnswer;
+    }
+
+    public void setInfoDeskAnswer(String infoDeskAnswer) {
+        this.infoDeskAnswer = infoDeskAnswer;
     }
 
     public Long getInfoDeskStatusId() {
@@ -60,33 +68,12 @@ public class InfoDesk {
         this.senderName = senderName;
     }
 
-    public String getSender() {
-        return sender;
-    }
-
-    public void setSender(String sender) {
-        this.sender = sender;
-    }
-
     public QuestionStatus getQuestionStatus() {
         return questionStatus;
     }
 
     public void setQuestionStatus(QuestionStatus questionStatus) {
         this.questionStatus = questionStatus;
-    }
-
-    @Override
-    public String toString() {
-        return "InfoDeskService{" +
-                "infoDeskId=" + infoDeskId +
-                ", employeeId=" + employeeId +
-                ", infoDeskDescription='" + infoDeskDescription + '\'' +
-                ", infoDeskStatusId=" + infoDeskStatusId +
-                ", senderName=" + senderName +
-                ", sender='" + sender + '\'' +
-                ", questionStatus=" + questionStatus +
-                '}';
     }
 
 }
